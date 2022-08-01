@@ -25,10 +25,10 @@ class ActivityController extends AdminController
             $grid->column('user_Id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -42,6 +42,7 @@ class ActivityController extends AdminController
      */
     protected function detail($id)
     {
+
         return Show::make($id, new Activity(), function (Show $show) {
             $show->field('id');
             $show->field('title');
@@ -66,7 +67,7 @@ class ActivityController extends AdminController
             $form->text('description');
             $form->text('content');
             $form->text('user_Id');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

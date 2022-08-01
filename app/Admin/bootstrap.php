@@ -30,7 +30,7 @@ app('view')->prependNamespace('admin', resource_path('views/admin'));
 
 
 
-Admin::disablePjax();
+//Admin::disablePjax();
 
 //初始化grid参数
 Grid::resolving(function (Grid $grid) {
@@ -60,7 +60,8 @@ Form::resolving(function (Form $form) {
 
 //初始化show参数
 Show::resolving(function (Show $show) {
-    $show->tools(function (Show\Tools $tools) {
-        $tools->disableDelete();
-    });
+    $show->panel()
+        ->tools(function ($tools) {
+            $tools->disableDelete();
+        });
 });
