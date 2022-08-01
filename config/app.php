@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'PRC',//时区：PRC,中华人民共和国
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,10 +77,10 @@ return [
     | The application locale determines the default locale that will be used
     | by the translation service provider. You are free to set this value
     | to any of the locales which will be supported by the application.
-    |  应用程序语言环境决定了翻译服务提供商将使用的默认语言环境。 您可以随意将此值设置为应用程序支持的任何语言环境。
+    |
     */
 
-    'locale' => 'zh-CN',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
