@@ -15,4 +15,6 @@ Route::group([
     $router->get('/', 'HomeController@index');
 
     $router->resource('activity','ActivityController');
+    $router->resource('activity-sign-com','ActivitySignCompanyController');
+    $router->resource('company','CompanyController');
 });

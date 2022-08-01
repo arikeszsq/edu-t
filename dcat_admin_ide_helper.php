@@ -25,11 +25,16 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection user_Id
      * @property Grid\Column|Collection created_at
      * @property Grid\Column|Collection updated_at
+     * @property Grid\Column|Collection ori_price
+     * @property Grid\Column|Collection real_price
+     * @property Grid\Column|Collection activity_id
+     * @property Grid\Column|Collection company_id
+     * @property Grid\Column|Collection creater_id
+     * @property Grid\Column|Collection user_id
      * @property Grid\Column|Collection parent_id
      * @property Grid\Column|Collection order
      * @property Grid\Column|Collection icon
      * @property Grid\Column|Collection uri
-     * @property Grid\Column|Collection user_id
      * @property Grid\Column|Collection path
      * @property Grid\Column|Collection method
      * @property Grid\Column|Collection ip
@@ -44,6 +49,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection password
      * @property Grid\Column|Collection avatar
      * @property Grid\Column|Collection remember_token
+     * @property Grid\Column|Collection short_name
+     * @property Grid\Column|Collection intruduction
+     * @property Grid\Column|Collection video_url
      * @property Grid\Column|Collection connection
      * @property Grid\Column|Collection queue
      * @property Grid\Column|Collection payload
@@ -67,11 +75,16 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection user_Id(string $label = null)
      * @method Grid\Column|Collection created_at(string $label = null)
      * @method Grid\Column|Collection updated_at(string $label = null)
+     * @method Grid\Column|Collection ori_price(string $label = null)
+     * @method Grid\Column|Collection real_price(string $label = null)
+     * @method Grid\Column|Collection activity_id(string $label = null)
+     * @method Grid\Column|Collection company_id(string $label = null)
+     * @method Grid\Column|Collection creater_id(string $label = null)
+     * @method Grid\Column|Collection user_id(string $label = null)
      * @method Grid\Column|Collection parent_id(string $label = null)
      * @method Grid\Column|Collection order(string $label = null)
      * @method Grid\Column|Collection icon(string $label = null)
      * @method Grid\Column|Collection uri(string $label = null)
-     * @method Grid\Column|Collection user_id(string $label = null)
      * @method Grid\Column|Collection path(string $label = null)
      * @method Grid\Column|Collection method(string $label = null)
      * @method Grid\Column|Collection ip(string $label = null)
@@ -86,6 +99,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection password(string $label = null)
      * @method Grid\Column|Collection avatar(string $label = null)
      * @method Grid\Column|Collection remember_token(string $label = null)
+     * @method Grid\Column|Collection short_name(string $label = null)
+     * @method Grid\Column|Collection intruduction(string $label = null)
+     * @method Grid\Column|Collection video_url(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
      * @method Grid\Column|Collection queue(string $label = null)
      * @method Grid\Column|Collection payload(string $label = null)
@@ -114,11 +130,16 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection user_Id
      * @property Show\Field|Collection created_at
      * @property Show\Field|Collection updated_at
+     * @property Show\Field|Collection ori_price
+     * @property Show\Field|Collection real_price
+     * @property Show\Field|Collection activity_id
+     * @property Show\Field|Collection company_id
+     * @property Show\Field|Collection creater_id
+     * @property Show\Field|Collection user_id
      * @property Show\Field|Collection parent_id
      * @property Show\Field|Collection order
      * @property Show\Field|Collection icon
      * @property Show\Field|Collection uri
-     * @property Show\Field|Collection user_id
      * @property Show\Field|Collection path
      * @property Show\Field|Collection method
      * @property Show\Field|Collection ip
@@ -133,6 +154,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection password
      * @property Show\Field|Collection avatar
      * @property Show\Field|Collection remember_token
+     * @property Show\Field|Collection short_name
+     * @property Show\Field|Collection intruduction
+     * @property Show\Field|Collection video_url
      * @property Show\Field|Collection connection
      * @property Show\Field|Collection queue
      * @property Show\Field|Collection payload
@@ -156,11 +180,16 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection user_Id(string $label = null)
      * @method Show\Field|Collection created_at(string $label = null)
      * @method Show\Field|Collection updated_at(string $label = null)
+     * @method Show\Field|Collection ori_price(string $label = null)
+     * @method Show\Field|Collection real_price(string $label = null)
+     * @method Show\Field|Collection activity_id(string $label = null)
+     * @method Show\Field|Collection company_id(string $label = null)
+     * @method Show\Field|Collection creater_id(string $label = null)
+     * @method Show\Field|Collection user_id(string $label = null)
      * @method Show\Field|Collection parent_id(string $label = null)
      * @method Show\Field|Collection order(string $label = null)
      * @method Show\Field|Collection icon(string $label = null)
      * @method Show\Field|Collection uri(string $label = null)
-     * @method Show\Field|Collection user_id(string $label = null)
      * @method Show\Field|Collection path(string $label = null)
      * @method Show\Field|Collection method(string $label = null)
      * @method Show\Field|Collection ip(string $label = null)
@@ -175,6 +204,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection password(string $label = null)
      * @method Show\Field|Collection avatar(string $label = null)
      * @method Show\Field|Collection remember_token(string $label = null)
+     * @method Show\Field|Collection short_name(string $label = null)
+     * @method Show\Field|Collection intruduction(string $label = null)
+     * @method Show\Field|Collection video_url(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
      * @method Show\Field|Collection queue(string $label = null)
      * @method Show\Field|Collection payload(string $label = null)
