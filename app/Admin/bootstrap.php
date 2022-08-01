@@ -25,6 +25,9 @@ use Dcat\Admin\Show;
  *
  */
 
+//把view目录从vendor中复制出来方便修改
+app('view')->prependNamespace('admin', resource_path('views/admin'));
+
 
 
 Admin::disablePjax();
