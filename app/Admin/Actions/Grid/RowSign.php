@@ -20,7 +20,7 @@ class RowSign extends RowAction
     public function render()
     {
         // 实例化表单类并传递自定义参数
-        $form = \App\Admin\Forms\RowSign::make()->payload(['id' => $this->getKey()]);
+        $form = \App\Admin\Forms\ActivityRowSign::make()->payload(['id' => $this->getKey()]);
 
         return Modal::make()
             ->lg()

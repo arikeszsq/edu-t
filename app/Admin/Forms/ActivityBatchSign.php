@@ -9,7 +9,7 @@ use Dcat\Admin\Widgets\Form;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Contracts\LazyRenderable;
 
-class ActivityList extends Form implements LazyRenderable
+class ActivityBatchSign extends Form implements LazyRenderable
 {
     use LazyWidget;
     /**

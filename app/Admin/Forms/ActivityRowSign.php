@@ -9,7 +9,7 @@ use Dcat\Admin\Widgets\Form;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Contracts\LazyRenderable;
 
-class RowSign extends Form implements LazyRenderable
+class ActivityRowSign extends Form implements LazyRenderable
 {
     use LazyWidget;
 

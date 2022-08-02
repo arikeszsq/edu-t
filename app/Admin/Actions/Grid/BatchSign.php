@@ -2,7 +2,7 @@
 
 namespace App\Admin\Actions\Grid;
 
-use App\Admin\Forms\ActivityList;
+use App\Admin\Forms\ActivityBatchSign;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\BatchAction;
 use Dcat\Admin\Traits\HasPermissions;
@@ -18,7 +18,7 @@ class BatchSign extends BatchAction
     public function render()
     {
         // 实例化表单类
-        $form = ActivityList::make();
+        $form = ActivityBatchSign::make();
 
         return Modal::make()
             ->lg()
