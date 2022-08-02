@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\BatchSign;
 use App\Admin\Repositories\Company;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -26,11 +27,13 @@ class CompanyController extends AdminController
             $grid->column('creater_id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
+
+            $grid->batchActions([new BatchSign()]);
         });
     }
 
@@ -69,7 +72,7 @@ class CompanyController extends AdminController
             $form->text('intruduction');
             $form->text('video_url');
             $form->text('creater_id');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });
