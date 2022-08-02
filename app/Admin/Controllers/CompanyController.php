@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BatchSign;
+use App\Admin\Actions\Grid\RowSign;
 use App\Admin\Repositories\Company;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -34,6 +35,8 @@ class CompanyController extends AdminController
             });
 
             $grid->batchActions([new BatchSign()]);
+
+            $grid->actions([new RowSign()]);
         });
     }
 
