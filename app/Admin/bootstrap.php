@@ -24,3 +24,46 @@ use Dcat\Admin\Show;
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+
+
+
+//把view目录从vendor中复制出来方便修改
+app('view')->prependNamespace('admin', resource_path('views/admin'));
+
+
+
+//Admin::disablePjax();
+
+//初始化grid参数
+Grid::resolving(function (Grid $grid) {
+    $grid->filter(function (Grid\Filter $filter){
+        $filter->panel();
+    });
+    $grid->toolsWithOutline(false);
+//    $grid->disableBatchActions();
+//    $grid->disableQuickEditButton();
+//    $grid->disableRowSelector();
+//    $grid->disableDeleteButton();
+});
+
+//初始化form参数
+Form::resolving(function (Form $form) {
+    $form->tools(function (Form\Tools $tools) {
+        $tools->disableDelete();
+    });
+
+    $form->footer(function (Form\Footer $footer) {
+        $footer->disableReset();
+        $footer->disableViewCheck();
+        $footer->disableEditingCheck();
+        $footer->disableCreatingCheck();
+    });
+});
+
+//初始化show参数
+Show::resolving(function (Show $show) {
+    $show->panel()
+        ->tools(function ($tools) {
+            $tools->disableDelete();
+        });
+});
