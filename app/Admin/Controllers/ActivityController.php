@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\ChangeStatus;
 use App\Models\Activity;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -30,11 +31,23 @@ class ActivityController extends AdminController
             $grid->column('end_time');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
+
+
+//            $grid->actions(new ChangeStatus());
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $status = $actions->row->status;
+                if($status == Activity::Status_已上架){
+                    $actions->append(new ChangeStatus('下架'));
+                }else{
+                    $actions->append(new ChangeStatus('上架'));
+                }
+            });
+
         });
     }
 
@@ -81,7 +94,7 @@ class ActivityController extends AdminController
             $form->text('status');
             $form->text('start_time');
             $form->text('end_time');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });
