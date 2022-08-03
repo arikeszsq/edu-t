@@ -17,14 +17,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('/activity')->group(function () {
-    Route::get('/lists', 'ActivityController@lists');
-    Route::get('/detail/{id}', 'ActivityController@detail');
-});
-
+Route::any('/login', 'LoginController@login');
 
 Route::middleware('auth:user')->group(function () {
+
+    Route::prefix('/activity')->group(function () {
+        Route::get('/lists', 'ActivityController@lists');
+        Route::get('/detail/{id}', 'ActivityController@detail');
+    });
+
+
     Route::prefix('/my')->group(function () {
-//        Route::any('/add', 'FavoriteController@add');
+
+        Route::any('/info', function () {
+            return 1111;
+        });
+
+
     });
 });

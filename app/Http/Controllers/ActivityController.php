@@ -13,6 +13,7 @@ class ActivityController extends Controller
 {
     public function lists(Request $request)
     {
+        $user_id = self::authUserId();
         try {
             $activities = Activity::query()
                 ->where('status', 1)
