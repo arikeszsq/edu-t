@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'UserAward' => 'UserAward',
-        'user-award' => 'UserAward',
+        'UserAward' => '奖励领取',
+        'user-award' => '奖励领取',
     ],
     'fields' => [
         'activity_id' => '活动',

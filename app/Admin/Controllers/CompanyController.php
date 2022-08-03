@@ -4,7 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BatchSign;
 use App\Admin\Actions\Grid\RowSign;
-use App\Admin\Repositories\Company;
+use App\Models\Company;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;

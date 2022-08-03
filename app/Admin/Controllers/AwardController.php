@@ -18,22 +18,18 @@ class AwardController extends AdminController
     protected function grid()
     {
         return Grid::make(new Award(), function (Grid $grid) {
+            $grid->model()->orderBy('id','desc');
             $grid->column('id')->sortable();
             $grid->column('name');
-            $grid->column('short_name');
-            $grid->column('logo');
-            $grid->column('description');
+            $grid->column('logo')->image('','500','500');
             $grid->column('invite_num');
-            $grid->column('status');
-            $grid->column('price');
-            $grid->column('is_commander');
-            $grid->column('group_ok');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
-        
+            $grid->column('status')->select(Award::Status_list);
+            $grid->column('is_commander')->select(Award::Yes_1_No_2_list);
+            $grid->column('group_ok')->select(Award::Yes_1_No_2_list);
+
+            $grid->quickSearch('name')->placeholder('搜索标题');;
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
             });
         });
     }
@@ -74,16 +70,13 @@ class AwardController extends AdminController
             $form->display('id');
             $form->text('name');
             $form->text('short_name');
-            $form->text('logo');
+            $form->image('logo');
             $form->text('description');
-            $form->text('invite_num');
-            $form->text('status');
-            $form->text('price');
-            $form->text('is_commander');
-            $form->text('group_ok');
-        
-            $form->display('created_at');
-            $form->display('updated_at');
+            $form->number('invite_num');
+            $form->decimal('price');
+            $form->select('status')->options(Award::Status_list);
+            $form->select('is_commander')->options(Award::Yes_1_No_2_list);
+            $form->select('group_ok')->options(Award::Yes_1_No_2_list);
         });
     }
 }

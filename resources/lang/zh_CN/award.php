@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'Award' => 'Award',
-        'award' => 'Award',
+        'Award' => '奖励',
+        'award' => '奖励',
     ],
     'fields' => [
         'name' => '标题',
