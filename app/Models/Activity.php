@@ -23,4 +23,9 @@ class Activity extends Model
         return Activity::query()->find($id);
     }
 
+    public function activityCompany()
+    {
+        return $this->hasMany(ActivitySignCom::class,'activity_id','id');
+    }
+
 }

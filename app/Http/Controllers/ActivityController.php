@@ -32,6 +32,7 @@ class ActivityController extends Controller
                 ->where('id', $id)
                 ->where('status', 1)
                 ->where('end_time', '>', Carbon::now())
+                ->with('activityCompany.company')
                 ->firstOrFail();
             return self::success($activity);
         } catch (Exception $e) {
