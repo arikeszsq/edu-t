@@ -21,13 +21,13 @@ class AwardController extends AdminController
             $grid->model()->orderBy('id','desc');
             $grid->column('id')->sortable();
             $grid->column('name');
-            $grid->column('logo')->image('','500','500');
+            $grid->column('logo')->image(env('IMG_SERVE'),'100%','40');
             $grid->column('invite_num');
             $grid->column('status')->select(Award::Status_list);
             $grid->column('is_commander')->select(Award::Yes_1_No_2_list);
             $grid->column('group_ok')->select(Award::Yes_1_No_2_list);
 
-            $grid->quickSearch('name')->placeholder('搜索标题');;
+            $grid->quickSearch('name')->placeholder('搜索标题');
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
             });
@@ -47,13 +47,13 @@ class AwardController extends AdminController
             $show->field('id');
             $show->field('name');
             $show->field('short_name');
-            $show->field('logo');
+            $show->field('logo')->image();
             $show->field('description');
             $show->field('invite_num');
-            $show->field('status');
+            $show->field('status')->using(Award::Status_list);
             $show->field('price');
-            $show->field('is_commander');
-            $show->field('group_ok');
+            $show->field('is_commander')->using(Award::Yes_1_No_2_list);
+            $show->field('group_ok')->using(Award::Yes_1_No_2_list);
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -70,7 +70,7 @@ class AwardController extends AdminController
             $form->display('id');
             $form->text('name');
             $form->text('short_name');
-            $form->image('logo');
+            $form->image('logo')->autoUpload();
             $form->text('description');
             $form->number('invite_num');
             $form->decimal('price');
