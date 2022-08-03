@@ -17,17 +17,23 @@ class UserAwardController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new UserAward(), function (Grid $grid) {
+        return Grid::make(UserAward::with(['activity','award','user']), function (Grid $grid) {
+
+            $grid->disableCreateButton();//禁用创建按钮
+            $grid->disableActions();//禁用所有操作
+
+            $grid->model()->orderBy('id','desc');
             $grid->column('id')->sortable();
-            $grid->column('activity_id');
-            $grid->column('user_id');
-            $grid->column('award_id');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
-        
+            $grid->column('activity.title','活动名称');
+            $grid->column('user.name','用户名');
+            $grid->column('award.name','奖品名称');
+            $grid->column('created_at','领取时间');
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-        
+                $filter->expand();
+                $filter->equal('id')->width(6);
+                $filter->like('activity.title', '活动名称')->width(6);
+                $filter->like('user.name', '用户名')->width(6);
+                $filter->like('award.name', '奖品名称')->width(6);
             });
         });
     }
@@ -63,7 +69,7 @@ class UserAwardController extends AdminController
             $form->text('activity_id');
             $form->text('user_id');
             $form->text('award_id');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });
