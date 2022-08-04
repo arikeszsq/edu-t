@@ -40,6 +40,7 @@ Grid::resolving(function (Grid $grid) {
         $filter->panel();
     });
     $grid->toolsWithOutline(false);
+    $grid->disableRefreshButton();
 //    $grid->disableBatchActions();
 //    $grid->disableQuickEditButton();
 //    $grid->disableRowSelector();

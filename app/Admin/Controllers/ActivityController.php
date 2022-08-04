@@ -87,10 +87,10 @@ class ActivityController extends AdminController
     {
         return Form::make(new Activity(), function (Form $form) {
             $form->display('id');
-            $form->text('title');
-            $form->text('is_many');
+            $form->text('title')->required();
+            $form->select('is_many')->options(Activity::$is_many_list)->required()->width(3);
             $form->text('description');
-            $form->text('content');
+            $form->textarea('content');
             $form->text('ori_price');
             $form->text('real_price');
             $form->text('status');
