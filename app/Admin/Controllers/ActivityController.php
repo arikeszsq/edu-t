@@ -19,32 +19,34 @@ class ActivityController extends AdminController
     protected function grid()
     {
         return Grid::make(new Activity(), function (Grid $grid) {
+            // 设置表单提示值
+            $grid->quickSearch('title')->placeholder('搜索活动标题');
+
+            $grid->model()->orderBy('id','desc');
             $grid->column('id')->sortable();
             $grid->column('title');
-            $grid->column('is_many');
-            $grid->column('description');
+            $grid->column('is_many')->select(Activity::$is_many_list);
+//            $grid->column('description');
 //            $grid->column('content');
 //            $grid->column('ori_price');
 //            $grid->column('real_price');
-            $grid->column('status');
-            $grid->column('start_time');
-            $grid->column('end_time');
-            $grid->column('created_at');
-//            $grid->column('updated_at')->sortable();
-
+//            $grid->column('status')->select(Activity::$status_list);
+            $grid->column('status')->display(function($status){
+                return Activity::$status_list[$status];
+            })->label(['primary','warning']);
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
+                $filter->equal('id')->width(6);
+                $filter->like('title')->width(6);
             });
 
-
+//            $grid->enableDialogCreate();
 //            $grid->actions(new ChangeStatus());
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $status = $actions->row->status;
                 if($status == Activity::Status_已上架){
-                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-success">下架</span>'));
+                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">下架</span>'));
                 }else{
-                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">上架</span>'));
+                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-warning">上架</span>'));
                 }
             });
 

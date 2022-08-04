@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'ActivitySignCom' => 'ActivitySignCom',
-        'activity-sign-com' => 'ActivitySignCom',
+        'ActivitySignCom' => '企业活动报名',
+        'activity-sign-com' => '企业活动报名',
     ],
     'fields' => [
         'activity_id' => '活动',

@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'Company' => 'Company',
-        'company' => 'Company',
+        'Company' => '企业管理',
+        'company' => '企业管理',
     ],
     'fields' => [
         'name' => '名称',

@@ -11,6 +11,15 @@ class Activity extends Model
     const Status_已上架 = 1;
     const Status_已下架 = 2;
 
+    const is_many_单商家 = 1;
+    const is_many_多商家 = 2;
+
+    public static  $is_many_list = [
+        Activity::is_many_单商家 => '单商家',
+        Activity::is_many_多商家 => '多商家'
+    ];
+
+
     public static  $status_list = [
         Activity::Status_已上架 => '已上架',
         Activity::Status_已下架 => '已下架'
