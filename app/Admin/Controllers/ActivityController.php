@@ -22,18 +22,31 @@ class ActivityController extends AdminController
             // 设置表单提示值
             $grid->quickSearch('title')->placeholder('搜索活动标题');
 
-            $grid->model()->orderBy('id','desc');
+
+
+            $grid->model()->orderBy('id', 'desc');
+
+
+
+            $grid->column('title')->qrcode(function () {
+                return 'http://www.baidu.com';
+            }, 200, 200);
+
+
             $grid->column('id')->sortable();
-            $grid->column('title');
-            $grid->column('is_many')->select(Activity::$is_many_list);
+//            $grid->column('title');
+//            $grid->column('is_many')->select(Activity::$is_many_list);
+            $grid->column('is_many')->using(Activity::$is_many_list)->label([1 => 'danger', 2 => 'success']);
 //            $grid->column('description');
 //            $grid->column('content');
 //            $grid->column('ori_price');
 //            $grid->column('real_price');
 //            $grid->column('status')->select(Activity::$status_list);
-            $grid->column('status')->display(function($status){
-                return Activity::$status_list[$status];
-            })->label(['primary','warning']);
+
+//            $grid->column('status')->display(function($status){
+//                return Activity::$status_list[$status];
+//            })->label(['primary','warning']);
+            $grid->column('status')->using(Activity::$status_list)->label(['primary', 'warning']);
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id')->width(6);
                 $filter->like('title')->width(6);
@@ -43,9 +56,9 @@ class ActivityController extends AdminController
 //            $grid->actions(new ChangeStatus());
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $status = $actions->row->status;
-                if($status == Activity::Status_已上架){
+                if ($status == Activity::Status_已上架) {
                     $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">下架</span>'));
-                }else{
+                } else {
                     $actions->append(new ChangeStatus('<span class="btn btn-sm btn-warning">上架</span>'));
                 }
             });
