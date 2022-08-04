@@ -23,14 +23,14 @@ class ActivityController extends AdminController
             $grid->column('title');
             $grid->column('is_many');
             $grid->column('description');
-            $grid->column('content');
-            $grid->column('ori_price');
-            $grid->column('real_price');
+//            $grid->column('content');
+//            $grid->column('ori_price');
+//            $grid->column('real_price');
             $grid->column('status');
             $grid->column('start_time');
             $grid->column('end_time');
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+//            $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
@@ -42,9 +42,9 @@ class ActivityController extends AdminController
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $status = $actions->row->status;
                 if($status == Activity::Status_已上架){
-                    $actions->append(new ChangeStatus('下架'));
+                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-success">下架</span>'));
                 }else{
-                    $actions->append(new ChangeStatus('上架'));
+                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">上架</span>'));
                 }
             });
 

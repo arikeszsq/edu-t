@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'Activity' => 'Activity',
-        'activity' => 'Activity',
+        'Activity' => '活动',
+        'activity' => '活动',
     ],
     'fields' => [
         'title' => '标题',
