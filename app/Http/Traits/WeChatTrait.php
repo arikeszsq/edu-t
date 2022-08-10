@@ -88,13 +88,14 @@ trait WeChatTrait
         } else {
             $scene = 'id=' . $activity_id;
         }
-        $param = json_encode(["scene" => $scene,"page"=>'pages/index/index',"width" => 300]);
+        $param = json_encode(["scene" => $scene, "page" => 'pages/index/index', "width" => 300]);
 
-        $contents = $this->httpRequest($url, $param, "POST");
-        if(isset(json_decode($contents,true)['errcode'])){
+//        $contents = $this->httpRequest($url, $param, "POST");
+        $contents = $this->curlPost($url, $param);
+        if (isset(json_decode($contents, true)['errcode'])) {
             return [
-                'code' => json_decode($contents,true)['errcode'],
-                'msg' => json_decode($contents,true)['errmsg']
+                'code' => json_decode($contents, true)['errcode'],
+                'msg' => json_decode($contents, true)['errmsg']
             ];
         }
 //        $data_uri = $this->data_uri($contents, 'image/png');
@@ -113,7 +114,7 @@ trait WeChatTrait
             ];
         }
     }
-    
+
     //二进制转图片image/png
     public function data_uri($contents, $mime)
     {
@@ -169,4 +170,88 @@ trait WeChatTrait
         return $tmpInfo; // 返回数据
     }
 
+
+    /***
+     * 案例一：将活动背景图片和动态二维码图片合成一张图片
+     * 按比例，可以先计算第一张图的宽度高度，然后计算第二张图的宽度高度，然后按比例生成
+     * PHP 获取图像宽度函数：imagesx()
+     * PHP 获取图像高度函数：imagesy()
+     *
+     * imagecopymerge(图片1地址, 图片2地址, 80, 90, 图片2横坐标开始位置,图片2纵坐标开始位置, 生成后图片2所占宽度, 生成后图片2所占高度, 100);
+     *
+     * imagecopymerge ( resource $dst_im , resource $src_im , int $dst_x , int $dst_y , int $src_x , int $src_y , int $src_w , int $src_h , int $pct )
+     * 将 src_im 图像中坐标从 src_x，src_y 开始，宽度为 src_w，高度为 src_h 的一部分拷贝到 dst_im 图像中坐标为 dst_x 和 dst_y 的位置上。
+     * 两图像将根据 pct 来决定合并程度，其值范围从 0 到 100。
+     * 当 pct = 0 时，实际上什么也没做，当为 100 时对于调色板图像本函数和 imagecopy() 完全一样，它对真彩色图像实现了 alpha 透明。
+     * @param $img_bg
+     * @param $img_min
+     */
+    public function mergeImg($img_bg, $img_min, $per = null)
+    {
+        if (!$per) {
+            $per = 0.25;
+        }
+        $qr_path = "uploads/merge/";
+        if (!file_exists($qr_path)) {
+            mkdir($qr_path, 0700, true);
+        }
+        $imageValue = getimagesize($img_bg);
+        $image_1_width = $imageValue[0]; //原图宽
+        $image_1_height = $imageValue[1]; //原图高
+        $imageValue_min = getimagesize($img_min);
+        $image_2_width = $imageValue_min[0]; //原图宽
+        // 按宽度占背景图0.25 的比例，缩放背景图
+        $percent_1_4_width = $image_1_width * $per;
+        $percent = $percent_1_4_width / $image_2_width;
+        $img_min_src = $this->updatePic($img_min, $percent);
+        $image_update = getimagesize($img_min_src);
+        $src_x = $image_update[0];
+        $src_y = $image_update[1];
+        $img_bg = file_get_contents($img_bg);
+        $image_1 = imagecreatefromstring($img_bg);
+        $img_min = file_get_contents($img_min_src);
+        $image_2 = imagecreatefromstring($img_min);
+        $aim_x = $image_1_width - $src_x - 20;
+        $aim_y = $image_1_height - $src_y - 20;
+        imagecopymerge($image_1, $image_2, $aim_x, $aim_y, 0, 0, $src_x, $src_y, 100);
+        $img_name = 'merge' . time() . '.png';
+        $img_path = $qr_path . $img_name;
+        imagepng($image_1, $img_path);
+//        return '<img src=http://edu.com.me/' . $img_path . '>';
+        return $img_path;
+    }
+
+    /**
+     * 我们的代码需要做到以下步骤才能完成对图形的缩放：
+     * 打开来源图片
+     * 设置图片缩放百分比（缩放）
+     * 获得来源图片，按比调整大小
+     * 新建一个指定大小的图片为目标图
+     * 将来源图调整后的大小放到目标中
+     * 销毁资源
+     */
+    public function updatePic($img_bg, $percent)
+    {
+        $qr_path = "uploads/update/";
+        if (!file_exists($qr_path)) {
+            mkdir($qr_path, 0700, true);
+        }
+//打开来源图片
+        $img_bg_src = file_get_contents($img_bg);
+        $a = imagecreatefromstring($img_bg_src);
+// 将图片宽高获取到
+        list($width, $height) = getimagesize($img_bg);
+//设置新的缩放的宽高
+        $new_width = $width * $percent;
+        $new_height = $height * $percent;
+//创建新图片
+        $new_image = imagecreatetruecolor($new_width, $new_height);
+//将原图$image按照指定的宽高，复制到$new_image指定的宽高大小中
+        imagecopyresampled($new_image, $a, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//        header('content-type:image/jpeg');
+        $update_img_name = 'update_' . time() . '.png';
+        $new_path = $qr_path . $update_img_name;
+        imagepng($new_image, $new_path);
+        return $new_path;
+    }
 }
