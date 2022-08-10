@@ -5,16 +5,26 @@ namespace App\Admin\Controllers;
 use App\Admin\Actions\ShowUser;
 use App\Admin\Metrics\Examples;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\WeChatTrait;
 use Dcat\Admin\Http\Controllers\Dashboard;
 use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 
+use EasyWeChat\Factory;
+use EasyWeChat\Kernel\Http\StreamResponse;
+use Illuminate\Support\Facades\Log;
+
+
 class HomeController extends Controller
 {
 
+    use WeChatTrait;
     public function index(Content $content)
     {
+
+        $access_token = $this->getShareQCode(1);
+        var_dump($access_token);exit;
         return $content->body(ShowUser::make());
     }
 
