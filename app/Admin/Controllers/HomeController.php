@@ -22,9 +22,8 @@ class HomeController extends Controller
     use WeChatTrait;
     public function index(Content $content)
     {
-
-        $access_token = $this->getShareQCode(1);
-        var_dump($access_token);exit;
+        $access_token = $this->getShareQCode(3);
+//        var_dump($access_token);exit;
         return $content->body(ShowUser::make());
     }
 

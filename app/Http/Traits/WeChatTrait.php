@@ -12,11 +12,19 @@ trait WeChatTrait
 {
     public function shareCodeByEasyWeChat($id, $user_id = null)
     {
+//        if ($user_id) {
+//            $scene = 'id=' . $id . '&uid=' . $user_id;
+//        } else {
+//            $scene = 'id=' . $id;
+//        }
+
         if ($user_id) {
-            $scene = 'id=' . $id . '&uid=' . $user_id;
+            $scene =$id . ',' . $user_id;
         } else {
-            $scene = 'id=' . $id;
+            $scene = $id;
         }
+
+
         $config = [
             'app_id' => env('AppID'),
             'secret' => env('AppSecret'),
@@ -83,11 +91,19 @@ trait WeChatTrait
         $filename = time() . '.png';
         $file = $qr_path . $filename;
         $url = 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=' . $this->getAccessToken();
+//        if ($user_id) {
+//            $scene = 'id=' . $activity_id . '&uid=' . $user_id;
+//        } else {
+//            $scene = 'id=' . $activity_id;
+//        }
+
         if ($user_id) {
-            $scene = 'id=' . $activity_id . '&uid=' . $user_id;
+            $scene =$activity_id . ',' . $user_id;
         } else {
-            $scene = 'id=' . $activity_id;
+            $scene = $activity_id;
         }
+
+
         $param = json_encode(["scene" => $scene, "page" => 'pages/index/index', "width" => 300]);
 
 //        $contents = $this->httpRequest($url, $param, "POST");
