@@ -12,6 +12,11 @@ namespace Dcat\Admin {
 
     /**
      * @property Grid\Column|Collection id
+     * @property Grid\Column|Collection access_token
+     * @property Grid\Column|Collection expires_in
+     * @property Grid\Column|Collection created_at
+     * @property Grid\Column|Collection updated_at
+     * @property Grid\Column|Collection valid_time
      * @property Grid\Column|Collection is_many
      * @property Grid\Column|Collection content
      * @property Grid\Column|Collection creater_id
@@ -20,19 +25,26 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection status
      * @property Grid\Column|Collection start_time
      * @property Grid\Column|Collection end_time
-     * @property Grid\Column|Collection created_at
-     * @property Grid\Column|Collection updated_at
      * @property Grid\Column|Collection views_num
      * @property Grid\Column|Collection buy_num
+     * @property Grid\Column|Collection com_sign_num
+     * @property Grid\Column|Collection share_bg
+     * @property Grid\Column|Collection share_q_code
+     * @property Grid\Column|Collection merge_img
      * @property Grid\Column|Collection activity_id
      * @property Grid\Column|Collection name
      * @property Grid\Column|Collection leader_id
+     * @property Grid\Column|Collection success_time
      * @property Grid\Column|Collection company_id
      * @property Grid\Column|Collection group_id
      * @property Grid\Column|Collection role
      * @property Grid\Column|Collection user_id
      * @property Grid\Column|Collection type
+     * @property Grid\Column|Collection order_no
+     * @property Grid\Column|Collection money
      * @property Grid\Column|Collection has_pay
+     * @property Grid\Column|Collection pay_time
+     * @property Grid\Column|Collection pay_cancel_time
      * @property Grid\Column|Collection version
      * @property Grid\Column|Collection is_enabled
      * @property Grid\Column|Collection detail
@@ -60,6 +72,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection group_ok
      * @property Grid\Column|Collection intruduction
      * @property Grid\Column|Collection video_url
+     * @property Grid\Column|Collection address
+     * @property Grid\Column|Collection company_Id
+     * @property Grid\Column|Collection total_num
+     * @property Grid\Column|Collection sale_num
      * @property Grid\Column|Collection connection
      * @property Grid\Column|Collection queue
      * @property Grid\Column|Collection payload
@@ -76,12 +92,20 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection city
      * @property Grid\Column|Collection session
      * @property Grid\Column|Collection time_login
-     * @property Grid\Column|Collection money
+     * @property Grid\Column|Collection A_user_id
      * @property Grid\Column|Collection parent_user_id
      * @property Grid\Column|Collection invited_user_id
      * @property Grid\Column|Collection award_id
+     * @property Grid\Column|Collection audit_id
+     * @property Grid\Column|Collection audit_time
+     * @property Grid\Column|Collection order_num
      *
      * @method Grid\Column|Collection id(string $label = null)
+     * @method Grid\Column|Collection access_token(string $label = null)
+     * @method Grid\Column|Collection expires_in(string $label = null)
+     * @method Grid\Column|Collection created_at(string $label = null)
+     * @method Grid\Column|Collection updated_at(string $label = null)
+     * @method Grid\Column|Collection valid_time(string $label = null)
      * @method Grid\Column|Collection is_many(string $label = null)
      * @method Grid\Column|Collection content(string $label = null)
      * @method Grid\Column|Collection creater_id(string $label = null)
@@ -90,19 +114,26 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection status(string $label = null)
      * @method Grid\Column|Collection start_time(string $label = null)
      * @method Grid\Column|Collection end_time(string $label = null)
-     * @method Grid\Column|Collection created_at(string $label = null)
-     * @method Grid\Column|Collection updated_at(string $label = null)
      * @method Grid\Column|Collection views_num(string $label = null)
      * @method Grid\Column|Collection buy_num(string $label = null)
+     * @method Grid\Column|Collection com_sign_num(string $label = null)
+     * @method Grid\Column|Collection share_bg(string $label = null)
+     * @method Grid\Column|Collection share_q_code(string $label = null)
+     * @method Grid\Column|Collection merge_img(string $label = null)
      * @method Grid\Column|Collection activity_id(string $label = null)
      * @method Grid\Column|Collection name(string $label = null)
      * @method Grid\Column|Collection leader_id(string $label = null)
+     * @method Grid\Column|Collection success_time(string $label = null)
      * @method Grid\Column|Collection company_id(string $label = null)
      * @method Grid\Column|Collection group_id(string $label = null)
      * @method Grid\Column|Collection role(string $label = null)
      * @method Grid\Column|Collection user_id(string $label = null)
      * @method Grid\Column|Collection type(string $label = null)
+     * @method Grid\Column|Collection order_no(string $label = null)
+     * @method Grid\Column|Collection money(string $label = null)
      * @method Grid\Column|Collection has_pay(string $label = null)
+     * @method Grid\Column|Collection pay_time(string $label = null)
+     * @method Grid\Column|Collection pay_cancel_time(string $label = null)
      * @method Grid\Column|Collection version(string $label = null)
      * @method Grid\Column|Collection is_enabled(string $label = null)
      * @method Grid\Column|Collection detail(string $label = null)
@@ -130,6 +161,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection group_ok(string $label = null)
      * @method Grid\Column|Collection intruduction(string $label = null)
      * @method Grid\Column|Collection video_url(string $label = null)
+     * @method Grid\Column|Collection address(string $label = null)
+     * @method Grid\Column|Collection company_Id(string $label = null)
+     * @method Grid\Column|Collection total_num(string $label = null)
+     * @method Grid\Column|Collection sale_num(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
      * @method Grid\Column|Collection queue(string $label = null)
      * @method Grid\Column|Collection payload(string $label = null)
@@ -146,10 +181,13 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection city(string $label = null)
      * @method Grid\Column|Collection session(string $label = null)
      * @method Grid\Column|Collection time_login(string $label = null)
-     * @method Grid\Column|Collection money(string $label = null)
+     * @method Grid\Column|Collection A_user_id(string $label = null)
      * @method Grid\Column|Collection parent_user_id(string $label = null)
      * @method Grid\Column|Collection invited_user_id(string $label = null)
      * @method Grid\Column|Collection award_id(string $label = null)
+     * @method Grid\Column|Collection audit_id(string $label = null)
+     * @method Grid\Column|Collection audit_time(string $label = null)
+     * @method Grid\Column|Collection order_num(string $label = null)
      */
     class Grid {}
 
@@ -157,6 +195,11 @@ namespace Dcat\Admin {
 
     /**
      * @property Show\Field|Collection id
+     * @property Show\Field|Collection access_token
+     * @property Show\Field|Collection expires_in
+     * @property Show\Field|Collection created_at
+     * @property Show\Field|Collection updated_at
+     * @property Show\Field|Collection valid_time
      * @property Show\Field|Collection is_many
      * @property Show\Field|Collection content
      * @property Show\Field|Collection creater_id
@@ -165,19 +208,26 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection status
      * @property Show\Field|Collection start_time
      * @property Show\Field|Collection end_time
-     * @property Show\Field|Collection created_at
-     * @property Show\Field|Collection updated_at
      * @property Show\Field|Collection views_num
      * @property Show\Field|Collection buy_num
+     * @property Show\Field|Collection com_sign_num
+     * @property Show\Field|Collection share_bg
+     * @property Show\Field|Collection share_q_code
+     * @property Show\Field|Collection merge_img
      * @property Show\Field|Collection activity_id
      * @property Show\Field|Collection name
      * @property Show\Field|Collection leader_id
+     * @property Show\Field|Collection success_time
      * @property Show\Field|Collection company_id
      * @property Show\Field|Collection group_id
      * @property Show\Field|Collection role
      * @property Show\Field|Collection user_id
      * @property Show\Field|Collection type
+     * @property Show\Field|Collection order_no
+     * @property Show\Field|Collection money
      * @property Show\Field|Collection has_pay
+     * @property Show\Field|Collection pay_time
+     * @property Show\Field|Collection pay_cancel_time
      * @property Show\Field|Collection version
      * @property Show\Field|Collection is_enabled
      * @property Show\Field|Collection detail
@@ -205,6 +255,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection group_ok
      * @property Show\Field|Collection intruduction
      * @property Show\Field|Collection video_url
+     * @property Show\Field|Collection address
+     * @property Show\Field|Collection company_Id
+     * @property Show\Field|Collection total_num
+     * @property Show\Field|Collection sale_num
      * @property Show\Field|Collection connection
      * @property Show\Field|Collection queue
      * @property Show\Field|Collection payload
@@ -221,12 +275,20 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection city
      * @property Show\Field|Collection session
      * @property Show\Field|Collection time_login
-     * @property Show\Field|Collection money
+     * @property Show\Field|Collection A_user_id
      * @property Show\Field|Collection parent_user_id
      * @property Show\Field|Collection invited_user_id
      * @property Show\Field|Collection award_id
+     * @property Show\Field|Collection audit_id
+     * @property Show\Field|Collection audit_time
+     * @property Show\Field|Collection order_num
      *
      * @method Show\Field|Collection id(string $label = null)
+     * @method Show\Field|Collection access_token(string $label = null)
+     * @method Show\Field|Collection expires_in(string $label = null)
+     * @method Show\Field|Collection created_at(string $label = null)
+     * @method Show\Field|Collection updated_at(string $label = null)
+     * @method Show\Field|Collection valid_time(string $label = null)
      * @method Show\Field|Collection is_many(string $label = null)
      * @method Show\Field|Collection content(string $label = null)
      * @method Show\Field|Collection creater_id(string $label = null)
@@ -235,19 +297,26 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection status(string $label = null)
      * @method Show\Field|Collection start_time(string $label = null)
      * @method Show\Field|Collection end_time(string $label = null)
-     * @method Show\Field|Collection created_at(string $label = null)
-     * @method Show\Field|Collection updated_at(string $label = null)
      * @method Show\Field|Collection views_num(string $label = null)
      * @method Show\Field|Collection buy_num(string $label = null)
+     * @method Show\Field|Collection com_sign_num(string $label = null)
+     * @method Show\Field|Collection share_bg(string $label = null)
+     * @method Show\Field|Collection share_q_code(string $label = null)
+     * @method Show\Field|Collection merge_img(string $label = null)
      * @method Show\Field|Collection activity_id(string $label = null)
      * @method Show\Field|Collection name(string $label = null)
      * @method Show\Field|Collection leader_id(string $label = null)
+     * @method Show\Field|Collection success_time(string $label = null)
      * @method Show\Field|Collection company_id(string $label = null)
      * @method Show\Field|Collection group_id(string $label = null)
      * @method Show\Field|Collection role(string $label = null)
      * @method Show\Field|Collection user_id(string $label = null)
      * @method Show\Field|Collection type(string $label = null)
+     * @method Show\Field|Collection order_no(string $label = null)
+     * @method Show\Field|Collection money(string $label = null)
      * @method Show\Field|Collection has_pay(string $label = null)
+     * @method Show\Field|Collection pay_time(string $label = null)
+     * @method Show\Field|Collection pay_cancel_time(string $label = null)
      * @method Show\Field|Collection version(string $label = null)
      * @method Show\Field|Collection is_enabled(string $label = null)
      * @method Show\Field|Collection detail(string $label = null)
@@ -275,6 +344,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection group_ok(string $label = null)
      * @method Show\Field|Collection intruduction(string $label = null)
      * @method Show\Field|Collection video_url(string $label = null)
+     * @method Show\Field|Collection address(string $label = null)
+     * @method Show\Field|Collection company_Id(string $label = null)
+     * @method Show\Field|Collection total_num(string $label = null)
+     * @method Show\Field|Collection sale_num(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
      * @method Show\Field|Collection queue(string $label = null)
      * @method Show\Field|Collection payload(string $label = null)
@@ -291,10 +364,13 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection city(string $label = null)
      * @method Show\Field|Collection session(string $label = null)
      * @method Show\Field|Collection time_login(string $label = null)
-     * @method Show\Field|Collection money(string $label = null)
+     * @method Show\Field|Collection A_user_id(string $label = null)
      * @method Show\Field|Collection parent_user_id(string $label = null)
      * @method Show\Field|Collection invited_user_id(string $label = null)
      * @method Show\Field|Collection award_id(string $label = null)
+     * @method Show\Field|Collection audit_id(string $label = null)
+     * @method Show\Field|Collection audit_time(string $label = null)
+     * @method Show\Field|Collection order_num(string $label = null)
      */
     class Show {}
 
