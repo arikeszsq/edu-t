@@ -21,28 +21,19 @@ class ActivityController extends AdminController
         return Grid::make(new Activity(), function (Grid $grid) {
             // 设置表单提示值
             $grid->quickSearch('title')->placeholder('搜索活动标题');
-
-
-
             $grid->model()->orderBy('id', 'desc');
-
-
-
-            $grid->column('title')->qrcode(function () {
-                return 'http://www.baidu.com';
-            }, 200, 200);
-
-
             $grid->column('id')->sortable();
-//            $grid->column('title');
+//            $grid->column('title')->qrcode(function () {
+//                return 'http://www.baidu.com';
+//            }, 200, 200);
+            $grid->column('title');
+            $grid->column('ori_price');
+            $grid->column('real_price');
 //            $grid->column('is_many')->select(Activity::$is_many_list);
             $grid->column('is_many')->using(Activity::$is_many_list)->label([1 => 'danger', 2 => 'success']);
 //            $grid->column('description');
 //            $grid->column('content');
-//            $grid->column('ori_price');
-//            $grid->column('real_price');
 //            $grid->column('status')->select(Activity::$status_list);
-
 //            $grid->column('status')->display(function($status){
 //                return Activity::$status_list[$status];
 //            })->label(['primary','warning']);
@@ -51,7 +42,6 @@ class ActivityController extends AdminController
                 $filter->equal('id')->width(6);
                 $filter->like('title')->width(6);
             });
-
 //            $grid->enableDialogCreate();
 //            $grid->actions(new ChangeStatus());
             $grid->actions(function (Grid\Displayers\Actions $actions) {
@@ -62,15 +52,12 @@ class ActivityController extends AdminController
                     $actions->append(new ChangeStatus('<span class="btn btn-sm btn-warning">上架</span>'));
                 }
             });
-
         });
     }
 
     /**
      * Make a show builder.
-     *
      * @param mixed $id
-     *
      * @return Show
      */
     protected function detail($id)
@@ -101,15 +88,14 @@ class ActivityController extends AdminController
         return Form::make(new Activity(), function (Form $form) {
             $form->display('id');
             $form->text('title')->required();
-            $form->select('is_many')->options(Activity::$is_many_list)->required()->width(3);
+            $form->image('bg_banner','背景图')->required()->autoUpload();
+            $form->select('is_many')->options(Activity::$is_many_list)->required();
+            $form->decimal('ori_price')->required();
+            $form->decimal('real_price','开团价格')->required();
+            $form->text('start_time')->required();
+            $form->text('end_time')->required();
             $form->text('description');
-            $form->textarea('content');
-            $form->text('ori_price');
-            $form->text('real_price');
-            $form->text('status');
-            $form->text('start_time');
-            $form->text('end_time');
-
+            $form->editor('content');
             $form->display('created_at');
             $form->display('updated_at');
         });
