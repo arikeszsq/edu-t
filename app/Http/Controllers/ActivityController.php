@@ -4,23 +4,33 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Activity;
-use Carbon\Carbon;
+use App\Http\Services\ActivityService;
 use Exception;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
 {
+
+    public $activityService;
+
+    public function __construct(ActivityService $activityService)
+    {
+        $this->activityService = $activityService;
+    }
+
+    public function type($id)
+    {
+        try {
+            return self::success($this->activityService->type($id));
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
     public function lists(Request $request)
     {
-        $user_id = self::authUserId();
         try {
-            $activities = Activity::query()
-                ->where('status', 1)
-                ->where('end_time', '>', Carbon::now())
-                ->orderBy('id', 'desc')
-                ->get();
-            return self::success($activities);
+            return self::success($this->activityService->lists());
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
@@ -29,16 +39,10 @@ class ActivityController extends Controller
     public function detail($id)
     {
         try {
-            $activity = Activity::query()
-                ->where('id', $id)
-                ->where('status', 1)
-                ->where('end_time', '>', Carbon::now())
-                ->with('activityCompany.company')
-                ->firstOrFail();
-            return self::success($activity);
+            $detail = $this->activityService->detail($id);
+            return self::success($detail);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
     }
-
 }

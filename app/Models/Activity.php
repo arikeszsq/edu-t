@@ -32,9 +32,13 @@ class Activity extends Model
         return Activity::query()->find($id);
     }
 
+    public static function isMany($id)
+    {
+        return Activity::query()->find($id)->is_many;
+    }
+
     public function activityCompany()
     {
         return $this->hasMany(ActivitySignCom::class,'activity_id','id');
     }
-
 }

@@ -92,8 +92,8 @@ class ActivityController extends AdminController
             $form->select('is_many')->options(Activity::$is_many_list)->required();
             $form->decimal('ori_price')->required();
             $form->decimal('real_price','开团价格')->required();
-            $form->text('start_time')->required();
-            $form->text('end_time')->required();
+            $form->datetime('start_time')->required();
+            $form->datetime('end_time')->required();
             $form->text('description');
             $form->editor('content');
             $form->display('created_at');

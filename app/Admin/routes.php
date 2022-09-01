@@ -17,6 +17,9 @@ Route::group([
     $router->resource('activity', 'ActivityController');
     $router->resource('activity-sign-com', 'ActivitySignComController');
     $router->resource('activity-sign-user', 'ActivitySignUserController');
+    $router->resource('activity-group', 'ActivityGroupController');
+
+
     $router->resource('company', 'CompanyController');
     $router->resource('award', 'AwardController');
     $router->resource('user-award', 'UserAwardController');

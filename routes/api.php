@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::any('/login', 'LoginController@login');
 
-Route::middleware('auth:user')->group(function () {
+//Route::middleware('auth:user')->group(function () {
 
     Route::prefix('/pay')->group(function () {
         Route::get('/pay', 'PayController@pay');
@@ -27,9 +27,14 @@ Route::middleware('auth:user')->group(function () {
     });
 
     Route::prefix('/activity')->group(function () {
+        Route::get('/type/{id}', 'ActivityController@type');
         Route::get('/lists', 'ActivityController@lists');
         Route::get('/detail/{id}', 'ActivityController@detail');
     });
+
+Route::prefix('/group')->group(function () {
+    Route::get('/lists', 'GroupController@lists');
+});
 
 
     Route::prefix('/my')->group(function () {
@@ -40,4 +45,4 @@ Route::middleware('auth:user')->group(function () {
 
 
     });
-});
+//});
