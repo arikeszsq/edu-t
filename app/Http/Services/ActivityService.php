@@ -92,6 +92,7 @@ class ActivityService
                 'name' => $group->user->name,
                 'msg' => $msg,
                 'money' => $group->money,
+                'pay_time' => $group->pay_time,
             ];
         }
         $data['group'] = $users;
@@ -103,6 +104,7 @@ class ActivityService
     {
         $data = [];
         return $data;
+
     }
 
 }

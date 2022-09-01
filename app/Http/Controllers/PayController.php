@@ -80,13 +80,7 @@ class PayController extends Controller
         echo json_encode($data);
     }
 
-    /**
-     * 支付回调
-     * @param string $type
-     * @return string|void
-     * @throws \EasyWeChat\Core\Exceptions\FaultException
-     */
-    public function notify(string $type)
+    public function notify($type)
     {
 
     }

@@ -18,19 +18,19 @@ class ActivityController extends Controller
         $this->activityService = $activityService;
     }
 
-    public function type($id)
+    public function lists(Request $request)
     {
         try {
-            return self::success($this->activityService->type($id));
+            return self::success($this->activityService->lists());
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
     }
 
-    public function lists(Request $request)
+    public function type($id)
     {
         try {
-            return self::success($this->activityService->lists());
+            return self::success($this->activityService->type($id));
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
