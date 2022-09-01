@@ -74,7 +74,8 @@ class CompanyController extends AdminController
             $form->text('name');
             $form->text('short_name');
             $form->text('intruduction');
-            $form->file('video_url');
+            $form->image('logo')->width(6);
+            $form->file('video_url')->width(6);
 
             $form->hasMany('children', function (Form\NestedForm $form) {
                 $form->width(2)->text('name');
@@ -82,12 +83,12 @@ class CompanyController extends AdminController
             })->useTable()->label('校区')->required();
 
             $form->hasMany('courses', function (Form\NestedForm $form) {
-                $form->select('type')->options(CompanyCourse::Type_类型列表);
-                $form->image('logo');
-                $form->text('name');
-                $form->decimal('price');
-                $form->number('total_num');
-            });
+                $form->select('type')->options(CompanyCourse::Type_类型列表)->width(3);
+                $form->image('logo')->width(3);
+                $form->text('name')->width(3);
+                $form->decimal('price','价格')->width(3);
+                $form->number('total_num','名额数')->width(3);
+            })->label('课程')->required();
 
 
             $form->display('created_at');

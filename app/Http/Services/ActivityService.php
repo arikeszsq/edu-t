@@ -3,14 +3,20 @@
 namespace App\Http\Services;
 
 use App\Exceptions\ObjectNotExistException;
+use App\Http\Traits\ImageTrait;
 use App\Models\Activity;
 use App\Models\ActivityGroup;
+use App\Models\ActivitySignCom;
 use App\Models\ActivitySignUser;
+use App\Models\Award;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ActivityService
 {
+    use ImageTrait;
+
     public function getActivityById($id)
     {
         return Activity::query()->where('id', $id)->first();
@@ -58,7 +64,7 @@ class ActivityService
     {
         $data = [];
         $activity = $this->getActivityById($id);
-        $data['bg_banner'] = env('IMG_SERVE') . $activity->bg_banner;
+        $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
         $data['title'] = $activity->title;
         $data['description'] = $activity->description;
         $data['ori_price'] = $activity->ori_price;
@@ -67,6 +73,7 @@ class ActivityService
         $data['views_num'] = $activity->views_num;
         $data['buy_num'] = $activity->buy_num;
         $data['share_num'] = $activity->share_num;
+        $data['content'] = $activity->content;
 
         $groups = ActivitySignUser::getHasPayList($id);
         $users = [];
@@ -103,8 +110,66 @@ class ActivityService
     public function getManyDetail($id)
     {
         $data = [];
-        return $data;
+        $activity = $this->getActivityById($id);
+        $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
+        $data['title'] = $activity->title;
+        $data['description'] = $activity->description;
+        $data['ori_price'] = $activity->ori_price;
+        $data['real_price'] = $activity->real_price;
+        $data['end_time'] = $activity->end_time;
+        $data['views_num'] = $activity->views_num;
+        $data['buy_num'] = $activity->buy_num;
+        $data['share_num'] = $activity->share_num;
+        $data['content'] = $activity->content;
+        $companies = ActivitySignCom::query()->with('company')
+            ->where('activity_id', $id)
+            ->get();
+        $data_video = [];
+        $data_company = [];
+        foreach ($companies as $company) {
+            $data_video[] = [
+                'company_name' => $company->company->name,
+                'company_logo' => $this->fullImgUrl($company->company->logo),
+                'video_url' => $this->fullImgUrl($company->company->video_url)
+            ];
 
+            $school_num = DB::table('company_child')
+                ->where('company_id', $company->company_id)
+                ->count();
+
+            $sign_user_num = DB::table('activity_sign_user_course')
+                ->where('company_id', $company->company_id)
+                ->count();
+
+            $course_num = DB::table('company_course')
+                ->where('company_id', $company->company_id)
+                ->count();
+
+            $data_company[] = [
+                'company_name' => $company->company->name,
+                'company_logo' => $this->fullImgUrl($company->company->logo),
+                'school_num' => $school_num,
+                'sign_user_num' => $sign_user_num,
+                'course_num' => $course_num,
+            ];
+        }
+        $awards = Award::query()->where('status', Award::Status_有效)->get();
+        $data_award = [];
+        foreach ($awards as $award) {
+            $data_award[] = [
+                'name' => $award->name,
+                'short_name' => $award->short_name,
+                'logo' => $this->fullImgUrl($award->logo),
+                'description' => $award->description,
+                'price' => $award->price,
+            ];
+        }
+
+        $data['video'] = $data_video;
+        $data['company_list'] = $data_company;
+        $data['award'] = $data_award;
+
+        return $data;
     }
 
 }

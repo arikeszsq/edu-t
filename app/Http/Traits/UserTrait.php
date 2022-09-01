@@ -3,12 +3,7 @@
 namespace App\Http\Traits;
 
 use Illuminate\Support\Facades\Auth;
-/**
- * Created by PhpStorm.
- * User: codeanti
- * Date: 2020-1-4
- * Time: 下午3:08
- */
+
 trait UserTrait
 {
     /**

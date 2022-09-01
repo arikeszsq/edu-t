@@ -1,16 +1,12 @@
 <?php
+
 namespace App\Http\Traits;
 
 use App\Http\Constants\ResponseCodeConstant;
 use Illuminate\Http\JsonResponse;
 use stdClass;
 
-/**
- * Created by PhpStorm.
- * User: codeanti
- * Date: 2020-1-4
- * Time: 下午3:08
- */
+
 trait ImageTrait
 {
     /**
@@ -24,5 +20,14 @@ trait ImageTrait
             return getimagesize($imagePath);
         }
         return [];
+    }
+
+    public function fullImgUrl($url)
+    {
+        if (isset($url) && $url) {
+            return env('IMG_SERVE') . $url;
+        }else{
+            return $url;
+        }
     }
 }

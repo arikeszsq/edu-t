@@ -10,6 +10,8 @@ class CompanyCourse extends Model
 
     protected $table = 'company_course';
 
+    protected $fillable=['type','company_id','logo','name','price','total_num','sale_num'];
+
     const Type_早教 = 1;
     const Type_水育 = 2;
     const Type_美术 = 3;
