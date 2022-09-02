@@ -36,6 +36,7 @@ Route::prefix('/order')->group(function () {
 
 Route::prefix('/award')->group(function () {
     Route::any('/lists', 'AwardController@lists');
+    Route::any('/create', 'AwardController@create');
     Route::any('/my-lists', 'AwardController@myLists');
 });
 

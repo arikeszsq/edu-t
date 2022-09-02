@@ -17,8 +17,7 @@ class OrderController extends Controller
     public function lists(Request $request)
     {
         $inputs = $request->all();
-        $user_id = 1;
-        //            $user_id = self::authUserId();
+        $user_id = self::authUserId();
         $inputs['uid'] = $user_id;
 
         $validator = \Validator::make($inputs, [
