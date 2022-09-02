@@ -34,6 +34,11 @@ Route::prefix('/order')->group(function () {
     Route::any('/lists', 'OrderController@lists');
 });
 
+Route::prefix('/award')->group(function () {
+    Route::any('/lists', 'AwardController@lists');
+    Route::any('/my-lists', 'AwardController@myLists');
+});
+
 Route::prefix('/pay')->group(function () {
     Route::any('/pay', 'PayController@pay');
     Route::any('/notify', 'PayController@notify');
