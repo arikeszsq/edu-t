@@ -13,40 +13,36 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->any('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::any('/login', 'LoginController@login');
 
 //Route::middleware('auth:user')->group(function () {
-
-
 Route::prefix('/activity')->group(function () {
-    Route::get('/lists', 'ActivityController@lists');
-    Route::get('/type/{id}', 'ActivityController@type');
-    Route::get('/detail/{id}', 'ActivityController@detail');
+    Route::any('/lists', 'ActivityController@lists');
+    Route::any('/type/{id}', 'ActivityController@type');
+    Route::any('/detail/{id}', 'ActivityController@detail');
 });
 
 Route::prefix('/group')->group(function () {
-    Route::get('/lists', 'GroupController@lists');
+    Route::any('/lists', 'GroupController@lists');
 });
 
+Route::prefix('/order')->group(function () {
+    Route::any('/lists', 'OrderController@lists');
+});
 
-    Route::prefix('/pay')->group(function () {
-        Route::get('/pay', 'PayController@pay');
-        Route::get('/notify', 'PayController@notify');
+Route::prefix('/pay')->group(function () {
+    Route::any('/pay', 'PayController@pay');
+    Route::any('/notify', 'PayController@notify');
+});
+
+Route::prefix('/my')->group(function () {
+    Route::any('/info', function () {
+        return 1111;
     });
+});
 
-
-
-
-    Route::prefix('/my')->group(function () {
-
-        Route::any('/info', function () {
-            return 1111;
-        });
-
-
-    });
 //});

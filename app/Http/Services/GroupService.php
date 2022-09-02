@@ -33,10 +33,11 @@ class GroupService
                 'leader_name' => $group->user->name,
                 'leader_id' => $group->leader_id,
                 'num' => $group->num,
-                'current_num' => $group->current_num
+                'current_num' => $group->current_num,
+                'finished' => $group->finished
             ];
         }
-        return $activity_groups;
+        return $list;
     }
 
 }

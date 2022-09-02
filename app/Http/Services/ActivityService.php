@@ -75,9 +75,9 @@ class ActivityService
         $data['share_num'] = $activity->share_num;
         $data['content'] = $activity->content;
 
-        $groups = ActivitySignUser::getHasPayList($id);
-        $users = [];
-        foreach ($groups as $group) {
+        $sign_users = ActivitySignUser::getHasPayList($id);
+        $pay_group_list = [];
+        foreach ($sign_users as $group) {
             $role = $group->role;
             $type = $group->type;
             if ($type == 2) {
@@ -94,7 +94,7 @@ class ActivityService
                 }
             }
 
-            $users[] = [
+            $pay_group_list[] = [
                 'avatar' => $group->user->avatar,
                 'name' => $group->user->name,
                 'msg' => $msg,
@@ -102,7 +102,7 @@ class ActivityService
                 'pay_time' => $group->pay_time,
             ];
         }
-        $data['group'] = $users;
+        $data['pay_group_list'] = $pay_group_list;
         return $data;
 
     }

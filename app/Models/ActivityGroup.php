@@ -16,6 +16,9 @@ class ActivityGroup extends Model
     const Status_有效_已支付 = 1;
     const Status_无效_未支付 = 2;
 
+    const Finished_成团 = 1;
+    const Finished_未成团 = 2;
+
     public function user()
     {
         return $this->hasOne(User::class,'id','leader_id');

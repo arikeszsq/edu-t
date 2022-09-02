@@ -22,6 +22,11 @@ class ActivitySignUser extends Model
         return $this->hasOne(User::class,'id','user_id');
     }
 
+    public function group()
+    {
+        return $this->hasOne(ActivityGroup::class,'id','group_id');
+    }
+
     const Sex_List = [
         1 => '男',
         2 => '女'
