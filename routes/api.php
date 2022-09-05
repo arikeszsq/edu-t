@@ -28,6 +28,7 @@ Route::prefix('/activity')->group(function () {
 
 Route::prefix('/group')->group(function () {
     Route::any('/lists', 'GroupController@lists');
+    Route::any('/user-lists/{id}', 'GroupController@userList');
 });
 
 Route::prefix('/order')->group(function () {

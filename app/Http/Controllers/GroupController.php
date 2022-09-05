@@ -36,4 +36,13 @@ class GroupController extends Controller
             return self::error($e->getCode(), $e->getMessage());
         }
     }
+
+    public function userList($id)
+    {
+        try {
+            return self::success($this->groupService->userList($id));
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
 }

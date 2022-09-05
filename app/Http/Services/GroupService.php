@@ -49,4 +49,26 @@ class GroupService
         return $list;
     }
 
+    public function userList($id)
+    {
+        $lists = ActivitySignUser::query()
+            ->with('user')
+            ->where('group_id', $id)
+            ->where('status', ActivitySignUser::Status_已支付)
+            ->orderBy('role', 'asc')
+            ->orderBy('pay_time', 'desc')
+            ->get();
+
+        $users = [];
+        foreach ($lists as $list) {
+            $users[] = [
+                'role' => $list->role,//1团长  2团员
+                'avatar' => $list->user->avatar,
+                'name' => $list->user->name,
+                'created_at' => date('Y-m-d H:i', strtotime($list->created_at))
+            ];
+        }
+        return $users;
+    }
+
 }
