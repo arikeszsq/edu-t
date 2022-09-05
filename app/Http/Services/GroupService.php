@@ -19,8 +19,17 @@ class GroupService
             ->with('user')
             ->where('activity_id', $activity_id)
             ->where('status', ActivityGroup::Status_有效_已支付);
+
         if (isset($inputs['leader_id']) && $inputs['leader_id']) {
             $query->where('leader_id', $inputs['leader_id']);
+        }
+
+        if (isset($inputs['leader_wx_name']) && $inputs['leader_wx_name']) {
+            $query->where('leader_wx_name', 'like', '%' . $inputs['leader_wx_name'] . '%');
+        }
+
+        if (isset($inputs['leader_boy_name']) && $inputs['leader_boy_name']) {
+            $query->where('leader_boy_name', 'like', '%' . $inputs['leader_boy_name'] . '%');
         }
 
         $activity_groups = $query->orderBy('current_num', 'desc')
