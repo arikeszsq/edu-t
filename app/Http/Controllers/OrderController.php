@@ -36,9 +36,15 @@ class OrderController extends Controller
                 ->leftJoin('users', 'activity_group.leader_id', 'users.id')
                 ->where('activity_sign_user.activity_id', $inputs['activity_id'])
                 ->where('activity_sign_user.user_id', $inputs['uid']);
+
             if (isset($inputs['finished']) && $inputs['finished']) {
                 $query->where('activity_group.finished', $inputs['finished']);
             }
+
+            if (isset($inputs['status']) && $inputs['status']) {
+                $query->where('activity_sign_user.status', $inputs['status']);
+            }
+
             $orders = $query->get();
             $data = [];
             foreach ($orders as $order) {
@@ -48,6 +54,8 @@ class OrderController extends Controller
                     'order_no' => $order->order_no,
                     'pay_time' => $order->pay_time,
                     'group_success_time' => $order->success_time,
+                    'status'=>$order->status,
+                    'finished'=>$order->finished,
                 ];
             }
             $ret['num_unfinished'] = DB::table('activity_sign_user')
