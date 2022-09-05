@@ -26,6 +26,12 @@ Route::prefix('/activity')->group(function () {
     Route::any('/detail/{id}', 'ActivityController@detail');
 });
 
+
+Route::prefix('/course')->group(function () {
+    Route::any('/type-lists', 'CourseController@typeLists');
+    Route::any('/lists', 'CourseController@lists');
+});
+
 Route::prefix('/group')->group(function () {
     Route::any('/lists', 'GroupController@lists');
     Route::any('/user-lists/{id}', 'GroupController@userList');

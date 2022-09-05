@@ -3,14 +3,26 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Services\ActivityService;
-use App\Models\Company;
+use App\Http\Services\CourseService;
+use App\Models\CompanyCourse;
 use Exception;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class CourseController extends Controller
 {
+
+    public $courseService;
+
+    public function __construct(CourseService $courseService)
+    {
+        $this->courseService = $courseService;
+    }
+
+    public function typeLists()
+    {
+        return CompanyCourse::Type_类型列表;
+    }
+
     public function lists(Request $request)
     {
         $inputs = $request->all();
@@ -23,13 +35,7 @@ class CompanyController extends Controller
             return self::parametersIllegal($validator->messages()->first());
         }
         try {
-
-            $list = Company::query()
-                ->where('activity_id', $inputs['activity_id'])
-                ->get();
-
-
-            return self::success($list);
+            return self::success($this->courseService->lists($inputs));
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
