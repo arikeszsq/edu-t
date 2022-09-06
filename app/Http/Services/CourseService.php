@@ -8,6 +8,7 @@ use App\Models\Activity;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignCom;
 use App\Models\ActivitySignUser;
+use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,26 @@ class CourseService
         }
 
         return $course;
+    }
+
+
+    public function companyChildList($course_id)
+    {
+        $course = CompanyCourse::query()->find($course_id);
+        $children = CompanyChild::query()->where('company_id', $course->company_id)->get();
+        $data = [];
+        foreach ($children as $child) {
+
+            $gap = 0;
+
+            $data[] = [
+                'id' => $child->id,
+                'name' => $child->name,
+                'address' => $child->address,
+                'gap' => $gap
+            ];
+        }
+        return $data;
     }
 
 }

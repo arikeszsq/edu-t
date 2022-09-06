@@ -40,4 +40,14 @@ class CourseController extends Controller
             return self::error($e->getCode(), $e->getMessage());
         }
     }
+
+
+    public function companyChildList($course_id)
+    {
+        try {
+            return self::success($this->courseService->companyChildList($course_id));
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
 }
