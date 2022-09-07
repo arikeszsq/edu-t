@@ -10,7 +10,6 @@ use Carbon\Carbon;
 
 class GroupService
 {
-
     public function lists($inputs)
     {
         $list = [];

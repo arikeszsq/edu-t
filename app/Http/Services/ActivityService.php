@@ -172,4 +172,42 @@ class ActivityService
         return $data;
     }
 
+
+    /***
+     * @param $inputs
+     * @return int
+     * @throws \Exception
+     */
+    public function inviteUser($inputs)
+    {
+        $activity_id = $inputs['activity_id'];
+        $parent_user_id = $inputs['parent_user_id'];
+        $invited_user_id = $inputs['invited_user_id'];
+        $data = [
+            'activity_id' => $activity_id,
+            'parent_user_id' => $parent_user_id,
+            'invited_user_id' => $invited_user_id
+        ];
+        $first = DB::table('user_activity_invite')
+            ->where('activity_id', $activity_id)
+            ->where('invited_user_id', $invited_user_id)
+            ->first();
+        if ($first) {
+            throw new \Exception('用户已存在');
+        }
+
+        $user = User::query()->where('id', $parent_user_id)->where('is_A', 1)->first();
+        if ($user) {
+            $data['A_user_id'] = $parent_user_id;
+        } else {
+            $user = DB::table('user_activity_invite')
+                ->where('activity_id', $activity_id)
+                ->where('invited_user_id', $parent_user_id)
+                ->orderBy('id', 'desc')
+                ->first();
+            $data['A_user_id'] = $user->A_user_id;
+        }
+        return DB::table('user_activity_invite')->insertGetId($data);
+    }
+
 }

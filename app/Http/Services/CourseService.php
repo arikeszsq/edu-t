@@ -17,6 +17,25 @@ class CourseService
 {
     use ImageTrait;
 
+    public function create($inputs)
+    {
+        $course_ids = $inputs['course_ids'];
+        $school_child_ids = $inputs['school_child_ids'];
+        $course_ids_array = explode(',', $course_ids);
+        $school_child_ids_array = explode(',', $school_child_ids);
+        $activity_sign_user_course = [];
+        foreach ($course_ids_array as $key => $value) {
+            $activity_sign_user_course[] = [
+                'activity_id' => $inputs['activity_id'],
+                'school_id' => $school_child_ids_array[$key],
+                'course_id' => $value,
+                'user_id' => $inputs['uid'],
+            ];
+        }
+        return DB::table('user_activity_invite')->insert($activity_sign_user_course);
+    }
+
+
     public function lists($inputs)
     {
         $activity_id = $inputs['activity_id'];

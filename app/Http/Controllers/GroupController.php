@@ -19,6 +19,12 @@ class GroupController extends Controller
         $this->groupService = $groupService;
     }
 
+    public function create(Request $request)
+    {
+        //支付成功之后才会加团或者开团，方法放在ActivityGroup的模型里
+    }
+
+
     public function lists(Request $request)
     {
         $inputs = $request->all();
