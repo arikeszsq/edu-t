@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ActivitySignUser;
 use Illuminate\Http\Request;
 
 class PayController extends Controller
@@ -12,10 +13,51 @@ class PayController extends Controller
     public function pay(Request $request)
     {
         $inputs = $request->all();
-        $type = $inputs['type'];
+        $user_id = self::authUserId();
+        $inputs['uid'] = $user_id;
+
+        $validator = \Validator::make($inputs, [
+            'activity_id' => 'required',
+            'type' => 'required',
+        ], [
+            'activity_id.required' => '活动ID必填',
+            'type.required' => '开团类型必填：1开团 2单独购买',
+        ]);
+        if ($validator->fails()) {
+            return self::parametersIllegal($validator->messages()->first());
+        }
         $activity_id = $inputs['activity_id'];
-        $activity = Activity::query()->find($activity_id);
-        $fee = 0.01;//举例充值0.01
+        $activity = Activity::getActivityById($activity_id);
+        $is_many = $activity->is_many;
+
+        if ($is_many == Activity::is_many_多商家) {
+            $validator2 = \Validator::make($inputs, [
+                'sign_name' => 'required',
+                'sign_mobile' => 'required',
+                'sign_age' => 'required',
+                'sign_sex' => 'required',
+                'is_agree' => 'required',
+            ], [
+                'sign_name.required' => '报名学生姓名必填',
+                'sign_mobile.required' => '报名手机号必填',
+                'sign_age.required' => '报名学生年龄必填',
+                'sign_sex.required' => '性别必填：1男2女',
+                'is_agree.required' => '必须同意协议',
+            ]);
+            if ($validator2->fails()) {
+                return self::parametersIllegal($validator2->messages()->first());
+            }
+        }
+        ActivitySignUser::updateSignUserInfo($inputs);
+        if ($inputs['type'] == ActivitySignUser::Type_直接买) {
+            $fee = $activity->ori_price;
+        } else {
+            $fee = $activity->real_price;
+        }
+
+        $order_number = rand(1111, 9999) . date('Ymd') . $user_id;
+
+
         $openid = '填写openid';
         $appid = env('AppID');//这里写小程序AddId
         $body = $activity->title; //这个自己写,微信订单里面显示的是商品名称

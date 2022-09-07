@@ -31,6 +31,10 @@ class CourseService
                 'course_id' => $value,
                 'user_id' => $inputs['uid'],
             ];
+
+            $company_course = CompanyCourse::query()->find($value);
+            $company_course->sale_num += 1;
+            $company_course->save();
         }
         return DB::table('user_activity_invite')->insert($activity_sign_user_course);
     }
