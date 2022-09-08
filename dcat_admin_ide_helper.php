@@ -33,9 +33,17 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection share_bg
      * @property Grid\Column|Collection share_q_code
      * @property Grid\Column|Collection merge_img
+     * @property Grid\Column|Collection a_invite_money
+     * @property Grid\Column|Collection second_invite_money
+     * @property Grid\Column|Collection deal_group_num
      * @property Grid\Column|Collection activity_id
      * @property Grid\Column|Collection name
+     * @property Grid\Column|Collection num
+     * @property Grid\Column|Collection current_num
      * @property Grid\Column|Collection leader_id
+     * @property Grid\Column|Collection leader_wx_name
+     * @property Grid\Column|Collection leader_boy_name
+     * @property Grid\Column|Collection finished
      * @property Grid\Column|Collection success_time
      * @property Grid\Column|Collection company_id
      * @property Grid\Column|Collection group_id
@@ -52,6 +60,11 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection sign_age
      * @property Grid\Column|Collection sign_sex
      * @property Grid\Column|Collection is_agree
+     * @property Grid\Column|Collection info_two
+     * @property Grid\Column|Collection info_one
+     * @property Grid\Column|Collection school_id
+     * @property Grid\Column|Collection course_id
+     * @property Grid\Column|Collection sign_user_id
      * @property Grid\Column|Collection version
      * @property Grid\Column|Collection detail
      * @property Grid\Column|Collection is_enabled
@@ -77,10 +90,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection price
      * @property Grid\Column|Collection is_commander
      * @property Grid\Column|Collection group_ok
+     * @property Grid\Column|Collection is_free
      * @property Grid\Column|Collection intruduction
      * @property Grid\Column|Collection video_url
      * @property Grid\Column|Collection address
-     * @property Grid\Column|Collection company_Id
      * @property Grid\Column|Collection total_num
      * @property Grid\Column|Collection sale_num
      * @property Grid\Column|Collection connection
@@ -97,6 +110,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection audit_id
      * @property Grid\Column|Collection audit_time
      * @property Grid\Column|Collection order_num
+     * @property Grid\Column|Collection area
+     * @property Grid\Column|Collection gap
      * @property Grid\Column|Collection openid
      * @property Grid\Column|Collection email_verified_at
      * @property Grid\Column|Collection is_A
@@ -129,9 +144,17 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection share_bg(string $label = null)
      * @method Grid\Column|Collection share_q_code(string $label = null)
      * @method Grid\Column|Collection merge_img(string $label = null)
+     * @method Grid\Column|Collection a_invite_money(string $label = null)
+     * @method Grid\Column|Collection second_invite_money(string $label = null)
+     * @method Grid\Column|Collection deal_group_num(string $label = null)
      * @method Grid\Column|Collection activity_id(string $label = null)
      * @method Grid\Column|Collection name(string $label = null)
+     * @method Grid\Column|Collection num(string $label = null)
+     * @method Grid\Column|Collection current_num(string $label = null)
      * @method Grid\Column|Collection leader_id(string $label = null)
+     * @method Grid\Column|Collection leader_wx_name(string $label = null)
+     * @method Grid\Column|Collection leader_boy_name(string $label = null)
+     * @method Grid\Column|Collection finished(string $label = null)
      * @method Grid\Column|Collection success_time(string $label = null)
      * @method Grid\Column|Collection company_id(string $label = null)
      * @method Grid\Column|Collection group_id(string $label = null)
@@ -148,6 +171,11 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection sign_age(string $label = null)
      * @method Grid\Column|Collection sign_sex(string $label = null)
      * @method Grid\Column|Collection is_agree(string $label = null)
+     * @method Grid\Column|Collection info_two(string $label = null)
+     * @method Grid\Column|Collection info_one(string $label = null)
+     * @method Grid\Column|Collection school_id(string $label = null)
+     * @method Grid\Column|Collection course_id(string $label = null)
+     * @method Grid\Column|Collection sign_user_id(string $label = null)
      * @method Grid\Column|Collection version(string $label = null)
      * @method Grid\Column|Collection detail(string $label = null)
      * @method Grid\Column|Collection is_enabled(string $label = null)
@@ -173,10 +201,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection price(string $label = null)
      * @method Grid\Column|Collection is_commander(string $label = null)
      * @method Grid\Column|Collection group_ok(string $label = null)
+     * @method Grid\Column|Collection is_free(string $label = null)
      * @method Grid\Column|Collection intruduction(string $label = null)
      * @method Grid\Column|Collection video_url(string $label = null)
      * @method Grid\Column|Collection address(string $label = null)
-     * @method Grid\Column|Collection company_Id(string $label = null)
      * @method Grid\Column|Collection total_num(string $label = null)
      * @method Grid\Column|Collection sale_num(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
@@ -193,6 +221,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection audit_id(string $label = null)
      * @method Grid\Column|Collection audit_time(string $label = null)
      * @method Grid\Column|Collection order_num(string $label = null)
+     * @method Grid\Column|Collection area(string $label = null)
+     * @method Grid\Column|Collection gap(string $label = null)
      * @method Grid\Column|Collection openid(string $label = null)
      * @method Grid\Column|Collection email_verified_at(string $label = null)
      * @method Grid\Column|Collection is_A(string $label = null)
@@ -230,9 +260,17 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection share_bg
      * @property Show\Field|Collection share_q_code
      * @property Show\Field|Collection merge_img
+     * @property Show\Field|Collection a_invite_money
+     * @property Show\Field|Collection second_invite_money
+     * @property Show\Field|Collection deal_group_num
      * @property Show\Field|Collection activity_id
      * @property Show\Field|Collection name
+     * @property Show\Field|Collection num
+     * @property Show\Field|Collection current_num
      * @property Show\Field|Collection leader_id
+     * @property Show\Field|Collection leader_wx_name
+     * @property Show\Field|Collection leader_boy_name
+     * @property Show\Field|Collection finished
      * @property Show\Field|Collection success_time
      * @property Show\Field|Collection company_id
      * @property Show\Field|Collection group_id
@@ -249,6 +287,11 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection sign_age
      * @property Show\Field|Collection sign_sex
      * @property Show\Field|Collection is_agree
+     * @property Show\Field|Collection info_two
+     * @property Show\Field|Collection info_one
+     * @property Show\Field|Collection school_id
+     * @property Show\Field|Collection course_id
+     * @property Show\Field|Collection sign_user_id
      * @property Show\Field|Collection version
      * @property Show\Field|Collection detail
      * @property Show\Field|Collection is_enabled
@@ -274,10 +317,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection price
      * @property Show\Field|Collection is_commander
      * @property Show\Field|Collection group_ok
+     * @property Show\Field|Collection is_free
      * @property Show\Field|Collection intruduction
      * @property Show\Field|Collection video_url
      * @property Show\Field|Collection address
-     * @property Show\Field|Collection company_Id
      * @property Show\Field|Collection total_num
      * @property Show\Field|Collection sale_num
      * @property Show\Field|Collection connection
@@ -294,6 +337,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection audit_id
      * @property Show\Field|Collection audit_time
      * @property Show\Field|Collection order_num
+     * @property Show\Field|Collection area
+     * @property Show\Field|Collection gap
      * @property Show\Field|Collection openid
      * @property Show\Field|Collection email_verified_at
      * @property Show\Field|Collection is_A
@@ -326,9 +371,17 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection share_bg(string $label = null)
      * @method Show\Field|Collection share_q_code(string $label = null)
      * @method Show\Field|Collection merge_img(string $label = null)
+     * @method Show\Field|Collection a_invite_money(string $label = null)
+     * @method Show\Field|Collection second_invite_money(string $label = null)
+     * @method Show\Field|Collection deal_group_num(string $label = null)
      * @method Show\Field|Collection activity_id(string $label = null)
      * @method Show\Field|Collection name(string $label = null)
+     * @method Show\Field|Collection num(string $label = null)
+     * @method Show\Field|Collection current_num(string $label = null)
      * @method Show\Field|Collection leader_id(string $label = null)
+     * @method Show\Field|Collection leader_wx_name(string $label = null)
+     * @method Show\Field|Collection leader_boy_name(string $label = null)
+     * @method Show\Field|Collection finished(string $label = null)
      * @method Show\Field|Collection success_time(string $label = null)
      * @method Show\Field|Collection company_id(string $label = null)
      * @method Show\Field|Collection group_id(string $label = null)
@@ -345,6 +398,11 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection sign_age(string $label = null)
      * @method Show\Field|Collection sign_sex(string $label = null)
      * @method Show\Field|Collection is_agree(string $label = null)
+     * @method Show\Field|Collection info_two(string $label = null)
+     * @method Show\Field|Collection info_one(string $label = null)
+     * @method Show\Field|Collection school_id(string $label = null)
+     * @method Show\Field|Collection course_id(string $label = null)
+     * @method Show\Field|Collection sign_user_id(string $label = null)
      * @method Show\Field|Collection version(string $label = null)
      * @method Show\Field|Collection detail(string $label = null)
      * @method Show\Field|Collection is_enabled(string $label = null)
@@ -370,10 +428,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection price(string $label = null)
      * @method Show\Field|Collection is_commander(string $label = null)
      * @method Show\Field|Collection group_ok(string $label = null)
+     * @method Show\Field|Collection is_free(string $label = null)
      * @method Show\Field|Collection intruduction(string $label = null)
      * @method Show\Field|Collection video_url(string $label = null)
      * @method Show\Field|Collection address(string $label = null)
-     * @method Show\Field|Collection company_Id(string $label = null)
      * @method Show\Field|Collection total_num(string $label = null)
      * @method Show\Field|Collection sale_num(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
@@ -390,6 +448,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection audit_id(string $label = null)
      * @method Show\Field|Collection audit_time(string $label = null)
      * @method Show\Field|Collection order_num(string $label = null)
+     * @method Show\Field|Collection area(string $label = null)
+     * @method Show\Field|Collection gap(string $label = null)
      * @method Show\Field|Collection openid(string $label = null)
      * @method Show\Field|Collection email_verified_at(string $label = null)
      * @method Show\Field|Collection is_A(string $label = null)
