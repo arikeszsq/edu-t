@@ -74,11 +74,15 @@ class ActivitySignUser extends Model
                 'sign_age' => $inputs['sign_age'],
                 'sign_sex' => $inputs['sign_sex'],
                 'creater_id' => $inputs['uid'],
+                'order_no' => $inputs['order_num'],
             ];
         } else {
             $data = [
                 'type' => $inputs['type'],
+                'info_one' => $inputs['info_one'],
+                'info_two' => $inputs['info_two'],
                 'creater_id' => $inputs['uid'],
+                'order_no' => $inputs['order_num'],
             ];
         }
         return ActivitySignUser::query()

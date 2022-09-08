@@ -27,6 +27,12 @@ trait UserTrait
 //        return self::authUser() ? self::authUser()->id : null;
     }
 
+
+    public static function authUserOpenId()
+    {
+        return self::authUser() ? self::authUser()->openid : null;
+    }
+
     public static function authUserEmail()
     {
         return self::authUser() ? self::authUser()->email : null;
