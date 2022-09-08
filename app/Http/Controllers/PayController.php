@@ -12,6 +12,15 @@ class PayController extends Controller
 {
 
     /**
+     *
+     * Server_appid= //服务号的appid
+     * Server_mch_id= //服务商商户号
+     * sub_key //特约商户的key
+     * sub_appid= //子商户(特约商户)的appid
+     * sub_mch_id= //子商户(特约商户)商户号
+     *
+     *
+     *
      * https://www.freesion.com/article/34881028190/
      * 使用场景举例
      * 1、服务商抽成
