@@ -92,6 +92,9 @@ class ActivityController extends AdminController
             $form->select('is_many')->options(Activity::$is_many_list)->required();
             $form->decimal('ori_price')->required();
             $form->decimal('real_price','开团价格')->required();
+            $form->number('deal_group_num','成团人数')->required();
+            $form->decimal('a_invite_money','一级邀请奖励金额')->required();
+            $form->decimal('second_invite_money','二级邀请奖励金额')->required();
             $form->datetime('start_time')->required();
             $form->datetime('end_time')->required();
             $form->text('description');

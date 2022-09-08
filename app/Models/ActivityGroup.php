@@ -24,26 +24,19 @@ class ActivityGroup extends Model
         return $this->hasOne(User::class,'id','leader_id');
     }
 
-
     public static function getGroupById($id)
     {
         return ActivityGroup::query()->find($id);
     }
 
-
-
     public static function NewGroup($activity_id)
     {
         $user_id = self::authUserId();
-        $is_many = Activity::isMany($activity_id);
+        $activity = Activity::getActivityById($activity_id);
         $group = new ActivityGroup();
         $group->activity_id = $activity_id;
         $group->name = static::getOnlyCode($activity_id);
-        if ($is_many) {
-            $group->num = 2;
-        } else {
-            $group->num = 10;
-        }
+        $group->num = $activity->deal_group_num;
         $group->current_num = 1;
         $group->leader_id = $user_id;
         $group->creater_id = $user_id;
