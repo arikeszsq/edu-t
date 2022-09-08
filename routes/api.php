@@ -62,6 +62,10 @@ Route::prefix('/pay')->group(function () {
     Route::any('/notify', 'PayController@notify');
 });
 
+Route::prefix('/invite-user')->group(function () {
+    Route::any('/create', 'InviteUserController@pay');
+});
+
 Route::prefix('/my')->group(function () {
     Route::any('/info', function () {
         return 1111;

@@ -120,6 +120,11 @@ class PayController extends Controller
 
     public function notify()
     {
+        //支付成功
+        // 1. 新建组
+        // 2. 给邀请人分发奖励
+        // 3. 修改订单的状态及信息
+
 //        //支付成功后在回调方法中进行分账
 //        $this->profitsharing($shops['appid'],$shops['sub_mch_id'],$order['transaction_id']);
 
