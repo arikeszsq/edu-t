@@ -26,7 +26,7 @@ class RowSign extends RowAction
             ->lg()
             ->title($this->title)
             ->body($form)
-            ->button($this->title);
+            ->button('<span class="btn btn-sm btn-primary">'.$this->title.'</span>');
     }
 
 

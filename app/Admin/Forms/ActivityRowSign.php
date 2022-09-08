@@ -53,7 +53,7 @@ class ActivityRowSign extends Form implements LazyRenderable
         }
 
         $this->confirm('您确定要提交表单吗', 'content');
-        $this->select('activity_id')->options($options)->required();
+        $this->select('activity_id','活动')->options($options)->required();
     }
 
     /**
