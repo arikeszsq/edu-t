@@ -28,12 +28,10 @@ Route::prefix('/activity')->group(function () {
 });
 
 Route::prefix('/group')->group(function () {
-
 //    //立即开团  --- 支付成功之后放在回调里
 //    Route::any('/create', 'GroupController@create');
 //    //参加别人的团 --- 支付成功之后放在回调里
 //    Route::any('/add-other', 'GroupController@addOther');
-
     //所有的团列表
     Route::any('/lists', 'GroupController@lists');
     //某一个团里面成员列表
@@ -60,16 +58,6 @@ Route::prefix('/award')->group(function () {
 Route::prefix('/pay')->group(function () {
     Route::any('/pay', 'PayController@pay');
     Route::any('/notify', 'PayController@notify');
-});
-
-Route::prefix('/invite-user')->group(function () {
-    Route::any('/create', 'InviteUserController@pay');
-});
-
-Route::prefix('/my')->group(function () {
-    Route::any('/info', function () {
-        return 1111;
-    });
 });
 
 //});

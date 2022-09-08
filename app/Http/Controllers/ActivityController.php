@@ -49,6 +49,8 @@ class ActivityController extends Controller
     public function inviteUser(Request $request)
     {
         $inputs = $request->all();
+        $user_id = self::authUserId();
+        $inputs['uid'] = $user_id;
         $validator = \Validator::make($inputs, [
             'activity_id' => 'required',
             'parent_user_id' => 'required',

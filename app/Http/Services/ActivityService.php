@@ -9,6 +9,7 @@ use App\Models\ActivityGroup;
 use App\Models\ActivitySignCom;
 use App\Models\ActivitySignUser;
 use App\Models\Award;
+use App\Models\UserActivityInvite;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -195,19 +196,14 @@ class ActivityService
         if ($first) {
             throw new \Exception('用户已存在');
         }
-
-        $user = User::query()->where('id', $parent_user_id)->where('is_A', 1)->first();
-        if ($user) {
-            $data['A_user_id'] = $parent_user_id;
-        } else {
-            $user = DB::table('user_activity_invite')
-                ->where('activity_id', $activity_id)
-                ->where('invited_user_id', $parent_user_id)
-                ->orderBy('id', 'desc')
-                ->first();
-            $data['A_user_id'] = $user->A_user_id;
-        }
-        return DB::table('user_activity_invite')->insertGetId($data);
+        $a_user_id = User::getAUidByUid($inputs['parent_uid']);
+        return UserActivityInvite::query()->insertGetId([
+            'activity_id' => $inputs['activity_id'],
+            'A_user_id' => $a_user_id,
+            'parent_user_id' => $inputs['parent_uid'],
+            'invited_user_id' => $inputs['invite_uid'],
+            'has_pay' => 1,
+        ]);
     }
 
 }
