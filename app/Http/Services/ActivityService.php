@@ -184,11 +184,6 @@ class ActivityService
         $activity_id = $inputs['activity_id'];
         $parent_user_id = $inputs['parent_user_id'];
         $invited_user_id = $inputs['invited_user_id'];
-        $data = [
-            'activity_id' => $activity_id,
-            'parent_user_id' => $parent_user_id,
-            'invited_user_id' => $invited_user_id
-        ];
         $first = DB::table('user_activity_invite')
             ->where('activity_id', $activity_id)
             ->where('invited_user_id', $invited_user_id)
@@ -198,10 +193,10 @@ class ActivityService
         }
         $a_user_id = User::getAUidByUid($inputs['parent_uid']);
         return UserActivityInvite::query()->insertGetId([
-            'activity_id' => $inputs['activity_id'],
+            'activity_id' => $activity_id,
             'A_user_id' => $a_user_id,
-            'parent_user_id' => $inputs['parent_uid'],
-            'invited_user_id' => $inputs['invite_uid'],
+            'parent_user_id' => $parent_user_id,
+            'invited_user_id' => $invited_user_id,
             'has_pay' => 1,
         ]);
     }
