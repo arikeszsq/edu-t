@@ -39,7 +39,7 @@ Route::prefix('/group')->group(function () {
 });
 
 Route::prefix('/course')->group(function () {
-    Route::any('/create', 'CourseController@create');
+    Route::any('/detail/{id}', 'CourseController@detail');
     Route::any('/type-lists', 'CourseController@typeLists');
     Route::any('/lists', 'CourseController@lists');
     Route::any('/company-child-lists', 'CourseController@companyChildList');

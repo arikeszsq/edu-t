@@ -4,7 +4,9 @@ namespace App\Models;
 
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ActivitySignUser extends Model
 {
@@ -62,34 +64,84 @@ class ActivitySignUser extends Model
             ->get();
     }
 
-    public static function updateSignUserInfo($inputs)
+    /**
+     * 最后一步支付前，完善用户信息
+     * @param $inputs
+     * @return int
+     */
+    public static function createOrder($inputs)
     {
         $activity_id = $inputs['activity_id'];
         $is_many = Activity::isMany($activity_id);
+        $data = [
+            'activity_id' => $activity_id,
+            'group_id' => isset($inputs['group_id']) && $inputs['group_id'] ? $inputs['group_id'] : 0,
+            'role' => isset($inputs['group_id']) && $inputs['group_id'] ? 1 : 2,
+            'sign_name' => $inputs['sign_name'],
+            'sign_mobile' => $inputs['sign_mobile'],
+            'type' => $inputs['type'],//1开团 2单独购买
+            'creater_id' => $inputs['uid'],
+            'order_no' => $inputs['order_num'],
+            'user_id' => $inputs['uid'],
+            'has_pay' => 2,//1是 2 否
+            'status' => 1,//待支付
+            'money' => $inputs['money'],
+        ];
         if ($is_many == Activity::is_many_多商家) {
-            $data = [
-                'type' => $inputs['type'],
-                'sign_name' => $inputs['sign_name'],
-                'sign_mobile' => $inputs['sign_mobile'],
+            $data_many = [
                 'sign_age' => $inputs['sign_age'],
                 'sign_sex' => $inputs['sign_sex'],
-                'creater_id' => $inputs['uid'],
-                'order_no' => $inputs['order_num'],
             ];
+            self::createUserCourse($inputs);
+            $order = ActivitySignUser::query()->insertGetId(array_merge($data, $data_many));
         } else {
-            $data = [
-                'type' => $inputs['type'],
-                'info_one' => $inputs['info_one'],
-                'info_two' => $inputs['info_two'],
-                'creater_id' => $inputs['uid'],
-                'order_no' => $inputs['order_num'],
+            $data_one = [
+                'info_one' => isset($inputs['info_one']) && $inputs['info_one'] ? $inputs['info_one'] : '',
+                'info_two' => isset($inputs['info_two']) && $inputs['info_two'] ? $inputs['info_two'] : '',
+            ];
+            $order = ActivitySignUser::query()->insertGetId(array_merge($data, $data_one));
+        }
+        return $order;
+    }
+
+    /**
+     * 新建订单时，添加用户选择的课程
+     * @param $inputs
+     * @return bool
+     */
+    public static function createUserCourse($inputs)
+    {
+        $course_ids = $inputs['course_ids'];
+        $school_child_ids = $inputs['school_child_ids'];
+        $course_ids_array = explode(',', $course_ids);
+        $school_child_ids_array = explode(',', $school_child_ids);
+        $activity_sign_user_course = [];
+        foreach ($course_ids_array as $key => $value) {
+            $activity_sign_user_course[] = [
+                'activity_id' => $inputs['activity_id'],
+                'school_id' => $school_child_ids_array[$key],
+                'course_id' => $value,
+                'user_id' => $inputs['uid'],
+                'order_num' => $inputs['order_num']
             ];
         }
-        return ActivitySignUser::query()
-            ->where('activity_id', $activity_id)
-            ->where('user_id', $inputs['uid'])
-            ->where('has_pay', 2)
-            ->orderBy('id', 'desc')
-            ->update($data);
+        return DB::table('activity_sign_user_course')->insert($activity_sign_user_course);
+    }
+
+
+
+
+    /**
+     * 支付成功后回调
+     * @param $order_no
+     */
+    public static function updatePayInfo($order_no)
+    {
+        ActivitySignUser::query()->where('order_no', $order_no)
+            ->update([
+                'has_pay' => 1,
+                'status' => 3,
+                'pay_time' => Carbon::now(),
+            ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Http\Traits\UserTrait;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ActivityGroup extends Model
@@ -21,12 +22,29 @@ class ActivityGroup extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class,'id','leader_id');
+        return $this->hasOne(User::class, 'id', 'leader_id');
     }
 
     public static function getGroupById($id)
     {
         return ActivityGroup::query()->find($id);
+    }
+
+    public static function updatePayInfo($order)
+    {
+        if ($order->group_id) {
+            $group = ActivityGroup::query()->find($order->group_id);
+            $group->current_num += 1;
+            if (($group->current_num + 1) == $group->num) {
+                $group->finished = self::Finished_成团;
+                $group->success_time = Carbon::now();
+            }
+            $group->save();
+        } else {
+            //新建团
+            $group = self::NewGroup($order->activity_id);
+        }
+        return $group;
     }
 
     public static function NewGroup($activity_id)
@@ -40,7 +58,7 @@ class ActivityGroup extends Model
         $group->current_num = 1;
         $group->leader_id = $user_id;
         $group->creater_id = $user_id;
-        $group->status = 2;
+        $group->status = 1;
         $group->save();
     }
 
@@ -53,5 +71,4 @@ class ActivityGroup extends Model
         }
         return $code;
     }
-
 }

@@ -2,43 +2,14 @@
 
 namespace App\Http\Services;
 
-use App\Exceptions\ObjectNotExistException;
 use App\Http\Traits\ImageTrait;
-use App\Models\Activity;
-use App\Models\ActivityGroup;
-use App\Models\ActivitySignCom;
-use App\Models\ActivitySignUser;
 use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CourseService
 {
     use ImageTrait;
-
-    public function create($inputs)
-    {
-        $course_ids = $inputs['course_ids'];
-        $school_child_ids = $inputs['school_child_ids'];
-        $course_ids_array = explode(',', $course_ids);
-        $school_child_ids_array = explode(',', $school_child_ids);
-        $activity_sign_user_course = [];
-        foreach ($course_ids_array as $key => $value) {
-            $activity_sign_user_course[] = [
-                'activity_id' => $inputs['activity_id'],
-                'school_id' => $school_child_ids_array[$key],
-                'course_id' => $value,
-                'user_id' => $inputs['uid'],
-            ];
-
-            $company_course = CompanyCourse::query()->find($value);
-            $company_course->sale_num += 1;
-            $company_course->save();
-        }
-        return DB::table('user_activity_invite')->insert($activity_sign_user_course);
-    }
-
 
     public function lists($inputs)
     {

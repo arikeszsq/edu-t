@@ -4,7 +4,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
+use App\Models\CompanyCourse;
+use App\Models\UserActivityInvite;
 use App\Models\WxPay;
 use Illuminate\Http\Request;
 
@@ -71,10 +74,14 @@ class PayController extends Controller
                 'sign_age' => 'required',
                 'sign_sex' => 'required',
                 'is_agree' => 'required',
+                'course_ids' => 'required',
+                'school_child_ids' => 'required',
             ], [
                 'sign_age.required' => '报名学生年龄必填',
                 'sign_sex.required' => '性别必填：1男2女',
                 'is_agree.required' => '必须同意协议',
+                'course_ids.required' => '课程必填',
+                'school_child_ids.required' => '校区必填',
             ]);
             if ($validator2->fails()) {
                 return self::parametersIllegal($validator2->messages()->first());
@@ -95,12 +102,18 @@ class PayController extends Controller
         }
         $order_number = rand(1111, 9999) . date('Ymdhis') . $user_id;
         $inputs['order_num'] = $order_number;
-        ActivitySignUser::updateSignUserInfo($inputs);
+
         //总金额 最低为一分 必须是整数
         if ($inputs['type'] == ActivitySignUser::Type_直接买) {
             $fee = $activity->ori_price;
         } else {
             $fee = $activity->real_price;
+        }
+        $inputs['money'] = $fee;
+        // 新建订单
+        $order = ActivitySignUser::createOrder($inputs);
+        if (!$order) {
+            return self::error('10001', '创建订单失败');
         }
 
         $open_id = self::authUserOpenId();
@@ -118,26 +131,47 @@ class PayController extends Controller
     }
 
 
+    /**
+     * 支付成功
+     * 增加课程的已售份数
+     * 新建团或修改团信息：如果type是开团，group_id 不存在，才新建团，否则去修改团里面的信息
+     * 给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付
+     * 修改订单的状态及信息
+     * 修改邀请记录的支付状态
+     * 生成用户的专属分享图片
+     *
+     * @return bool
+     */
     public function notify()
     {
-        //支付成功
-        // 1. 新建组
-        // 2. 给邀请人分发奖励
-        // 3. 修改订单的状态及信息
-
-//        //支付成功后在回调方法中进行分账
-//        $this->profitsharing($shops['appid'],$shops['sub_mch_id'],$order['transaction_id']);
-
         $postXml = file_get_contents("php://input"); //接收微信参数
         if (empty($postXml)) {
             return false;
         }
-        //将xml格式转换成数组
         $attr = $this->xmlToArray($postXml);
-        $total_fee = $attr['total_fee'];
-        $open_id = $attr['openid'];
         $out_trade_no = $attr['out_trade_no'];
-        $time = $attr['time_end'];
+
+        //-----------------------支付成功后的操作-----------------------------
+        $order_no = $out_trade_no;
+        $order = ActivitySignUser::query()->where('order_no', $order_no)->first();
+
+        // 支付成功，增加课程的已售份数
+        CompanyCourse::updatePayInfo($order);
+        // 1. 新建团：如果type是开团，group_id 不存在，才新建团，否则去修改团里面的信息
+        if ($order->type == ActivitySignUser::Type_团) {
+            ActivityGroup::updatePayInfo($order);
+        }
+        // 2. 给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付
+
+        // 3. 修改订单的状态及信息
+        ActivitySignUser::updatePayInfo($order_no);
+        // 4. 修改邀请记录的支付状态
+        UserActivityInvite::updatePayInfo($order);
+        // 5. 生成用户的专属分享图片
+
+
+//        //支付成功后在回调方法中进行分账
+//        $this->profitsharing($shops['appid'],$shops['sub_mch_id'],$order['transaction_id']);
     }
 
     function xmlToArray($xml)
