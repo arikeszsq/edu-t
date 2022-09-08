@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\UserActivityInvite;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,7 +41,6 @@ class User extends Authenticatable
     ];
 
 
-
     /**
      * generate api token
      *
@@ -53,5 +53,25 @@ class User extends Authenticatable
         $this->save();
 
         return $this->session;
+    }
+
+
+    public static function getUserById($uid)
+    {
+        return User::query()->find($uid);
+    }
+
+    public static function getAUidByUid($uid)
+    {
+        $user = User::query()->find($uid);
+        if ($user->is_A == 1) {
+            return $user->id;
+        } else {
+            $a_user = UserActivityInvite::query()->where('invited_user_id', $uid)
+                ->where('has_pay', 1)
+                ->orderBy('id', 'desc')
+                ->first();
+            return $a_user->A_user_id;
+        }
     }
 }
