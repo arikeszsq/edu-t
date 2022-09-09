@@ -25,7 +25,8 @@ use Dcat\Admin\Show;
  *
  */
 
-
+//地图控件
+Form\Field\Map::requireAssets();
 
 //把view目录从vendor中复制出来方便修改
 app('view')->prependNamespace('admin', resource_path('views/admin'));

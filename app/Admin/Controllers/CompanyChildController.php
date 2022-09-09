@@ -24,10 +24,10 @@ class CompanyChildController extends AdminController
             $grid->column('address');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -63,7 +63,14 @@ class CompanyChildController extends AdminController
             $form->text('company_id');
             $form->text('name');
             $form->text('address');
-        
+
+//            Form\Field\Map::requireAssets();
+            $latitude = 'latitude';
+            $longitude = 'longitude';
+            $label = '地图控件';
+
+            $form->map($latitude, $longitude, $label);
+
             $form->display('created_at');
             $form->display('updated_at');
         });

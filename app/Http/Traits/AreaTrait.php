@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Log;
 
 trait AreaTrait
 {
+
+
+
+    /**
+     * 获取位置的经纬度
+     * @param $address
+     * @return string
+     */
     public function getGeo($address)
     {
         $url = 'http://restapi.amap.com/v3/geocode/geo?address=' . $address . '&output=JSON&key=' . env('Area_key');
@@ -20,6 +28,12 @@ trait AreaTrait
         return '';
     }
 
+    /**
+     * 获取俩地的距离
+     * @param $address1
+     * @param $address2
+     * @return float|int
+     */
     public function getGap($address1, $address2)
     {
         $url = 'http://restapi.amap.com/v3/distance?origins=' . $address1 . '&destination=' . $address2 . '&output=json&key=' . env('Area_key') . '&type=1';
