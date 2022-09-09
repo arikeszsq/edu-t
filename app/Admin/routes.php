@@ -24,6 +24,9 @@ Route::group([
     $router->resource('user-award', 'UserAwardController');
     $router->resource('invite-log', 'UserActivityInviteController');
 
+    //订单管理
+    $router->resource('order', 'OrderController');
+
 
     $router->get('custom/map', 'CompanyChildController@customMap'); // 自定义地图视图
 
