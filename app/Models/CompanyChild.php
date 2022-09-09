@@ -10,5 +10,10 @@ class CompanyChild extends Model
 
     protected $table = 'company_child';
 
-    protected $fillable=['company_id','name','address'];
+    protected $fillable=['company_id','name','map_area'];
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'id', 'company_id');
+    }
 }

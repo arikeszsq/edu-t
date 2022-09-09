@@ -21,6 +21,9 @@ class CompanyController extends AdminController
     protected function grid()
     {
         return Grid::make(new Company(), function (Grid $grid) {
+
+            $grid->model()->orderBy('id', 'desc');
+
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('short_name');
@@ -69,7 +72,7 @@ class CompanyController extends AdminController
      */
     protected function form()
     {
-        return Form::make(Company::with(['children','courses']), function (Form $form) {
+        return Form::make(Company::with(['children', 'courses']), function (Form $form) {
             $form->display('id');
             $form->text('name');
             $form->text('short_name');
@@ -77,17 +80,18 @@ class CompanyController extends AdminController
             $form->image('logo')->width(6);
             $form->file('video_url')->width(6);
 
-            $form->hasMany('children', function (Form\NestedForm $form) {
-                $form->width(2)->text('name');
-                $form->width(2)->text('address','校区地址');
-            })->useTable()->label('校区')->required();
+//            因为要添加经纬度，所有不想在这里加了，因为是别人写的地图插件，这里加的，只能定位一个
+//            $form->hasMany('children', function (Form\NestedForm $form) {
+//                $form->width(2)->text('name');
+//                $form->width(2)->text('map_area','校区地址');
+//            })->useTable()->label('校区')->required();
 
             $form->hasMany('courses', function (Form\NestedForm $form) {
                 $form->select('type')->options(CompanyCourse::Type_类型列表)->width(3);
                 $form->image('logo')->width(3);
                 $form->text('name')->width(3);
-                $form->decimal('price','价格')->width(3);
-                $form->number('total_num','名额数')->width(3);
+                $form->decimal('price', '价格')->width(3);
+                $form->number('total_num', '名额数')->width(3);
             })->label('课程')->required();
 
 
