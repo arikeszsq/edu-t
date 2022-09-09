@@ -56,7 +56,7 @@ class CourseService
             $data[] = [
                 'id' => $child->id,
                 'name' => $child->name,
-                'address' => $child->address,
+                'map_area' => $child->map_area,
                 'gap' => $gap
             ];
         }
