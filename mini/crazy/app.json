@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/checkSchool/checkSchool",
     "pages/position/position",
-    "pages/index/index",
     "pages/activity/detail/index",
     "pages/mine/mine",
     "pages/list/list",

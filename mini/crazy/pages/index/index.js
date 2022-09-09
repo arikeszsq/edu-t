@@ -25,7 +25,7 @@ Page({
       success: res => {
         var that = this;
         console.log(res.data)
-        this.setData({
+        that.setData({
           news: res.data.response
         })
       }
