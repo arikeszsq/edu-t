@@ -157,7 +157,7 @@ class PayController extends Controller
 
         // 支付成功，增加课程的已售份数
         CompanyCourse::updatePayInfo($order);
-        // 1. 新建团：如果type是开团，group_id 不存在，才新建团，否则去修改团里面的信息
+        // 1. 新建团或修改团信息
         if ($order->type == ActivitySignUser::Type_团) {
             ActivityGroup::updatePayInfo($order);
         }
