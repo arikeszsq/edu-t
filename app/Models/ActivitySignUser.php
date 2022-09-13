@@ -72,7 +72,8 @@ class ActivitySignUser extends Model
     public static function createOrder($inputs)
     {
         $activity_id = $inputs['activity_id'];
-        $is_many = Activity::isMany($activity_id);
+        $activity = Activity::getActivityById($activity_id);
+        $is_many = $activity->is_many;
         $data = [
             'activity_id' => $activity_id,
             'group_id' => isset($inputs['group_id']) && $inputs['group_id'] ? $inputs['group_id'] : 0,
