@@ -63,6 +63,7 @@ class PayController extends Controller
      *              @OA\Property(property="sign_age",type="Integer",description="报名学生年龄"),
      *              @OA\Property(property="sign_sex",type="Integer",description="性别：1男2女"),
      *              @OA\Property(property="course_ids",type="Integer",description="课程，1，2，3"),
+     *              @OA\Property(property="is_agree",type="Integer",description="同意协议 1"),
      *              @OA\Property(property="school_child_ids",type="Integer",description="校区，1，2，3"),
      *              @OA\Property(property="info_one",type="Integer",description="信息一"),
      *              @OA\Property(property="info_two",type="Integer",description="信息二"),
