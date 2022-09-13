@@ -20,7 +20,7 @@ class AwardController extends Controller
      *     summary="领取奖励",
      *   @OA\RequestBody(
      *       required=true,
-     *       description="address edit",
+     *       description="领取奖励",
      *       @OA\MediaType(
      *         mediaType="application/x-www-form-urlencoded",
      *         @OA\Schema(

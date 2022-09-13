@@ -117,7 +117,7 @@
                 "summary": "领取奖励",
                 "operationId": "40b7b9904ef73cc0e3cd3e6a91469423",
                 "requestBody": {
-                    "description": "address edit",
+                    "description": "领取奖励",
                     "required": true,
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -427,6 +427,73 @@
                 "responses": {
                     "200": {
                         "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/pay/pay": {
+            "post": {
+                "tags": [
+                    "支付"
+                ],
+                "summary": "支付",
+                "operationId": "040427ed825122d43a7c89f2dffafe78",
+                "requestBody": {
+                    "description": "支付",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "activity_id": {
+                                        "description": "活动的id",
+                                        "type": "Integer"
+                                    },
+                                    "type": {
+                                        "description": "开团类型必填：1开团 2单独购买",
+                                        "type": "Integer"
+                                    },
+                                    "sign_name": {
+                                        "description": "报名学生姓名必填",
+                                        "type": "Integer"
+                                    },
+                                    "sign_mobile": {
+                                        "description": "报名手机号必填",
+                                        "type": "Integer"
+                                    },
+                                    "sign_age": {
+                                        "description": "报名学生年龄",
+                                        "type": "Integer"
+                                    },
+                                    "sign_sex": {
+                                        "description": "性别：1男2女",
+                                        "type": "Integer"
+                                    },
+                                    "course_ids": {
+                                        "description": "课程，1，2，3",
+                                        "type": "Integer"
+                                    },
+                                    "school_child_ids": {
+                                        "description": "校区，1，2，3",
+                                        "type": "Integer"
+                                    },
+                                    "info_one": {
+                                        "description": "信息一",
+                                        "type": "Integer"
+                                    },
+                                    "info_two": {
+                                        "description": "信息二",
+                                        "type": "Integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "100000": {
+                        "description": "success"
                     }
                 }
             }

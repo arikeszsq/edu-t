@@ -45,6 +45,39 @@ class PayController extends Controller
      * 原文链接：https://blog.csdn.net/weixin_43202928/article/details/119024929
      */
 
+
+    /**
+     * @OA\Post(
+     *     path="/api/pay/pay",
+     *     tags={"支付"},
+     *     summary="支付",
+     *   @OA\RequestBody(
+     *       required=true,
+     *       description="支付",
+     *       @OA\MediaType(
+     *         mediaType="application/x-www-form-urlencoded",
+     *         @OA\Schema(
+     *              @OA\Property(property="activity_id",type="Integer",description="活动的id"),
+     *              @OA\Property(property="type",type="Integer",description="开团类型必填：1开团 2单独购买"),
+     *              @OA\Property(property="sign_name",type="Integer",description="报名学生姓名必填"),
+     *              @OA\Property(property="sign_mobile",type="Integer",description="报名手机号必填"),
+     *              @OA\Property(property="sign_age",type="Integer",description="报名学生年龄"),
+     *              @OA\Property(property="sign_sex",type="Integer",description="性别：1男2女"),
+     *              @OA\Property(property="course_ids",type="Integer",description="课程，1，2，3"),
+     *              @OA\Property(property="school_child_ids",type="Integer",description="校区，1，2，3"),
+     *              @OA\Property(property="info_one",type="Integer",description="信息一"),
+     *              @OA\Property(property="info_two",type="Integer",description="信息二"),
+     *          ),
+     *       ),
+     *   ),
+     *     @OA\Response(
+     *         response=100000,
+     *         description="success"
+     *     )
+     * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function pay(Request $request)
     {
         $inputs = $request->all();
