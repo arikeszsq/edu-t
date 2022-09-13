@@ -172,6 +172,97 @@
                 }
             }
         },
+        "/api/course/type-lists": {
+            "get": {
+                "tags": [
+                    "课程"
+                ],
+                "summary": "课程分类",
+                "operationId": "8909b306abee4b79f4c5ddb375b7269d",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/course/lists": {
+            "get": {
+                "tags": [
+                    "课程"
+                ],
+                "summary": "课程列表",
+                "operationId": "cc43c0f6bc1edd8d6e3cace60b666bc3",
+                "parameters": [
+                    {
+                        "name": "activity_id",
+                        "in": "query",
+                        "description": "活动id",
+                        "required": true
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "课程类型：1 => '早教',2 => '水育',3 => '美术',4 => '乐高',5 => '围棋',6 => '硬笔',7 => '软笔',8 => '国画',"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/course/detail/{id}": {
+            "get": {
+                "tags": [
+                    "课程"
+                ],
+                "summary": "课程详情",
+                "operationId": "86afe689330c9dad619e5678a61460b3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "课程详情",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/course/company-child-lists/{id}": {
+            "get": {
+                "tags": [
+                    "课程"
+                ],
+                "summary": "课程校区列表",
+                "operationId": "82173a996f6a8a65fa9c6dcc44310853",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "课程Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/api/group/lists": {
             "get": {
                 "tags": [

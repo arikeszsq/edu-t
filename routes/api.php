@@ -52,7 +52,7 @@ Route::prefix('/course')->group(function () {
     Route::any('/detail/{id}', 'CourseController@detail');
     Route::any('/type-lists', 'CourseController@typeLists');
     Route::any('/lists', 'CourseController@lists');
-    Route::any('/company-child-lists', 'CourseController@companyChildList');
+    Route::any('/company-child-lists/{id}', 'CourseController@companyChildList');
 });
 
 Route::prefix('/pay')->group(function () {
