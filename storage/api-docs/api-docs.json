@@ -109,6 +109,69 @@
                 }
             }
         },
+        "/api/award/create": {
+            "post": {
+                "tags": [
+                    "奖励"
+                ],
+                "summary": "领取奖励",
+                "operationId": "40b7b9904ef73cc0e3cd3e6a91469423",
+                "requestBody": {
+                    "description": "address edit",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "activity_id": {
+                                        "description": "活动的id",
+                                        "type": "Integer"
+                                    },
+                                    "id": {
+                                        "description": "奖励的id",
+                                        "type": "Integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "100000": {
+                        "description": "success"
+                    }
+                }
+            }
+        },
+        "/api/award/lists": {
+            "get": {
+                "tags": [
+                    "奖励"
+                ],
+                "summary": "奖励列表",
+                "operationId": "c12325b5d1870f5d8d55f3afc4826ff9",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/award/my-lists": {
+            "get": {
+                "tags": [
+                    "奖励"
+                ],
+                "summary": "我的奖励",
+                "operationId": "6ba70c9f3688faea9408af4ff2c2daea",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/api/group/lists": {
             "get": {
                 "tags": [

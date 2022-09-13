@@ -38,21 +38,21 @@ Route::prefix('/group')->group(function () {
     Route::any('/user-lists/{id}', 'GroupController@userList');
 });
 
-Route::prefix('/course')->group(function () {
-    Route::any('/detail/{id}', 'CourseController@detail');
-    Route::any('/type-lists', 'CourseController@typeLists');
-    Route::any('/lists', 'CourseController@lists');
-    Route::any('/company-child-lists', 'CourseController@companyChildList');
+Route::prefix('/award')->group(function () {
+    Route::any('/lists', 'AwardController@lists');
+    Route::any('/create', 'AwardController@create');
+    Route::any('/my-lists', 'AwardController@myLists');
 });
 
 Route::prefix('/order')->group(function () {
     Route::any('/lists', 'OrderController@lists');
 });
 
-Route::prefix('/award')->group(function () {
-    Route::any('/lists', 'AwardController@lists');
-    Route::any('/create', 'AwardController@create');
-    Route::any('/my-lists', 'AwardController@myLists');
+Route::prefix('/course')->group(function () {
+    Route::any('/detail/{id}', 'CourseController@detail');
+    Route::any('/type-lists', 'CourseController@typeLists');
+    Route::any('/lists', 'CourseController@lists');
+    Route::any('/company-child-lists', 'CourseController@companyChildList');
 });
 
 Route::prefix('/pay')->group(function () {

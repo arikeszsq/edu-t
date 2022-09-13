@@ -14,9 +14,28 @@ class AwardController extends Controller
 {
 
     /**
+     * @OA\Post(
+     *     path="/api/award/create",
+     *     tags={"奖励"},
+     *     summary="领取奖励",
+     *   @OA\RequestBody(
+     *       required=true,
+     *       description="address edit",
+     *       @OA\MediaType(
+     *         mediaType="application/x-www-form-urlencoded",
+     *         @OA\Schema(
+     *              @OA\Property(property="activity_id",type="Integer",description="活动的id",),
+     *              @OA\Property(property="id",type="Integer",description="奖励的id",)
+     *          ),
+     *       ),
+     *   ),
+     *     @OA\Response(
+     *         response=100000,
+     *         description="success"
+     *     )
+     * )
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws Exception
+     * @return \Illuminate\Http\JsonResponse|string
      */
     public function create(Request $request)
     {
@@ -63,12 +82,12 @@ class AwardController extends Controller
                 }
 
                 if ($award->invite_num > 0) {
-                    $user_invite_num = DB::table('user_activity_invite')->where('activity_id',$inputs['activity_id'])
-                    ->where(function($query) use($inputs){
-                        $query->where('A_user_id',$inputs['uid'])->orWhere('parent_user_id',$inputs['uid']);
-                    });
+                    $user_invite_num = DB::table('user_activity_invite')->where('activity_id', $inputs['activity_id'])
+                        ->where(function ($query) use ($inputs) {
+                            $query->where('A_user_id', $inputs['uid'])->orWhere('parent_user_id', $inputs['uid']);
+                        });
                     $num = $user_invite_num->count();
-                    if($num<$award->invite_num){
+                    if ($num < $award->invite_num) {
                         return self::error(10003, '邀请人数不足，无法领取');
                     }
                 }
@@ -89,7 +108,19 @@ class AwardController extends Controller
         ]);
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/award/lists",
+     *     tags={"奖励"},
+     *     summary="奖励列表",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function lists(Request $request)
     {
         try {
@@ -103,7 +134,19 @@ class AwardController extends Controller
         }
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/award/my-lists",
+     *     tags={"奖励"},
+     *     summary="我的奖励",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function myLists(Request $request)
     {
 //        $inputs = $request->all();
