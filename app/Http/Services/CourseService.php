@@ -2,14 +2,16 @@
 
 namespace App\Http\Services;
 
+use App\Http\Traits\AreaTrait;
 use App\Http\Traits\ImageTrait;
+use App\Http\Traits\UserTrait;
 use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
 use Illuminate\Support\Facades\DB;
 
 class CourseService
 {
-    use ImageTrait;
+    use ImageTrait, UserTrait, AreaTrait;
 
     public function lists($inputs)
     {
@@ -51,13 +53,26 @@ class CourseService
         $data = [];
         foreach ($children as $child) {
 
-            $gap = 0;
-
+            $msg = '';
+            $map_points_child = $child->map_points;
+            if (!$map_points_child) {
+                $msg = '请设置校区的位置';
+            }
+            $map_points_user = self::authUserPoints();
+            if (!$map_points_user) {
+                $msg = '请先设置用户家的位置';
+            }
+            if ($map_points_child && $map_points_user) {
+                $gap = $this->getDistance($map_points_child, $map_points_user);
+            } else {
+                $gap = 0;
+            }
             $data[] = [
                 'id' => $child->id,
                 'name' => $child->name,
                 'map_area' => $child->map_area,
-                'gap' => $gap
+                'gap' => $gap,
+                'msg' => $msg
             ];
         }
         return $data;

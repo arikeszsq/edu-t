@@ -27,9 +27,9 @@ class ActivitySignUserController extends AdminController
             $grid->column('status')->display(function ($status) {
                 return ActivitySignUser::Status_支付[$status];
             });
-            $grid->column('sign_name');
-            $grid->column('sign_mobile');
-            $grid->column('sign_age');
+            $grid->column('sign_name','报名用户姓名');
+            $grid->column('sign_mobile','报名用户手机号');
+            $grid->column('sign_age','报名用户年龄');
             $grid->column('sign_sex')->display(function ($sign_sex) {
                 return ActivitySignUser::Sex_List[$sign_sex];
             });

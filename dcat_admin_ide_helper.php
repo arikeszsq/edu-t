@@ -65,6 +65,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection school_id
      * @property Grid\Column|Collection course_id
      * @property Grid\Column|Collection sign_user_id
+     * @property Grid\Column|Collection order_num
      * @property Grid\Column|Collection version
      * @property Grid\Column|Collection detail
      * @property Grid\Column|Collection is_enabled
@@ -93,7 +94,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection is_free
      * @property Grid\Column|Collection intruduction
      * @property Grid\Column|Collection video_url
-     * @property Grid\Column|Collection address
+     * @property Grid\Column|Collection map_area
+     * @property Grid\Column|Collection map_points
      * @property Grid\Column|Collection total_num
      * @property Grid\Column|Collection sale_num
      * @property Grid\Column|Collection connection
@@ -109,9 +111,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection award_id
      * @property Grid\Column|Collection audit_id
      * @property Grid\Column|Collection audit_time
-     * @property Grid\Column|Collection order_num
      * @property Grid\Column|Collection area
      * @property Grid\Column|Collection gap
+     * @property Grid\Column|Collection add_new_address_status
      * @property Grid\Column|Collection openid
      * @property Grid\Column|Collection email_verified_at
      * @property Grid\Column|Collection is_A
@@ -121,6 +123,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection city
      * @property Grid\Column|Collection session
      * @property Grid\Column|Collection time_login
+     * @property Grid\Column|Collection address
      *
      * @method Grid\Column|Collection id(string $label = null)
      * @method Grid\Column|Collection access_token(string $label = null)
@@ -176,6 +179,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection school_id(string $label = null)
      * @method Grid\Column|Collection course_id(string $label = null)
      * @method Grid\Column|Collection sign_user_id(string $label = null)
+     * @method Grid\Column|Collection order_num(string $label = null)
      * @method Grid\Column|Collection version(string $label = null)
      * @method Grid\Column|Collection detail(string $label = null)
      * @method Grid\Column|Collection is_enabled(string $label = null)
@@ -204,7 +208,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection is_free(string $label = null)
      * @method Grid\Column|Collection intruduction(string $label = null)
      * @method Grid\Column|Collection video_url(string $label = null)
-     * @method Grid\Column|Collection address(string $label = null)
+     * @method Grid\Column|Collection map_area(string $label = null)
+     * @method Grid\Column|Collection map_points(string $label = null)
      * @method Grid\Column|Collection total_num(string $label = null)
      * @method Grid\Column|Collection sale_num(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
@@ -220,9 +225,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection award_id(string $label = null)
      * @method Grid\Column|Collection audit_id(string $label = null)
      * @method Grid\Column|Collection audit_time(string $label = null)
-     * @method Grid\Column|Collection order_num(string $label = null)
      * @method Grid\Column|Collection area(string $label = null)
      * @method Grid\Column|Collection gap(string $label = null)
+     * @method Grid\Column|Collection add_new_address_status(string $label = null)
      * @method Grid\Column|Collection openid(string $label = null)
      * @method Grid\Column|Collection email_verified_at(string $label = null)
      * @method Grid\Column|Collection is_A(string $label = null)
@@ -232,6 +237,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection city(string $label = null)
      * @method Grid\Column|Collection session(string $label = null)
      * @method Grid\Column|Collection time_login(string $label = null)
+     * @method Grid\Column|Collection address(string $label = null)
      */
     class Grid {}
 
@@ -292,6 +298,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection school_id
      * @property Show\Field|Collection course_id
      * @property Show\Field|Collection sign_user_id
+     * @property Show\Field|Collection order_num
      * @property Show\Field|Collection version
      * @property Show\Field|Collection detail
      * @property Show\Field|Collection is_enabled
@@ -320,7 +327,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection is_free
      * @property Show\Field|Collection intruduction
      * @property Show\Field|Collection video_url
-     * @property Show\Field|Collection address
+     * @property Show\Field|Collection map_area
+     * @property Show\Field|Collection map_points
      * @property Show\Field|Collection total_num
      * @property Show\Field|Collection sale_num
      * @property Show\Field|Collection connection
@@ -336,9 +344,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection award_id
      * @property Show\Field|Collection audit_id
      * @property Show\Field|Collection audit_time
-     * @property Show\Field|Collection order_num
      * @property Show\Field|Collection area
      * @property Show\Field|Collection gap
+     * @property Show\Field|Collection add_new_address_status
      * @property Show\Field|Collection openid
      * @property Show\Field|Collection email_verified_at
      * @property Show\Field|Collection is_A
@@ -348,6 +356,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection city
      * @property Show\Field|Collection session
      * @property Show\Field|Collection time_login
+     * @property Show\Field|Collection address
      *
      * @method Show\Field|Collection id(string $label = null)
      * @method Show\Field|Collection access_token(string $label = null)
@@ -403,6 +412,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection school_id(string $label = null)
      * @method Show\Field|Collection course_id(string $label = null)
      * @method Show\Field|Collection sign_user_id(string $label = null)
+     * @method Show\Field|Collection order_num(string $label = null)
      * @method Show\Field|Collection version(string $label = null)
      * @method Show\Field|Collection detail(string $label = null)
      * @method Show\Field|Collection is_enabled(string $label = null)
@@ -431,7 +441,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection is_free(string $label = null)
      * @method Show\Field|Collection intruduction(string $label = null)
      * @method Show\Field|Collection video_url(string $label = null)
-     * @method Show\Field|Collection address(string $label = null)
+     * @method Show\Field|Collection map_area(string $label = null)
+     * @method Show\Field|Collection map_points(string $label = null)
      * @method Show\Field|Collection total_num(string $label = null)
      * @method Show\Field|Collection sale_num(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
@@ -447,9 +458,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection award_id(string $label = null)
      * @method Show\Field|Collection audit_id(string $label = null)
      * @method Show\Field|Collection audit_time(string $label = null)
-     * @method Show\Field|Collection order_num(string $label = null)
      * @method Show\Field|Collection area(string $label = null)
      * @method Show\Field|Collection gap(string $label = null)
+     * @method Show\Field|Collection add_new_address_status(string $label = null)
      * @method Show\Field|Collection openid(string $label = null)
      * @method Show\Field|Collection email_verified_at(string $label = null)
      * @method Show\Field|Collection is_A(string $label = null)
@@ -459,6 +470,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection city(string $label = null)
      * @method Show\Field|Collection session(string $label = null)
      * @method Show\Field|Collection time_login(string $label = null)
+     * @method Show\Field|Collection address(string $label = null)
      */
     class Show {}
 

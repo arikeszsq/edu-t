@@ -60,4 +60,13 @@ Route::prefix('/pay')->group(function () {
     Route::any('/notify', 'PayController@notify');
 });
 
+
+
+Route::prefix('/user')->group(function () {
+    Route::any('/info', 'UserController@info');
+    Route::any('/update', 'UserController@update');
+    Route::any('/set-a', 'UserController@setA');
+});
+
+
 //});

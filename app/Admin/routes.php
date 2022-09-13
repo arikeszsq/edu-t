@@ -14,6 +14,7 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
 
+    $router->resource('all-user', 'UserController');
     $router->resource('activity', 'ActivityController');
     $router->resource('activity-sign-com', 'ActivitySignComController');
     $router->resource('activity-sign-user', 'ActivitySignUserController');

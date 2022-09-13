@@ -74,4 +74,11 @@ class User extends Authenticatable
             return $a_user->A_user_id;
         }
     }
+
+    const IsA_是 = 1;
+    const IsA_否 = 2;
+    const IsA_Option = [
+        1 => '是',
+        2 => '否'
+    ];
 }

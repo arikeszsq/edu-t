@@ -37,4 +37,10 @@ trait UserTrait
     {
         return self::authUser() ? self::authUser()->email : null;
     }
+
+    public static function authUserPoints()
+    {
+        return self::authUser() ? self::authUser()->map_points : null;
+    }
+
 }

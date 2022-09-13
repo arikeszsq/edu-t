@@ -497,6 +497,55 @@
                     }
                 }
             }
+        },
+        "/api/user/info": {
+            "get": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "用户信息",
+                "operationId": "3f02fc8ab861223fc17ee7469503be38",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/user/update": {
+            "post": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "设置家的位置",
+                "operationId": "46d4b4856e6c94907f9192207b4c8121",
+                "requestBody": {
+                    "description": "设置家的位置",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "map_points": {
+                                        "description": "设置家的地址，纬经度",
+                                        "type": "String"
+                                    },
+                                    "address": {
+                                        "description": "设置家的地址",
+                                        "type": "String"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "100000": {
+                        "description": "success"
+                    }
+                }
+            }
         }
     }
 }

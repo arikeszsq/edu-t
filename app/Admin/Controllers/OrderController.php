@@ -23,25 +23,28 @@ class OrderController extends ActivitySignUserController
             $grid->column('type')->display(function ($type) {
                 return ActivitySignUser::type_支付[$type];
             });
-            $grid->column('order_no');
-            $grid->column('status')->display(function ($status) {
+            $grid->column('order_no', '订单号');
+            $grid->column('sign_name', '报名人信息')->display(function ($sign_name) {
+                return $sign_name . '-' . $this->sign_mobile . '-' . ActivitySignUser::Sex_List[$this->sign_sex] . $this->sign_age . '岁';
+            });
+//            $grid->column('sign_mobile');
+//            $grid->column('sign_age');
+//            $grid->column('sign_sex')->display(function ($sign_sex) {
+//                return ActivitySignUser::Sex_List[$sign_sex];
+//            });
+            $grid->column('status', '状态')->display(function ($status) {
                 return ActivitySignUser::Status_支付[$status];
-            });
-            $grid->column('sign_name');
-            $grid->column('sign_mobile');
-            $grid->column('sign_age');
-            $grid->column('sign_sex')->display(function ($sign_sex) {
-                return ActivitySignUser::Sex_List[$sign_sex];
-            });
+            })->label([1 => 'danger', 2 => 'warning', 3 => 'success']);
             $grid->column('created_at');
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->expand();
                 $filter->equal('id')->width(3);
                 $filter->like('activity.title', '活动名称')->width(3);
-                $filter->like('order_no')->width(3);
-                $filter->like('sign_name')->width(3);
-                $filter->like('sign_mobile')->width(3);
+                $filter->like('order_no', '订单号')->width(3);
+                $filter->like('sign_name', '报名人姓名')->width(3);
+                $filter->like('sign_mobile', '报名人手机号')->width(3);
+                $filter->like('status', '状态')->select(ActivitySignUser::Status_支付)->width(3);
             });
         });
     }
