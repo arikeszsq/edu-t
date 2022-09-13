@@ -183,7 +183,7 @@
                     {
                         "name": "activity_id",
                         "in": "query",
-                        "description": "团的名字",
+                        "description": "活动id",
                         "required": true
                     },
                     {
@@ -304,6 +304,38 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/order/lists": {
+            "get": {
+                "tags": [
+                    "订单"
+                ],
+                "summary": "订单列表",
+                "operationId": "15d7e4d4253fed1cf19c2e2bed6721df",
+                "parameters": [
+                    {
+                        "name": "activity_id",
+                        "in": "query",
+                        "description": "活动id",
+                        "required": true
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "订单状态：1 待支付 2支付取消 3支付成功"
+                    },
+                    {
+                        "name": "finished",
+                        "in": "query",
+                        "description": "是否已成团：1是 ，2否"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }

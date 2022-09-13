@@ -11,6 +11,23 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     *     path="/api/order/lists",
+     *     tags={"订单"},
+     *     summary="订单列表",
+     *     @OA\Parameter(name="activity_id",in="query",description="活动id",required=true),
+     *     @OA\Parameter(name="status",in="query",description="订单状态：1 待支付 2支付取消 3支付成功"),
+     *     @OA\Parameter(name="finished",in="query",description="是否已成团：1是 ，2否"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function lists(Request $request)
     {
         $inputs = $request->all();

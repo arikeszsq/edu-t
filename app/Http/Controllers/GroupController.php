@@ -30,7 +30,7 @@ class GroupController extends Controller
      *     path="/api/group/lists",
      *     tags={"团"},
      *     summary="团列表",
-     *     @OA\Parameter(name="activity_id",in="query",description="团的名字",required=true),
+     *     @OA\Parameter(name="activity_id",in="query",description="活动id",required=true),
      *     @OA\Parameter(name="name",in="query",description="团的名字"),
      *     @OA\Parameter(name="avatar",in="query",description="团长头像"),
      *     @OA\Parameter(name="leader_name",in="query",description="团长名字"),
