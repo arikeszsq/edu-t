@@ -32,16 +32,4 @@ class CompanyCourse extends Model
         7 => '软笔',
         8 => '国画',
     ];
-
-
-    public static function updatePayInfo($order)
-    {
-        $order_num = $order->order_no;
-        $courses = ActivitySignUserCourse::query()->where('order_num', $order_num)->get();
-        foreach ($courses as $course) {
-            $company_course = CompanyCourse::query()->find($course->course_id);
-            $company_course->sale_num += 1;
-            $company_course->save();
-        }
-    }
 }

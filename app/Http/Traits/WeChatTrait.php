@@ -19,7 +19,7 @@ trait WeChatTrait
 //        }
 
         if ($user_id) {
-            $scene =$id . ',' . $user_id;
+            $scene = $id . ',' . $user_id;
         } else {
             $scene = $id;
         }
@@ -82,6 +82,12 @@ trait WeChatTrait
         return $access_token;
     }
 
+    /**
+     * 根据比例生成最终分享图片
+     * @param $activity_id
+     * @param null $user_id
+     * @return array
+     */
     public function getShareQCode($activity_id, $user_id = null)
     {
         $qr_path = "uploads/code/";
@@ -98,7 +104,7 @@ trait WeChatTrait
 //        }
 
         if ($user_id) {
-            $scene =$activity_id . ',' . $user_id;
+            $scene = $activity_id . ',' . $user_id;
         } else {
             $scene = $activity_id;
         }

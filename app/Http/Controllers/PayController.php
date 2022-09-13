@@ -3,17 +3,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\PaySuccessTrait;
 use App\Models\Activity;
-use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
-use App\Models\CompanyCourse;
-use App\Models\UserActivityInvite;
 use App\Models\WxPay;
 use Illuminate\Http\Request;
 
 class PayController extends Controller
 {
 
+    use PaySuccessTrait;
     /**
      *
      * Server_appid= //服务号的appid
@@ -183,26 +182,10 @@ class PayController extends Controller
         }
         $attr = $this->xmlToArray($postXml);
         $out_trade_no = $attr['out_trade_no'];
-
         //-----------------------支付成功后的操作-----------------------------
         $order_no = $out_trade_no;
         $order = ActivitySignUser::query()->where('order_no', $order_no)->first();
-
-        // 支付成功，增加课程的已售份数
-        CompanyCourse::updatePayInfo($order);
-        // 1. 新建团或修改团信息
-        if ($order->type == ActivitySignUser::Type_团) {
-            ActivityGroup::updatePayInfo($order);
-        }
-        // 2. 给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付
-
-        // 3. 修改订单的状态及信息
-        ActivitySignUser::updatePayInfo($order_no);
-        // 4. 修改邀请记录的支付状态
-        UserActivityInvite::updatePayInfo($order);
-        // 5. 生成用户的专属分享图片
-
-
+        return $this->paySuccessDeal($order);
 //        //支付成功后在回调方法中进行分账
 //        $this->profitsharing($shops['appid'],$shops['sub_mch_id'],$order['transaction_id']);
     }
