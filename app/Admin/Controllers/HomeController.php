@@ -24,7 +24,7 @@ class HomeController extends Controller
     {
 //        $access_token = $this->getShareQCode(3);
 //        var_dump($access_token);exit;
-//        return $content->body(ShowUser::make());
+        return $content->body(ShowUser::make());
     }
 
 
