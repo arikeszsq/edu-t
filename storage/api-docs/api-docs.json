@@ -109,6 +109,90 @@
                 }
             }
         },
+        "/api/group/lists": {
+            "get": {
+                "tags": [
+                    "团"
+                ],
+                "summary": "团列表",
+                "operationId": "cd8de25012db8647d3a30c600bc5273a",
+                "parameters": [
+                    {
+                        "name": "activity_id",
+                        "in": "query",
+                        "description": "团的名字",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "团的名字"
+                    },
+                    {
+                        "name": "avatar",
+                        "in": "query",
+                        "description": "团长头像"
+                    },
+                    {
+                        "name": "leader_name",
+                        "in": "query",
+                        "description": "团长名字"
+                    },
+                    {
+                        "name": "leader_id",
+                        "in": "query",
+                        "description": "团长ID"
+                    },
+                    {
+                        "name": "num",
+                        "in": "query",
+                        "description": "成团需求人数"
+                    },
+                    {
+                        "name": "current_num",
+                        "in": "query",
+                        "description": "团现拥有人数"
+                    },
+                    {
+                        "name": "finished",
+                        "in": "query",
+                        "description": "是否已成团：1是 ，2否"
+                    },
+                    {
+                        "name": "in_group",
+                        "in": "query",
+                        "description": "我是否在团里，1是2否，判断在团里就是邀请别人，不在团里就是加入团"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/group/user-lists/{id}": {
+            "get": {
+                "tags": [
+                    "团"
+                ],
+                "summary": "参团的用户列表",
+                "operationId": "d38d77b39ed645fa15d7d09cab2972d5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "团id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [

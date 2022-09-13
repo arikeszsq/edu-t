@@ -23,6 +23,10 @@ class GroupService
             $query->where('leader_id', $inputs['leader_id']);
         }
 
+        if (isset($inputs['name']) && $inputs['name']) {
+            $query->where('name', $inputs['name']);
+        }
+
         if (isset($inputs['leader_wx_name']) && $inputs['leader_wx_name']) {
             $query->where('leader_wx_name', 'like', '%' . $inputs['leader_wx_name'] . '%');
         }
@@ -36,13 +40,24 @@ class GroupService
             ->get();
 
         foreach ($activity_groups as $group) {
+            $first = ActivitySignUser::query()
+                ->where('activity_id', $inputs['activity_id'])
+                ->where('user_id', $inputs['user_id'])
+                ->where('group_id', $group->id)
+                ->first();
+            if ($first) {
+                $in_group = 1;
+            } else {
+                $in_group = 2;
+            }
             $list[] = [
                 'avatar' => $group->user->name,
                 'leader_name' => $group->user->name,
                 'leader_id' => $group->leader_id,
                 'num' => $group->num,
                 'current_num' => $group->current_num,
-                'finished' => $group->finished
+                'finished' => $group->finished,
+                'in_group' => $in_group,//我是否在团里，1是2否，判断在团里就是邀请别人，不在团里就是加入团
             ];
         }
         return $list;
