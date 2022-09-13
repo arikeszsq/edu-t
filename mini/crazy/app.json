@@ -1,9 +1,10 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/activity/many/index",
+    "pages/activity/one/index",
     "pages/checkSchool/checkSchool",
     "pages/position/position",
-    "pages/activity/detail/index",
     "pages/mine/mine",
     "pages/list/list",
     "pages/logs/logs"

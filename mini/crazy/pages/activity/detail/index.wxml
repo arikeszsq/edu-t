@@ -1,3 +1,0 @@
-<view>
-  <view>开始时间{{info.start_time}}</view>
-</view>

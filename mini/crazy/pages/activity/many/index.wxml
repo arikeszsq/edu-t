@@ -1,0 +1,6 @@
+<view class="container">
+    <view class="bg-banner">
+        <image src="{{info.bg_banner}}"></image>
+    </view>
+    
+</view>

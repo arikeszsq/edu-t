@@ -11,9 +11,16 @@ Page({
   
   toDetail:function(event){
     var id = event.currentTarget.dataset.id;
-    wx.navigateTo({
-      url:'../activity/detail/index?id='+id
-    });
+    var one= event.currentTarget.dataset.one;
+    if(one==1){
+        wx.navigateTo({
+            url:'../activity/one/index?id='+id
+          });
+    }else{
+        wx.navigateTo({
+            url:'../activity/many/index?id='+id
+          });
+    }
   },
 
   getList: function () {

@@ -58,7 +58,7 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo: false,
-    apiDomain: 'http://edu.com.me/api', //生产
+    apiDomain: 'http://tk.lianshuiweb.com/api', //生产
     // downloadPrefix: 'http://127.0.0.1:8000/download?url=', // 通过代理服务器中转（微信限制资源域名，不同平台cdn域名千变万化）
     defaultDailyFreeParseNum: 10,
   },
