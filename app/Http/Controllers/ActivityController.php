@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\ActivityService;
 use Exception;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Integer;
 
 class ActivityController extends Controller
 {
@@ -18,7 +19,18 @@ class ActivityController extends Controller
         $this->activityService = $activityService;
     }
 
-    public function lists(Request $request)
+    /**
+     * @OA\Get(
+     *     path="/api/activity/lists",
+     *     tags={"活动"},
+     *     summary="活动列表",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
+    public function lists()
     {
         try {
             return self::success($this->activityService->lists());
@@ -27,6 +39,28 @@ class ActivityController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/activity/type/{id}",
+     *     tags={"活动"},
+     *     summary="活动类型",
+     *     @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description="活动类型 ：1单商家， 2多商家",
+     *      @OA\Schema(
+     *         type="integer"
+     *      )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function type($id)
     {
         try {
@@ -36,6 +70,28 @@ class ActivityController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/activity/detail/{id}",
+     *     tags={"活动"},
+     *     summary="活动详情",
+     *     @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description="活动详情",
+     *      @OA\Schema(
+     *         type="integer"
+     *      )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function detail($id)
     {
         try {
@@ -46,6 +102,32 @@ class ActivityController extends Controller
         }
     }
 
+
+    /**
+     * @OA\Post(
+     *     path="/api/activity/invite-user",
+     *     tags={"邀请新用户"},
+     *     summary="邀请接口 【判断有邀请人的uid ，就调用邀请接口，或者通过分享连接，也调用一次分享接口】",
+     *   @OA\RequestBody(
+     *       required=true,
+     *       description="address edit",
+     *       @OA\MediaType(
+     *         mediaType="application/x-www-form-urlencoded",
+     *         @OA\Schema(
+     *              @OA\Property(property="activity_id",type="Integer",description="活动的id",),
+     *              @OA\Property(property="parent_user_id",type="Integer",description="邀请人的id",),
+     *              @OA\Property(property="invited_user_id",type="Integer",description="被邀请人的id",),
+     *          ),
+     *       ),
+     *   ),
+     *     @OA\Response(
+     *         response=100000,
+     *         description="success"
+     *     )
+     * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function inviteUser(Request $request)
     {
         $inputs = $request->all();

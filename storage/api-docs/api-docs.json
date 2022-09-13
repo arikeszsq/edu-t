@@ -1,0 +1,165 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Example for response examples value",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/activity/lists": {
+            "get": {
+                "tags": [
+                    "活动"
+                ],
+                "summary": "活动列表",
+                "operationId": "077758bd119828e8d64f54c09c2a8687",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/activity/type/{id}": {
+            "get": {
+                "tags": [
+                    "活动"
+                ],
+                "summary": "活动类型",
+                "operationId": "2cbab667c0c3c319bb99843ed5493cdc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "活动类型 ：1单商家， 2多商家",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/activity/detail/{id}": {
+            "get": {
+                "tags": [
+                    "活动"
+                ],
+                "summary": "活动详情",
+                "operationId": "4ee5ea9778c92f1ae5d3777027c305f1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "活动详情",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/activity/invite-user": {
+            "post": {
+                "tags": [
+                    "邀请新用户"
+                ],
+                "summary": "邀请接口 【判断有邀请人的uid ，就调用邀请接口，或者通过分享连接，也调用一次分享接口】",
+                "operationId": "09ec750bfece7fdb3b9384a46e2657dd",
+                "requestBody": {
+                    "description": "address edit",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "activity_id": {
+                                        "description": "活动的id",
+                                        "type": "Integer"
+                                    },
+                                    "parent_user_id": {
+                                        "description": "邀请人的id",
+                                        "type": "Integer"
+                                    },
+                                    "invited_user_id": {
+                                        "description": "被邀请人的id",
+                                        "type": "Integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "100000": {
+                        "description": "success"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "登录"
+                ],
+                "summary": "登录",
+                "operationId": "c5e838284c7f343f0e5e5fd589161c96",
+                "requestBody": {
+                    "description": "address edit",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "description": "code",
+                                        "type": "String"
+                                    },
+                                    "iv": {
+                                        "description": "iv",
+                                        "type": "String"
+                                    },
+                                    "data": {
+                                        "description": "data",
+                                        "type": "String"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "100000": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "token": {
+                                        "summary": "token",
+                                        "value": {
+                                            "token": "asfasdfasdfasdf"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

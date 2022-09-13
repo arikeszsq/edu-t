@@ -10,6 +10,37 @@ use EasyWeChat\Factory;
 class LoginController extends \App\Http\Controllers\Auth\LoginController
 {
 
+    /**
+     * @OA\Info(
+     *     version="1.0",
+     *     title="Example for response examples value"
+     * )
+     * @OA\PathItem(path="/api")
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"登录"},
+     *     summary="登录",
+     *   @OA\RequestBody(
+     *       required=true,
+     *       description="address edit",
+     *       @OA\MediaType(
+     *         mediaType="application/x-www-form-urlencoded",
+     *         @OA\Schema(
+     *              @OA\Property(property="code",type="String",description="code",),
+     *              @OA\Property(property="iv",type="String",description="iv",),
+     *              @OA\Property(property="data",type="String",description="data",),
+     *          ),
+     *       ),
+     *   ),
+     *     @OA\Response(
+     *         response=100000,
+     *         description="success",
+     *      @OA\JsonContent(
+     *             @OA\Examples(example="token", value={"token": "asfasdfasdfasdf"}, summary="token")
+     *         )
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $inputs = $request->all();
@@ -24,8 +55,8 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
         $session = $app->auth->session($code);
         $decryptedData = $app->encryptor->decryptData($session['session_key'], $iv, $encryptedData);
         $open_id = $decryptedData['openId'];
-        $user = User::query()->where('openid',$open_id)->first();
-        if(!$user){
+        $user = User::query()->where('openid', $open_id)->first();
+        if (!$user) {
             $user = new User();
             $user->openid = $open_id;
             $user->name = $this->filterEmoji($decryptedData['nickName']);
