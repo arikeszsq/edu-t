@@ -31,11 +31,25 @@ class ActivityService
 
     public function lists()
     {
-        return Activity::query()
+        $data = [];
+        $lists = Activity::query()
             ->where('status', 1)
             ->where('end_time', '>', Carbon::now())
             ->orderBy('id', 'desc')
             ->get();
+        foreach ($lists as $list) {
+            $data[] = [
+                'title' => $list->title,
+                'bg_banner' => $this->fullImgUrl($list->bg_banner),
+                'is_many' => $list->is_many,
+                'description' => $list->description,
+                'content' => $list->content,
+                'status' => $list->status,
+                'start_time' => $list->start_time,
+                'end_time' => $list->end_time,
+            ];
+        }
+        return $data;
     }
 
     /**
