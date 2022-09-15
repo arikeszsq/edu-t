@@ -184,6 +184,35 @@ class ActivityService
         $data['company_list'] = $data_company;
         $data['award'] = $data_award;
 
+        $sign_users = ActivitySignUser::getHasPayList($id);
+        $pay_group_list = [];
+        foreach ($sign_users as $group) {
+            $role = $group->role;
+            $type = $group->type;
+            if ($type == 2) {
+                $msg = '单独购买';
+            } else {
+                if ($role == 1) {
+                    $msg = '开团购买';
+                } else {
+                    $group_id = $group->group_id;
+                    $activity_group = ActivityGroup::getGroupById($group_id);
+                    $leader_id = $activity_group->leader_id;
+                    $user = User::query()->find($leader_id);
+                    $msg = '参加了' . $user->name . '的拼团';
+                }
+            }
+
+            $pay_group_list[] = [
+                'avatar' => $group->user->avatar,
+                'name' => $group->user->name,
+                'msg' => $msg,
+                'money' => $group->money,
+                'pay_time' => $group->pay_time,
+            ];
+        }
+        $data['pay_group_list'] = $pay_group_list;
+
         return $data;
     }
 
