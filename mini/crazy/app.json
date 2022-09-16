@@ -1,14 +1,13 @@
 {
     "pages": [
-      
+        "pages/mine/mine",
         "pages/activity/many/index",
         "pages/index/index",
         "pages/activity/one/index",
         "pages/position/position",
         "pages/checkSchool/checkSchool",
         "pages/list/list",
-        "pages/logs/logs",
-        "pages/mine/mine"
+        "pages/logs/logs"
       
     ],
     "window": {
