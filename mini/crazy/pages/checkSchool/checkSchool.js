@@ -53,7 +53,8 @@ const obj = wx.getStorageSync('trueCity');
         this.setData({
           adressObj: obj,
           index: 0
-        })
+        });
+        
       }
     }
     this.setData({

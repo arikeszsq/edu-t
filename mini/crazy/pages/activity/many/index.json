@@ -1,3 +1,5 @@
 {
-    "usingComponents": {}
+    "usingComponents": {
+       "Service":"/../../components/Service/Service"
+    }
 }

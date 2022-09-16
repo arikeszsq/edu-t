@@ -1,20 +1,21 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/activity/many/index",
-    "pages/activity/one/index",
-    "pages/checkSchool/checkSchool",
-    "pages/position/position",
-    "pages/mine/mine",
-    "pages/list/list",
-    "pages/logs/logs"
-  ],
-  "window":{
-    "backgroundTextStyle":"dark",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "活动",
-    "navigationBarTextStyle":"black"
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+    "pages": [
+      
+        "pages/activity/many/index",
+        "pages/index/index",
+        "pages/activity/one/index",
+        "pages/position/position",
+        "pages/checkSchool/checkSchool",
+        "pages/list/list",
+        "pages/logs/logs",
+        "pages/mine/mine"
+      
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "番茄亲子·活动名称",
+        "navigationBarTextStyle": "black"
+    },
+    "sitemapLocation": "sitemap.json"
 }
