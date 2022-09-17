@@ -31,7 +31,7 @@ class CourseController extends Controller
      */
     public function typeLists()
     {
-        return CompanyCourse::Type_类型列表;
+        return self::success($this->courseService->lists(CompanyCourse::Type_类型列表));
     }
 
     /**

@@ -24,6 +24,7 @@ Route::group([
     $router->resource('award', 'AwardController');
     $router->resource('user-award', 'UserAwardController');
     $router->resource('invite-log', 'UserActivityInviteController');
+    $router->resource('setting', 'BasicSettingController');
 
     //订单管理
     $router->resource('order', 'OrderController');

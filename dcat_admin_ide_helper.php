@@ -92,6 +92,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection is_commander
      * @property Grid\Column|Collection group_ok
      * @property Grid\Column|Collection is_free
+     * @property Grid\Column|Collection kf_name
+     * @property Grid\Column|Collection mobile
+     * @property Grid\Column|Collection pic
+     * @property Grid\Column|Collection buy_protocal
      * @property Grid\Column|Collection intruduction
      * @property Grid\Column|Collection video_url
      * @property Grid\Column|Collection map_area
@@ -206,6 +210,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection is_commander(string $label = null)
      * @method Grid\Column|Collection group_ok(string $label = null)
      * @method Grid\Column|Collection is_free(string $label = null)
+     * @method Grid\Column|Collection kf_name(string $label = null)
+     * @method Grid\Column|Collection mobile(string $label = null)
+     * @method Grid\Column|Collection pic(string $label = null)
+     * @method Grid\Column|Collection buy_protocal(string $label = null)
      * @method Grid\Column|Collection intruduction(string $label = null)
      * @method Grid\Column|Collection video_url(string $label = null)
      * @method Grid\Column|Collection map_area(string $label = null)
@@ -325,6 +333,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection is_commander
      * @property Show\Field|Collection group_ok
      * @property Show\Field|Collection is_free
+     * @property Show\Field|Collection kf_name
+     * @property Show\Field|Collection mobile
+     * @property Show\Field|Collection pic
+     * @property Show\Field|Collection buy_protocal
      * @property Show\Field|Collection intruduction
      * @property Show\Field|Collection video_url
      * @property Show\Field|Collection map_area
@@ -439,6 +451,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection is_commander(string $label = null)
      * @method Show\Field|Collection group_ok(string $label = null)
      * @method Show\Field|Collection is_free(string $label = null)
+     * @method Show\Field|Collection kf_name(string $label = null)
+     * @method Show\Field|Collection mobile(string $label = null)
+     * @method Show\Field|Collection pic(string $label = null)
+     * @method Show\Field|Collection buy_protocal(string $label = null)
      * @method Show\Field|Collection intruduction(string $label = null)
      * @method Show\Field|Collection video_url(string $label = null)
      * @method Show\Field|Collection map_area(string $label = null)
