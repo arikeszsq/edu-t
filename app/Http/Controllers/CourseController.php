@@ -31,7 +31,12 @@ class CourseController extends Controller
      */
     public function typeLists()
     {
-        return self::success($this->courseService->lists(CompanyCourse::Type_类型列表));
+        $data = CompanyCourse::Type_类型列表;
+        $type = [];
+        foreach ($data as $v) {
+            $type[] = $v;
+        }
+        return self::success($type);
     }
 
     /**
@@ -48,6 +53,10 @@ class CourseController extends Controller
      * )
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse|string
+     * [
+     * { "children": [{ "id": "14", "name": "办公", }, { "id": "13", "name": "形象与礼仪", }], "id": "1", "name": "通用课程", }
+     * { "children": [{ "id": "14", "name": "办公", }, { "id": "13", "name": "形象与礼仪", }], "id": "1", "name": "通用课程", }
+     * ]
      */
     public function lists(Request $request)
     {
@@ -61,7 +70,7 @@ class CourseController extends Controller
             return self::parametersIllegal($validator->messages()->first());
         }
         try {
-            return self::success($this->courseService->lists($inputs));
+            return self::success($this->courseService->getTypeCourseList($inputs));
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
