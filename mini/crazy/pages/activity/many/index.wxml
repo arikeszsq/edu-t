@@ -7,7 +7,7 @@
                 <text class="price danger">
                     <text class="yuan">￥</text>
                     <text>{{oriPrice}}</text>
-            
+
                 </text>
                 <text class="des">限时活动</text>
             </view>
@@ -23,7 +23,7 @@
                         <text class="number-desc">浏览</text>
                         <text class="separator">|</text>
                         <text class="number primary">{{info.buy_num}}</text>
-                        
+
                         <text class="number-desc">购买</text>
                     </view>
                 </view>
@@ -62,8 +62,8 @@
     </view>
     <view class="video-container">
         <swiper bindchange='changeVideoCurrent' current="{{videoIndex}}">
-            <swiper-item wx:for="{{info.video}}" wx:key="index">
-                <video id="myVideo" src="{{item.video_url}}" show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls object-fit="contain" enable-play-gesture='{{true}}' poster="{{item.company_logo}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
+            <swiper-item wx:for="{{info.video}}" wx:key="index" bindpause="videoPause">
+                <video id="myVideo" id="video{{index}}" src="{{item.video_url}}"  show-center-play-btn='{{true}}' show-play-btn="{{true}}" controls="{{true}}" object-fit="contain" enable-play-gesture='{{true}}' poster="{{item.company_logo}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
             </swiper-item>
         </swiper>
         <scroll-view class="tab-scroll  viedo-scroll" scroll-x="true" :scroll-with-animation="true">
@@ -112,7 +112,7 @@
                     </swiper-item>
                     <swiper-item>
                         <view class="timu_list1">
-                            <view class="listItem-container" >
+                            <view class="listItem-container">
                                 <view class="timu-list1-item box  align-center" wx:for="{{info.company_list}}" wx:key="id">
                                     <view class="image-container" wx:if="{{item.company_logo}}">
                                         <image mode="aspectFit" src="{{item.company_logo}}"></image>

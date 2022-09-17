@@ -24,41 +24,25 @@ Page({
             longitude: '',
             name: '',
         },
-        //购买记录
-        PurchaseRecordInfo: [
-            {
-                call: "18115671682",
-                avatar: "../../../images/activity/delete/avatar.png",
-                price: "382.00",
-                time: "2022-08-02",
-                id: "1"
-            },
-            {
-                call: "18115671682",
-                avatar: "../../../images/activity/delete/avatar.png",
-                price: "382.00",
-                time: "2022-08-02",
-                id: "2"
-            },
-            {
-                call: "18115671682",
-                avatar: "../../../images/activity/delete/avatar.png",
-                price: "382.00",
-                time: "2022-08-02",
-                id: "3"
-            },
-            {
-                call: "18115671682",
-                avatar: "../../../images/activity/delete/avatar.png",
-                price: "382.00",
-                time: "2022-08-02",
-                id: "4"
-            }
-        ],
+
         //活动分类
         ActiveBarList: [{ name: "活动详情", id: "1" }, { name: "机构详情", id: "2" }, { name: "奖励详情", id: "3" }],
         activeIndex: 0,
         videoIndex: 0,
+        //当前播放的视频
+        indexCurrent: "video1"
+    },
+
+
+
+    //切换视频时候设置视频暂停：整体思路data里面indexCurrent,默认值是第一个视频，当我们切换的时候，就会重新给一个id，更新indexCurrent，这样只要切换了就能暂停
+    currentVideoPuase(index) {
+        let curIdx = `video${index}`;//新的dom的id
+        let videoContextPrev = wx.createVideoContext(this.data.indexCurrent, this)
+        videoContextPrev.pause()
+        this.setData({
+            indexCurrent: curIdx//保存下来，就会成为上一个的id，方便暂停
+        })
     },
 
     //设置活动详情的
@@ -71,11 +55,15 @@ Page({
     },
     //设置机构视频
     bindtapVideoBar(e) {
-        this.setData({ videoIndex: e.currentTarget.dataset.index })
+        this.setData({ videoIndex: e.currentTarget.dataset.index });
+        //视频暂停函数的调用
+        this.currentVideoPuase(e.currentTarget.dataset.index);
+
     },
     changeVideoCurrent(e) {
         this.setData({ videoIndex: e.detail.current })
-
+        //视频暂停函数的调用
+        this.currentVideoPuase(e.detail.current);
     },
 
     onReady() {
