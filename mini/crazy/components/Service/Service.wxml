@@ -12,11 +12,11 @@
             </view>
         </view>
 
-        <view class="item">
+        <view class="item" data-type="1" bindtap="toCourseOne">
             <view class="intro">单独购买</view>
             <view class="price">￥{{oriPrice}}</view>
         </view>
-        <view class="item">
+        <view class="item"  data-type="2" bindtap="toCourseTwo">
             <view class="intro">2人拼团</view>
             <view class="price">￥{{realPrice}}</view>
         </view>

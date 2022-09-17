@@ -88,8 +88,27 @@ Page({
             })
         }).exec();
     },
-
-
+    //单独购买跳转页面
+    toCourseOne(e) {
+        wx.setStorageSync('buy_type', 1);
+        wx.navigateTo({
+            url: '/pages/course/course',
+            success: (res) => {
+                res.eventChannel.emit('acceptDataFromOpenerPage', { data: e.detail })
+            },
+        })
+    },
+    //2人拼团
+    bindtoCourseTwo(e) {
+        wx.setStorageSync('buy_type', 1);
+        wx.navigateTo({
+            url: '/pages/course/course',
+            success: (res) => {
+                res.eventChannel.emit('acceptDataFromOpenerPage', { data: e.detail })
+            },
+        })
+    },
+    //info数据的获取
     getActivityDetail: function (activity_id) {
         app.apiRequest({
             url: '/activity/detail/' + activity_id,
@@ -98,11 +117,10 @@ Page({
             },
             success: res => {
                 var that = this;
-                console.log(res.data.response.pay_group_list);
-
                 that.setData({
                     info: res.data.response,
                     bannerInfo: res.data.response.bg_banner,
+                    //价格的处理
                     oriPrice: util.cutZero(res.data.response.ori_price),
                     realPrice: util.cutZero(res.data.response.real_price)
                 })

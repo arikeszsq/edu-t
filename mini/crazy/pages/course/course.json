@@ -1,0 +1,9 @@
+{   
+    
+    "navigationBarTitleText": "选择课程",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "component": true, 
+    "usingComponents": {}
+ 
+}

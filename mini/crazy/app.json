@@ -1,6 +1,6 @@
 {
     "pages": [
-      
+        "pages/course/course",
         "pages/activity/many/index",
         "pages/index/index",
         "pages/activity/one/index",
@@ -9,7 +9,6 @@
         "pages/list/list",
         "pages/logs/logs",
         "pages/mine/mine"
-      
     ],
     "window": {
         "backgroundTextStyle": "dark",

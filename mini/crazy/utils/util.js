@@ -22,10 +22,8 @@ const formatNumber = n => {
 
 const cutZero = num => {
      //拷贝一份 返回去掉零的新串
-     console.log(num,"dddddddd")
      let newstr = num;
      //循环变量 小数部分长度
-     console.log(num.indexOf('.') - 1);
      let leng = num.length - num.indexOf('.') - 1;
      //判断是否有效数
      if (num.indexOf('.') > -1) {
