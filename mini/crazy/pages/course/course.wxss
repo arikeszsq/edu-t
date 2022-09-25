@@ -1,9 +1,21 @@
 /* 地图 */
 @import "../../app.wxss";
-
+.course-container{
+    display: flex;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0rpx;
+    height: 100%;
+}
 .map {
+    position: absolute;
+    height: 106rpx;
+    top: 0rpx;
+    left: 0rpx;
     background: rgba(255, 77, 0, 0.1);
     padding: 30rpx 26rpx 30rpx;
+    box-sizing: border-box;
 }
 
 .map .icons {
@@ -13,7 +25,6 @@
 }
 
 .address {
-    width: 392rpx;
     font-size: 28rpx;
     margin-right: 28rpx;
 }
@@ -38,9 +49,8 @@
     position: absolute;
     bottom: 0rpx;
     left: 0;
-    top: 126rpx;
+    top: 0rpx;
     overflow: hidden;
-
 }
 
 .menu-container {
@@ -182,14 +192,43 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+.display-show{
+    display: block;
+}
+
+.display-hide{
+    display: none;
+}
+
+
 .dislogue {
     box-sizing: border-box;
-    padding:50rpx;
+    padding:50rpx 50rpx;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    width: 700rpx;
+    width: 650rpx;
     border-radius: 8rpx;
     background-color: #fff;
+
+}
+.dislogue .title{
+    text-align: center;
+    font-size: 30rpx;
+}
+.dislogue .desc{
+    font-size: 24rpx;
+    line-height: 70rpx;
+    color: #858585;
+}
+.address{
+    margin-bottom: 30rpx;
+}
+.comfire-container{
+    justify-content: space-around;
+    margin-top: 60rpx;
+}
+.comfire-container .comfire{
+    color: #05c200;
 }

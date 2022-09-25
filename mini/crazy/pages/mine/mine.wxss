@@ -1,5 +1,4 @@
 @import "../../app.wxss";
-
 .mine-container {
     position: relative;
     width: 100%;

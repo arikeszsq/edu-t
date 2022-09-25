@@ -9,6 +9,31 @@ Page({
     /**
      * 组件的方法列表
      */
+    toMyOrder() {
+        wx.navigateTo({
+            url: "/pages/myOrder/myOrder",
+
+        })
+    },
+    toMyAward() {
+        wx.navigateTo({
+            url: "/pages/myAward/myAward",
+
+        })
+    },
+ 
+    toMyProfit() { 
+        wx.navigateTo({
+            url: "/pages/myProfit/myProfit",
+
+        })
+    },
+    toAgreement(){
+        wx.navigateTo({
+            url: "/pages/Agreement/Agreement",
+        })
+
+    },
 
     onLoad: function (options) {
         this.getUserInfo();
@@ -21,7 +46,7 @@ Page({
             },
             success: res => {
                 var that = this;
-                console.log(res.data.response);
+                console.log(res.data.response, "d");
                 that.setData({
                     info: res.data.response,
                 })

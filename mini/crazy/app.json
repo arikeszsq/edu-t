@@ -1,14 +1,19 @@
 {
     "pages": [
+        "pages/activity/one/index",
+        "pages/mine/mine",
+        "pages/myAward/myAward",
         "pages/course/course",
+        "pages/myOrder/myOrder",
+        "pages/Agreement/Agreement",
         "pages/activity/many/index",
         "pages/index/index",
-        "pages/activity/one/index",
         "pages/position/position",
         "pages/checkSchool/checkSchool",
         "pages/list/list",
         "pages/logs/logs",
-        "pages/mine/mine"
+        "pages/myProfit/myProfit"
+    
     ],
     "window": {
         "backgroundTextStyle": "dark",

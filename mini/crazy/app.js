@@ -58,7 +58,7 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo: false,
-    apiDomain: 'http://tk.lianshuiweb.com/api', //生产
+    apiDomain: 'https://zsq.a-poor.com/api', //生产
     defaultDailyFreeParseNum: 10,
   },
 
