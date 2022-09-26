@@ -25,7 +25,11 @@ class OrderController extends ActivitySignUserController
             });
             $grid->column('order_no', '订单号');
             $grid->column('sign_name', '报名人信息')->display(function ($sign_name) {
-                return $sign_name . '-' . $this->sign_mobile . '-' . ActivitySignUser::Sex_List[$this->sign_sex] . $this->sign_age . '岁';
+                $sex = '';
+                if (isset($this->sign_sex) && $this->sign_sex) {
+                    $sex .= ActivitySignUser::Sex_List[$this->sign_sex];
+                }
+                return $sign_name . '-' . $this->sign_mobile . '-' . $sex . $this->sign_age . '岁';
             });
 //            $grid->column('sign_mobile');
 //            $grid->column('sign_age');
