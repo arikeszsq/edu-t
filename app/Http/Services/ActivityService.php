@@ -129,8 +129,33 @@ class ActivityService
         $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
         $data['title'] = $activity->title;
         $data['description'] = $activity->description;
+
         $data['ori_price'] = $activity->ori_price;
+        $ori_price_array = explode('.', $activity->ori_price);
+        if (isset($ori_price_array[0]) && $ori_price_array[0]) {
+            $data['ori_price_before'] = $ori_price_array[0];
+        } else {
+            $data['ori_price_before'] = $activity->ori_price;
+        }
+        if (isset($ori_price_array[1]) && $ori_price_array[1]) {
+            $data['ori_price_after'] = $ori_price_array[1];
+        } else {
+            $data['ori_price_after'] = 00;
+        }
+
         $data['real_price'] = $activity->real_price;
+        $real_price_array = explode('.', $activity->real_price);
+        if (isset($real_price_array[0]) && $real_price_array[0]) {
+            $data['real_price_before'] = $real_price_array[0];
+        } else {
+            $data['real_price_before'] = $activity->real_price;
+        }
+        if (isset($real_price_array[1]) && $real_price_array[1]) {
+            $data['real_price_after'] = $real_price_array[1];
+        } else {
+            $data['real_price_after'] = 00;
+        }
+
         $data['end_time'] = $activity->end_time;
         $data['views_num'] = $activity->views_num;
         $data['buy_num'] = $activity->buy_num;
@@ -210,6 +235,18 @@ class ActivityService
                 'money' => $group->money,
                 'pay_time' => $group->pay_time,
             ];
+        }
+
+        $pay_num = count($pay_group_list);
+        if ($pay_num == 1) {
+            $pay_group_list[1] = $pay_group_list[0];
+            $pay_group_list[2] = $pay_group_list[0];
+            $pay_group_list[3] = $pay_group_list[0];
+        } elseif ($pay_num == 2) {
+            $pay_group_list[2] = $pay_group_list[0];
+            $pay_group_list[3] = $pay_group_list[1];
+        } elseif ($pay_num == 3) {
+            $pay_group_list[3] = $pay_group_list[0];
         }
         $data['pay_group_list'] = $pay_group_list;
 
