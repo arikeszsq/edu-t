@@ -473,6 +473,10 @@
                                         "description": "课程，1，2，3",
                                         "type": "Integer"
                                     },
+                                    "is_agree": {
+                                        "description": "同意协议 1",
+                                        "type": "Integer"
+                                    },
                                     "school_child_ids": {
                                         "description": "校区，1，2，3",
                                         "type": "Integer"

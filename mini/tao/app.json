@@ -17,7 +17,7 @@
     "window": {
         "backgroundTextStyle": "dark",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "番茄亲子·活动名称",
+        "navigationBarTitleText": "番茄亲子·活动",
         "navigationBarTextStyle": "black"
     },
     "sitemapLocation": "sitemap.json"

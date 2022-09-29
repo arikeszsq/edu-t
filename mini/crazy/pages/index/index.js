@@ -1,5 +1,5 @@
 // 获取应用实例
-const app = getApp()
+const app = getApp();
 
 Page({
     data: {
@@ -84,7 +84,7 @@ Page({
             }
         });
     },
-  
+
     bindtapActiveBar(e) {
         this.setData({ activeIndex: e.currentTarget.dataset.index })
 

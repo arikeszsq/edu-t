@@ -1,4 +1,5 @@
 <view class="index-container">
+
     <!-- banner -->
     <view class="banner-container">
         <image src="{{bannerInfo.src}}" class="banner" mode="scaleToFill"></image>
