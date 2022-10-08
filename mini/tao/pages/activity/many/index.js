@@ -169,6 +169,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        wx.hideHomeButton();
         //设置家的地址修改之后
         const obj = wx.getStorageSync('trueCity');
         if (this.data.flag) {

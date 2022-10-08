@@ -13,11 +13,11 @@ Page({
     var id = event.currentTarget.dataset.id;
     var one= event.currentTarget.dataset.one;
     if(one==1){
-        wx.navigateTo({
+        wx.redirectTo({
             url:'../activity/one/index?id='+id
           });
     }else{
-        wx.navigateTo({
+        wx.redirectTo({
             url:'../activity/many/index?id='+id
           });
     }
