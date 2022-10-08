@@ -20,5 +20,6 @@
         "navigationBarTitleText": "番茄亲子·活动",
         "navigationBarTextStyle": "black"
     },
-    "sitemapLocation": "sitemap.json"
+    "sitemapLocation": "sitemap.json",
+    "lazyCodeLoading" : "requiredComponents"
 }
