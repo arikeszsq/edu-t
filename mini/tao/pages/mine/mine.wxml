@@ -3,7 +3,7 @@
         <image class="avatar" src=""></image>
         <view class="name">{{info.name}}</view>
         <view class="award">
-            <image class="award-image" src="../../images/mine/xiaoxi@2x.png"></image>
+            <image class="award-image" src="../../images/mine/xiaoxi.png"></image>
             <view>奖励提醒</view>
         </view>
     </view>
