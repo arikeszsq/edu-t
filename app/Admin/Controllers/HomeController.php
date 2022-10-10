@@ -20,10 +20,33 @@ class HomeController extends Controller
 {
 
     use WeChatTrait;
+
+    /**
+     * @param Content $content
+     * @return mixed
+     *
+     *         解决方案
+     * 路径问题
+     * 传入的页面路径，pages前不可用加 " / "
+     * 正确：‘pages/index/index’
+     * 错误：‘/pages/index/index’
+     *
+     * 小程序参数问题
+     * 小程序的参数不能超过32个字符
+     *
+     *          小程序是否发布
+     * 传入page，生成指定页面的二维码的前提是，小程序必须审核并发布
+     * 审核成功并发布的小程序才能正常调用二维码生成接口
+     */
     public function index(Content $content)
     {
-//        $access_token = $this->getShareQCode(3);
-//        var_dump($access_token);exit;
+
+
+        $access_token = $this->getShareQCode(3, 1);
+
+        var_dump($access_token);
+        exit;
+
         return $content->body(ShowUser::make());
     }
 
