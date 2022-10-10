@@ -73,14 +73,22 @@ class BasicSettingController extends AdminController
     protected function form()
     {
         return Form::make(new BasicSetting(), function (Form $form) {
-            $form->display('id');
+//            $form->display('id');
             $form->text('kf_name');
             $form->text('mobile');
-            $form->text('pic');
-            $form->text('buy_protocal');
+            $form->image('pic')->required()->autoUpload();
+            $form->editor('buy_protocal');
 
             $form->display('created_at');
             $form->display('updated_at');
+
+
+            $form->tools(function (Form\Tools $tools) {
+                $tools->disableDelete();
+                $tools->disableView();
+                $tools->disableList();
+            });
+
         });
     }
 }

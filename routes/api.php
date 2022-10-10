@@ -17,11 +17,19 @@ Route::middleware('auth:api')->any('/user', function (Request $request) {
     return $request->user();
 });
 
+//以下接口，不需要用户登录
 Route::any('/login', 'LoginController@login');
+Route::prefix('/activity')->group(function () {
+    Route::any('/lists', 'ActivityController@lists');
+});
+Route::prefix('/basic')->group(function () {
+    Route::any('/settings', 'BasicController@settings');
+});
+
+//以下接口，需要登录
 
 //Route::middleware('auth:user')->group(function () {
 Route::prefix('/activity')->group(function () {
-    Route::any('/lists', 'ActivityController@lists');
     Route::any('/type/{id}', 'ActivityController@type');
     Route::any('/detail/{id}', 'ActivityController@detail');
     Route::any('/invite-user', 'ActivityController@inviteUser');
@@ -61,12 +69,10 @@ Route::prefix('/pay')->group(function () {
 });
 
 
-
 Route::prefix('/user')->group(function () {
     Route::any('/info', 'UserController@info');
     Route::any('/update', 'UserController@update');
     Route::any('/set-a', 'UserController@setA');
 });
-
 
 //});

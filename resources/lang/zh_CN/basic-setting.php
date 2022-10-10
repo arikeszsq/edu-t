@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'BasicSetting' => 'BasicSetting',
-        'basic-setting' => 'BasicSetting',
+        'BasicSetting' => '基础配置',
+        'basic-setting' => '基础配置',
     ],
     'fields' => [
         'kf_name' => '客服名字',

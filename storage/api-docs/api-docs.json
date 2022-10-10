@@ -172,6 +172,20 @@
                 }
             }
         },
+        "/api/basic/settings": {
+            "get": {
+                "tags": [
+                    "基础信息"
+                ],
+                "summary": "基础配置",
+                "operationId": "1467dfa9fbb4e53772f9df458683ee99",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/api/course/type-lists": {
             "get": {
                 "tags": [
