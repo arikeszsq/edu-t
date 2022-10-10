@@ -71,6 +71,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        $inputs = $request->all();
         $user_id = self::authUserId();
         $inputs['uid'] = $user_id;
         $user = User::query()->find($user_id);
