@@ -99,6 +99,9 @@ class ActivityController extends AdminController
             $form->datetime('end_time')->required();
             $form->text('description');
             $form->editor('content');
+
+            $form->image('share_bg','分享海报背景图')->autoUpload();
+
             $form->display('created_at');
             $form->display('updated_at');
         });
