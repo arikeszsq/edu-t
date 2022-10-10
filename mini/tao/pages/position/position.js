@@ -1,4 +1,6 @@
 // pages/position/position.js
+
+const app = getApp();
 Page({
 
   /**
@@ -18,7 +20,24 @@ moveToLocation: function () {
         ['address.latitude']:res.latitude,
         ['address.longitude']:res.longitude,
         ['address.name']:res.name
-      }) 
+      });
+
+      var map_points = res.latitude+','+res.longitude;
+      var name = res.name;
+
+      app.apiRequest({
+        url: '/user/update',
+        method: 'post',
+        data: {
+            'map_points':map_points,
+            'name':name
+        },
+        success: res => {
+           console.log('更新用户家的位置成功')
+        }
+    })
+
+
     wx.setStorageSync('trueCity',that.data.address)
       //选择地点之后返回到原来页面
       wx.navigateBack({

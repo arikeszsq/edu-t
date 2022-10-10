@@ -139,6 +139,22 @@ Page({
         })
     },
 
+    getHomeAdress() {
+        app.apiRequest({
+            url: '/user/info',
+            method: 'get',
+            data: {
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                    'adressObj.name': res.data.response.address
+                })
+            }
+        });
+    },
+
+
 
     /**
      * 生命周期函数--监听页面加载
@@ -151,6 +167,7 @@ Page({
         // }
         // var activity_id = wx.getStorageSync(keyName);
         this.getActivityDetail(1);
+        this.getHomeAdress();//初始化家的位置
         //加载页面时候就计算swiper
         this.setSwiperHeight(".timu_list0")
         // console.log('activity_id:' + activity_id);
