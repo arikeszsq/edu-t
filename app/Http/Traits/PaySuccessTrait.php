@@ -2,6 +2,7 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Activity;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\ActivitySignUserCourse;
@@ -73,15 +74,27 @@ trait PaySuccessTrait
             ]);
     }
 
+    /**
+     * 用户支付成功之后，生成分享二维码
+     * @param $order
+     */
     public function genInvitePic($order)
     {
         $order_no = $order->order_no;
         $activity_id = $order_no->activity_id;
         $user_id = $order_no->user_id;
         $share_code_url = $this->getShareQCode($activity_id,$user_id);
-        ActivitySignUser::query()->where('order_no', $order_no)
-            ->update([
-                'share_q_code' => $share_code_url
-            ]);
+        if($share_code_url['code']==200){
+            $url = $share_code_url['url'];
+            $activity = Activity::query()->find($activity_id);
+            $share_bg = $activity->share_bg;
+            if($share_bg){
+                $url = $this->mergeImg($share_bg,$share_code_url['url']);
+            }
+            ActivitySignUser::query()->where('order_no', $order_no)
+                ->update([
+                    'share_q_code' => $url
+                ]);
+        }
     }
 }
