@@ -42,10 +42,10 @@ class HomeController extends Controller
     {
 
 
-        $access_token = $this->getShareQCode(3, 1);
-
-        var_dump($access_token);
-        exit;
+//        $access_token = $this->getShareQCode(3, 1);
+//
+//        var_dump($access_token);
+//        exit;
 
         return $content->body(ShowUser::make());
     }
