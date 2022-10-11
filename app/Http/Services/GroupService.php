@@ -51,6 +51,7 @@ class GroupService
                 $in_group = 2;
             }
             $list[] = [
+                'gruop_id'=>$group->id,
                 'avatar' => $group->user->avatar,
                 'leader_name' => $group->user->name,
                 'leader_id' => $group->leader_id,
