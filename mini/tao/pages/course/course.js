@@ -21,6 +21,7 @@ Page({
         dialogShow: false,
         //四个校区的集合,需要发送给后端
         selectedCourse: [],
+        selectedSchoolId: [],
         //单个选择校区的
         selectedSchool: {},
         //一次性保存，用来修改isSelected
@@ -34,30 +35,38 @@ Page({
         //这个id，存在地方isSelectd true
         const that = this
         let id = e.currentTarget.dataset.id;
-        if (that.data.selectedCourse.length >= 4) {
-            wx.showToast({
-                title: '选择的课程只能4个',
-            })
-            return
-        }
+        console.log(id, "ssssssssssssss")
+    
         //取消选择
         const arryCourse = this.data.CourseCategroy[this.data.indexSize].children;
+        console.log(arryCourse, "arryCourse")
         for (const item of arryCourse) {
             //根据资料里面值进行判断
             if (item.id === id && item.isSelected) {
+                console.log(id,"选课id");
+
                 this.data.selectedCourse.splice(this.data.selectedCourse.indexOf(id), 1);
+                 this.data.selectedSchoolId.splice(this.data.selectedCourse.indexOf(id), 1);
+                 console.log(this.data.selectedSchoolId,"选课")
                 //需要重新设置一下isSelected
                 item.isSelected = false
                 that.setData({
                     selectedCourse: this.data.selectedCourse,
                     CourseCategroy: this.data.CourseCategroy
                 })
+
+                console.log(this.data.selectedSchoolId,"课程id")
+                console.log(this.data.selectedCourse,"校区id")
                 return
 
             }
         }
-
-
+        if (that.data.selectedCourse.length >= 4) {
+            wx.showToast({
+                title: '选择的',
+            })
+            return
+        }
         this.setData({
             selectedCourseId: id,
             dialogShow: true
@@ -135,14 +144,17 @@ Page({
         }
 
         //集合selectedCourse，选中的id
-
         this.data.selectedCourse.push(this.data.selectedSchool.id);
+        this.data.selectedSchoolId.push(this.data.selectedCourseId);
+        console.log(this.data.selectedCourse,"校区ssss")
+        console.log( this.data.selectedSchoolId,"课程")
         this.setData({
             selectedCourse: this.data.selectedCourse,
+            selectedSchoolId: this.data.selectedSchoolId,
             dialogShow: false,
             selectedSchool: {}
         })
-        console.log(this.data.selectedCourse, "id");
+        // console.log(this.data.selectedCourse, "id");
         //设置列表页面的选中状态
         this.isSelectedCourse(this.data.selectedCourseId, true)
     },

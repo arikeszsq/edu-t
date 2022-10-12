@@ -1,0 +1,51 @@
+<!--pages/activity/group/index.wxml-->
+<view class="group-container">
+    <!-- 搜索 -->
+    <view class="search">
+        <input bindfocus="searchFocus" class="weui-input" placeholder="搜索团长名称" />
+        <view>
+            <image class="weui-image" src="../../../images/activity/sousuo.png"></image>
+        </view>
+    </view>
+    <!-- 内容 -->
+    <view class="group-container-list">
+        <view class="group-item" wx:for="{{groupLists}}"  wx:key="gruop_id" bindtap="handleSubShow" data-index="{{item.gruop_id}}">
+            <!-- 一级菜单位置 -->
+            <view class="group-item-list box">
+                <view class="avatar-item">
+                    <image src="{{item.avatar}}"></image>
+                </view>
+                <view class="group-item-content">
+                    <view class="title">
+                        <text class="t">{{item.leader_name}}</text>
+                        <text class="team">团长</text>
+                    </view>
+                    <view class="desc box">
+                        <text class="d">本团已有{{item.current_num}}人</text>
+                        <image src="../../../images/activity/topArrow.png" class="topArrow {{isTopArrow?'showArrow':''}}"></image>
+                        <image src="../../../images/activity/bottomArrow.png" class="topArrow  {{!isTopArrow?'showArrow':''}}"></image>
+                    </view>
+                </view>
+                <view class="group-item-btn" bindtap="handleSucessGroup">立即参与</view>
+            </view>
+            <!-- 二级菜单位置 -->
+            <view class="sub-item sub-show" wx:if="{{isExTand===item.gruop_id&&groupOneList.length}}">
+                <!-- 循环位置 -->
+                <view class="box sub-item-container" wx:for="{{groupOneList}}" wx:key="index">
+                    <!-- 循环时候需要判断index===1?'avatar-team' -->
+                    <view class="avatar-sub avatar-team">
+                        <image src="{{item.avatar}}"></image>
+                        <!-- 团长的判断 -->
+                        <view class="avatar-item-team">团长</view>
+                    </view>
+                    <view class="title">{{item.name}}</view>
+                    <view class="time">{{item.created_at}} {{index===1?"开团":"参团"}}</view>
+                </view>
+
+            </view>
+        </view>
+
+    </view>
+
+
+</view>

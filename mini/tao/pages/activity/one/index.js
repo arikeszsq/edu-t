@@ -15,6 +15,17 @@ Page({
     onLoad: function (options) {
         this.getUserInfo();
     },
+    handletoCourseOne() {
+        //立即参团
+        wx.navigateTo({
+            url: "/pages/activity/group/index",
+        })
+     
+    },
+    handletoCourseTwo() {
+          //立即开团
+        console.log("开团")
+    },
     getUserInfo: function () {
         app.apiRequest({
             url: '/user/info',

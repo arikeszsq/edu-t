@@ -1,11 +1,13 @@
 {
     "pages": [
+        "pages/course/course",
+        "pages/activity/group/index",
+        "pages/activity/pay/index",
         "pages/activity/many/index",
         "pages/activity/one/index",
         "pages/index/index",
         "pages/mine/mine",
         "pages/myAward/myAward",
-        "pages/course/course",
         "pages/myOrder/myOrder",
         "pages/Agreement/Agreement",
         "pages/position/position",
@@ -21,5 +23,5 @@
         "navigationBarTextStyle": "black"
     },
     "sitemapLocation": "sitemap.json",
-    "lazyCodeLoading" : "requiredComponents"
+    "lazyCodeLoading": "requiredComponents"
 }

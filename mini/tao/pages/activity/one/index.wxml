@@ -152,5 +152,5 @@
         <view class="jiange"></view>
     </view>
 
-<ServiceOne></ServiceOne>
+<ServiceOne bindtoCourseOne="handletoCourseOne" bindtoCourseTwo="handletoCourseTwo"></ServiceOne>
 </view>

@@ -30,14 +30,13 @@ Component({
         },
         //我的页面跳转
         toCourseOne(e) {
-            this.triggerEvent("toCourseOne", e.currentTarget.dataset.type)
+            this.triggerEvent("toCourseOne")
         },
         toCourseTwo(e) {
-            this.triggerEvent("toCourseTwo", e.currentTarget.dataset.type)
+            this.triggerEvent("toCourseTwo")
         },
         //弹出客服页面
         serviceDialogue() {
-            console.log("点击了吗")
             this.setData({
                 isShow: true
             })
