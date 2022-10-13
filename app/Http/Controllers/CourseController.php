@@ -4,12 +4,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\CourseService;
+use App\Http\Traits\ImageTrait;
+use App\Models\Company;
+use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
 use Exception;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    use ImageTrait;
 
     public $courseService;
 
@@ -133,6 +137,43 @@ class CourseController extends Controller
     {
         try {
             return self::success($this->courseService->companyChildList($course_id));
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/course/courseschool/info",
+     *     tags={"通过课程id和学校id去拿4个报名的数据"},
+     *     summary="通过课程id和学校id去拿4个报名的数据",
+     *     @OA\Parameter(name="school_ids",in="query",description="校区ids:1,2,3,4",required=true),
+     *     @OA\Parameter(name="course_ids",in="query",description="课程ids:1,2,3,4",required=true),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
+    public function courseAndSchool(Request $request)
+    {
+        $inputs = $request->all();
+        try {
+            $school_ids = explode(',', $inputs['school_ids']);
+            $course_ids = explode(',', $inputs['course_ids']);
+            $data = [];
+            foreach ($school_ids as $key => $school_id) {
+                $school = CompanyChild::query()->find($school_id);
+                $course = CompanyCourse::query()->find($course_ids[$key]);
+                $company = Company::query()->find($school->company_id);
+                $data[] = [
+                    'course_logo' => $this->fullImgUrl($course->logo),
+                    'company_name' => $company->name,
+                    'course_name' => $course->name
+                ];
+            }
+            return self::success($data);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }

@@ -44,6 +44,7 @@ Route::prefix('/group')->group(function () {
     Route::any('/lists', 'GroupController@lists');
     //某一个团里面成员列表
     Route::any('/user-lists/{id}', 'GroupController@userList');
+
 });
 
 Route::prefix('/award')->group(function () {
@@ -61,6 +62,10 @@ Route::prefix('/course')->group(function () {
     Route::any('/type-lists', 'CourseController@typeLists');
     Route::any('/lists', 'CourseController@lists');
     Route::any('/company-child-lists/{id}', 'CourseController@companyChildList');
+
+
+    //通过课程id和学校id去拿4个报名的数据
+    Route::any('/courseschool/info', 'CourseController@courseAndSchool');
 });
 
 Route::prefix('/pay')->group(function () {
