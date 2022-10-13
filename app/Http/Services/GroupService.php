@@ -80,6 +80,7 @@ class GroupService
                 'role' => $list->role,//1团长  2团员
                 'avatar' => $list->user->avatar,
                 'name' => $list->user->name,
+                'type'=>$list->type,
                 'created_at' => date('Y-m-d H:i', strtotime($list->created_at))
             ];
         }
