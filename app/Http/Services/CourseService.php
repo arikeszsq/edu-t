@@ -18,11 +18,11 @@ class CourseService
     {
         $list = $this->lists($inputs);
         $data = [];
-        $data[] = [
-            "id" => 1,
-            "name" => "全部",
-            "children" => $list['total']
-        ];
+//        $data[] = [
+//            "id" => 1,
+//            "name" => "全部",
+//            "children" => $list['total']
+//        ];
         $types = CompanyCourse::Type_类型列表;
         foreach ($types as $type_id => $type_name) {
             $data[] = [
