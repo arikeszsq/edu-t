@@ -14,7 +14,7 @@ Page({
         info: {},
         oriPrice: "0",
         realPrice: "0",
-        oriPriceAfter:'00',
+        oriPriceAfter: '00',
         price: {
             name: "xxxxxxxx1",
             id: 1
@@ -124,7 +124,7 @@ Page({
                     //价格的处理
                     oriPrice: util.cutZero(res.data.response.ori_price),
                     realPrice: util.cutZero(res.data.response.real_price),
-                    oriPriceAfter:res.data.response.ori_price_after
+                    oriPriceAfter: res.data.response.ori_price_after
                 })
             }
         });
@@ -161,24 +161,10 @@ Page({
         //     wx.setStorageSync(keyName, id);
         // }
         // var activity_id = wx.getStorageSync(keyName);
-        this.getActivityDetail(1);
+        this.getActivityDetail(app.globalData.activity_id);
         this.getHomeAdress();//初始化家的位置
         //加载页面时候就计算swiper
         this.setSwiperHeight(".timu_list0")
-        
-        
-        // console.log('activity_id:' + activity_id);
-        // 家的位置的设置
-
-        // const obj = wx.getStorageSync('trueCity')
-        // if (obj.latitude) {
-        //     console.log('adressObj:' + JSON.stringify(obj));
-        //     this.setData({
-        //         adressObj: obj
-        //     })
-        //     return false;
-        // }
-        
     },
 
     /**
@@ -186,24 +172,21 @@ Page({
      */
     onShow: function () {
         wx.hideHomeButton();
+        //增加浏览数
+        this.addViewNum();
+    },
 
-        // //设置家的地址修改之后
-        // const obj = wx.getStorageSync('trueCity');
-        // if (this.data.flag) {
-        //     if (obj.longitude != this.data.adressObj.longitude || obj.latitude != this.data.adressObj.latitude) {
-        //         console.log('地址变了');
-        //         console.log('adressObj:' + JSON.stringify(obj));
-        //         this.setData({
-        //             adressObj: obj,
-        //             index: 0
-        //         });
-
-        //     }
-        // }
-        // this.setData({
-        //     flag: true
-        // })
-
+    //初始化时，获取家的位置
+    addViewNum() {
+        app.apiRequest({
+            url: '/activity/view',
+            method: 'get',
+            data: {
+                'activity_id': app.globalData.activity_id
+            },
+            success: res => {
+            }
+        });
     },
 
     /**
