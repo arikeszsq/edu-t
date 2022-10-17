@@ -1,14 +1,6 @@
 <!--pages/course/course.wxml-->
 <!-- 地图 -->
 <view class="course-container">
-    <!-- <view class="map box justify-between align-center">
-        <image class="icons" src="../../images/activity/dizhi.png"></image>
-        <view class="address" bindtap="searchNearOrgan">
-            {{adressObj.name}}
-        </view>
-        <view class="home-set" bindtap="setHomeAdress">点击设置家的位置</view>
-    </view> -->
-
     <view class="menu-content">
         <view class="menu-container">
             <scroll-view scroll-y="true" class="scroll-view">

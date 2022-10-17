@@ -7,41 +7,89 @@ Page({
      */
     data: {
         userInfo: {
-            name: "",
-            phoneNumber: "",
-            age: "",
-            male: "male",
-            isAgree: true
+            activity_id: "",
+            sign_name: "",
+            sign_mobile: "",
+            sign_age: "",
+            sign_sex: true,
+            is_agree: true
         }
     },
+
+    //手机号码
     handlechange(e) {
-        console.log(e.detail.value);
         const reg = /^1[3-9]\d{9}$/
-        console.log(reg.test(e.detail.value.trim()));
         if (!reg.test(e.detail.value)) {
             // 不满足
             wx.showToast({
-                title: '手机号不正确',
+                title: '需填正确的号码',
+                icon: 'error',
+                duration: 2000
+            })
+        } else {
+            this.setData({
+                "userInfo.sign_mobile": e.detail.value
+            })
+            console.log(this.data.userInfo)
+        }
+    },
+    //姓名
+    handleNameInput(e) {
+        this.setData({
+            "userInfo.sign_name": e.detail.value
+        })
+    },
+    //年龄
+    handleAgeInput(e) {
+        this.setData({
+            "userInfo.sign_age": e.detail.value
+        })
+    },
+    //协议
+    handleAgreement(e) {
+        this.setData({
+            "userInfo.is_agree": !!e.detail.value.length
+        })
+    },
+    /**
+     * 性别
+     * @param {*} e 
+     */
+    handleMaleChange(e) {
+        console.log(e.detail.value);
+        if (e.detail.value === "male") {
+            console.log("s")
+            this.data.userInfo.sign_sex = true
+        } else {
+            this.data.userInfo.sign_sex = false
+        }
+        this.setData({
+            "userInfo.sign_sex": this.data.userInfo.sign_sex
+        })
+    },
+    /**
+     * 确认支付
+     */
+    doPay() {
+        if (this.data.userInfo.sign_name && this.data.userInfo.sign_mobile && this.data.userInfo.sign_age && this.data.userInfo.is_agree) {
+            //支付成功
+        } else {
+            //信息不完整
+            wx.showToast({
+                title: '信息不完整',
                 icon: 'error',
                 duration: 2000
             })
         }
-    },
-    handleMaleChange(e) {
-        this.data.userInfo.male = e.detail.value
-        this.setData({
-            userInfo: this.data.userInfo
-        })
-        console.log(this.data.userInfo)
-    },
-    doPay() { 
-
+        console.log(this.data.userInfo, "sssss")
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        console.log(app.globalData.activity_id, "sss")
+        this.setData({
+            "data.activity_id": app.globalData.activity_id
+        })
     },
 
     /**

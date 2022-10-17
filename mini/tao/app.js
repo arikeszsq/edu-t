@@ -59,7 +59,10 @@ App({
         apiDomain: 'https://zsq.a-poor.com/api', //生产
         defaultDailyFreeParseNum: 10,
         activity_id: 0,
-        share_user_id: 0
+        share_user_id: 0,
+        //选课得信息
+        selectedCourse: [],  //校区得id
+        selectedSchoolId: []  //课程得id
     },
 
 

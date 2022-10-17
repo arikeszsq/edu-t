@@ -21,13 +21,12 @@ Page({
         dialogShow: false,
         //四个校区的集合,需要发送给后端
         selectedCourse: [],
+        //四个课程id,需要发后端
         selectedSchoolId: [],
         //单个选择校区的
         selectedSchool: {},
         //一次性保存，用来修改isSelected
         selectedCourseId: "",
-
-
     },
 
     //课程校区的获取
@@ -35,30 +34,21 @@ Page({
         //这个id，存在地方isSelectd true
         const that = this
         let id = e.currentTarget.dataset.id;
-        console.log(id, "ssssssssssssss")
-    
         //取消选择
         const arryCourse = this.data.CourseCategroy[this.data.indexSize].children;
         console.log(arryCourse, "arryCourse")
         for (const item of arryCourse) {
             //根据资料里面值进行判断
             if (item.id === id && item.isSelected) {
-                console.log(id,"选课id");
-
                 this.data.selectedCourse.splice(this.data.selectedCourse.indexOf(id), 1);
-                 this.data.selectedSchoolId.splice(this.data.selectedCourse.indexOf(id), 1);
-                 console.log(this.data.selectedSchoolId,"选课")
+                this.data.selectedSchoolId.splice(this.data.selectedCourse.indexOf(id), 1);
                 //需要重新设置一下isSelected
                 item.isSelected = false
                 that.setData({
                     selectedCourse: this.data.selectedCourse,
                     CourseCategroy: this.data.CourseCategroy
                 })
-
-                console.log(this.data.selectedSchoolId,"课程id")
-                console.log(this.data.selectedCourse,"校区id")
                 return
-
             }
         }
         if (that.data.selectedCourse.length >= 4) {
@@ -71,9 +61,7 @@ Page({
             selectedCourseId: id,
             dialogShow: true
         })
-
         // 第二次点击就是需要取消课程的
-
         app.apiRequest({
             url: '/course/company-child-lists/' + id,
             method: 'get',
@@ -95,7 +83,14 @@ Page({
             })
             return
         } else {
-            //满足就可以跳转页面了
+            //课程储存到app.js得globalData里面
+            //校区得id
+            app.globalData.selectedCourse = this.data.selectedCourse;
+            //课程得id
+            app.globalData.selectedSchoolId = this.data.selectedSchoolId;
+            wx.navigateTo({
+                url: '/pages/activity/pay/index',
+            })
         }
 
 
@@ -104,7 +99,6 @@ Page({
     isSelectedCourse(id, isSelected) {
         //////////////////////////////////////////////////////需要解决的问题
         //问题？？如何在总的分类里面选择，下面分类里面也需要选择
-
         const Choosechildren = this.data.CourseCategroy[this.data.indexSize].children
         for (const item of Choosechildren) {
             if (item.id === id) {
@@ -142,12 +136,10 @@ Page({
             })
             return
         }
-
         //集合selectedCourse，选中的id
         this.data.selectedCourse.push(this.data.selectedSchool.id);
         this.data.selectedSchoolId.push(this.data.selectedCourseId);
-        console.log(this.data.selectedCourse,"校区ssss")
-        console.log( this.data.selectedSchoolId,"课程")
+
         this.setData({
             selectedCourse: this.data.selectedCourse,
             selectedSchoolId: this.data.selectedSchoolId,

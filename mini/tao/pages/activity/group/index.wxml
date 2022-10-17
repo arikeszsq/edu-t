@@ -9,13 +9,13 @@
     </view>
     <!-- 内容 -->
     <view class="group-container-list">
-        <view class="group-item" wx:for="{{groupLists}}"  wx:key="gruop_id" bindtap="handleSubShow" data-index="{{item.gruop_id}}">
+        <view class="group-item" wx:for="{{groupLists}}" wx:key="gruop_id">
             <!-- 一级菜单位置 -->
             <view class="group-item-list box">
-                <view class="avatar-item">
+                <view class="avatar-item" bindtap="handleSubShow" data-index="{{item.gruop_id}}">
                     <image src="{{item.avatar}}"></image>
                 </view>
-                <view class="group-item-content">
+                <view class="group-item-content" bindtap="handleSubShow" data-index="{{item.gruop_id}}">
                     <view class="title">
                         <text class="t">{{item.leader_name}}</text>
                         <text class="team">团长</text>
@@ -26,7 +26,7 @@
                         <image src="../../../images/activity/bottomArrow.png" class="topArrow  {{!isTopArrow?'showArrow':''}}"></image>
                     </view>
                 </view>
-                <view class="group-item-btn" bindtap="handleSucessGroup">立即参与</view>
+                <view class="group-item-btn" data-id="{{item.gruop_id}}" bindtap="handleSucessGroup">立即参与</view>
             </view>
             <!-- 二级菜单位置 -->
             <view class="sub-item sub-show" wx:if="{{isExTand===item.gruop_id&&groupOneList.length}}">
@@ -46,6 +46,63 @@
         </view>
 
     </view>
+    <view class="dislogue-group-bj {{isShowDislogue?'show-dislogue':''}}">
+        <view class="dislogue-group">
+            <view class="top">
+                <view class="dislogue-title">我要参团</view>
+                <view class="box">
+                    <image src=""></image>
+                    <view class="name">测试的团</view>
+                </view>
+                <view class="closed" bindtap="handleClosed">❌</view>
+            </view>
+            <view class="from-dislogue">
+                <view class="group-item-dis">
+                    <text>姓名</text>
+                    <input type="text" placeholder-class="placeholder-style" placeholder="请输入" value="{{name}}" bindchange="handleName"/>
+                </view>
+                <view class="group-item-dis">
+                    <text>手机</text>
+                    <input type="text" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" bindchange="handlephoneNum"/>
+                </view>
+                <view class="desc-dis">请在姓名一栏填写孩子名字</view>
+                <view class="info">
+                    <!-- 下来选框-->
+                    <view class="bt">信息一</view>
+                    <view class="search-bar">
+                        <view class="condition" bindtap="showCondition">
+                            <view class="select-condition">{{choosedCondition.title}}</view>
+                            <view class="trigger {{ conditionVisible ? 'reverse' : ''}}"></view>
+                            <cover-view class="option-list" style="height: {{conditionVisible ? '300rpx': '0'}}">
+                                <cover-view bindtap="onChnageCondition" data-id="{{item.id}}" class="list-item" wx:for="{{conditionList}}" wx:key="index" wx:for-index="index">
+                                    <cover-view class="title">{{item.title}}</cover-view>
+                                    <cover-view class="title" wx:if="{{item.select}}">√</cover-view>
+                                </cover-view>
+                            </cover-view>
+                        </view>
+                    </view>
 
 
+
+                </view>
+                <view class="info info2">
+                    <!-- 下来选框-->
+                    <view class="bt">信息二</view>
+                    <view class="search-bar">
+                        <view class="condition" bindtap="showCondition2">
+                            <view class="select-condition">{{choosedCondition2.title}}</view>
+                            <view class="trigger {{ conditionVisible2 ? 'reverse' : ''}}"></view>
+                            <cover-view class="option-list" style="height: {{conditionVisible2 ? '300rpx': '0'}}">
+                                <cover-view bindtap="onChnageCondition2" data-id="{{item.id}}" class="list-item" wx:for="{{conditionList2}}" wx:key="index" wx:for-index="index">
+                                    <cover-view class="title">{{item.title}}</cover-view>
+                                    <cover-view class="title" wx:if="{{item.select}}">√</cover-view>
+                                </cover-view>
+                            </cover-view>
+                        </view>
+                    </view>
+                </view>
+                <view class="btn-ss" bindtap="handleConfirm">提交</view>
+            </view>
+        </view>
+    </view>
 </view>
