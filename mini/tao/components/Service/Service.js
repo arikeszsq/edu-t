@@ -1,3 +1,4 @@
+const app = getApp();
 // components/Service/Service.js
 Component({
     /**
@@ -13,7 +14,10 @@ Component({
      * 组件的初始数据
      */
     data: {
-        isShow: false
+        isShow: false,
+        kf_name: '',
+        mobile: "15062332900",
+        pic: "https://zsq.a-poor.com/uploads/images/8376382dd5344e8ee76cda8ac697c909.png"
     },
 
     computed: {
@@ -40,6 +44,7 @@ Component({
         },
         //弹出客服页面
         serviceDialogue() {
+            this.getKeFuDetail();
             console.log("点击了吗")
             this.setData({
                 isShow: true
@@ -49,6 +54,22 @@ Component({
             this.setData({
                 isShow: false
             })
-        }
+        },
+        getKeFuDetail() {
+            var that = this;
+            app.apiRequest({
+                url: '/basic/settings',
+                method: 'get',
+                data: {
+                },
+                success: res => {
+                    that.setData({
+                        kf_name: res.data.response.kf_name,
+                        mobile: res.data.response.mobile,
+                        pic :res.data.response.pic
+                    })
+                }
+            });
+        },
     }
 })

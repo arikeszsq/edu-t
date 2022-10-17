@@ -11,9 +11,9 @@
         <swiper-item class="swiper-item">
             <Empty wx:if="{{info.length===0}}"></Empty>
             <view class="swiper-item-container box" wx:for="{{info}}" wx:key="id">
-                <image src="../../images/mine/xiaoxi.png"></image>
+                <image src="{{item.logo}}"></image>
                 <view class="item-right">
-                    <view class="title">{{item.name}}（运费自理）</view>
+                    <view class="title">{{item.name}}</view>
                     <view class="swiper-item-desc box align-center justify-between">
                         <view class="desc gray">
                             <view>{{item.short_name}}</view>
