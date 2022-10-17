@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\ImageTrait;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\Award;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 class AwardController extends Controller
 {
 
+    use ImageTrait;
     /**
      * @OA\Post(
      *     path="/api/award/create",
@@ -128,7 +130,24 @@ class AwardController extends Controller
                 ->where('status', Award::Status_有效)
                 ->orderBy('id', 'desc')
                 ->get();
-            return self::success($list);
+            $data = [];
+            foreach ($list as $award)
+            {
+                $data[]=[
+                    'name'=>$award->name,
+                    'short_name'=>$award->short_name,
+                    'logo'=>$this->fullImgUrl($award->logo),
+                    'description'=>$award->description,
+                    'invite_num'=>$award->invite_num,
+                    'status'=>$award->status,
+                    'created_at'=>$award->created_at,
+                    'price'=>$award->price,
+                    'is_commander'=>$award->is_commander,
+                    'group_ok'=>$award->group_ok,
+                    'is_free'=>$award->is_free,
+                ];
+            }
+            return self::success($data);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
