@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Services\ActivityService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Integer;
 
 class ActivityController extends Controller
@@ -147,6 +149,23 @@ class ActivityController extends Controller
         }
         try {
             return self::success($this->activityService->inviteUser($inputs));
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
+    public function view(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        try {
+            $data = [
+                'activity_id' => $inputs['activity_id'],
+                'user_id' => $user_id,
+                'created_at' => Carbon::now()
+            ];
+            $ret = DB::table('activity_view_log')->insert($data);
+            return self::success($ret);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }

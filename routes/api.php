@@ -21,6 +21,8 @@ Route::middleware('auth:api')->any('/user', function (Request $request) {
 Route::any('/login', 'LoginController@login');
 Route::prefix('/activity')->group(function () {
     Route::any('/lists', 'ActivityController@lists');
+    //活动浏览+1
+    Route::any('/view', 'ActivityController@view');
 });
 Route::prefix('/basic')->group(function () {
     Route::any('/settings', 'BasicController@settings');

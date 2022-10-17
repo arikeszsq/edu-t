@@ -157,7 +157,7 @@ class ActivityService
         }
 
         $data['end_time'] = $activity->end_time;
-        $data['views_num'] = $activity->views_num;
+        $data['views_num'] = DB::table('activity_view_log')->where('activity_id',$id)->count();
         $data['buy_num'] = $activity->buy_num;
         $data['share_num'] = $activity->share_num;
         $data['content'] = $activity->content;
