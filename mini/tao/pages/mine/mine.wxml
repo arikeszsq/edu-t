@@ -31,12 +31,12 @@
                 </view>
 
             </view>
-            <view class="bottom box align-center">
+            <view class="bottom box align-center" bindtap="toMyOrder">
                 <view class="order-bottom-list">
                     <image src="../../images/mine/daiwancheng@2x.png" class="order-bottom-image"></image>
                     <view>待完成</view>
                 </view>
-                <view class="order-bottom-list">
+                <view class="order-bottom-list" bindtap="toMyOrder">
                     <image src="../../images/mine/yiwancheng@2x.png" class="order-bottom-image"></image>
                     <view>已完成</view>
                 </view>
