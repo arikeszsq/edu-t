@@ -30,7 +30,7 @@ moveToLocation: function () {
         method: 'post',
         data: {
             'map_points':map_points,
-            'name':name
+            'address':name
         },
         success: res => {
            console.log('更新用户家的位置成功')

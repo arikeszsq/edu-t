@@ -135,12 +135,7 @@ Page({
             url: "/pages/position/position",
         })
     },
-    searchNearOrgan() {
-        wx.navigateTo({
-            url: "/pages/checkSchool/checkSchool",
-        })
-    },
-
+    //初始化时，获取家的位置
     getHomeAdress() {
         app.apiRequest({
             url: '/user/info',
@@ -174,14 +169,15 @@ Page({
         
         // console.log('activity_id:' + activity_id);
         // 家的位置的设置
-        const obj = wx.getStorageSync('trueCity')
-        if (obj.latitude) {
-            console.log('adressObj:' + JSON.stringify(obj));
-            this.setData({
-                adressObj: obj
-            })
-            return false;
-        }
+
+        // const obj = wx.getStorageSync('trueCity')
+        // if (obj.latitude) {
+        //     console.log('adressObj:' + JSON.stringify(obj));
+        //     this.setData({
+        //         adressObj: obj
+        //     })
+        //     return false;
+        // }
         
     },
 
@@ -190,22 +186,23 @@ Page({
      */
     onShow: function () {
         wx.hideHomeButton();
-        //设置家的地址修改之后
-        const obj = wx.getStorageSync('trueCity');
-        if (this.data.flag) {
-            if (obj.longitude != this.data.adressObj.longitude || obj.latitude != this.data.adressObj.latitude) {
-                console.log('地址变了');
-                console.log('adressObj:' + JSON.stringify(obj));
-                this.setData({
-                    adressObj: obj,
-                    index: 0
-                });
 
-            }
-        }
-        this.setData({
-            flag: true
-        })
+        // //设置家的地址修改之后
+        // const obj = wx.getStorageSync('trueCity');
+        // if (this.data.flag) {
+        //     if (obj.longitude != this.data.adressObj.longitude || obj.latitude != this.data.adressObj.latitude) {
+        //         console.log('地址变了');
+        //         console.log('adressObj:' + JSON.stringify(obj));
+        //         this.setData({
+        //             adressObj: obj,
+        //             index: 0
+        //         });
+
+        //     }
+        // }
+        // this.setData({
+        //     flag: true
+        // })
 
     },
 

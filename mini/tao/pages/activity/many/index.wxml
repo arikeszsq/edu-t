@@ -99,7 +99,7 @@
             <!-- 地图 -->
             <view class="map box justify-between align-center">
                 <image class="icons" src="../../../images/activity/dizhi.png"></image>
-                <view class="address" bindtap="searchNearOrgan">
+                <view class="address">
                     {{adressObj.name}}
                 </view>
                 <view class="home-set" bindtap="setHomeAdress">点击设置家的位置</view>
