@@ -14,6 +14,7 @@ Page({
         info: {},
         oriPrice: "0",
         realPrice: "0",
+        oriPriceAfter:'00',
         price: {
             name: "xxxxxxxx1",
             id: 1
@@ -122,7 +123,8 @@ Page({
                     bannerInfo: res.data.response.bg_banner,
                     //价格的处理
                     oriPrice: util.cutZero(res.data.response.ori_price),
-                    realPrice: util.cutZero(res.data.response.real_price)
+                    realPrice: util.cutZero(res.data.response.real_price),
+                    oriPriceAfter:res.data.response.ori_price_after
                 })
             }
         });
@@ -154,8 +156,6 @@ Page({
         });
     },
 
-
-
     /**
      * 生命周期函数--监听页面加载
      */
@@ -170,6 +170,8 @@ Page({
         this.getHomeAdress();//初始化家的位置
         //加载页面时候就计算swiper
         this.setSwiperHeight(".timu_list0")
+        
+        
         // console.log('activity_id:' + activity_id);
         // 家的位置的设置
         const obj = wx.getStorageSync('trueCity')
@@ -180,6 +182,7 @@ Page({
             })
             return false;
         }
+        
     },
 
     /**

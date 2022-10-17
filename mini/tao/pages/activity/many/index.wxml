@@ -6,7 +6,8 @@
             <view class="middle-content">
                 <text class="price danger">
                     <text class="yuan">￥</text>
-                    <text>{{oriPrice}}</text>
+                    <text>{{oriPrice}}.</text>
+                    <text class="mini-price">{{oriPriceAfter}}</text>
 
                 </text>
                 <text class="des">限时活动</text>
