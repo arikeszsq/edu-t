@@ -6,48 +6,138 @@ Page({
      * 页面的初始数据
      */
     data: {
-        info: {}
+        isShowDislogue: false,//弹窗是否显示
+        info: {},
+        nowDate: '2021-12-22 18:00:00', //结束时间
+        countdown: '', //倒计时
+        days: '00', //天
+        hours: '00', //时
+        minutes: '00', //分
+        seconds: '00', //秒
+        info1:'',
+        info2:'',
+        name:'',
+        phoneNum:''
+    },
+
+    doPay(e){
+        console.log(e,'下单');
+ 
+        var name = e.detail.value.name;
+        var mobile = e.detail.value.phoneNum;
+        var info1 = e.detail.value.info1;
+        var info2 = e.detail.value.info2;
+        if (name && mobile) {
+            this.setData({
+                isShowDislogue: false
+            })
+            //提交支付订单
+            
+
+        } else {
+            wx.showToast({
+                title: '请填完整信息',
+                icon: "error"
+            })
+        }
+    },
+
+    addViewNum() {
+        app.apiRequest({
+            url: '/activity/view',
+            method: 'get',
+            data: {
+                'activity_id': app.globalData.activity_id
+            },
+            success: res => {
+            }
+        });
+    },
+
+    //info数据的获取
+    getActivityDetail: function (activity_id) {
+        app.apiRequest({
+            url: '/activity/detail/' + activity_id,
+            method: 'get',
+            data: {
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                    info: res.data.response,
+                    nowDate:res.data.response.end_time
+                })
+                this.countTime();
+            }
+        });
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getUserInfo();
+        this.getActivityDetail(app.globalData.activity_id);
     },
     handletoCourseOne() {
         //立即参团
         wx.navigateTo({
             url: "/pages/activity/group/index",
         })
-     
+
     },
     handletoCourseTwo() {
-          //立即开团
+        this.setData({
+            isShowDislogue:true
+        })
+        //立即开团
         console.log("开团")
     },
-    getUserInfo: function () {
-        app.apiRequest({
-            url: '/user/info',
-            method: 'get',
-            data: {
-            },
-            success: res => {
-                var that = this;
-                console.log(res.data.response, "d");
-                that.setData({
-                    info: res.data.response,
-                })
-            }
-        });
+
+    countTime() {
+        var that = this;
+        var days, hours, minutes, seconds;
+        var nowDate = that.data.nowDate;
+        var now = new Date().getTime();
+        var end = new Date(nowDate).getTime(); //设置截止时间
+        // console.log("开始时间：" + now, "截止时间:" + end);
+        var leftTime = end - now; //时间差                       
+        if (leftTime >= 0) {
+            days = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+            hours = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+            minutes = Math.floor(leftTime / 1000 / 60 % 60);
+            seconds = Math.floor(leftTime / 1000 % 60);
+            seconds = seconds < 10 ? "0" + seconds : seconds
+            minutes = minutes < 10 ? "0" + minutes : minutes
+            hours = hours < 10 ? "0" + hours : hours
+            that.setData({
+                countdown: days + ":" + hours + "：" + minutes + "：" + seconds,
+                days,
+                hours,
+                minutes,
+                seconds
+            })
+            // console.log(that.data.countdown)
+            //递归每秒调用countTime方法，显示动态时间效果
+            setTimeout(that.countTime, 1000);
+        } else {
+            that.setData({
+                countdown: '已截止'
+            })
+        }
     },
 
+    handleClosed() {
+        //关闭弹窗,清楚id的数据
+        this.setData({
+            isShowDislogue: false
+        })
+    },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-
+        this.addViewNum();
     },
 
     /**

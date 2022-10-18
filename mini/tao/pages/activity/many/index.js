@@ -91,6 +91,7 @@ Page({
     },
     //单独购买跳转页面
     toCourseOne(e) {
+        app.globalData.type=2;
         wx.setStorageSync('buy_type', 1);
         wx.navigateTo({
             url: '/pages/course/course',
@@ -101,6 +102,7 @@ Page({
     },
     //2人拼团
     bindtoCourseTwo(e) {
+        app.globalData.type=1;
         wx.setStorageSync('buy_type', 1);
         wx.navigateTo({
             url: '/pages/course/course',

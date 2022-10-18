@@ -59,7 +59,7 @@ App({
         apiDomain: 'https://zsq.a-poor.com/api', //生产
         defaultDailyFreeParseNum: 10,
         type:1,//开团类型必填：1开团 2单独购买
-        activity_id: 1,
+        activity_id: 2,
         share_user_id: 0,
         //选课得信息
         selectedCourse: [],  //校区得id

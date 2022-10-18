@@ -2,13 +2,13 @@
 <view class="one-container">
     <!-- banner -->
     <view class="banner-container">
-        <image class="banner-image" src=""></image>
+        <image class="banner-image" src="{{info.bg_banner}}"></image>
         <view class="banner-desc middle-content">
-            <view class="title">番茄亲子·2022艺术素质教育节·走进杭</view>
+            <view class="title">{{info.title}}</view>
             <view class="box banner-container-desc">
                 <view class="left">
-                    <view class="gray des-item">杭州知名品牌机构，200+校区齐聚</view>
-                    <view class="price primary">最低价： ￥<text class="price-nubmer">198
+                    <view class="gray des-item">{{info.description}}</view>
+                    <view class="price primary">最低价： ￥<text class="price-nubmer">{{info.ori_price}}
                         </text>
                     </view>
                 </view>
@@ -26,8 +26,8 @@
             <image src="../../../images/one/time.png"></image>
             <view class="desc">距离活动结束</view>
             <view class="box settime">
-                <view>8</view> 天
-                <view class="nei">8</view>时 <view>8</view>分 <view>8</view>秒
+                <view>{{days}}</view> 天
+                <view class="nei">{{hours}}</view>时 <view>{{minutes}}</view>分 <view>{{seconds}}</view>秒
             </view>
         </view>
     </view>
@@ -36,15 +36,15 @@
         <view class="Scrabble-dough common">
             <view class="top-container box justify-between">
                 <view class="top-list">
-                    <view class="num">12</view>
+                    <view class="num">{{info.views_num}}</view>
                     <view>已浏览</view>
                 </view>
                 <view class="top-list">
-                    <view class="num">12</view>
+                    <view class="num">{{info.buy_num}}</view>
                     <view> 已报名</view>
                 </view>
                 <view class="top-list">
-                    <view class="num">23</view>
+                    <view class="num">{{info.share_num}}</view>
                     <view>已分享</view>
                 </view>
             </view>
@@ -152,5 +152,41 @@
         <view class="jiange"></view>
     </view>
 
-<ServiceOne bindtoCourseOne="handletoCourseOne" bindtoCourseTwo="handletoCourseTwo"></ServiceOne>
+    <ServiceOne bindtoCourseOne="handletoCourseOne" bindtoCourseTwo="handletoCourseTwo"></ServiceOne>
+
+
+    <view class="dislogue-group-bj {{isShowDislogue?'show-dislogue':''}}">
+        <form bindsubmit="doPay">
+            <view class="dislogue-group">
+                <view class="top">
+                    <view class="dislogue-title">立即开团</view>
+                    <view class="closed" bindtap="handleClosed">❌</view>
+                </view>
+                <view class="from-dislogue">
+                    <view class="group-item-dis">
+                        <text>姓名</text>
+                        <input type="text" name="name" placeholder-class="placeholder-style" placeholder="请输入" value="{{name}}" />
+                    </view>
+                    <view class="group-item-dis">
+                        <text>手机</text>
+                        <input type="text" name="phoneNum" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" />
+                    </view>
+                    <view class="desc-dis">请在姓名一栏填写孩子名字</view>
+                    <view class="info">
+                        <!-- 下来选框-->
+                        <view class="bt">信息一</view>
+                        <input type="text" name="info1" placeholder-class="placeholder-style" placeholder="请输入" value="{{info1}}" />
+                    </view>
+                    <view class="info info2">
+                        <view class="bt">信息二</view>
+                        <input type="text" name="info2" placeholder-class="placeholder-style" placeholder="请输入" value="{{info2}}" />
+                    </view>
+                    <!-- <view class="btn-ss" bindtap="doPay">提交</view> -->
+                    <button class="btn-ss" form-type='submit'>提交</button>
+                </view>
+            </view>
+        </form>
+    </view>
+
+
 </view>
