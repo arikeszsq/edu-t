@@ -1,11 +1,11 @@
 {
     "pages": [
         "pages/activity/many/index",
+        "pages/activity/one/index",
         "pages/index/index",
         "pages/activity/group/index",
         "pages/activity/pay/index",
         "pages/course/course",
-        "pages/activity/one/index",
         "pages/mine/mine",
         "pages/myAward/myAward",
         "pages/myOrder/myOrder",

@@ -1,5 +1,5 @@
 /* 客服 */
-@import "../../app.wxss";
+@import "./../../app.wxss";
 
 .dialogue {
     position: fixed;

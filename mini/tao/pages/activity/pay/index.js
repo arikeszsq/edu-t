@@ -72,7 +72,28 @@ Page({
      */
     doPay() {
         if (this.data.userInfo.sign_name && this.data.userInfo.sign_mobile && this.data.userInfo.sign_age && this.data.userInfo.is_agree) {
-            //支付成功
+            //信息完整发起支付
+            app.apiRequest({
+                url: '/pay/pay',
+                method: 'post',
+                data: {
+                    'activity_id': app.globalData.activity_id,
+                    'type': app.globalData.type,
+                    'sign_name': this.data.userInfo.sign_name,
+                    'sign_mobile': this.data.userInfo.sign_mobile,
+                    'sign_age': this.data.userInfo.sign_age,
+                    'sign_sex': this.data.userInfo.sign_sex,
+                    'is_agree': this.data.userInfo.is_agree,
+                    'course_ids': app.globalData.selectedSchoolId.join(','),
+                    'school_child_ids': app.globalData.selectedCourse.join(',')
+                },
+                success: res => {
+                   console.log(res);
+                }
+            });
+
+
+
         } else {
             //信息不完整
             wx.showToast({
