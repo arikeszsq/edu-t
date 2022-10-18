@@ -14,6 +14,8 @@ class PayController extends Controller
 
     use PaySuccessTrait;
     /**
+     *服务商拓展的商户就属于特约商户，普通商户授权某些功能有了服务商也会变为特约商户
+     *
      *
      * Server_appid= //服务号的appid
      * Server_mch_id= //服务商商户号
@@ -146,7 +148,7 @@ class PayController extends Controller
             'sub_mch_id' => env('sub_mch_id'),
         ];
         //参数    用户openid    订单号    支付的备注信息，商品描述   金额   是否分账    是否是商家
-        $obj = new Wxpay($open_id, $order_number, '支付', $fee, 'Y', $shops);
+        $obj = new WxPay($open_id, $order_number, '支付', $fee, 'Y', $shops);
         $pay = $obj->pay();//下单获取返回值
         $info['code'] = 1;
         $info['data'] = $pay;

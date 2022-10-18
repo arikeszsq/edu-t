@@ -3,9 +3,7 @@
 namespace App\Models;
 
 
-use Illuminate\Database\Eloquent\Model;
-
-class WxPay extends Model
+class WxPay
 {
     protected $appid;
     protected $mch_id;

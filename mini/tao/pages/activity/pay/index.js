@@ -13,7 +13,8 @@ Page({
             sign_age: "",
             sign_sex: true,
             is_agree: true
-        }
+        },
+        courseInfo:{}
     },
 
     //手机号码
@@ -108,9 +109,29 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+
+        this.getSelectCourseInfo();
+
         this.setData({
             "data.activity_id": app.globalData.activity_id
         })
+    },
+
+    getSelectCourseInfo(){
+        app.apiRequest({
+            url: '/course/courseschool/info',
+            method: 'post',
+            data: {
+                'course_ids': app.globalData.selectedSchoolId.join(','),
+                'school_ids': app.globalData.selectedCourse.join(',')
+            },
+            success: res => {
+               console.log(res);
+               this.setData({
+                courseInfo:res.data.response
+               })
+            }
+        });
     },
 
     /**

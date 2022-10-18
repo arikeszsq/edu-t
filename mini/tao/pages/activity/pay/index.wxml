@@ -34,22 +34,14 @@
             <view class="title">选课信息</view>
             <view class="course-container">
                 <!-- 环位置循 -->
-                <view class="course-item box">
+                <view class="course-item box" wx:for="{{courseInfo}}">
                     <view class="image-tu">
-                        <image src=""></image>
+                        <image src="{{item.course_logo}}"></image>
                     </view>
+                    
                     <view class="info">
-                        <view class="title-course">软笔书法（5岁-成人）</view>
-                        <view class="des">机构：洗洗股儿童之家</view>
-                    </view>
-                </view>
-                <view class="course-item box">
-                    <view class="image-tu">
-                        <image src=""></image>
-                    </view>
-                    <view class="info">
-                        <view class="title-course">软笔书法（5岁-成人）sddsdddddddd</view>
-                        <view class="des">机构：洗洗股儿童之家洗洗股儿童之家洗洗股儿童之家洗洗股儿童之家洗洗股儿童之家洗洗股儿童之家洗洗股儿童之家</view>
+                        <view class="title-course">{{item.course_name}}</view>
+                        <view class="des">机构：{{item.company_name}}</view>
                     </view>
                 </view>
             </view>
