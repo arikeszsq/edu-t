@@ -14,15 +14,15 @@ Page({
         hours: '00', //时
         minutes: '00', //分
         seconds: '00', //秒
-        info1:'',
-        info2:'',
-        name:'',
-        phoneNum:''
+        info1: '',
+        info2: '',
+        name: '',
+        phoneNum: ''
     },
 
-    doPay(e){
-        console.log(e,'下单');
- 
+    doPay(e) {
+        console.log(e, '下单');
+
         var name = e.detail.value.name;
         var mobile = e.detail.value.phoneNum;
         var info1 = e.detail.value.info1;
@@ -31,9 +31,36 @@ Page({
             this.setData({
                 isShowDislogue: false
             })
-            //提交支付订单
-            
+            //信息完整发起支付
+            app.apiRequest({
+                url: '/pay/pay',
+                method: 'post',
+                data: {
+                    'activity_id': app.globalData.activity_id,
+                    'type': app.globalData.type,
+                    'sign_name': name,
+                    'sign_mobile': mobile,
+                    'info_one': info1,
+                    'info_two': info2
+                },
+                success: res => {
+                    console.log(res);
+                    wx.requestPayment({
+                        timeStamp: 'timeStamp',
+                        nonceStr: 'nonceStr',
+                        package: 'package',
+                        signType: 'signType',
+                        paySign: 'paySign',
+                        success(res) {
+                            console.log('支付成功')
+                        },
+                        fail(res) {
+                            console.log('支付失败')
+                        }
+                    })
 
+                }
+            });
         } else {
             wx.showToast({
                 title: '请填完整信息',
@@ -65,7 +92,7 @@ Page({
                 var that = this;
                 that.setData({
                     info: res.data.response,
-                    nowDate:res.data.response.end_time
+                    nowDate: res.data.response.end_time
                 })
                 this.countTime();
             }
@@ -87,7 +114,7 @@ Page({
     },
     handletoCourseTwo() {
         this.setData({
-            isShowDislogue:true
+            isShowDislogue: true
         })
         //立即开团
         console.log("开团")

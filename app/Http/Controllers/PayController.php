@@ -148,7 +148,7 @@ class PayController extends Controller
             'sub_mch_id' => env('sub_mch_id'),
         ];
         //参数    用户openid    订单号    支付的备注信息，商品描述   金额   是否分账    是否是商家
-        $obj = new WxPay($open_id, $order_number, '支付', $fee, 'Y', $shops);
+        $obj = new Wxpay($open_id, $order_number, '支付', $fee, 'Y', $shops);
         $pay = $obj->pay();//下单获取返回值
         $info['code'] = 1;
         $info['data'] = $pay;

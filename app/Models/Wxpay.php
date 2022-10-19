@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class WxPay
+class Wxpay
 {
     protected $appid;
     protected $mch_id;
