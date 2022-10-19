@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\PaySuccessTrait;
 use App\Models\Activity;
 use App\Models\ActivitySignUser;
+use App\Models\Pay;
 use App\Models\Wxpay;
 use Illuminate\Http\Request;
 
@@ -141,18 +142,22 @@ class PayController extends Controller
             return self::error('10001', '创建订单失败');
         }
 
-        $open_id = self::authUserOpenId();
-        $shops = [
-            'sub_key' => env('sub_key'),
-            'sub_appid' => env('sub_appid'),
-            'sub_mch_id' => env('sub_mch_id'),
-        ];
-        //参数    用户openid    订单号    支付的备注信息，商品描述   金额   是否分账    是否是商家
-        $obj = new Wxpay($open_id, $order_number, '支付', $fee, 'Y', $shops);
-        $pay = $obj->pay();//下单获取返回值
-        $info['code'] = 1;
-        $info['data'] = $pay;
+        $obj = new Pay();
+        $info = $obj->paytwo();
         return ['code' => 1, 'data' => $info];
+
+//        $open_id = self::authUserOpenId();
+//        $shops = [
+//            'sub_key' => env('sub_key'),
+//            'sub_appid' => env('sub_appid'),
+//            'sub_mch_id' => env('sub_mch_id'),
+//        ];
+//        //参数    用户openid    订单号    支付的备注信息，商品描述   金额   是否分账    是否是商家
+//        $obj = new Wxpay($open_id, $order_number, '支付', $fee, 'Y', $shops);
+//        $pay = $obj->pay();//下单获取返回值
+//        $info['code'] = 1;
+//        $info['data'] = $pay;
+//        return ['code' => 1, 'data' => $info];
     }
 
 

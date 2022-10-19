@@ -5,6 +5,12 @@ namespace App\Models;
 
 class Wxpay
 {
+
+    /**
+     * @var mixed
+     *
+     * 服务商分账模式，不使用
+     */
     protected $appid;
     protected $mch_id;
     protected $key;
@@ -13,7 +19,7 @@ class Wxpay
     protected $body;
     protected $total_fee;
 
-    function __construct($openid, $out_trade_no, $body, $total_fee, $profit_sharing = 'N', $shops = [])
+    function __construct($openid, $out_trade_no, $body, $total_fee, $profit_sharing = 'Y', $shops = [])
     {
         $this->appid = env('AppID');//小程序appid
         $this->openid = $openid; //用户的openid
@@ -21,7 +27,7 @@ class Wxpay
         $this->key = env('Wx_pay_key'); //支付秘钥:商户号的密钥, 微信商户平台设置
         $this->out_trade_no = $out_trade_no; //自己生成的订单号
         $this->body = $body; //支付时显示的提示
-        $this->total_fee = $total_fee;//金额:使用分为单位的所有要乘100
+        $this->total_fee = 0.01;//金额:使用分为单位的所有要乘100
         $this->profit_sharing = $profit_sharing;//是否分账
         $this->shops = $shops;//是否商家
     }
@@ -50,9 +56,9 @@ class Wxpay
                 'nonce_str' => $this->createNoncestr(), //随机字符串
                 'body' => $this->body, ///这个自己写,微信订单里面显示的是商品名称,商品描述
                 'out_trade_no' => $this->out_trade_no, //商户订单号
-                'total_fee' => $this->total_fee, //总金额 单位 分,因为充值金额最小是1 而且单位为分 如果是充值1元所以这里需要*100
+                'total_fee' => 0.01, //总金额 单位 分,因为充值金额最小是1 而且单位为分 如果是充值1元所以这里需要*100
                 'spbill_create_ip' => $_SERVER['REMOTE_ADDR'], //终端IP,服务器IP
-                'notify_url' => 'https://*****.com/api/pay/notify', //支付成功回调地址，注意1. 确保外网能正常访问 2.https
+                'notify_url' => 'https://zsq.a-poor.com/api/pay/notify', //支付成功回调地址，注意1. 确保外网能正常访问 2.https
                 'openid' => $this->openid, //用户appid
                 'trade_type' => 'JSAPI',//交易类型 　　　　　　//要是返回该产品权限未开通请在产品中心开通jsAPi他包含的小程序支付,
                 'profit_sharing' => 'Y'//此参数为Y的时候为微信服务商支付
@@ -95,8 +101,8 @@ class Wxpay
             //设置证书
             //使用证书：cert 与 key 分别属于两个.pem文件
             //证书文件请放入服务器的非web目录下
-            $sslCertPath = "./static/cert/apiclient_cert.pem";
-            $sslKeyPath = "./static/cert/apiclient_key.pem";
+            $sslCertPath = "/cert/apiclient_cert.pem";
+            $sslKeyPath = "/cert/apiclient_key.pem";
             curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
             curl_setopt($ch, CURLOPT_SSLCERT, $sslCertPath);
             curl_setopt($ch, CURLOPT_SSLKEYTYPE, 'PEM');
