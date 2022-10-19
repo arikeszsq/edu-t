@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\PaySuccessTrait;
 use App\Models\Activity;
 use App\Models\ActivitySignUser;
-use App\Models\WxPay;
+use App\Models\Wxpay;
 use Illuminate\Http\Request;
 
 class PayController extends Controller
