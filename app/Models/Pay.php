@@ -8,17 +8,17 @@ class Pay
 {
     public function paytwo()
     {
-        $appid = env('Server_appid');//服务号appid
+        $appid = env('Server_appid');//服务号appid,也是服务商appid,即使申请成为服务商的服务号的appid
+        $body = "商品描述"; //商品描述
         $mch_id = env('Server_mch_id');//服务商商户号
         $sub_appid = env('sub_appid');//小程序APPID
         $sub_mch_id = env('sub_mch_id');//子商户号
         $openid = 'o4UT95EmP4gvdZ4ZQz1poZ1k8JzA';//用户open_id;
-        $body = "商品名称"; //这个自己写,微信订单里面显示的是商品名称
         $nonce_str = $this->nonce_str();//随机字符串
         $notify_url = 'https://zsq.a-poor.com/api/pay/notify';//回调地址
-        $out_trade_no = 123456;//商户订单号
+        $out_trade_no = '2015450806125346';//商户订单号
         $spbill_create_ip = $_SERVER['REMOTE_ADDR'];//服务器IP
-        $total_fee = '0.01';//因为充值金额最小是1 而且单位为分 如果是充值1元所以这里需要*100
+        $total_fee = floatval(0.01*100);//因为充值金额最小是1 而且单位为分 如果是充值1元所以这里需要*100
         $trade_type = 'JSAPI';//交易类型 默认
 
 
