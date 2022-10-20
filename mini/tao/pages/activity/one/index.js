@@ -44,7 +44,7 @@ Page({
                     'info_two': info2
                 },
                 success: res => {
-                    console.log(res);
+                    console.log(res,'11111111111111111111111111');
                     wx.requestPayment({
                         timeStamp: 'timeStamp',
                         nonceStr: 'nonceStr',

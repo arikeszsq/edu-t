@@ -23,18 +23,32 @@ class Pay
 
 
         //这里是按照顺序的 因为下面的签名是按照顺序 排序错误 肯定出错
-        $post['appid'] = $appid;
-        $post['body'] = $body;
-        $post['mch_id'] = $mch_id;
-        $post['nonce_str'] = $nonce_str; //随机字符串
-        $post['notify_url'] = $notify_url;
-        $post['out_trade_no'] = $out_trade_no;
+//        $post['appid'] = $appid;
+//        $post['body'] = $body;
+//        $post['mch_id'] = $mch_id;
+//        $post['nonce_str'] = $nonce_str; //随机字符串
+//        $post['notify_url'] = $notify_url;
+//        $post['out_trade_no'] = $out_trade_no;
+//        $post['spbill_create_ip'] = $spbill_create_ip; //终端的ip
+//        $post['sub_appid'] = $sub_appid;
+//        $post['sub_mch_id'] = $sub_mch_id;
+//        $post['sub_openid'] = $openid;
+//        $post['total_fee'] = $total_fee; //总金额 最低为一块钱 必须是整数
+//        $post['trade_type'] = $trade_type;
+
+        $post['appid']            = $appid;
+        $post['body']             = $body;
+        $post['mch_id']           = $mch_id;
+        $post['nonce_str']        = $nonce_str; //随机字符串
+        $post['notify_url']       = $notify_url;
+        $post['sub_openid']       = $openid;  //支付者在子商户的openid
+        $post['out_trade_no']     = $out_trade_no;
         $post['spbill_create_ip'] = $spbill_create_ip; //终端的ip
-        $post['sub_appid'] = $sub_appid;
-        $post['sub_mch_id'] = $sub_mch_id;
-        $post['sub_openid'] = $openid;
-        $post['total_fee'] = $total_fee; //总金额 最低为一块钱 必须是整数
-        $post['trade_type'] = $trade_type;
+        $post['sub_appid']        = $sub_appid;
+        $post['sub_mch_id']       = $sub_mch_id;
+        $post['total_fee']        = $total_fee; //总金额 最低为一块钱 必须是整数
+        $post['trade_type']       = $trade_type;
+
         $sign = $this->sign($post); //签名
 
         $post_xml = '<xml>
