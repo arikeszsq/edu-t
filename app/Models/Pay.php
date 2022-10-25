@@ -80,7 +80,7 @@ class Pay
             $data['RETURN_CODE'] = $array['RETURN_CODE'];
             $data['RETURN_MSG'] = $array['RETURN_MSG'];
         }
-        return json_encode($data);
+        return $data;
     }
 
 //随机32位字符串

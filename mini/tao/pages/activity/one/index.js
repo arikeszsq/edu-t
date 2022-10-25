@@ -44,13 +44,12 @@ Page({
                     'info_two': info2
                 },
                 success: res => {
-                    console.log(res,'11111111111111111111111111');
                     wx.requestPayment({
-                        timeStamp: 'timeStamp',
-                        nonceStr: 'nonceStr',
-                        package: 'package',
-                        signType: 'signType',
-                        paySign: 'paySign',
+                        timeStamp: res.data.response.timeStamp,
+                        nonceStr:  res.data.response.nonceStr,
+                        package: res.data.response.package,
+                        signType: res.data.response.signType,
+                        paySign: res.data.response.paySign,
                         success(res) {
                             console.log('支付成功')
                         },

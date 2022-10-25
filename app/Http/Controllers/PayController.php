@@ -144,7 +144,7 @@ class PayController extends Controller
 
         $obj = new Pay();
         $info = $obj->paytwo();
-        return ['code' => 1, 'data' => $info];
+        return self::success($info);
 
 //        $open_id = self::authUserOpenId();
 //        $shops = [
