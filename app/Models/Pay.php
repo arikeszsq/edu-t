@@ -8,12 +8,13 @@ class Pay
 {
     public function paytwo()
     {
+
         $appid = env('Server_appid');//服务号appid,也是服务商appid,即使申请成为服务商的服务号的appid
         $body = "商品描述"; //商品描述
         $mch_id = env('Server_mch_id');//服务商商户号
         $sub_appid = env('sub_appid');//小程序APPID
         $sub_mch_id = env('sub_mch_id');//子商户号
-        $openid = 'o4UT95EmP4gvdZ4ZQz1poZ1k8JzA';//用户open_id;
+        $openid = 'oJbho5afPC5lziiq7OBjElKQoqp4';//用户open_id;
         $nonce_str = $this->nonce_str();//随机字符串
         $notify_url = 'https://zsq.a-poor.com/api/pay/notify';//回调地址
         $out_trade_no = '2015450806125346';//商户订单号
@@ -21,55 +22,41 @@ class Pay
         $total_fee = floatval(0.01*100);//因为充值金额最小是1 而且单位为分 如果是充值1元所以这里需要*100
         $trade_type = 'JSAPI';//交易类型 默认
 
-
         //这里是按照顺序的 因为下面的签名是按照顺序 排序错误 肯定出错
-//        $post['appid'] = $appid;
-//        $post['body'] = $body;
-//        $post['mch_id'] = $mch_id;
-//        $post['nonce_str'] = $nonce_str; //随机字符串
-//        $post['notify_url'] = $notify_url;
-//        $post['out_trade_no'] = $out_trade_no;
-//        $post['spbill_create_ip'] = $spbill_create_ip; //终端的ip
-//        $post['sub_appid'] = $sub_appid;
-//        $post['sub_mch_id'] = $sub_mch_id;
-//        $post['sub_openid'] = $openid;
-//        $post['total_fee'] = $total_fee; //总金额 最低为一块钱 必须是整数
-//        $post['trade_type'] = $trade_type;
-
         $post['appid']            = $appid;
         $post['body']             = $body;
         $post['mch_id']           = $mch_id;
         $post['nonce_str']        = $nonce_str; //随机字符串
         $post['notify_url']       = $notify_url;
-        $post['sub_openid']       = $openid;  //支付者在子商户的openid
         $post['out_trade_no']     = $out_trade_no;
         $post['spbill_create_ip'] = $spbill_create_ip; //终端的ip
         $post['sub_appid']        = $sub_appid;
         $post['sub_mch_id']       = $sub_mch_id;
+        $post['sub_openid']           = $openid;
         $post['total_fee']        = $total_fee; //总金额 最低为一块钱 必须是整数
         $post['trade_type']       = $trade_type;
-
-        $sign = $this->sign($post); //签名
+        $sign                     = $this->sign($post); //签名
 
         $post_xml = '<xml>
-	           <appid>' . $appid . '</appid>
-	           <body>' . $body . '</body>
-	           <mch_id>' . $mch_id . '</mch_id>
-	           <nonce_str>' . $nonce_str . '</nonce_str>
-	           <notify_url>' . $notify_url . '</notify_url>
-	           <out_trade_no>' . $out_trade_no . '</out_trade_no>
-	           <spbill_create_ip>' . $spbill_create_ip . '</spbill_create_ip>
-	           <sub_appid>' . $sub_appid . '</sub_appid>
-	           <sub_mch_id>' . $sub_mch_id . '</sub_mch_id>
-	           <sub_openid>' . $openid . '</sub_openid>
-	           <total_fee>' . $total_fee . '</total_fee>
-	           <trade_type>' . $trade_type . '</trade_type>
-	           <sign>' . $sign . '</sign>
+	           <appid>'.$appid.'</appid>
+	           <body>'.$body.'</body>
+	           <mch_id>'.$mch_id.'</mch_id>
+	           <nonce_str>'.$nonce_str.'</nonce_str>
+	           <notify_url>'.$notify_url.'</notify_url>
+	           <out_trade_no>'.$out_trade_no.'</out_trade_no>
+	           <spbill_create_ip>'.$spbill_create_ip.'</spbill_create_ip>
+	           <sub_appid>'.$sub_appid.'</sub_appid>
+	           <sub_mch_id>'.$sub_mch_id.'</sub_mch_id>
+	           <sub_openid>'.$openid.'</sub_openid>
+	           <total_fee>'.$total_fee.'</total_fee>
+	           <trade_type>'.$trade_type.'</trade_type>
+	           <sign>'.$sign.'</sign>
 	        </xml> ';
         //统一接口prepay_id
-        $url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
-        $xml = $this->http_request($url, $post_xml);
+        $url   = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+        $xml   = $this->http_request($url,$post_xml);
         $array = $this->xml($xml);//全要大写
+
         //return $array;
         if ($array['RETURN_CODE'] == 'SUCCESS' && $array['RESULT_CODE'] == 'SUCCESS') {
             $time = time();
