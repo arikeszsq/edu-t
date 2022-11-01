@@ -33,7 +33,7 @@ class BasicController extends Controller
                 'mobile' => $info->mobile,
                 'pic' => $this->fullImgUrl($info->pic),
                 'buy_protocal' => $info->buy_protocal,
-                'my_activity_pic'=>$info->my_activity_pic,
+                'my_activity_pic'=>$this->fullImgUrl($info->my_activity_pic),
                 'my_activity_mobile'=>$info->my_activity_mobile,
             ];
             return self::success($data);
