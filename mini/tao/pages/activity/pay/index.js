@@ -14,7 +14,7 @@ Page({
             sign_sex: true,
             is_agree: true
         },
-        courseInfo:{}
+        courseInfo: {}
     },
 
     //手机号码
@@ -78,7 +78,7 @@ Page({
                 url: '/pay/pay',
                 method: 'post',
                 data: {
-                    'activity_id': app.globalData.activity_id,
+                    'activity_id': wx.getStorageSync('activity_id'),
                     'type': app.globalData.type,
                     'sign_name': this.data.userInfo.sign_name,
                     'sign_mobile': this.data.userInfo.sign_mobile,
@@ -89,7 +89,7 @@ Page({
                     'school_child_ids': app.globalData.selectedCourse.join(',')
                 },
                 success: res => {
-                   console.log(res);
+                    console.log(res);
                 }
             });
 
@@ -113,11 +113,11 @@ Page({
         this.getSelectCourseInfo();
 
         this.setData({
-            "data.activity_id": app.globalData.activity_id
+            "data.activity_id": wx.getStorageSync('activity_id')
         })
     },
 
-    getSelectCourseInfo(){
+    getSelectCourseInfo() {
         app.apiRequest({
             url: '/course/courseschool/info',
             method: 'post',
@@ -126,10 +126,10 @@ Page({
                 'school_ids': app.globalData.selectedCourse.join(',')
             },
             success: res => {
-               console.log(res);
-               this.setData({
-                courseInfo:res.data.response
-               })
+                console.log(res);
+                this.setData({
+                    courseInfo: res.data.response
+                })
             }
         });
     },

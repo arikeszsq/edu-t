@@ -163,7 +163,7 @@ Page({
         //     wx.setStorageSync(keyName, id);
         // }
         // var activity_id = wx.getStorageSync(keyName);
-        this.getActivityDetail(app.globalData.activity_id);
+        this.getActivityDetail( wx.getStorageSync('activity_id'));
         this.getHomeAdress();//初始化家的位置
         //加载页面时候就计算swiper
         this.setSwiperHeight(".timu_list0")

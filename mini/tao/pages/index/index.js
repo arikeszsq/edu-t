@@ -14,7 +14,10 @@ Page({
             var res = scene.split(',');
             var res_length = res.length;
             var activity_id = res[0];
-            app.globalData.activity_id = activity_id;
+
+            //设置全局异步缓存activity_id
+            wx.setStorageSync('activity_id', activity_id)
+
             if (res_length >= 2) {
                 var share_user_id = res[1];
                 app.globalData.share_user_id = share_user_id
@@ -28,6 +31,8 @@ Page({
     toDetail: function (event) {
         var id = event.currentTarget.dataset.id;
         var one = event.currentTarget.dataset.one;
+        //设置全局异步缓存activity_id
+        wx.setStorageSync('activity_id', id)
         if (one === 1) {
             wx.redirectTo({
                 url: '../activity/one/index?id=' + id

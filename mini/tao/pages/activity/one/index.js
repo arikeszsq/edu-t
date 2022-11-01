@@ -22,7 +22,7 @@ Page({
 
     doPay(e) {
         console.log(e, '下单');
-
+        var activity_id = wx.getStorageSync('activity_id');
         var name = e.detail.value.name;
         var mobile = e.detail.value.phoneNum;
         var info1 = e.detail.value.info1;
@@ -36,7 +36,7 @@ Page({
                 url: '/pay/pay',
                 method: 'post',
                 data: {
-                    'activity_id': app.globalData.activity_id,
+                    'activity_id': activity_id,
                     'type': app.globalData.type,
                     'sign_name': name,
                     'sign_mobile': mobile,
@@ -46,7 +46,7 @@ Page({
                 success: res => {
                     wx.requestPayment({
                         timeStamp: res.data.response.timeStamp,
-                        nonceStr:  res.data.response.nonceStr,
+                        nonceStr: res.data.response.nonceStr,
                         package: res.data.response.package,
                         signType: res.data.response.signType,
                         paySign: res.data.response.paySign,
@@ -73,7 +73,7 @@ Page({
             url: '/activity/view',
             method: 'get',
             data: {
-                'activity_id': app.globalData.activity_id
+                'activity_id': wx.getStorageSync('activity_id')
             },
             success: res => {
             }
@@ -102,7 +102,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getActivityDetail(app.globalData.activity_id);
+        this.getActivityDetail(wx.getStorageSync('activity_id'));
     },
     handletoCourseOne() {
         //立即参团
