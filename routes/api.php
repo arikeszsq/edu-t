@@ -35,6 +35,7 @@ Route::prefix('/activity')->group(function () {
     Route::any('/type/{id}', 'ActivityController@type');
     Route::any('/detail/{id}', 'ActivityController@detail');
     Route::any('/invite-user', 'ActivityController@inviteUser');
+    Route::any('/web-create', 'ActivityController@webCreate');
 });
 
 Route::prefix('/group')->group(function () {

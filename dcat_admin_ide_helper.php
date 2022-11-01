@@ -66,6 +66,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection course_id
      * @property Grid\Column|Collection sign_user_id
      * @property Grid\Column|Collection order_num
+     * @property Grid\Column|Collection shop_name
+     * @property Grid\Column|Collection contacter
+     * @property Grid\Column|Collection mobile
      * @property Grid\Column|Collection version
      * @property Grid\Column|Collection detail
      * @property Grid\Column|Collection is_enabled
@@ -93,7 +96,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection group_ok
      * @property Grid\Column|Collection is_free
      * @property Grid\Column|Collection kf_name
-     * @property Grid\Column|Collection mobile
      * @property Grid\Column|Collection pic
      * @property Grid\Column|Collection buy_protocal
      * @property Grid\Column|Collection intruduction
@@ -184,6 +186,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection course_id(string $label = null)
      * @method Grid\Column|Collection sign_user_id(string $label = null)
      * @method Grid\Column|Collection order_num(string $label = null)
+     * @method Grid\Column|Collection shop_name(string $label = null)
+     * @method Grid\Column|Collection contacter(string $label = null)
+     * @method Grid\Column|Collection mobile(string $label = null)
      * @method Grid\Column|Collection version(string $label = null)
      * @method Grid\Column|Collection detail(string $label = null)
      * @method Grid\Column|Collection is_enabled(string $label = null)
@@ -211,7 +216,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection group_ok(string $label = null)
      * @method Grid\Column|Collection is_free(string $label = null)
      * @method Grid\Column|Collection kf_name(string $label = null)
-     * @method Grid\Column|Collection mobile(string $label = null)
      * @method Grid\Column|Collection pic(string $label = null)
      * @method Grid\Column|Collection buy_protocal(string $label = null)
      * @method Grid\Column|Collection intruduction(string $label = null)
@@ -307,6 +311,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection course_id
      * @property Show\Field|Collection sign_user_id
      * @property Show\Field|Collection order_num
+     * @property Show\Field|Collection shop_name
+     * @property Show\Field|Collection contacter
+     * @property Show\Field|Collection mobile
      * @property Show\Field|Collection version
      * @property Show\Field|Collection detail
      * @property Show\Field|Collection is_enabled
@@ -334,7 +341,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection group_ok
      * @property Show\Field|Collection is_free
      * @property Show\Field|Collection kf_name
-     * @property Show\Field|Collection mobile
      * @property Show\Field|Collection pic
      * @property Show\Field|Collection buy_protocal
      * @property Show\Field|Collection intruduction
@@ -425,6 +431,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection course_id(string $label = null)
      * @method Show\Field|Collection sign_user_id(string $label = null)
      * @method Show\Field|Collection order_num(string $label = null)
+     * @method Show\Field|Collection shop_name(string $label = null)
+     * @method Show\Field|Collection contacter(string $label = null)
+     * @method Show\Field|Collection mobile(string $label = null)
      * @method Show\Field|Collection version(string $label = null)
      * @method Show\Field|Collection detail(string $label = null)
      * @method Show\Field|Collection is_enabled(string $label = null)
@@ -452,7 +461,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection group_ok(string $label = null)
      * @method Show\Field|Collection is_free(string $label = null)
      * @method Show\Field|Collection kf_name(string $label = null)
-     * @method Show\Field|Collection mobile(string $label = null)
      * @method Show\Field|Collection pic(string $label = null)
      * @method Show\Field|Collection buy_protocal(string $label = null)
      * @method Show\Field|Collection intruduction(string $label = null)

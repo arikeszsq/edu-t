@@ -75,9 +75,12 @@ class BasicSettingController extends AdminController
         return Form::make(new BasicSetting(), function (Form $form) {
 //            $form->display('id');
             $form->text('kf_name');
-            $form->text('mobile');
+            $form->mobile('mobile');
             $form->image('pic')->required()->autoUpload();
             $form->editor('buy_protocal');
+            $form->image('my_activity_pic','我要做活动联系二维码')->required()->autoUpload();
+            $form->mobile('my_activity_mobile','我要做活动联系电话');
+
 
             $form->display('created_at');
             $form->display('updated_at');

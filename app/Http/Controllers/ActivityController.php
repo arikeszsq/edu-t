@@ -170,4 +170,52 @@ class ActivityController extends Controller
             return self::error($e->getCode(), $e->getMessage());
         }
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/activity/web-create",
+     *     tags={"我要做活动"},
+     *     summary="我要做活动",
+     *   @OA\RequestBody(
+     *       required=true,
+     *       description="address edit",
+     *       @OA\MediaType(
+     *         mediaType="application/x-www-form-urlencoded",
+     *         @OA\Schema(
+     *              @OA\Property(property="activity_id",type="Integer",description="活动的id",),
+     *              @OA\Property(property="shop_name",type="String",description="商家名",),
+     *              @OA\Property(property="contacter",type="String",description="联系人",),
+     *              @OA\Property(property="mobile",type="String",description="联系电话",),
+     *          ),
+     *       ),
+     *   ),
+     *     @OA\Response(
+     *         response=100000,
+     *         description="success"
+     *     )
+     * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function webCreate(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        try {
+            $data = [
+                'activity_id' => $inputs['activity_id'],
+                'shop_name' => $inputs['shop_name'],
+                'contacter' => $inputs['contacter'],
+                'mobile' => $inputs['mobile'],
+                'created_at' => Carbon::now(),
+                'user_id' => $user_id
+            ];
+            $ret = DB::table('activity_web_create')->insert($data);
+            return self::success($ret);
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
+
 }

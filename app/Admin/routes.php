@@ -20,6 +20,7 @@ Route::group([
     $router->resource('activity-sign-user', 'ActivitySignUserController');
     $router->resource('activity-group', 'ActivityGroupController');
     $router->resource('activity-view-log', 'ActivityViewLogController');
+    $router->resource('activity-web-create', 'ActivityWebCreateController');
 
 
     $router->resource('company', 'CompanyController');
