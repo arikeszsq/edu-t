@@ -39,6 +39,7 @@ class ActivityService
             ->get();
         foreach ($lists as $list) {
             $data[] = [
+                'id' => $list->id,
                 'title' => $list->title,
                 'bg_banner' => $this->fullImgUrl($list->bg_banner),
                 'is_many' => $list->is_many,

@@ -102,6 +102,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log(wx.getStorageSync('activity_id'),'activity_id')
+        
         this.getActivityDetail(wx.getStorageSync('activity_id'));
     },
     handletoCourseOne() {

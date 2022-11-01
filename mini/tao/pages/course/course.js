@@ -179,7 +179,7 @@ Page({
             url: '/course/lists',
             method: 'get',
             data: {
-                'activity_id': 1
+                'activity_id':  wx.getStorageSync('activity_id')
             },
             success: res => {
                 var that = this;
