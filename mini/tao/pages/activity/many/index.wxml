@@ -33,8 +33,19 @@
         </view>
     </view>
     <view class="separate"></view>
+
+    <view class="time-index">
+        <view class="time-container box middle-content align-center">
+            <image src="../../../images/one/time.png"></image>
+            <view class="desc">距离活动结束</view>
+            <view class="box settime">
+                <view>{{days}}</view> 天
+                <view class="nei">{{hours}}</view>时 <view>{{minutes}}</view>分 <view>{{seconds}}</view>秒
+            </view>
+        </view>
+    </view>
     <!-- 购买记录 -->
-    <view class="index-title">
+    <!-- <view class="index-title">
         购买记录
     </view>
     <view class="purchase-container">
@@ -55,7 +66,7 @@
             </view>
         </swiper>
     </view>
-    <view class="separate separate-purchase"></view>
+    <view class="separate separate-purchase"></view> -->
 
     <!-- 机构视频 -->
     <view class="index-title">

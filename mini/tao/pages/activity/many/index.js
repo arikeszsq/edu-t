@@ -31,7 +31,8 @@ Page({
         activeIndex: 0,
         videoIndex: 0,
         //当前播放的视频
-        indexCurrent: "video1"
+        indexCurrent: "video1",
+        nowDate:''
     },
 
 
@@ -120,14 +121,17 @@ Page({
             },
             success: res => {
                 var that = this;
+                console.log(res.data.response.end_time);
                 that.setData({
                     info: res.data.response,
                     bannerInfo: res.data.response.bg_banner,
                     //价格的处理
                     oriPrice: util.cutZero(res.data.response.ori_price),
                     realPrice: util.cutZero(res.data.response.real_price),
-                    oriPriceAfter: res.data.response.ori_price_after
+                    oriPriceAfter: res.data.response.ori_price_after,
+                    nowDate: res.data.response.end_time
                 })
+                this.countTime();
             }
         });
     },
@@ -224,5 +228,39 @@ Page({
      */
     onShareAppMessage() {
 
+    },
+
+    
+    countTime() {
+        var that = this;
+        var days, hours, minutes, seconds;
+        var nowDate = that.data.nowDate;
+        var now = new Date().getTime();
+        var end = new Date(nowDate).getTime(); //设置截止时间
+        // console.log("开始时间：" + now, "截止时间:" + end);
+        var leftTime = end - now; //时间差                       
+        if (leftTime >= 0) {
+            days = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+            hours = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+            minutes = Math.floor(leftTime / 1000 / 60 % 60);
+            seconds = Math.floor(leftTime / 1000 % 60);
+            seconds = seconds < 10 ? "0" + seconds : seconds
+            minutes = minutes < 10 ? "0" + minutes : minutes
+            hours = hours < 10 ? "0" + hours : hours
+            that.setData({
+                countdown: days + ":" + hours + "：" + minutes + "：" + seconds,
+                days,
+                hours,
+                minutes,
+                seconds
+            })
+            // console.log(that.data.countdown)
+            //递归每秒调用countTime方法，显示动态时间效果
+            setTimeout(that.countTime, 1000);
+        } else {
+            that.setData({
+                countdown: '已截止'
+            })
+        }
     }
 })

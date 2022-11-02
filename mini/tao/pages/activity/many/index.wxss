@@ -294,3 +294,35 @@
 .mini-price{
     font-size: 28rpx;
 }
+
+
+.time-index {
+    padding: 26rpx 0rpx;
+    background-image: linear-gradient(to right, #fff, #ead2c1)
+}
+
+.time-index image {
+    width: 40rpx;
+    height: 42rpx;
+}
+
+.time-index .desc {
+    font-size: 34rpx;
+    flex-grow: 1;
+    margin-left: 16rpx;
+}
+
+.settime view {
+    color: #fff;
+    text-align: center;
+    width: 36rpx;
+    height: 36rpx;
+    background-color: #FF4D00;
+    border-radius: 8rpx;
+    margin-right: 8rpx;
+    margin-left: 8rpx;
+}
+
+.settime .nei {
+    margin-left: 22rpx;
+}
