@@ -28,8 +28,8 @@ class UserController extends Controller
         $user = User::query()->find($user_id);
         try {
             $data = [
-                'name' => $user->nickName,
-                'avatar' => $user->avatarUrl,
+                'name' => $user->name,
+                'avatar' => $user->avatar,
                 'gender' => $user->gender,
                 'country' => $user->country,
                 'province' => $user->province,
