@@ -7,8 +7,8 @@ use App\Http\Traits\PaySuccessTrait;
 use App\Models\Activity;
 use App\Models\ActivitySignUser;
 use App\Models\Pay;
-use App\Models\Wxpay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PayController extends Controller
 {
@@ -126,7 +126,7 @@ class PayController extends Controller
                 return self::parametersIllegal($validator3->messages()->first());
             }
         }
-        $order_number = rand(1111, 9999) . date('Ymdhis') . $user_id;
+        $order_number = 'Or'.rand(1111, 9999) .'-'.date('Ymdhis').'-'. $user_id;
         $inputs['order_num'] = $order_number;
 
         //总金额 最低为一分 必须是整数
@@ -143,21 +143,8 @@ class PayController extends Controller
         }
 
         $obj = new Pay();
-        $info = $obj->paytwo();
+        $info = $obj->paytwo($order_number);
         return self::success($info);
-
-//        $open_id = self::authUserOpenId();
-//        $shops = [
-//            'sub_key' => env('sub_key'),
-//            'sub_appid' => env('sub_appid'),
-//            'sub_mch_id' => env('sub_mch_id'),
-//        ];
-//        //参数    用户openid    订单号    支付的备注信息，商品描述   金额   是否分账    是否是商家
-//        $obj = new Wxpay($open_id, $order_number, '支付', $fee, 'Y', $shops);
-//        $pay = $obj->pay();//下单获取返回值
-//        $info['code'] = 1;
-//        $info['data'] = $pay;
-//        return ['code' => 1, 'data' => $info];
     }
 
 
@@ -174,18 +161,18 @@ class PayController extends Controller
      */
     public function notify()
     {
+        Log::info('支付成功后的回调:',['pay_notify'=>'success']);
         $postXml = file_get_contents("php://input"); //接收微信参数
         if (empty($postXml)) {
             return false;
         }
         $attr = $this->xmlToArray($postXml);
         $out_trade_no = $attr['out_trade_no'];
+        Log::info('out_trade_no:',['out_trade_no'=>$out_trade_no]);
         //-----------------------支付成功后的操作-----------------------------
         $order_no = $out_trade_no;
         $order = ActivitySignUser::query()->where('order_no', $order_no)->first();
         return $this->paySuccessDeal($order);
-//        //支付成功后在回调方法中进行分账
-//        $this->profitsharing($shops['appid'],$shops['sub_mch_id'],$order['transaction_id']);
     }
 
     function xmlToArray($xml)

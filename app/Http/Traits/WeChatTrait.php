@@ -84,6 +84,7 @@ trait WeChatTrait
 
     /**
      * 根据比例生成最终分享图片
+     * 只有小程序上线了，才可以生成分享图
      * @param $activity_id
      * @param null $user_id
      * @return array
@@ -124,6 +125,7 @@ trait WeChatTrait
 //        return '<image src=' . $data_uri . '></image>';
         $res = file_put_contents($file, $contents);//将微信返回的图片数据流写入文件
         if ($res === false) {
+            Log::error('getShareQCode:',['getShareQCode'=>'文件写入失败']);
             return [
                 'code' => 10002,
                 'msg' => '文件写入失败'

@@ -68,7 +68,8 @@ trait PaySuccessTrait
     {
         $user_id = $order->user_id;
         $activity_id = $order->activity_id;
-        UserActivityInvite::query()->where('activity_id', $activity_id)->where('invited_user_id', $user_id)
+        UserActivityInvite::query()->where('activity_id', $activity_id)
+            ->where('invited_user_id', $user_id)
             ->orderBy('id', 'desc')->update([
                 'has_pay' => 1
             ]);
