@@ -6,6 +6,7 @@ use App\Exceptions\ObjectNotExistException;
 use App\Models\Activity;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
+use App\Models\User;
 use Carbon\Carbon;
 
 class GroupService
@@ -14,18 +15,30 @@ class GroupService
     {
         $list = [];
         $activity_id = $inputs['activity_id'];
+
+        $leader_ids = [];
+        if (isset($inputs['search_value']) && $inputs['search_value']) {
+            $users = User::query()
+                ->where('name', 'like', '%' . $inputs['search_value'] . '%')
+                ->get();
+            foreach ($users as $user) {
+                $leader_ids[] = $user->id;
+            }
+        }
+
         $query = ActivityGroup::query()
             ->with('user')
             ->where('activity_id', $activity_id)
             ->where('status', ActivityGroup::Status_有效_已支付);
 
-        if (isset($inputs['leader_id']) && $inputs['leader_id']) {
-            $query->where('leader_id', $inputs['leader_id']);
+        if (count($leader_ids) > 0) {
+            $query->whereIn('leader_id', $leader_ids);
         }
 
         if (isset($inputs['name']) && $inputs['name']) {
             $query->where('name', $inputs['name']);
         }
+
 
         if (isset($inputs['leader_wx_name']) && $inputs['leader_wx_name']) {
             $query->where('leader_wx_name', 'like', '%' . $inputs['leader_wx_name'] . '%');
@@ -51,7 +64,7 @@ class GroupService
                 $in_group = 2;
             }
             $list[] = [
-                'gruop_id'=>$group->id,
+                'gruop_id' => $group->id,
                 'avatar' => $group->user->avatar,
                 'leader_name' => $group->user->name,
                 'leader_id' => $group->leader_id,
@@ -80,7 +93,7 @@ class GroupService
                 'role' => $list->role,//1团长  2团员
                 'avatar' => $list->user->avatar,
                 'name' => $list->user->name,
-                'type'=>$list->type,
+                'type' => $list->type,
                 'created_at' => date('Y-m-d H:i', strtotime($list->pay_time))
             ];
         }
