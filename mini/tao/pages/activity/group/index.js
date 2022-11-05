@@ -86,12 +86,12 @@ Page({
     onChangeSearch(e) {
         var search_value = e.detail.value;
         console.log("搜索内容" + e.detail.value);
-        if(search_value){
+        if (search_value) {
             var data = {
                 "activity_id": wx.getStorageSync('activity_id'),
-                "search_value":search_value
+                "search_value": search_value
             };
-        }else{
+        } else {
             var data = {
                 "activity_id": wx.getStorageSync('activity_id')
             };
@@ -109,7 +109,7 @@ Page({
             }
         });
     },
-    
+
     //弹窗的name
     handleName(e) {
         this.setData({
@@ -157,7 +157,7 @@ Page({
             conditionVisible: !this.data.conditionVisible
         })
     },
- 
+
     // 改变查询项
     onChnageCondition(e) {
         const list = this.data.conditionList
@@ -237,12 +237,78 @@ Page({
      */
     handleSucessGroup(e) {
         //需要发送给后端
-        const id = e.currentTarget.dataset.id
+        const id = e.currentTarget.dataset.id;
+        wx.setStorageSync('group_id', id);
         this.setData({
             groupId: id,
             isShowDislogue: true
         })
     },
+
+    doPay(e) {
+        console.log(e, '下单1111111111');
+        var activity_id = wx.getStorageSync('activity_id');
+        var name = e.detail.value.name;
+        var mobile = e.detail.value.phoneNum;
+        var info1 = e.detail.value.info1;
+        var info2 = e.detail.value.info2;
+        if (name && mobile) {
+            this.setData({
+                isShowDislogue: false
+            }),
+            wx.showToast({
+                title: '加载中',
+                icon:'loading', //图标，支持"success"、"loading"
+              }),
+            //信息完整发起支付
+            app.apiRequest({
+                url: '/pay/pay',
+                method: 'post',
+                data: {
+                    'activity_id': activity_id,
+                    'group_id': wx.getStorageSync('group_id'),
+                    'type': 1,//1开团 2单独购买
+                    'sign_name': name,
+                    'sign_mobile': mobile,
+                    'info_one': info1,
+                    'info_two': info2
+                },
+                success: res => {
+                    console.log(res,'success')
+                    var code = res.data.msg_code;
+                    if(code !=10000){
+                        wx.showToast({
+                          title: res.data.message,
+                        })
+                    }else{
+                        wx.requestPayment({
+                            timeStamp: res.data.response.timeStamp,
+                            nonceStr: res.data.response.nonceStr,
+                            package: res.data.response.package,
+                            signType: res.data.response.signType,
+                            paySign: res.data.response.paySign,
+                            success(res) {
+                                console.log('支付成功')
+                            },
+                            fail(res) {
+                                console.log('支付失败')
+                            }
+                        })
+                    }
+                },
+                error:res=>{
+                    console.log(res,'success')
+                }
+            });
+        } else {
+            wx.showToast({
+                title: '请填完整信息',
+                icon: "error"
+            })
+        }
+    },
+
+
     // 团列表数据获取
     getGroupLists(id) {
         app.apiRequest({

@@ -36,10 +36,10 @@
                     <view class="avatar-sub avatar-team">
                         <image src="{{item.avatar}}"></image>
                         <!-- 团长的判断 -->
-                        <view class="avatar-item-team">团长</view>
+                        <view class="avatar-item-team" wx:if="{{item.role==1}}">团长</view>
                     </view>
                     <view class="title">{{item.name}}</view>
-                    <view class="time">{{item.created_at}} {{index===1?"开团":"参团"}}</view>
+                    <view class="time">{{item.created_at}} {{item.role==1?"开团":"参团"}}</view>
                 </view>
 
             </view>
@@ -47,62 +47,35 @@
 
     </view>
     <view class="dislogue-group-bj {{isShowDislogue?'show-dislogue':''}}">
-        <view class="dislogue-group">
-            <view class="top">
-                <view class="dislogue-title">我要参团</view>
-                <view class="box">
-                    <image src=""></image>
-                    <view class="name">测试的团</view>
+        <form bindsubmit="doPay">
+            <view class="dislogue-group">
+                <view class="top">
+                    <view class="dislogue-title">立即参团</view>
+                    <view class="closed" bindtap="handleClosed">❌</view>
                 </view>
-                <view class="closed" bindtap="handleClosed">❌</view>
-            </view>
-            <view class="from-dislogue">
-                <view class="group-item-dis">
-                    <text>姓名</text>
-                    <input type="text" placeholder-class="placeholder-style" placeholder="请输入" value="{{name}}" bindchange="handleName"/>
-                </view>
-                <view class="group-item-dis">
-                    <text>手机</text>
-                    <input type="text" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" bindchange="handlephoneNum"/>
-                </view>
-                <view class="desc-dis">请在姓名一栏填写孩子名字</view>
-                <view class="info">
-                    <!-- 下来选框-->
-                    <view class="bt">信息一</view>
-                    <view class="search-bar">
-                        <view class="condition" bindtap="showCondition">
-                            <view class="select-condition">{{choosedCondition.title}}</view>
-                            <view class="trigger {{ conditionVisible ? 'reverse' : ''}}"></view>
-                            <cover-view class="option-list" style="height: {{conditionVisible ? '300rpx': '0'}}">
-                                <cover-view bindtap="onChnageCondition" data-id="{{item.id}}" class="list-item" wx:for="{{conditionList}}" wx:key="index" wx:for-index="index">
-                                    <cover-view class="title">{{item.title}}</cover-view>
-                                    <cover-view class="title" wx:if="{{item.select}}">√</cover-view>
-                                </cover-view>
-                            </cover-view>
-                        </view>
+                <view class="from-dislogue">
+                    <view class="group-item-dis">
+                        <text>姓名</text>
+                        <input type="text" name="name" placeholder-class="placeholder-style" placeholder="请输入" value="{{name}}" />
                     </view>
-
-
-
-                </view>
-                <view class="info info2">
-                    <!-- 下来选框-->
-                    <view class="bt">信息二</view>
-                    <view class="search-bar">
-                        <view class="condition" bindtap="showCondition2">
-                            <view class="select-condition">{{choosedCondition2.title}}</view>
-                            <view class="trigger {{ conditionVisible2 ? 'reverse' : ''}}"></view>
-                            <cover-view class="option-list" style="height: {{conditionVisible2 ? '300rpx': '0'}}">
-                                <cover-view bindtap="onChnageCondition2" data-id="{{item.id}}" class="list-item" wx:for="{{conditionList2}}" wx:key="index" wx:for-index="index">
-                                    <cover-view class="title">{{item.title}}</cover-view>
-                                    <cover-view class="title" wx:if="{{item.select}}">√</cover-view>
-                                </cover-view>
-                            </cover-view>
-                        </view>
+                    <view class="group-item-dis">
+                        <text>手机</text>
+                        <input type="text" name="phoneNum" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" />
                     </view>
+                    <view class="desc-dis">请在姓名一栏填写孩子名字</view>
+                    <view class="info">
+                        <!-- 下来选框-->
+                        <view class="bt">信息一</view>
+                        <input type="text" name="info1" placeholder-class="placeholder-style" placeholder="请输入" value="{{info1}}" />
+                    </view>
+                    <view class="info info2">
+                        <view class="bt">信息二</view>
+                        <input type="text" name="info2" placeholder-class="placeholder-style" placeholder="请输入" value="{{info2}}" />
+                    </view>
+                    <!-- <view class="btn-ss" bindtap="doPay">提交</view> -->
+                    <button class="btn-ss" form-type='submit'>提交</button>
                 </view>
-                <view class="btn-ss" bindtap="handleConfirm">提交</view>
             </view>
-        </view>
+        </form>
     </view>
 </view>

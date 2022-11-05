@@ -30,7 +30,11 @@ Page({
         if (name && mobile) {
             this.setData({
                 isShowDislogue: false
-            })
+            }),
+            wx.showToast({
+                title: '加载中',
+                icon:'loading', //图标，支持"success"、"loading"
+              }),
             //信息完整发起支付
             app.apiRequest({
                 url: '/pay/pay',

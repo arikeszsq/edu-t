@@ -66,7 +66,7 @@
             </view>
         </view>
         <view class="common container-two">
-            <view class="title">当前团人数<text class="num">1人</text></view>
+            <view class="title">当前团人数<text class="num">{{info.group_current.group.current_num}}人</text></view>
             <view class="tow-top-container box justify-between align-center">
                 <view class="avatar box">
                     <image src="{{info.group_current.group.user.avatar}}"></image>
@@ -83,7 +83,7 @@
                 <view>已开团{{info.group_num}}个团 </view>
                 <view>当前团购人数{{info.group_people_num}}人</view>
             </view>
-            <view class="container-two-list box align-center" wx:for="{{info.group_people_list}}">
+            <view class="container-two-list box align-center" wx:for="{{info.group_people_list}}" wx:key="index">
                 <image src="{{item.group.user.avatar}}"></image>
                 <view class="title">
                     <view class="title-c"> {{item.group.user.name}}</view>
