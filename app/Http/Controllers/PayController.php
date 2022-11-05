@@ -145,10 +145,12 @@ class PayController extends Controller
         if (!$order) {
             return self::error('10001', '创建订单失败');
         }
+        
+        return $this->paySuccessDeal($order);
 
-        $obj = new Pay();
-        $info = $obj->paytwo($order_number);
-        return self::success($info);
+//        $obj = new Pay();
+//        $info = $obj->paytwo($order_number);
+//        return self::success($info);
     }
 
 
