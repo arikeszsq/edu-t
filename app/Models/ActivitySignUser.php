@@ -61,6 +61,7 @@ class ActivitySignUser extends Model
             ->where('activity_id', $activity_id)
             ->where('status', ActivitySignUser::Status_已支付)
             ->orderBy('pay_time', 'desc')
+            ->limit(3)
             ->get();
     }
 
