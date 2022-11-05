@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\PaySuccessTrait;
 use App\Models\Activity;
+use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\Pay;
 use Illuminate\Http\Request;
@@ -94,6 +95,15 @@ class PayController extends Controller
         if ($validator->fails()) {
             return self::parametersIllegal($validator->messages()->first());
         }
+
+        if(isset($inputs['group_id'])&&$inputs['group_id']){
+            $group = ActivityGroup::query()->find($inputs['group_id']);
+            if($group &&$group->finished==1){
+                return self::error('10008', '已满团');
+            }
+        }
+
+
         self::updateUserName($inputs['sign_name']);
         $activity_id = $inputs['activity_id'];
         $activity = Activity::getActivityById($activity_id);
@@ -147,7 +157,7 @@ class PayController extends Controller
         }
 
         $order_obj = ActivitySignUser::query()->find($order_id);
-        return $this->paySuccessDeal($order_obj);
+        return self::success($this->paySuccessDeal($order_obj));
 
 //        $obj = new Pay();
 //        $info = $obj->paytwo($order_number);

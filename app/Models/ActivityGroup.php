@@ -34,24 +34,25 @@ class ActivityGroup extends Model
     {
         if ($order->group_id) {
             $group = ActivityGroup::query()->find($order->group_id);
-            $group->current_num += 1;
-            if (($group->current_num + 1) == $group->num) {
+            $group_current_num = intval($group->current_num) + 1;
+            $group->current_num = $group_current_num;
+            if ($group_current_num == $group->num) {
                 $group->finished = self::Finished_成团;
                 $group->success_time = Carbon::now();
             }
             $group->save();
         } else {
             //新建团
-            $group_id = self::NewGroup($order->activity_id,$order->user_id);
+            $group_id = self::NewGroup($order->activity_id, $order->user_id);
             //新建完团，更新订单里团group_id
-            ActivitySignUser::query()->where('order_no',$order->order_no)->update([
+            ActivitySignUser::query()->where('order_no', $order->order_no)->update([
                 'group_id' => $group_id
             ]);
         }
         return $group;
     }
 
-    public static function NewGroup($activity_id,$user_id)
+    public static function NewGroup($activity_id, $user_id)
     {
         $activity = Activity::getActivityById($activity_id);
         $group = new ActivityGroup();
