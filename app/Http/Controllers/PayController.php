@@ -75,7 +75,9 @@ class PayController extends Controller
     {
         $inputs = $request->all();
         $user_id = self::authUserId();
+        Log::info('用户:',['user_id'=>$user_id]);
         $inputs['uid'] = $user_id;
+        $inputs['user_id'] = $user_id;
 
         $validator = \Validator::make($inputs, [
             'activity_id' => 'required',
