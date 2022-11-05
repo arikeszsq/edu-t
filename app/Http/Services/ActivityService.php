@@ -82,6 +82,7 @@ class ActivityService
         $data['group_people_list'] = ActivitySignUser::query()
             ->with('group.user')
             ->where('activity_id', $id)
+            ->where('has_pay', 1)
             ->where('role', 1)//团长
             ->where('type', 1)//开团购买
             ->limit(3)
@@ -89,6 +90,7 @@ class ActivityService
 
         $data['group_current'] = ActivitySignUser::query()
             ->with('group.user')
+            ->where('has_pay', 1)
             ->where('activity_id', $id)
             ->where('role', 1)//团长
             ->where('type', 1)//开团购买
