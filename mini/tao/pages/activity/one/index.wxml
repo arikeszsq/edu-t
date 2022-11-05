@@ -50,39 +50,19 @@
             </view>
             <view class="list-container">
                 <!-- 循环位置 -->
-                <view class="item box align-center">
-                    <image src=""></image>
+                
+                <view class="item box align-center" wx:for="{{info.pay_group_list}}" wx:key="index">
+                    <image src="{{item.avatar}}"></image>
                     <view class="center">
-                        <view class="title">满天星</view>
-                        <view class="desc gray">参加了<text class="primary">胡哲</text>的拼团</view>
+                        <view class="title">{{item.name}}</view>
+                        <view class="desc gray">{{item.msg}}</view>
                     </view>
                     <view class="right">
-                        <view class="time gray">2022-08-02 18:11</view>
-                        <view class="desc gray">成功支付<text class="primary">298.00元</text></view>
+                        <view class="time gray">{{item.pay_time}}</view>
+                        <view class="desc gray">成功支付<text class="primary">{{info.real_price}}元</text></view>
                     </view>
                 </view>
-                <view class="item box align-center">
-                    <image src=""></image>
-                    <view class="center">
-                        <view class="title">满天星</view>
-                        <view class="desc gray">参加了<text class="primary">胡哲</text>的拼团</view>
-                    </view>
-                    <view class="right">
-                        <view class="time gray">2022-08-02 18:11</view>
-                        <view class="desc gray">成功支付<text class="primary">298.00元</text></view>
-                    </view>
-                </view>
-                <view class="item box align-center">
-                    <image src=""></image>
-                    <view class="center">
-                        <view class="title">满天星</view>
-                        <view class="desc gray">参加了<text class="primary">胡哲</text>的拼团</view>
-                    </view>
-                    <view class="right">
-                        <view class="time gray">2022-08-02 18:11</view>
-                        <view class="desc gray">成功支付<text class="primary">298.00元</text></view>
-                    </view>
-                </view>
+               
             </view>
         </view>
         <view class="common container-two">

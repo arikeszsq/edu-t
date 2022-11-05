@@ -37,7 +37,7 @@ Page({
                 method: 'post',
                 data: {
                     'activity_id': activity_id,
-                    'type': app.globalData.type,
+                    'type': 1,//1开团 2单独购买
                     'sign_name': name,
                     'sign_mobile': mobile,
                     'info_one': info1,
