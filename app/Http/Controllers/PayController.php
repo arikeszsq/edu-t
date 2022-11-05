@@ -141,12 +141,13 @@ class PayController extends Controller
         }
         $inputs['money'] = $fee;
         // 新建订单
-        $order = ActivitySignUser::createOrder($inputs);
-        if (!$order) {
+        $order_id = ActivitySignUser::createOrder($inputs);
+        if (!$order_id) {
             return self::error('10001', '创建订单失败');
         }
-        
-        return $this->paySuccessDeal($order);
+
+        $order_obj = ActivitySignUser::query()->find($order_id);
+        return $this->paySuccessDeal($order_obj);
 
 //        $obj = new Pay();
 //        $info = $obj->paytwo($order_number);
