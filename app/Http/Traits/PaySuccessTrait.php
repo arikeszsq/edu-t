@@ -85,8 +85,8 @@ trait PaySuccessTrait
     public function genInvitePic($order)
     {
         $order_no = $order->order_no;
-        $activity_id = $order_no->activity_id;
-        $user_id = $order_no->user_id;
+        $activity_id = $order->activity_id;
+        $user_id = $order->user_id;
         $share_code_url = $this->getShareQCode($activity_id,$user_id);
         if($share_code_url['code']==200){
             $url = $share_code_url['url'];
