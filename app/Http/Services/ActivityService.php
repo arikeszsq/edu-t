@@ -75,17 +75,25 @@ class ActivityService
             $data = $this->getManyDetail($id);
         }
 
-        $data['group_num'] = ActivityGroup::query()->where('activity_id',$id)->count();
-        $data['group_people_num'] = ActivitySignUser::query()->where('activity_id',$id)
-            ->where('has_pay',1)
+        $data['group_num'] = ActivityGroup::query()->where('activity_id', $id)->count();
+        $data['group_people_num'] = ActivitySignUser::query()->where('activity_id', $id)
+            ->where('has_pay', 1)
             ->count();
         $data['group_people_list'] = ActivitySignUser::query()
-            ->with('group')
-            ->where('activity_id',$id)
-            ->where('role',1)//团长
-            ->where('type',1)//开团购买
+            ->with('group.user')
+            ->where('activity_id', $id)
+            ->where('role', 1)//团长
+            ->where('type', 1)//开团购买
             ->limit(3)
             ->get();
+
+        $data['group_current'] = ActivitySignUser::query()
+            ->with('group.user')
+            ->where('activity_id', $id)
+            ->where('role', 1)//团长
+            ->where('type', 1)//开团购买
+            ->orderBy('id', 'desc')
+            ->first();
         return $data;
     }
 
@@ -100,11 +108,11 @@ class ActivityService
         $data['real_price'] = $activity->real_price;
         $data['end_time'] = $activity->end_time;
 
-        $data['views_num'] = DB::table('activity_view_log')->where('activity_id',$id)->count();
-        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id',$id)
-            ->where('has_pay',1)
+        $data['views_num'] = DB::table('activity_view_log')->where('activity_id', $id)->count();
+        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id', $id)
+            ->where('has_pay', 1)
             ->count();
-        $data['share_num'] = UserActivityInvite::query()->where('activity_id',$id)->count();
+        $data['share_num'] = UserActivityInvite::query()->where('activity_id', $id)->count();
         $data['content'] = $activity->content;
 
         $sign_users = ActivitySignUser::getHasPayList($id);
@@ -126,7 +134,7 @@ class ActivityService
                 }
             }
 
-            if($group->user){
+            if ($group->user) {
                 $pay_group_list[] = [
                     'avatar' => $group->user->avatar,
                     'name' => $group->user->name,
@@ -176,11 +184,11 @@ class ActivityService
         }
 
         $data['end_time'] = $activity->end_time;
-        $data['views_num'] = DB::table('activity_view_log')->where('activity_id',$id)->count();
-        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id',$id)
-            ->where('has_pay',1)
+        $data['views_num'] = DB::table('activity_view_log')->where('activity_id', $id)->count();
+        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id', $id)
+            ->where('has_pay', 1)
             ->count();
-        $data['share_num'] = UserActivityInvite::query()->where('activity_id',$id)->count();
+        $data['share_num'] = UserActivityInvite::query()->where('activity_id', $id)->count();
         $data['content'] = $activity->content;
         $companies = ActivitySignCom::query()->with('company')
             ->where('activity_id', $id)
