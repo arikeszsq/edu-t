@@ -14,6 +14,7 @@ class PayController extends Controller
 {
 
     use PaySuccessTrait;
+
     /**
      *服务商拓展的商户就属于特约商户，普通商户授权某些功能有了服务商也会变为特约商户
      *
@@ -75,7 +76,7 @@ class PayController extends Controller
     {
         $inputs = $request->all();
         $user_id = self::authUserId();
-        Log::info('用户:',['user_id'=>$user_id]);
+        Log::info('用户:', ['user_id' => $user_id]);
         $inputs['uid'] = $user_id;
         $inputs['user_id'] = $user_id;
 
@@ -129,7 +130,7 @@ class PayController extends Controller
                 return self::parametersIllegal($validator3->messages()->first());
             }
         }
-        $order_number = 'Or'.rand(1111, 9999) .'-'.date('Ymdhis').'-'. $user_id;
+        $order_number = 'Or' . rand(1111, 9999) . '-' . date('Ymdhis') . '-' . $user_id;
         $inputs['order_num'] = $order_number;
 
         //总金额 最低为一分 必须是整数
@@ -164,18 +165,24 @@ class PayController extends Controller
      */
     public function notify()
     {
-        Log::info('支付成功后的回调:',['pay_notify'=>'success']);
+//        Log::info('支付成功后的回调:', ['pay_notify' => 'success']);
         $postXml = file_get_contents("php://input"); //接收微信参数
         if (empty($postXml)) {
             return false;
         }
         $attr = $this->xmlToArray($postXml);
         $out_trade_no = $attr['out_trade_no'];
-        Log::info('out_trade_no:',['out_trade_no'=>$out_trade_no]);
+//        Log::info('out_trade_no:', ['out_trade_no' => $out_trade_no]);
+//        Log::info('out_trade_no:', ['attr' => $attr]);
         //-----------------------支付成功后的操作-----------------------------
         $order_no = $out_trade_no;
         $order = ActivitySignUser::query()->where('order_no', $order_no)->first();
-        return $this->paySuccessDeal($order);
+        if ($order && $order->has_pay == 2) {
+            Log::info('pay_notify:', ['info:' => '支付成功，更新订单']);
+            return $this->paySuccessDeal($order);
+        } else {
+            Log::info('pay_notify:', ['info:' => '重复的支付成功后的回调']);
+        }
     }
 
     function xmlToArray($xml)

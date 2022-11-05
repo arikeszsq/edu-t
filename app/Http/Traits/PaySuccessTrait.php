@@ -27,12 +27,13 @@ trait PaySuccessTrait
      */
     public function paySuccessDeal($order)
     {
+        //支付成功，更新订单状态
+        $this->updateOrder($order);
         $this->addCourseSaleNum($order);
         if ($order->type == ActivitySignUser::Type_团) {
             $this->updateActivityGroup($order);//新建团或修改团信息
         }
         $this->updateInviterInfo($order);//给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付,因为邀请人数是统计的邀请表数据
-        $this->updateOrder($order);
         $this->genInvitePic($order);
         return true;
     }
@@ -68,11 +69,13 @@ trait PaySuccessTrait
     {
         $user_id = $order->user_id;
         $activity_id = $order->activity_id;
-        UserActivityInvite::query()->where('activity_id', $activity_id)
-            ->where('invited_user_id', $user_id)
-            ->orderBy('id', 'desc')->update([
-                'has_pay' => 1
-            ]);
+        if($activity_id){
+            UserActivityInvite::query()->where('activity_id', $activity_id)
+                ->where('invited_user_id', $user_id)
+                ->orderBy('id', 'desc')->update([
+                    'has_pay' => 1
+                ]);
+        }
     }
 
     /**
