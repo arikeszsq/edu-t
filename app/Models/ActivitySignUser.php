@@ -77,7 +77,7 @@ class ActivitySignUser extends Model
         $data = [
             'activity_id' => $activity_id,
             'group_id' => isset($inputs['group_id']) && $inputs['group_id'] ? $inputs['group_id'] : 0,
-            'role' => isset($inputs['group_id']) && $inputs['group_id'] ? 1 : 2,
+            'role' => isset($inputs['group_id']) && $inputs['group_id'] ? 2 : 1,
             'sign_name' => $inputs['sign_name'],
             'sign_mobile' => $inputs['sign_mobile'],
             'type' => $inputs['type'],//1开团 2单独购买
