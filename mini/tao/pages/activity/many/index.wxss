@@ -2,6 +2,15 @@
     position: relative;
 }
 
+.active-dislogue {
+    position: absolute;
+    width: 100rpx;
+    height: 100rpx;
+    bottom: 50rpx;
+    left: 20rpx;
+    background-color: #f30;
+}
+
 .bottom-padding {
     overflow: hidden;
     height: 160rpx;
@@ -186,7 +195,7 @@
 
 .image-container {
     width: 197rpx;
- 
+
 
 }
 
@@ -197,9 +206,9 @@
 .timu-list1-container .title {
     font-size: 32rpx;
     padding-bottom: 28rpx;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .timu-list1-container {
@@ -291,7 +300,7 @@
     transform: translateX(-50%);
 }
 
-.mini-price{
+.mini-price {
     font-size: 28rpx;
 }
 

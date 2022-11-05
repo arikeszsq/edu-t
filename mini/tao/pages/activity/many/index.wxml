@@ -119,7 +119,7 @@
                 <swiper style="height:{{height}}rpx" current='{{activeIndex}}' bindchange='changeCurrent'>
                     <swiper-item>
                         <view class="timu_list0">
-                            <rich-text  nodes="{{info.content}}"></rich-text>
+                            <rich-text nodes="{{info.content}}"></rich-text>
                         </view>
                     </swiper-item>
                     <swiper-item>
@@ -176,5 +176,5 @@
 
     <!-- 客服 -->
     <Service id="Service" oriPrice="{{oriPrice}}" realPrice="{{realPrice}}" bindtoCourseOne="toCourseOne" bindtoCourseTwo="bindtoCourseTwo"></Service>
-
+    <view class="active-dislogue">创建活动</view>
 </view>
