@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\UserActivityInvite;
 use App\User;
 use Illuminate\Http\Request;
 use Exception;
@@ -37,6 +38,9 @@ class UserController extends Controller
                 'is_A' => $user->is_A,
                 'address' => $user->address,
                 'map_points' => $user->map_points,
+                'share_num'=>UserActivityInvite::query()->where('parent_user_id',$user_id)->count(),
+                'share_success_num'=>UserActivityInvite::query()->where('parent_user_id',$user_id)
+                    ->where('has_pay',1)->count(),
             ];
             return self::success($data);
         } catch (Exception $e) {
