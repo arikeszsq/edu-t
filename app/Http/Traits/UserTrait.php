@@ -2,6 +2,7 @@
 
 namespace App\Http\Traits;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 trait UserTrait
@@ -24,6 +25,13 @@ trait UserTrait
     public static function authUserId()
     {
         return self::authUser() ? self::authUser()->id : null;
+    }
+
+    public function updateUserName($name)
+    {
+        User::query()->where('id',self::authUserId())->update(
+            ['name'=>$name]
+        );
     }
 
 

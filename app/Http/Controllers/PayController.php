@@ -91,6 +91,7 @@ class PayController extends Controller
         if ($validator->fails()) {
             return self::parametersIllegal($validator->messages()->first());
         }
+        self::updateUserName($inputs['sign_name']);
         $activity_id = $inputs['activity_id'];
         $activity = Activity::getActivityById($activity_id);
         $is_many = $activity->is_many;
