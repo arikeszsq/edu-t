@@ -86,9 +86,12 @@ class ActivityService
         $data['ori_price'] = $activity->ori_price;
         $data['real_price'] = $activity->real_price;
         $data['end_time'] = $activity->end_time;
-        $data['views_num'] = $activity->views_num;
-        $data['buy_num'] = $activity->buy_num;
-        $data['share_num'] = $activity->share_num;
+
+        $data['views_num'] = DB::table('activity_view_log')->where('activity_id',$id)->count();
+        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id',$id)
+            ->where('has_pay',1)
+            ->count();
+        $data['share_num'] = UserActivityInvite::query()->where('activity_id',$id)->count();
         $data['content'] = $activity->content;
 
         $sign_users = ActivitySignUser::getHasPayList($id);
@@ -161,8 +164,10 @@ class ActivityService
 
         $data['end_time'] = $activity->end_time;
         $data['views_num'] = DB::table('activity_view_log')->where('activity_id',$id)->count();
-        $data['buy_num'] = $activity->buy_num;
-        $data['share_num'] = $activity->share_num;
+        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id',$id)
+            ->where('has_pay',1)
+            ->count();
+        $data['share_num'] = UserActivityInvite::query()->where('activity_id',$id)->count();
         $data['content'] = $activity->content;
         $companies = ActivitySignCom::query()->with('company')
             ->where('activity_id', $id)
