@@ -42,7 +42,7 @@ class ActivityGroup extends Model
             $group->save();
         } else {
             //新建团
-            $group_id = self::NewGroup($order->activity_id);
+            $group_id = self::NewGroup($order->activity_id,$order->user_id);
             //新建完团，更新订单里团group_id
             ActivitySignUser::query()->where('order_no',$order->order_no)->update([
                 'group_id' => $group_id
@@ -51,9 +51,8 @@ class ActivityGroup extends Model
         return $group;
     }
 
-    public static function NewGroup($activity_id)
+    public static function NewGroup($activity_id,$user_id)
     {
-        $user_id = self::authUserId();
         $activity = Activity::getActivityById($activity_id);
         $group = new ActivityGroup();
         $group->activity_id = $activity_id;
