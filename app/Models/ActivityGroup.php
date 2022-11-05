@@ -41,6 +41,7 @@ class ActivityGroup extends Model
                 $group->success_time = Carbon::now();
             }
             $group->save();
+            $group_id = $group->id;
         } else {
             //新建团
             $group_id = self::NewGroup($order->activity_id, $order->user_id);
@@ -49,7 +50,7 @@ class ActivityGroup extends Model
                 'group_id' => $group_id
             ]);
         }
-        return $group;
+        return $group_id;
     }
 
     public static function NewGroup($activity_id, $user_id)
