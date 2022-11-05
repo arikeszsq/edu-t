@@ -42,7 +42,11 @@ class ActivityGroup extends Model
             $group->save();
         } else {
             //新建团
-            $group = self::NewGroup($order->activity_id);
+            $group_id = self::NewGroup($order->activity_id);
+            //新建完团，更新订单里团group_id
+            ActivitySignUser::query()->where('order_no',$order->order_no)->update([
+                'group_id' => $group_id
+            ]);
         }
         return $group;
     }
@@ -60,6 +64,7 @@ class ActivityGroup extends Model
         $group->creater_id = $user_id;
         $group->status = 1;
         $group->save();
+        return $group->id;
     }
 
     public static function getOnlyCode($activity_id)
