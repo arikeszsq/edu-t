@@ -49,7 +49,6 @@ class GroupService
         $activity_groups = $query->orderBy('current_num', 'desc')
             ->orderBy('id', 'desc')
             ->get();
-        var_dump($activity_groups);exit;
 
         foreach ($activity_groups as $group) {
             $first = ActivitySignUser::query()
