@@ -2,7 +2,7 @@
 <view class="group-container">
     <!-- 搜索 -->
     <view class="search">
-        <input bindfocus="searchFocus" class="weui-input" placeholder="搜索团长名称" />
+        <input class="weui-input"  bindinput="onChangeSearch" value="{{group_name}}" placeholder="搜索团长名称" />
         <view>
             <image class="weui-image" src="../../../images/activity/sousuo.png"></image>
         </view>

@@ -82,6 +82,34 @@ Page({
         isShowDislogue: false,//弹窗是否显示
 
     },
+    //onChangeSearch,检索组
+    onChangeSearch(e) {
+        var search_value = e.detail.value;
+        console.log("搜索内容" + e.detail.value);
+        if(search_value){
+            var data = {
+                "activity_id": wx.getStorageSync('activity_id'),
+                "search_value":search_value
+            };
+        }else{
+            var data = {
+                "activity_id": wx.getStorageSync('activity_id')
+            };
+        }
+        app.apiRequest({
+            url: '/group/lists',
+            method: 'get',
+            data: data,
+            success: res => {
+                var that = this;
+                console.log(res.data.response, "列表数据");
+                that.setData({
+                    groupLists: res.data.response,
+                })
+            }
+        });
+    },
+    
     //弹窗的name
     handleName(e) {
         this.setData({
@@ -129,6 +157,7 @@ Page({
             conditionVisible: !this.data.conditionVisible
         })
     },
+ 
     // 改变查询项
     onChnageCondition(e) {
         const list = this.data.conditionList
@@ -182,10 +211,6 @@ Page({
 
     //以上为弹出框的处理函数
 
-    //搜索栏目
-    searchFocus() {
-        console.log("聚集")
-    },
     /**
      * 列表二级菜单显示的处理
      */
@@ -256,7 +281,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        this.getGroupLists(1);
+        this.getGroupLists(wx.getStorageSync('activity_id'));
 
     },
 

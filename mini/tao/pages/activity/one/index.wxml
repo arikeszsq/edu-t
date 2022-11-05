@@ -74,9 +74,9 @@
                     <view class="name"> {{info.group_current.group.user.name}}</view>
                 </view>
                 <image class="arrow" src="../../../images/one/huisearrow.png"></image>
-                <view class="btn">参加他的团</view>
+                <view class="btn" bindtap="toGroupList">参加他的团</view>
             </view>
-            <view class="box container-two-learn align-center"><text>查看TA的拼团</text>
+            <view class="box container-two-learn align-center" bindtap="toGroupList"><text>查看TA的拼团</text>
                 <image src="../../../images/one/bl-arrow.png"></image>
             </view>
             <view class="container-two-desc">
@@ -93,7 +93,7 @@
                 <view class="man" wx:if="{{item.group.finished ==1}}">已满团</view>
                 <view class="man" wx:else="{{item.group.current_num}}">未满团</view>
             </view>
-            <view class="box container-two-learn align-center"><text>查看TA的拼团</text>
+            <view class="box container-two-learn align-center" bindtap="toGroupList"><text>查看TA的拼团</text>
                 <image src="../../../images/one/bl-arrow.png"></image>
             </view>
         </view>

@@ -68,6 +68,12 @@ Page({
         }
     },
 
+    toGroupList() {
+        wx.navigateTo({
+            url: "/pages/activity/group/index",
+        })
+    },
+
     addViewNum() {
         app.apiRequest({
             url: '/activity/view',
