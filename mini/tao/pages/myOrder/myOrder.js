@@ -8,7 +8,8 @@ Page({
      */
     data: {
         //别表数据
-        info: [],
+        info_finished: [],
+        info_unfinished: [],
         //当前打开的
         currentIndex: 0
     },
@@ -24,17 +25,35 @@ Page({
         })
     },
     //info数据的获取
-    getAwardlist: function (activity_id) {
+    getFinishedlist: function () {
         app.apiRequest({
-            url: '/award/lists',
-            method: 'get',
+            url: '/order/lists',
+            method: 'post',
             data: {
+                'activity_id':wx.getStorageSync('activity_id'),
+                'finished':1
             },
             success: res => {
                 var that = this;
                 console.log(res.data.response, "s")
                 that.setData({
-                    info: res.data.response
+                    info_finished: res.data.response
+                })
+            }
+        });
+    },
+    getUnFinishedlist: function () {
+        app.apiRequest({
+            url: '/order/lists',
+            method: 'post',
+            data: {
+                'activity_id':wx.getStorageSync('activity_id'),
+                'finished':2
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                    info_unfinished: res.data.response
                 })
             }
         });
@@ -43,7 +62,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        this.getAwardlist();
+        this.getFinishedlist();
+        this.getUnFinishedlist();
     },
 
     /**
