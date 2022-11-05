@@ -110,13 +110,15 @@ class ActivityService
                 }
             }
 
-            $pay_group_list[] = [
-                'avatar' => $group->user->avatar,
-                'name' => $group->user->name,
-                'msg' => $msg,
-                'money' => $group->money,
-                'pay_time' => $group->pay_time,
-            ];
+            if($group->user){
+                $pay_group_list[] = [
+                    'avatar' => $group->user->avatar,
+                    'name' => $group->user->name,
+                    'msg' => $msg,
+                    'money' => $group->money,
+                    'pay_time' => $group->pay_time,
+                ];
+            }
         }
         $data['pay_group_list'] = $pay_group_list;
         return $data;
