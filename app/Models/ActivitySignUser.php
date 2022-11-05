@@ -88,6 +88,7 @@ class ActivitySignUser extends Model
             'has_pay' => 2,//1是 2 否
             'status' => 1,//待支付
             'money' => $inputs['money'],
+            'created_at' => date('Y-m-d H:i:s',time()),
         ];
         if ($is_many == Activity::is_many_多商家) {
             $data_many = [

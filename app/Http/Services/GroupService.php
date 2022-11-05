@@ -81,7 +81,7 @@ class GroupService
                 'avatar' => $list->user->avatar,
                 'name' => $list->user->name,
                 'type'=>$list->type,
-                'created_at' => date('Y-m-d H:i', strtotime($list->created_at))
+                'created_at' => date('Y-m-d H:i', strtotime($list->pay_time))
             ];
         }
         return $users;
