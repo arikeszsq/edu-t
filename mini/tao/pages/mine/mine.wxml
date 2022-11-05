@@ -74,16 +74,16 @@
             <view class="bottom box align-center justify-between">
                 <view class="request-list">
                     <view class="share-number">分享人数</view>
-                    <view class="primary share-n">63</view>
+                    <view class="primary share-n">{{info.share_num}}</view>
                 </view>
                 <view class="request-list">
                     <view class="share-number">邀请人数</view>
-                    <view class="primary share-n">63</view>
+                    <view class="primary share-n">{{info.share_success_num}}</view>
                 </view>
-                <view class="request-list">
+                <!-- <view class="request-list">
                     <view class="share-number">领券人数</view>
                     <view class="primary share-n">63</view>
-                </view>
+                </view> -->
 
             </view>
         </view>

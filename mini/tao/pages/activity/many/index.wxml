@@ -176,5 +176,5 @@
 
     <!-- 客服 -->
     <Service id="Service" oriPrice="{{oriPrice}}" realPrice="{{realPrice}}" bindtoCourseOne="toCourseOne" bindtoCourseTwo="bindtoCourseTwo"></Service>
-    <view class="active-dislogue">创建活动</view>
+
 </view>

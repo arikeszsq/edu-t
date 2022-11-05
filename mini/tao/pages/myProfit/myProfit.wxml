@@ -1,6 +1,4 @@
 <!--pages/myProfit/myProfit.wxml-->
 <block class="my-profit">
-<view class="title">现场奖励</view>
-<view>2022-08-21 16:12:34</view>
-<view>wdasdfsadfasdfsasfadf</view>
+<view class="title">暂无数据</view>
 </block>
