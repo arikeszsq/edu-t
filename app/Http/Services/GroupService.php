@@ -25,13 +25,11 @@ class GroupService
                 $leader_ids[] = $user->id;
             }
         }
-
         $query = ActivityGroup::query()
             ->with('user')
             ->where('activity_id', $activity_id)
             ->where('status', ActivityGroup::Status_有效_已支付);
-
-        if (count($leader_ids) > 0) {
+        if (isset($inputs['search_value'])) {
             $query->whereIn('leader_id', $leader_ids);
         }
 
@@ -51,6 +49,7 @@ class GroupService
         $activity_groups = $query->orderBy('current_num', 'desc')
             ->orderBy('id', 'desc')
             ->get();
+        var_dump($activity_groups);exit;
 
         foreach ($activity_groups as $group) {
             $first = ActivitySignUser::query()
