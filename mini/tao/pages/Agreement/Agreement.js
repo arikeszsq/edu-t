@@ -1,18 +1,34 @@
 // pages/Agreement/Agreement.js
+var app = getApp();
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        info:[]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        this.getUserInfo();
+    },
+    getUserInfo: function () {
+        app.apiRequest({
+            url: '/basic/settings',
+            method: 'get',
+            data: {
+            },
+            success: res => {
+                var that = this;
+                console.log(res.data.response, "d");
+                that.setData({
+                    info: res.data.response,
+                })
+            }
+        });
     },
 
     /**

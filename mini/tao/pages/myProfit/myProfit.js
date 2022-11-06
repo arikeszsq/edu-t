@@ -1,4 +1,5 @@
 // pages/myProfit/myProfit.js
+const app = getApp();
 Page({
 
     /**
@@ -17,14 +18,15 @@ Page({
 
     getLogList(){
         app.apiRequest({
-            url: '/course/company-child-lists/' + id,
+            url: '/log/list',
             method: 'get',
             data: {
+                'log_type':wx.getStorageSync('log_type')
             },
             success: res => {
                 var that = this;
                 that.setData({
-                    schoolLists: res.data.response
+                    info: res.data.response
                 })
             }
         });

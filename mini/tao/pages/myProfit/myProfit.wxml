@@ -1,37 +1,14 @@
 <view class="profit-container">
     <view class="container-p">
-        <view class="item">
-            <view class="title">现场奖励</view>
+        <view class="item" wx:for="{{info}}" wx:key="index">
+            <view class="title">{{item.activity_name}}</view>
             <view class="desc box justify-between">
                 <view class="left">
-                    <view class="time">2022-08-21 16:12:34</view>
-                    <view class="order">ddddddsssssss</view>
+                    <view class="time">{{item.created_at}}</view>
+                    <view class="order">{{item.invited_user_name}}</view>
                 </view>
-                <view class="right">+80</view>
+                <view class="right" wx:if="{{item.money}}">+{{item.money}}</view>
             </view>
-
-        </view>
-        <view class="item">
-            <view class="title">现场奖励</view>
-            <view class="desc box justify-between">
-                <view class="left">
-                    <view class="time">2022-08-21 16:12:34</view>
-                    <view class="order">ddddddsssssss</view>
-                </view>
-                <view class="right">-60</view>
-            </view>
-
-        </view>
-        <view class="item">
-            <view class="title">现场奖励</view>
-            <view class="desc box justify-between">
-                <view class="left">
-                    <view class="time">2022-08-21 16:12:34</view>
-                    <view class="order">ddddddsssssss</view>
-                </view>
-                <view class="right">-60</view>
-            </view>
-
         </view>
     </view>
 </view>

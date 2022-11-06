@@ -23,11 +23,20 @@ Page({
     },
  
     toMyProfit() { 
+        wx.setStorageSync('log_type', 2);//2 我的收益
         wx.navigateTo({
             url: "/pages/myProfit/myProfit",
-
         })
     },
+
+    toInviteLog() { 
+        wx.setStorageSync('log_type', 1);//1 邀请用户记录
+        wx.navigateTo({
+            url: "/pages/myProfit/myProfit",
+        })
+    },
+
+
     toAgreement(){
         wx.navigateTo({
             url: "/pages/Agreement/Agreement",

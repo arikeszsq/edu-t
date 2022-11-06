@@ -62,7 +62,7 @@
             </view>
         </view>
         <!-- 邀请记录 -->
-        <view class="index-item-list request-record">
+        <view class="index-item-list request-record" bindtap="toInviteLog">
             <view class="top box align-center">
                 <view class="order-one" style="padding-bottom: 20rpx;">邀请记录</view>
 
