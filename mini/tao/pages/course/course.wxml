@@ -47,7 +47,7 @@
 
             </view>
             <view class="address" wx:for="{{schoolLists}}" wx:key="id" data-item="{{item}}" bindtap="chooseSchoolHandle">
-                <text>{{item.name}}:</text> <text class="warn">{{item.map_area}}（{{item.msg}}）</text>
+                <text>{{item.name}}:</text> <text class="warn">{{item.map_area}}<view wx:if="{{item.msg}}">（</view>{{item.msg}}<view wx:if="{{item.msg}}">）</view></text>
             </view>
 
             <view class="box comfire-container">
