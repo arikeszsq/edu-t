@@ -72,7 +72,7 @@ Page({
         //防止数据没有加载完成1表秒之后获取
         setTimeout(() => {
             this.setSwiperHeight(".timu_list0")
-        }, 1000)
+        }, 3000)
 
     },
     //设置swiper高度的方法
