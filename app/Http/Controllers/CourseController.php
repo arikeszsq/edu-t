@@ -130,7 +130,7 @@ class CourseController extends Controller
      *         description="OK"
      *     )
      * )
-     * @param $id
+     * @param $course_id
      * @return \Illuminate\Http\JsonResponse|string
      */
     public function companyChildList($course_id)
