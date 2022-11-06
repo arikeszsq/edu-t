@@ -5,14 +5,29 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        info:[]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+        this.getLogList();
+    },
 
+    getLogList(){
+        app.apiRequest({
+            url: '/course/company-child-lists/' + id,
+            method: 'get',
+            data: {
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                    schoolLists: res.data.response
+                })
+            }
+        });
     },
 
     /**

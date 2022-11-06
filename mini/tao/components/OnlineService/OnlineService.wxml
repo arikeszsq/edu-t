@@ -1,4 +1,3 @@
-
 <view class="dialogue {{isShow?'active':''}}">
     <view class=" dialogue-container">
         <view class="dialogue-item">
@@ -8,37 +7,19 @@
             </view>
             <view class="contain-disa">
                 <!-- 循环位置 -->
-                <view class="dis-item">
-                    <view class="dis-title">标题拉妈妈</view>
-                    <view class="dis-tel-num item-dis-one box justify-between">
-                        <view class="dis-left-t">181125664444</view>
-                        <navigator class="dis-btn" url="181125664444">拨号</navigator>
+                <view class="dis-item" wx:for="{{info}}" wx:key="index">
+                    <view class="dis-title">{{item.name}}</view>
+                    <view class="dis-tel-num item-dis-one box justify-between" wx:if="{{item.mobile}}">
+                        <view class="dis-left-t">{{item.mobile}}</view>
+                        <navigator class="dis-btn" url="tel:{{item.mobile}}">拨号</navigator>
                     </view>
-                    <view class="dis-address item-dis-one box justify-between">
-                        <view class="dis-left-t">地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息</view>
-                        <navigator class="dis-btn dis-btn-addre" url="181125664444">导航</navigator>
+                    <view class="dis-address item-dis-one box justify-between" wx:if="{{item.area}}">
+                        <view class="dis-left-t">{{item.area}}</view>
+                        <navigator class="dis-btn dis-btn-addre">导航</navigator>
                     </view>
-               
-                        <image src="" class="code-dis"></image>
-                
-                </view>
-                <!-- 循环位置 -->
-                <view class="dis-item">
-                    <view class="dis-title">标题拉妈妈</view>
-                    <view class="dis-tel-num item-dis-one box justify-between">
-                        <view class="dis-left-t">181125664444</view>
-                        <navigator class="dis-btn" url="181125664444">拨号</navigator>
-                    </view>
-                    <view class="dis-address item-dis-one box justify-between">
-                        <view class="dis-left-t">地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息</view>
-                        <navigator class="dis-btn dis-btn-addre" url="181125664444">导航</navigator>
-                    </view>
-               
-                        <image src="" class="code-dis"></image>
-                
+                    <image src="{{item.pic}}" class="code-dis" wx:if="{{item.pic}}"></image>
                 </view>
             </view>
         </view>
-
     </view>
 </view>

@@ -1,4 +1,5 @@
 // components/OnlineService/OnlineService.js
+const app = getApp();
 Component({
     /**
      * 组件的属性列表
@@ -17,12 +18,11 @@ Component({
      * 组件的初始数据
      */
     data: {
-        kf_name: '',
-        mobile: "15062332900",
-        pic: "https://zsq.a-poor.com/uploads/images/8376382dd5344e8ee76cda8ac697c909.png"
+        info:[]
     },
-    onload() {
-       
+    created() {
+        console.log(156132)
+       this.getkflists()
     },
     /**
      * 组件的方法列表
@@ -31,6 +31,21 @@ Component({
         closedHanler() {
             this.triggerEvent('closedHanler')
     
+        },
+        getkflists(){
+            console.log(9999)
+            app.apiRequest({
+                url: '/basic/kf/' + wx.getStorageSync('activity_id'),
+                method: 'get',
+                data: {
+                },
+                success: res => {
+                    var that = this;
+                    that.setData({
+                        info: res.data.response
+                    })
+                }
+            });
         },
     }
 })
