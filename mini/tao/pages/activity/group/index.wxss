@@ -317,8 +317,14 @@
     display: flex;
     margin-bottom: 20rpx;
 }
+.group-item-dis text{
+width: 100rpx;
+flex:0 0 auto;
+}
 .group-item-dis input{
     height: 80rpx;
+    width: 100%;
+    flex:1 1 auto;
     line-height: 80rpx;
     margin-left: 30rpx;
 }

@@ -323,12 +323,12 @@
 .settime view {
     color: #fff;
     text-align: center;
-    width: 36rpx;
     height: 36rpx;
     background-color: #FF4D00;
     border-radius: 8rpx;
     margin-right: 8rpx;
     margin-left: 8rpx;
+    padding:0 4rpx;
 }
 
 .settime .nei {
@@ -441,6 +441,7 @@
 
 .container-two-list .title .title-c {
     font-size: 30rpx;
+    text-align: left;
 }
 
 .container-two-list .team {
@@ -451,7 +452,7 @@
     border-radius: 4rpx;
     text-align: center;
     font-size: 24rpx;
-    margin-left: 20rpx;
+    margin-left: 10rpx;
     align-self: flex-start;
 }
 
@@ -460,4 +461,7 @@
     color: #FE1228;
     flex-grow: 1;
     text-align: right;
+}
+.separate {
+     margin-bottom: 0rpx;
 }

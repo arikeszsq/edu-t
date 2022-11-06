@@ -69,7 +69,7 @@
     <view class="separate separate-purchase"></view> -->
 
     <!-- 机构视频 -->
-    <view class="index-title">
+    <view class="index-title" style="margin-top: 40rpx;">
         机构视频
     </view>
     <view class="video-container">
@@ -104,7 +104,7 @@
                 <view class="avatar box">
                     <image src="{{info.group_current.group.user.avatar}}"></image>
                     <view class="desc">团长</view>
-                    <view class="name"> {{info.group_current.group.user.name}}</view>
+                    <view class="name" style="font-size: 28rpx;margin-top: 20rpx;"> {{info.group_current.group.user.name}}</view>
                 </view>
                 <image class="arrow" src="../../../images/one/huisearrow.png"></image>
                 <view class="btn" bindtap="toGroupList">参加他的团</view>
@@ -120,7 +120,7 @@
                 <image src="{{item.group.user.avatar}}"></image>
                 <view class="title">
                     <view class="title-c"> {{item.group.user.name}}</view>
-                    <view class="gray"> 本团已有{{item.group.current_num}}人</view>
+                    <view class="gray" style="font-size: 24rpx;"> 本团已有{{item.group.current_num}}人</view>
                 </view>
                 <view class="team">团长</view>
                 <view class="man" wx:if="{{item.group.finished ==1}}">已满团</view>

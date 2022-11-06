@@ -61,12 +61,13 @@
 .settime view {
     color: #fff;
     text-align: center;
-    width: 36rpx;
+
     height: 36rpx;
     background-color: #FF4D00;
     border-radius: 8rpx;
     margin-right: 8rpx;
     margin-left: 8rpx;
+    padding:0rpx 4rpx;
 }
 
 .settime .nei {
@@ -371,11 +372,17 @@
     display: flex;
     margin-bottom: 20rpx;
 }
+.group-item-dis text{
+    width: 100rpx;
+    display: block;
+    flex: 0 0 auto;
+}
 
 .group-item-dis input {
     height: 80rpx;
     line-height: 80rpx;
     margin-left: 30rpx;
+    width: 100%;
 }
 
 .info {
@@ -412,15 +419,15 @@
 /* 我要做活动 */
 .createActivity {
     position: fixed;
-    width: 120rpx;
-    height: 120rpx;
-    bottom: 180rpx;
-    right: 20rpx;
-    box-sizing: border-box;
+    width: 96rpx;
+    height:96rpx;
+    bottom: 140rpx;
+    right: 30rpx;
     border-radius: 50%;
     color: #fff;
+    font-size: 24rpx;
     background-color: #FF7A08;
-
+    border:12rpx solid #ffe0c4;
     text-align: center;
 }
 
