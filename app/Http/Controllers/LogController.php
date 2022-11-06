@@ -29,7 +29,7 @@ class LogController extends Controller
                     $data[] = [
                         'activity_name' => $list->activity->title,
                         'invited_user_name' => $list->inviteUser->name,
-                        'created_at' => $list->activity->created_at,
+                        'created_at' => date('Y-m-d H:i',strtotime($list->activity->created_at)),
                         'money' => '',
                         'name' => '',
                     ];
@@ -51,7 +51,7 @@ class LogController extends Controller
                         $data[] = [
                             'activity_name' => $list->activity->title,
                             'invited_user_name' => $list->inviteUser->name,
-                            'created_at' => $list->activity->created_at,
+                            'created_at' => date('Y-m-d H:i',strtotime($list->activity->created_at)),
                             'money' => $list->activity->a_invite_money,
                             'name' => 'A级别邀请人奖励'
                         ];
@@ -59,7 +59,7 @@ class LogController extends Controller
                         $data[] = [
                             'activity_name' => $list->activity->title,
                             'invited_user_name' => $list->inviteUser->name,
-                            'created_at' => $list->activity->created_at,
+                            'created_at' => date('Y-m-d H:i',strtotime($list->activity->created_at)),
                             'money' => $list->activity->second_invite_money,
                             'name' => '二级邀请人奖励'
                         ];
