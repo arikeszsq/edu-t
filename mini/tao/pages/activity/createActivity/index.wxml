@@ -1,0 +1,38 @@
+<!--pages/activity/createActivity/index.wxml-->
+<view class="create-activity">
+    <view class="create-activity-container box">
+        <view class="activity-form">
+            <view class="item box">
+                <view class="text">商家名</view>
+                <input type="text" placeholder="请输入" placeholder-class="phcolor" />
+            </view>
+            <view class="item box">
+                <view class="text">联系人</view>
+                <input type="text" placeholder="请输入" placeholder-class="phcolor" />
+            </view>
+            <view class="item box">
+                <view class="text">联系电话</view>
+                <input type="text" placeholder="请输入" placeholder-class="phcolor" />
+            </view>
+            <view class="contact">
+                <view class="title">联系我们</view>
+                <view class="code-c box">
+                    <image src="" class="code"></image>
+                </view>
+
+                <view class="sub-title">联系电话</view>
+                <view class="number-info box">
+                    <view class="tel-num">18115671682</view>
+                    <navigator class="call" url="tel:18115671682">拨打</navigator>
+                </view>
+            </view>
+        </view>
+
+
+        <view class="footer">
+            <view class="copy">版权所以
+            </view>
+            <view class="submit">提交</view>
+        </view>
+    </view>
+</view>

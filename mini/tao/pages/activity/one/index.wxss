@@ -260,9 +260,11 @@
     background-color: #f2f2f2;
     margin-right: 20rpx;
 }
-.container-three .desc{
+
+.container-three .desc {
     width: 384rpx;
 }
+
 .container-three .desc .title {
     font-size: 32rpx;
     overflow: hidden;
@@ -270,18 +272,22 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 .container-three .kefu {
     text-align: center;
     width: 78rpx;
 }
+
 .container-three .kefu .contact-n {
     font-size: 24rpx;
     white-space: nowrap;
 }
-.one-container{
+
+.one-container {
     position: relative;
 }
-.jiange{
+
+.jiange {
     height: 120rpx;
 }
 
@@ -297,9 +303,11 @@
     left: 0rpx;
     display: none;
 }
-.show-dislogue{
+
+.show-dislogue {
     display: block;
 }
+
 .dislogue-group {
     overflow: hidden;
     box-sizing: border-box;
@@ -308,9 +316,9 @@
     height: 970rpx;
     background-color: #fff;
     position: absolute;
-    left:50%;
+    left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 
 }
 
@@ -340,19 +348,21 @@
     align-items: center;
     background-color: #f4e8d8;
 }
-.closed{
+
+.closed {
     position: absolute;
     width: 48rpx;
     height: 48rpx;
-    right:30rpx;
+    right: 30rpx;
 }
+
 .from-dislogue {
     box-sizing: border-box;
     margin: 30rpx 30rpx;
 }
 
 .group-item-dis {
-    padding:0rpx 30rpx;
+    padding: 0rpx 30rpx;
     height: 80rpx;
     line-height: 80rpx;
     border-radius: 8rpx;
@@ -360,24 +370,29 @@
     display: flex;
     margin-bottom: 20rpx;
 }
-.group-item-dis input{
+
+.group-item-dis input {
     height: 80rpx;
     line-height: 80rpx;
     margin-left: 30rpx;
 }
-.info{
+
+.info {
     margin-top: 30rpx;
 }
-.info .bt{
+
+.info .bt {
     margin-bottom: 10rpx;
 }
-.desc-dis{
+
+.desc-dis {
     color: #63493c;
     text-align: center;
     font-size: 28rpx;
     margin-top: 20rpx;
 }
-.btn-ss{
+
+.btn-ss {
     width: 100%;
     height: 80rpx;
     border-radius: 40rpx;
@@ -387,7 +402,29 @@
     margin-top: 70rpx;
     background-image: linear-gradient(90deg, #FF7A08 0%, #FF4D00 100%);
 }
-.placeholder-style{
+
+.placeholder-style {
     color: #BABABA;
     font-size: 26rpx;
+}
+
+/* 我要做活动 */
+.createActivity {
+    position: fixed;
+    width: 120rpx;
+    height: 120rpx;
+    bottom: 180rpx;
+    right: 20rpx;
+    box-sizing: border-box;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #FF7A08;
+ 
+    text-align: center;
+}
+.text-act {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
