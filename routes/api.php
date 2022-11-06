@@ -83,4 +83,8 @@ Route::prefix('/user')->group(function () {
     Route::any('/set-a', 'UserController@setA');
 });
 
+Route::prefix('/log')->group(function () {
+    Route::any('/list', 'LogController@lists');
+});
+
 //});
