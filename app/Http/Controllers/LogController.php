@@ -30,6 +30,8 @@ class LogController extends Controller
                         'activity_name' => $list->activity->title,
                         'invited_user_name' => $list->inviteUser->name,
                         'created_at' => $list->activity->created_at,
+                        'money' => '',
+                        'name' => '',
                     ];
                 }
             } elseif ($log_type == 2) {
