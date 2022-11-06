@@ -1,0 +1,44 @@
+
+<view class="dialogue {{isShow?'active':''}}">
+    <view class=" dialogue-container">
+        <view class="dialogue-item">
+            <view class="dis-top">
+                <view class="title">联系商家</view>
+                <view class="closed primary" bindtap="closedHanler">+</view>
+            </view>
+            <view class="contain-disa">
+                <!-- 循环位置 -->
+                <view class="dis-item">
+                    <view class="dis-title">标题拉妈妈</view>
+                    <view class="dis-tel-num item-dis-one box justify-between">
+                        <view class="dis-left-t">181125664444</view>
+                        <navigator class="dis-btn" url="181125664444">拨号</navigator>
+                    </view>
+                    <view class="dis-address item-dis-one box justify-between">
+                        <view class="dis-left-t">地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息</view>
+                        <navigator class="dis-btn dis-btn-addre" url="181125664444">导航</navigator>
+                    </view>
+               
+                        <image src="" class="code-dis"></image>
+                
+                </view>
+                <!-- 循环位置 -->
+                <view class="dis-item">
+                    <view class="dis-title">标题拉妈妈</view>
+                    <view class="dis-tel-num item-dis-one box justify-between">
+                        <view class="dis-left-t">181125664444</view>
+                        <navigator class="dis-btn" url="181125664444">拨号</navigator>
+                    </view>
+                    <view class="dis-address item-dis-one box justify-between">
+                        <view class="dis-left-t">地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息地址信息</view>
+                        <navigator class="dis-btn dis-btn-addre" url="181125664444">导航</navigator>
+                    </view>
+               
+                        <image src="" class="code-dis"></image>
+                
+                </view>
+            </view>
+        </view>
+
+    </view>
+</view>

@@ -16,20 +16,4 @@
         </view>
     </view>
 </view>
-<view class="dialogue {{isShow?'active':''}}">
-    <view class=" dialogue-container">
-        <view class="dialogue-item">
-            <view class="title words">在线客服：{{kf_name}}</view>
-            <view class="phone-container-bj box">
-                <view class="phone-container box">
-                    <image class="icon-call" src="../../images/activity/call_03.jpg"></image>
-                    <view class="phone">{{mobile}}</view>
-                    <navigator class="navigator-call" url="tel:{{mobile}}">一键拨打</navigator>
-                </view>
-            </view>
-            <image src="{{pic}}" class="code"></image>
-            <view class="gray" style="font-size: 26rpx;">长按识别二维码联系我们</view>
-            <view class="closed primary" bindtap="closedHanler">关闭</view>
-        </view>
-    </view>
-</view>
+<OnlineService isShow="{{isShow}}" bindtap="closedHanler"></OnlineService>

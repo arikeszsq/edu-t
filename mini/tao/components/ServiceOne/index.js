@@ -13,9 +13,7 @@ Component({
      */
     data: {
         isShow: false,
-        kf_name: '',
-        mobile: "15062332900",
-        pic: "https://zsq.a-poor.com/uploads/images/8376382dd5344e8ee76cda8ac697c909.png"
+
     },
 
     computed: {

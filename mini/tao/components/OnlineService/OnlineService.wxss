@@ -1,5 +1,3 @@
-/* 客服 */
-@import "../../app.wxss";
 
 .dialogue {
  
@@ -13,7 +11,10 @@
     display: none;
 
 }
-
+.box{
+    display: flex;
+    justify-content: space-between;
+}
 /* 出现 */
 .active {
     display: block;
@@ -113,76 +114,3 @@
     border-radius: 20rpx;
 }
 /* 客户样式结束 */
-.navigator-call {
-    font-size: 26rpx;
-    color: #fff;
-    background-color: #FF7908;
-    width: 160rpx;
-    height: 58rpx;
-    line-height: 58rpx;
-    text-align: center;
-    border-radius: 30rpx;
-}
-
-
-.tab-Bar-container {
-    position: fixed;
-    bottom: 0px;
-    height: 120rpx;
-    width: 100%;
-    background-color: #fff;
-    border-top: 1px solid #f2f2f2;
-    box-sizing: border-box;
-}
-
-.tab-container {
-    height: 100%;
-    align-items: stretch;
-}
-
-.tab-container image {
-    width: 40rpx;
-    height: 40rpx;
-}
-
-.tab-container .item {
-    padding-top: 20rpx;
-    text-align: center;
-}
-
-.tab-container .item:nth-of-type(1) {
-    width: 209rpx;
-}
-
-.tab-container .item .item-01 {
-    padding-left: 36rpx;
-    padding-right: 40rpx;
-}
-
-.tab-container .item .item-02 {
-    font-size: 24rpx;
-}
-
-.tab-container .item:nth-of-type(2) {
-    color: #fff;
-    width: 284rpx;
-    background: linear-gradient(90deg, #FF7A08 0%, #FF4D00 100%);
-    opacity: 0.5;
-
-}
-
-.tab-container .item .intro {
-    font-size: 28rpx;
-}
-
-.tab-container .item .price {
-    font-size: 34rpx;
-    padding-top: 18rpx;
-}
-
-.tab-container .item:nth-of-type(3) {
-    color: #fff;
-    width: 284rpx;
-    background-color: #FF4D00FF;
-
-}
