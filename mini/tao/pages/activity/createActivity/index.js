@@ -7,7 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        info:''
+        info: ''
     },
 
     /**
@@ -17,8 +17,8 @@ Page({
         this.getBasicInfo();
     },
 
-    getBasicInfo(){
-        var that= this;
+    getBasicInfo() {
+        var that = this;
         app.apiRequest({
             url: '/basic/settings',
             method: 'get',
@@ -26,45 +26,47 @@ Page({
             },
             success: res => {
                 that.setData({
-                    'info':res.data.response
+                    'info': res.data.response
                 });
             }
         });
     },
 
-    createNewActivity(e){
+    createNewActivity(e) {
         var activity_id = wx.getStorageSync('activity_id');
         var username = e.detail.value.username;
         var mobile = e.detail.value.mobile;
         var shop_name = e.detail.value.shop_name;
-        if (username && mobile &&shop_name) {
+        if (username && mobile && shop_name) {
             this.setData({
                 isShowDislogue: false
             }),
-            wx.showToast({
-                title: '加载中',
-                icon:'loading', //图标，支持"success"、"loading"
-              }),
-            //信息完整发起支付
-            app.apiRequest({
-                url: '/activity/web-create',
-                method: 'post',
-                data: {
-                    'activity_id': activity_id,
-                    'shop_name': shop_name,
-                    'contacter': username,
-                    'mobile': mobile
-                },
-                success: res => {
-                    wx.showToast({
-                        title: '添加成功'
-                    });
-
-                    // wx.navigateBack({
-                    //   delta: 0
-                    // })
-                }
-            });
+                wx.showToast({
+                    title: '加载中',
+                    icon: 'loading', //图标，支持"success"、"loading"
+                }),
+                //信息完整发起支付
+                app.apiRequest({
+                    url: '/activity/web-create',
+                    method: 'post',
+                    data: {
+                        'activity_id': activity_id,
+                        'shop_name': shop_name,
+                        'contacter': username,
+                        'mobile': mobile
+                    },
+                    success: res => {
+                        wx.showToast({
+                            title: '添加成功'
+                        });
+                        // setTimeout(wx.navigateBack({
+                        //     delta: 0
+                        // }), 5000)
+                        // wx.navigateBack({
+                        //   delta: 0
+                        // })
+                    }
+                });
         } else {
             wx.showToast({
                 title: '请填完整信息',
