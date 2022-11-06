@@ -57,7 +57,11 @@ trait AreaTrait
         $url = 'https://apis.map.qq.com/ws/distance/v1/?mode=' . $mode . '&from=' . $mapFrom . '&to=' . $mapTo . '&key=' . $key;
         $info = file_get_contents($url);
         $info = json_decode($info, true);
-        $info = $info['result']['elements'][0]['distance'];
+        if(isset($info['result']['elements'][0]['distance'])){
+            $info = $info['result']['elements'][0]['distance'];
+        }else{
+            $info = 0;
+        }
         return $info;
     }
 
