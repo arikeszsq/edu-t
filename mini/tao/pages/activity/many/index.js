@@ -196,7 +196,7 @@ Page({
             url: '/activity/view',
             method: 'get',
             data: {
-                'activity_id': app.globalData.activity_id
+                'activity_id': wx.getStorageSync('activity_id')
             },
             success: res => {
             }
