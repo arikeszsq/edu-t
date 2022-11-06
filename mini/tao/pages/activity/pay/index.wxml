@@ -57,7 +57,7 @@
         </view>
         <!-- 固定窗口 -->
         <view class="box bottom">
-            <view class="price"><text>总价：</text>￥389</view>
+            <view class="price"><text>总价：</text>￥{{money}}</view>
             <view class="confirm" bindtap="doPay">确认支付</view>
         </view>
     </view>

@@ -35,12 +35,12 @@ Component({
         },
         //开团
         toCourseOne(e) {
-            app.globalData.type = 1;
+            wx.setStorageSync('type', 1)
             this.triggerEvent("toCourseOne")
         },
         //单独购买
         toCourseTwo(e) {
-            app.globalData.type = 2;
+            wx.setStorageSync('type', 2)
             this.triggerEvent("toCourseTwo")
         },
         //弹出客服页面

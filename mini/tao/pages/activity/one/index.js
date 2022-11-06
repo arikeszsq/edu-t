@@ -55,6 +55,10 @@ Page({
                         signType: res.data.response.signType,
                         paySign: res.data.response.paySign,
                         success(res) {
+                            wx.navigateTo({
+                                url: "/pages/myOrder/myOrder",
+                    
+                            });
                             console.log('支付成功')
                         },
                         fail(res) {
@@ -73,9 +77,7 @@ Page({
     },
 
     toGroupList() {
-        wx.navigateTo({
-            url: "/pages/activity/group/index",
-        })
+        app.toOneGroupList();
     },
 
     addViewNum() {
@@ -117,6 +119,7 @@ Page({
         this.getActivityDetail(wx.getStorageSync('activity_id'));
     },
     handletoCourseOne() {
+        wx.setStorageSync('activity_type', 1)
         //立即参团
         wx.navigateTo({
             url: "/pages/activity/group/index",

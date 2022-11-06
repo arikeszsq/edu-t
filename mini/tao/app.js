@@ -167,5 +167,24 @@ App({
         });
     },
 
+    toOneGroupList() {
+        wx.setStorageSync('activity_type', 1)//活动类型 :1单商家，2多商家
+        wx.navigateTo({
+            url: "/pages/activity/group/index",
+        })
+    },
+    toManyGroupList() {
+        wx.setStorageSync('activity_type', 2);//活动类型 :1单商家，2多商家
+        wx.setStorageSync('buy_method',2);//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
+        wx.navigateTo({
+            url: "/pages/activity/group/index",
+        })
+    },
+    toCursePage(){
+        wx.navigateTo({
+            url: '/pages/course/course',
+        })
+    }
+
 
 })

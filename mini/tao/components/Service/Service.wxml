@@ -17,7 +17,7 @@
             <view class="price">￥{{oriPrice}}</view>
         </view>
         <view class="item"  data-type="2" bindtap="toCourseTwo">
-            <view class="intro">2人拼团</view>
+            <view class="intro">开团购买</view>
             <view class="price">￥{{realPrice}}</view>
         </view>
     </view>

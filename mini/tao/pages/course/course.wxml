@@ -43,8 +43,9 @@
     <view class="dislogue-bj {{dialogShow?'display-show':'display-hide'}}">
         <view class="dislogue">
             <view class="title"> 请确认上课校区</view>
-            <view class="desc"> 点击选择校区<text class="warn">{{selectedSchool.name}}</text>
-
+            <view class="desc">
+                请选择校区并确认
+                <text class="warn-red">{{selectedSchool.name}}</text>
             </view>
             <view class="address" wx:for="{{schoolLists}}" wx:key="id" data-item="{{item}}" bindtap="chooseSchoolHandle">
                 <text>{{item.name}}:</text> <text class="warn">{{item.map_area}}<view wx:if="{{item.msg}}">（</view>{{item.msg}}<view wx:if="{{item.msg}}">）</view></text>

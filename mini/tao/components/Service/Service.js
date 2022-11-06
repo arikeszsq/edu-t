@@ -37,12 +37,16 @@ Component({
         },
         //单独购买
         toCourseOne(e) {
-            app.globalData.type=2;
+            wx.setStorageSync('group_id', 0);
+            wx.setStorageSync('type', 2);
+            wx.setStorageSync('buy_method', 2);//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
             this.triggerEvent("toCourseOne", e.currentTarget.dataset.type)
         },
-        //单独开团
+        //开团
         toCourseTwo(e) {
-            app.globalData.type=1;
+            wx.setStorageSync('group_id', 0);
+            wx.setStorageSync('type', 1);
+            wx.setStorageSync('buy_method', 2);//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
             this.triggerEvent("toCourseTwo", e.currentTarget.dataset.type)
         },
         //弹出客服页面

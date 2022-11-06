@@ -92,8 +92,10 @@ Page({
     },
     //单独购买跳转页面
     toCourseOne(e) {
-        app.globalData.type=2;
+        wx.setStorageSync('buy_method', 1);//购买方式 1，单独购买
         wx.setStorageSync('buy_type', 1);
+        wx.setStorageSync('price', 1);
+        wx.setStorageSync('group_id', 0);
         wx.navigateTo({
             url: '/pages/course/course',
             success: (res) => {
@@ -101,10 +103,16 @@ Page({
             },
         })
     },
-    //2人拼团
+
+    //跳转到我要参团的团列表
+    toGroupList() {
+        app.toManyGroupList();
+    },
+
+    //开团购买
     bindtoCourseTwo(e) {
-        app.globalData.type=1;
-        wx.setStorageSync('buy_type', 1);
+        wx.setStorageSync('activity_type', 2);//活动类型 :1单商家，2多商家
+        wx.setStorageSync('buy_method', 2);//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
         wx.navigateTo({
             url: '/pages/course/course',
             success: (res) => {

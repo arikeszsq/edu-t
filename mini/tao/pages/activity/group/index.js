@@ -237,16 +237,21 @@ Page({
      */
     handleSucessGroup(e) {
         //需要发送给后端
+        console.log(e, '立即参与');
         const id = e.currentTarget.dataset.id;
-        wx.setStorageSync('group_id', id);
-        this.setData({
-            groupId: id,
-            isShowDislogue: true
-        })
+        wx.setStorageSync('group_id', id);//设置团的id
+        var activity_type = wx.getStorageSync('activity_type');
+        if (activity_type == 2) {
+            app.toCursePage();
+        }else{
+            this.setData({
+                groupId: id,
+                isShowDislogue: true
+            })
+        }
     },
 
     doPay(e) {
-        console.log(e, '下单1111111111');
         var activity_id = wx.getStorageSync('activity_id');
         var name = e.detail.value.name;
         var mobile = e.detail.value.phoneNum;
@@ -256,50 +261,53 @@ Page({
             this.setData({
                 isShowDislogue: false
             }),
-            wx.showToast({
-                title: '加载中',
-                icon:'loading', //图标，支持"success"、"loading"
-              }),
-            //信息完整发起支付
-            app.apiRequest({
-                url: '/pay/pay',
-                method: 'post',
-                data: {
-                    'activity_id': activity_id,
-                    'group_id': wx.getStorageSync('group_id'),
-                    'type': 1,//1开团 2单独购买
-                    'sign_name': name,
-                    'sign_mobile': mobile,
-                    'info_one': info1,
-                    'info_two': info2
-                },
-                success: res => {
-                    console.log(res,'success')
-                    var code = res.data.msg_code;
-                    if(code !=10000){
-                        wx.showToast({
-                          title: res.data.message,
-                        })
-                    }else{
-                        wx.requestPayment({
-                            timeStamp: res.data.response.timeStamp,
-                            nonceStr: res.data.response.nonceStr,
-                            package: res.data.response.package,
-                            signType: res.data.response.signType,
-                            paySign: res.data.response.paySign,
-                            success(res) {
-                                console.log('支付成功')
-                            },
-                            fail(res) {
-                                console.log('支付失败')
-                            }
-                        })
+                wx.showToast({
+                    title: '加载中',
+                    icon: 'loading', //图标，支持"success"、"loading"
+                }),
+                //信息完整发起支付
+                app.apiRequest({
+                    url: '/pay/pay',
+                    method: 'post',
+                    data: {
+                        'activity_id': activity_id,
+                        'group_id': wx.getStorageSync('group_id'),
+                        'type': 1,//1开团 2单独购买
+                        'sign_name': name,
+                        'sign_mobile': mobile,
+                        'info_one': info1,
+                        'info_two': info2
+                    },
+                    success: res => {
+                        console.log(res, 'success')
+                        var code = res.data.msg_code;
+                        if (code != 10000) {
+                            wx.showToast({
+                                title: res.data.message,
+                            })
+                        } else {
+                            wx.requestPayment({
+                                timeStamp: res.data.response.timeStamp,
+                                nonceStr: res.data.response.nonceStr,
+                                package: res.data.response.package,
+                                signType: res.data.response.signType,
+                                paySign: res.data.response.paySign,
+                                success(res) {
+                                    wx.navigateTo({
+                                        url: "/pages/myOrder/myOrder",
+                                    });
+                                    console.log('支付成功')
+                                },
+                                fail(res) {
+                                    console.log('支付失败')
+                                }
+                            })
+                        }
+                    },
+                    error: res => {
+                        console.log(res, 'success')
                     }
-                },
-                error:res=>{
-                    console.log(res,'success')
-                }
-            });
+                });
         } else {
             wx.showToast({
                 title: '请填完整信息',
@@ -362,7 +370,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        wx.hideHomeButton();
     },
 
     /**

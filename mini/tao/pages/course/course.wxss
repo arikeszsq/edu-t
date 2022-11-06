@@ -232,3 +232,7 @@
 .comfire-container .comfire{
     color: #05c200;
 }
+
+.warn-red{
+    color: red;
+}

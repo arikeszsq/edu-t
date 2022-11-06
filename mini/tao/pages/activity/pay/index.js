@@ -14,7 +14,8 @@ Page({
             sign_sex: true,
             is_agree: true
         },
-        courseInfo: {}
+        courseInfo: {},
+        money: 0
     },
 
     //手机号码
@@ -73,28 +74,47 @@ Page({
      */
     doPay() {
         if (this.data.userInfo.sign_name && this.data.userInfo.sign_mobile && this.data.userInfo.sign_age && this.data.userInfo.is_agree) {
-            //信息完整发起支付
-            app.apiRequest({
-                url: '/pay/pay',
-                method: 'post',
-                data: {
-                    'activity_id': wx.getStorageSync('activity_id'),
-                    'type': app.globalData.type,
-                    'sign_name': this.data.userInfo.sign_name,
-                    'sign_mobile': this.data.userInfo.sign_mobile,
-                    'sign_age': this.data.userInfo.sign_age,
-                    'sign_sex': this.data.userInfo.sign_sex,
-                    'is_agree': this.data.userInfo.is_agree,
-                    'course_ids': app.globalData.selectedSchoolId.join(','),
-                    'school_child_ids': app.globalData.selectedCourse.join(',')
-                },
-                success: res => {
-                    console.log(res);
-                }
-            });
-
-
-
+            wx.showToast({
+                title: '加载中',
+                icon: 'loading', //图标，支持"success"、"loading"
+            }),
+                //信息完整发起支付
+                app.apiRequest({
+                    url: '/pay/pay',
+                    method: 'post',
+                    data: {
+                        'activity_id': wx.getStorageSync('activity_id'),
+                        'type': app.globalData.type,
+                        'sign_name': this.data.userInfo.sign_name,
+                        'sign_mobile': this.data.userInfo.sign_mobile,
+                        'sign_age': this.data.userInfo.sign_age,
+                        'sign_sex': this.data.userInfo.sign_sex,
+                        'is_agree': this.data.userInfo.is_agree,
+                        'course_ids': app.globalData.selectedSchoolId.join(','),
+                        'school_child_ids': app.globalData.selectedCourse.join(','),
+                        'group_id': wx.getStorageSync('group_id')
+                    },
+                    success: res => {
+                        console.log(res);
+                        //信息完整发起支付
+                        wx.requestPayment({
+                            timeStamp: res.data.response.timeStamp,
+                            nonceStr: res.data.response.nonceStr,
+                            package: res.data.response.package,
+                            signType: res.data.response.signType,
+                            paySign: res.data.response.paySign,
+                            success(res) {
+                                wx.navigateTo({
+                                    url: "/pages/myOrder/myOrder",
+                                });
+                                console.log('支付成功')
+                            },
+                            fail(res) {
+                                console.log('支付失败')
+                            }
+                        })
+                    }
+                });
         } else {
             //信息不完整
             wx.showToast({
@@ -111,10 +131,34 @@ Page({
     onLoad(options) {
 
         this.getSelectCourseInfo();
+        this.getActivityDetail(wx.getStorageSync('activity_id'));
 
         this.setData({
             "data.activity_id": wx.getStorageSync('activity_id')
         })
+    },
+
+    //info数据的获取
+    getActivityDetail: function (activity_id) {
+        app.apiRequest({
+            url: '/activity/detail/' + activity_id,
+            method: 'get',
+            data: {
+            },
+            success: res => {
+                var that = this;
+                var buy_method = wx.getStorageSync('buy_method');//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
+                if (buy_method == 1) {
+                    that.setData({
+                        money: res.data.response.ori_price
+                    })
+                } else {
+                    that.setData({
+                        money: res.data.response.real_price
+                    })
+                }
+            }
+        });
     },
 
     getSelectCourseInfo() {
