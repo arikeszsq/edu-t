@@ -26,6 +26,7 @@ class CompanyChildController extends AdminController
             $grid->column('company.name','企业名称');
             $grid->column('name');
             $grid->column('map_area');
+            $grid->column('mobile','联系电话');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -77,6 +78,9 @@ class CompanyChildController extends AdminController
             $form->html(view('coordinate'), '区域选择'); // 加载自定义地图
             $form->hidden('map_points', '经纬度'); // 隐藏域，用于接收坐标点（这里如果想数据回填可以，->value('49.121221,132.2321312')）
             $form->hidden('map_area', '区域详细地址'); // 隐藏域，用于接收详细点位地址 ，必须是这个名字，js里写了
+
+            $form->mobile('mobile','联系电话');
+            $form->image('wx_pic','联系微信二维码')->autoUpload();
 
             $form->display('created_at');
             $form->display('updated_at');
