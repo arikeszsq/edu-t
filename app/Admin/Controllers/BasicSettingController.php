@@ -74,7 +74,8 @@ class BasicSettingController extends AdminController
     {
         return Form::make(new BasicSetting(), function (Form $form) {
 //            $form->display('id');
-            $form->text('kf_name');
+            $form->text('kf_name','商家名');
+            $form->text('area','商家地址');
             $form->mobile('mobile');
             $form->image('pic')->required()->autoUpload();
             $form->editor('buy_protocal');

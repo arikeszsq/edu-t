@@ -26,6 +26,7 @@ Route::prefix('/activity')->group(function () {
 });
 Route::prefix('/basic')->group(function () {
     Route::any('/settings', 'BasicController@settings');
+    Route::any('/kf/{id}', 'BasicController@kflist');
 });
 
 //以下接口，需要登录
