@@ -17,20 +17,24 @@ class ActivityGroupController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new ActivityGroup(), function (Grid $grid) {
+        return Grid::make(ActivityGroup::with(['activity','openuser','user']), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('activity_id');
+            $grid->column('activity.title','活动名称');
             $grid->column('name');
-            $grid->column('leader_id');
-            $grid->column('creater_id');
+            $grid->column('user.name','团长');
+            $grid->column('openuser.name','开团人');
             $grid->column('success_time');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+                $filter->like('activity.title','活动名称');
+                $filter->like('user.name','团长');
             });
+
+            $grid->disableCreateButton();//禁用创建按钮
+            $grid->disableActions();//禁用所有操作
         });
     }
 
@@ -69,7 +73,7 @@ class ActivityGroupController extends AdminController
             $form->text('leader_id');
             $form->text('creater_id');
             $form->text('success_time');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

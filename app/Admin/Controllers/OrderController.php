@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\ActivitySignUser;
+use App\Models\ActivitySignUserCourse;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -10,6 +11,8 @@ use Dcat\Admin\Http\Controllers\AdminController;
 
 class OrderController extends ActivitySignUserController
 {
+
+    public $title='订单';
     /**
      * Make a grid builder.
      *
@@ -50,6 +53,9 @@ class OrderController extends ActivitySignUserController
                 $filter->like('sign_mobile', '报名人手机号')->width(3);
                 $filter->like('status', '状态')->select(ActivitySignUser::Status_支付)->width(3);
             });
+
+            $grid->disableCreateButton();//禁用创建按钮
+            $grid->disableEditButton();//禁用编辑
         });
     }
 
@@ -62,28 +68,54 @@ class OrderController extends ActivitySignUserController
      */
     protected function detail($id)
     {
-        return Show::make($id, new ActivitySignUser(), function (Show $show) {
+        return Show::make($id, ActivitySignUser::with(['activity','group','user']), function (Show $show) {
             $show->field('id');
-            $show->field('activity_id');
-            $show->field('group_id');
+            $show->field('activity.title','活动名称');
+            $show->field('group.name','团名');
             $show->field('role');
-            $show->field('user_id');
-            $show->field('type');
-            $show->field('creater_id');
-            $show->field('share_q_code');
-            $show->field('order_no');
-            $show->field('money');
-            $show->field('has_pay');
-            $show->field('status');
-            $show->field('pay_time');
-            $show->field('pay_cancel_time');
-            $show->field('sign_name');
-            $show->field('sign_mobile');
-            $show->field('sign_age');
-            $show->field('sign_sex');
-            $show->field('is_agree');
+            $show->role('身份')->using([1 => '团长', 2 => '团员']);
+            $show->field('user.name','姓名');
+            $show->divider();
+            $show->type('购买方式')->using([1 => '团购', 2 => '单独购买']);
+            $show->field('order_no','订单号');
+            $show->field('money','订单金额');
+            $show->has_pay('付款状态')->using([1 => '待支付', 2 => '支付取消',3=>'支付成功']);
+            $show->field('pay_time','付款时间');
+            $show->divider();
+            $show->field('sign_name','报名人');
+            $show->field('sign_mobile','报名手机号');
+            $show->divider();
+            $show->field('sign_age','报名人年龄');
+            $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
+            $show->field('info_one','信息一');
+            $show->field('info_two','信息二');
+            $show->relation('courses','课程信息', function ($model) {
+                $grid = new Grid(ActivitySignUserCourse::with(['school','course']));
+                $grid->model()->where('order_num', $model->order_no);
+//                $grid->number();
+//                $grid->id();
+                $grid->column('school.name', '学校名称');
+                $grid->column('course.name', '课程名称');
+                $grid->filter(function ($filter) {
+//                    $filter->like('')->width('300px');
+                });
+                $grid->disableCreateButton();//禁用创建按钮
+                $grid->disableActions();//禁用所有操作
+                return $grid;
+            });
+//            $show->field('is_agree');
             $show->field('created_at');
             $show->field('updated_at');
+
+            $show->panel()
+                ->tools(function ($tools) {
+                    $tools->disableEdit();
+//                    $tools->disableList();
+                    $tools->disableDelete();
+                    // 显示快捷编辑按钮
+//                    $tools->showQuickEdit();
+                });
+
         });
     }
 

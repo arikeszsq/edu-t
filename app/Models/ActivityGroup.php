@@ -20,9 +20,19 @@ class ActivityGroup extends Model
     const Finished_成团 = 1;
     const Finished_未成团 = 2;
 
+    public function activity()
+    {
+        return $this->hasOne(Activity::class, 'id', 'activity_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'leader_id');
+    }
+
+    public function openuser()
+    {
+        return $this->hasOne(User::class, 'id', 'creater_id');
     }
 
     public static function getGroupById($id)

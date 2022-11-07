@@ -29,6 +29,11 @@ class ActivitySignUser extends Model
         return $this->hasOne(ActivityGroup::class, 'id', 'group_id');
     }
 
+    public function courses()
+    {
+        return $this->hasMany(ActivitySignUserCourse::class,'order_num','order_no');
+    }
+
     const Sex_List = [
         1 => '男',
         2 => '女'

@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'ActivityGroup' => 'ActivityGroup',
-        'activity-group' => 'ActivityGroup',
+        'ActivityGroup' => '团列表',
+        'activity-group' => '团列表',
     ],
     'fields' => [
         'activity_id' => '活动名称',
