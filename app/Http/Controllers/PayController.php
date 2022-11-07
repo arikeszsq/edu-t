@@ -96,9 +96,9 @@ class PayController extends Controller
             return self::parametersIllegal($validator->messages()->first());
         }
 
-        if(isset($inputs['group_id'])&&$inputs['group_id']){
+        if (isset($inputs['group_id']) && $inputs['group_id']) {
             $group = ActivityGroup::query()->find($inputs['group_id']);
-            if($group &&$group->finished==1){
+            if ($group && $group->finished == 1) {
                 return self::error('10008', '已满团');
             }
         }
@@ -156,12 +156,14 @@ class PayController extends Controller
             return self::error('10001', '创建订单失败');
         }
 
-        $order_obj = ActivitySignUser::query()->find($order_id);
-        return self::success($this->paySuccessDeal($order_obj));
+//        正式支付开始
+        $obj = new Pay();
+        $info = $obj->paytwo($order_number);
+        return self::success($info);
 
-//        $obj = new Pay();
-//        $info = $obj->paytwo($order_number);
-//        return self::success($info);
+        //        测试支付用
+//        $order_obj = ActivitySignUser::query()->find($order_id);
+//        return self::success($this->paySuccessDeal($order_obj));
     }
 
 
