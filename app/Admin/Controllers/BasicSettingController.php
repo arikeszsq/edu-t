@@ -31,9 +31,6 @@ class BasicSettingController extends AdminController
     {
         return Grid::make(new BasicSetting(), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('kf_name');
-            $grid->column('mobile');
-            $grid->column('pic');
             $grid->column('buy_protocal');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
@@ -74,10 +71,7 @@ class BasicSettingController extends AdminController
     {
         return Form::make(new BasicSetting(), function (Form $form) {
 //            $form->display('id');
-            $form->text('kf_name','商家名');
-            $form->text('area','商家地址');
-            $form->mobile('mobile');
-            $form->image('pic')->required()->autoUpload();
+
             $form->editor('buy_protocal');
             $form->image('my_activity_pic','我要做活动联系二维码')->required()->autoUpload();
             $form->mobile('my_activity_mobile','我要做活动联系电话');
