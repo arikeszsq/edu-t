@@ -2,6 +2,6 @@
 <map id="map4select"
  longitude="{{address.longitude}}" latitude="{{address.latitude}}" 
  scale="20" 
- style="width:100%;height:100vh"
+ style="width:100%;height:auto;"
  >
 </map>

@@ -11,46 +11,49 @@ Page({
   },
 
   //移动选点
-moveToLocation: function () {
-  var that = this;
-  wx.chooseLocation({
-    success: function (res) {   
-      console.log(res); 
-      that.setData({
-        ['address.latitude']:res.latitude,
-        ['address.longitude']:res.longitude,
-        ['address.name']:res.name
-      });
+  moveToLocation: function () {
+    var that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          ['address.latitude']: res.latitude,
+          ['address.longitude']: res.longitude,
+          ['address.name']: res.name
+        });
 
-      var map_points = res.latitude+','+res.longitude;
-      var name = res.name;
+        var map_points = res.latitude + ',' + res.longitude;
+        var name = res.name;
 
-      app.apiRequest({
-        url: '/user/update',
-        method: 'post',
-        data: {
-            'map_points':map_points,
-            'address':name
-        },
-        success: res => {
-           console.log('更新用户家的位置成功')
-        }
-    })
+        app.apiRequest({
+          url: '/user/update',
+          method: 'post',
+          data: {
+            'map_points': map_points,
+            'address': name
+          },
+          success: res => {
+            console.log('更新用户家的位置成功')
+          }
+        })
 
 
-    wx.setStorageSync('trueCity',that.data.address)
-      //选择地点之后返回到原来页面
-      wx.navigateBack({
-        delta: 1,
-      })
-    },
-    fail: function (err) {
-      wx.navigateBack({
-        delta: 1,
-      })
-    }
-  });
-},
+        wx.setStorageSync('trueCity', that.data.address)
+        //选择地点之后返回到原来页面
+        console.log('设置家位置成功')
+        wx.navigateBack({
+          delta: 1,
+        })
+      },
+      fail: function (err) {
+
+        console.log(err)
+        // wx.navigateBack({
+        //   delta: 1,
+        // })
+      }
+    });
+  },
 
   /**
    * 生命周期函数--监听页面加载
