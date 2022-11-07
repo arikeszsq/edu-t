@@ -24,7 +24,7 @@
         var $coordinate = $('.field_map_points');
         var value = $coordinate.val();
         if (value == '') {
-            var str = '42.094146111,121.849365';
+            var str = '30.263812,120.175223';//杭州
             return str.split(',');
         }
         return value.split(',');
