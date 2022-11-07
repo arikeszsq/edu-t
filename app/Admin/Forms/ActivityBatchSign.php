@@ -36,7 +36,8 @@ class ActivityBatchSign extends Form implements LazyRenderable
         $companies->each(function ($company) use ($activity_id) {
             $data = [
                 'company_id' => $company->id,
-                'activity_id' => $activity_id
+                'activity_id' => $activity_id,
+                'created_at'=>date('Y-m-d H:i:s',time())
             ];
             ActivitySignCom::query()->insert($data);
         });

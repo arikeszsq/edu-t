@@ -17,18 +17,21 @@ class ActivitySignComController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new ActivitySignCom(), function (Grid $grid) {
+        return Grid::make(ActivitySignCom::with(['activity','company']), function (Grid $grid) {
+            $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
-            $grid->column('activity_id');
-            $grid->column('company_id');
-            $grid->column('creater_id');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
-        
+            $grid->column('activity.title','活动名称');
+            $grid->column('company.name','公司名称');
+//            $grid->column('created_at','报名时间')->sortable();
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+                $filter->like('activity.title','活动名称');
+                $filter->like('company.name','公司名称');
+
             });
+            $grid->disableCreateButton();//禁用创建按钮
+            $grid->disableActions();//禁用所有操作
         });
     }
 
@@ -63,7 +66,7 @@ class ActivitySignComController extends AdminController
             $form->text('activity_id');
             $form->text('company_id');
             $form->text('creater_id');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

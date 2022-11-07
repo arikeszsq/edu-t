@@ -47,6 +47,7 @@ class BasicController extends Controller
     public function kflist($activity_id)
     {
         $data = [];
+        //即使是单商家，也可能有多个校区，每个校区都有一个联系方式客服等信息
         $sign_companys = ActivitySignCom::query()->where('activity_id', $activity_id)->get();
         $company_ids = [];
         foreach ($sign_companys as $company) {

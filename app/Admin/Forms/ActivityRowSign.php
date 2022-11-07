@@ -28,7 +28,8 @@ class ActivityRowSign extends Form implements LazyRenderable
 
         $data = [
             'company_id' => $id,
-            'activity_id' => $activity_id
+            'activity_id' => $activity_id,
+            'created_at'=>date('Y-m-d H:i:s',time())
         ];
         ActivitySignCom::query()->insert($data);
 
