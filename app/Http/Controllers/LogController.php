@@ -55,13 +55,21 @@ class LogController extends Controller
                             'money' => $list->activity->a_invite_money,
                             'name' => 'A级别邀请人奖励'
                         ];
-                    }else{
+                    }elseif($list->A_user_id !=$user_id){
                         $data[] = [
                             'activity_name' => $list->activity->title,
                             'invited_user_name' => $list->inviteUser->name,
                             'created_at' => date('Y-m-d H:i',strtotime($list->activity->created_at)),
                             'money' => $list->activity->second_invite_money,
                             'name' => '二级邀请人奖励'
+                        ];
+                    }else{
+                        $data[] = [
+                            'activity_name' => $list->activity->title,
+                            'invited_user_name' => $list->inviteUser->name,
+                            'created_at' => date('Y-m-d H:i',strtotime($list->activity->created_at)),
+                            'money' => $list->activity->a_other_money,
+                            'name' => 'A用户别人邀请获得的奖励'
                         ];
                     }
                 }

@@ -93,8 +93,9 @@ class ActivityController extends AdminController
             $form->decimal('ori_price')->required();
             $form->decimal('real_price','开团价格')->required();
             $form->number('deal_group_num','成团人数')->required();
-            $form->decimal('a_invite_money','一级邀请奖励金额')->required();
-            $form->decimal('second_invite_money','二级邀请奖励金额')->required();
+            $form->decimal('a_invite_money','A用户直接邀请奖励')->required();
+            $form->decimal('a_other_money','A用户别人邀请获得的奖励')->required();
+            $form->decimal('second_invite_money','非A二级邀请奖励')->required();
             $form->datetime('start_time')->required();
             $form->datetime('end_time')->required();
             $form->text('description');
