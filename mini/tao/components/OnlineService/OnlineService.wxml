@@ -15,7 +15,7 @@
                     </view>
                     <view class="dis-address item-dis-one box justify-between" wx:if="{{item.area}}">
                         <view class="dis-left-t">{{item.area}}</view>
-                        <navigator class="dis-btn dis-btn-addre">导航</navigator>
+                        <view class="dis-btn dis-btn-addre">导航</view>
                     </view>
                     <image src="{{item.pic}}" class="code-dis" wx:if="{{item.pic}}"></image>
                 </view>

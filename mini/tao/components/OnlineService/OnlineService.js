@@ -18,11 +18,11 @@ Component({
      * 组件的初始数据
      */
     data: {
-        info:[]
+        info: []
     },
     created() {
         console.log(156132)
-       this.getkflists()
+        this.getkflists()
     },
     /**
      * 组件的方法列表
@@ -30,9 +30,9 @@ Component({
     methods: {
         closedHanler() {
             this.triggerEvent('closedHanler')
-    
+
         },
-        getkflists(){
+        getkflists() {
             console.log(9999)
             app.apiRequest({
                 url: '/basic/kf/' + wx.getStorageSync('activity_id'),
@@ -47,5 +47,15 @@ Component({
                 }
             });
         },
+
+        goMap() {
+            wx.openLocation({
+                latitude: Number(this.info.latitude),
+                longitude: Number(this.info.longitude),
+                name: this.info.title,
+                address: this.info.province_name + this.info.city_name + this.info.area_name + this.info.address,
+                scale: 28
+            })
+        }
     }
 })
