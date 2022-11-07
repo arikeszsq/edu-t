@@ -22,6 +22,7 @@ class OrderController extends ActivitySignUserController
     {
         return Grid::make(ActivitySignUser::with(['activity']), function (Grid $grid) {
             $grid->column('id')->sortable();
+            $grid->model()->orderBy('id', 'desc');
             $grid->column('activity.title', '活动名称');
             $grid->column('type')->display(function ($type) {
                 return ActivitySignUser::type_支付[$type];
