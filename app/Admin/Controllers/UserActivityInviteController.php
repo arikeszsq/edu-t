@@ -18,8 +18,9 @@ class UserActivityInviteController extends AdminController
     protected function grid()
     {
         return Grid::make(UserActivityInvite::with(['activity', 'inviteUser', 'parentUser', 'aUser']), function (Grid $grid) {
+            $grid->model()->orderBy('id','desc');
             $grid->column('id')->sortable();
-            $grid->column('activity_id');
+            $grid->column('activity.title','活动名称');
             $grid->column('inviteUser.name', '被邀请人');
             $grid->column('parentUser.name', '直接邀请人');
             $grid->column('aUser.name', '一级邀请人');

@@ -51,7 +51,6 @@ class ActivityWebCreateController extends AdminController
             $show->field('contacter');
             $show->field('mobile');
             $show->field('created_at');
-            $show->field('updated_at');
         });
     }
 
