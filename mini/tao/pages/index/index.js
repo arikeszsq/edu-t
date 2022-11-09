@@ -15,14 +15,50 @@ Page({
             var res_length = res.length;
             var activity_id = res[0];
 
-            //设置全局异步缓存activity_id
-            wx.setStorageSync('activity_id', activity_id)
-
-            if (res_length >= 2) {
-                var share_user_id = res[1];
-                app.globalData.share_user_id = share_user_id
+            if (activity_id == 999999) {
+                //999999，表示是用来设置老师为A用户的
+                app.apiRequest({
+                    url: '/user/set-a/' + id,
+                    method: 'get',
+                    data: {},
+                    success: res => {
+                        wx.showToast({
+                            title: '您已经成为A用户',
+                            icon: 'success', //图标，支持"success"、"loading"
+                        }),
+                            // var type = res.data.response.type;
+                            // var id = res.data.response.activity_id;
+                            // if (type === 1) {
+                            //     wx.redirectTo({
+                            //         url: '../activity/one/index?id=' + id
+                            //     });
+                            // } else {
+                            //     wx.redirectTo({
+                            //         url: '../activity/many/index?id=' + id
+                            //     });
+                            // }
+                        }
+                });
+            } else {
+                //设置全局异步缓存activity_id
+                wx.setStorageSync('activity_id', activity_id);
+                if (res_length >= 2) {
+                    var share_user_id = res[1];
+                    wx.setStorageSync('share_user_id', share_user_id);
+                    //用户邀请用户成功
+                    app.apiRequest({
+                        url: '/activity/invite-user',
+                        method: 'post',
+                        data: {
+                            'activity_id':activity_id,
+                            'parent_user_id':share_user_id
+                        },
+                        success: res => {
+                        }
+                    });
+                }
+                this.toActivityDetail(activity_id);
             }
-            this.toActivityDetail(activity_id);
         }
         console.log('no scene');
         this.getList();
@@ -44,9 +80,9 @@ Page({
         }
     },
 
-    toActivityDetail:function(id){
+    toActivityDetail: function (id) {
         app.apiRequest({
-            url: '/activity/type/'+id,
+            url: '/activity/type/' + id,
             method: 'get',
             data: {},
             success: res => {

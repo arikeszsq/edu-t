@@ -135,14 +135,13 @@ class ActivityController extends Controller
         $inputs = $request->all();
         $user_id = self::authUserId();
         $inputs['uid'] = $user_id;
+        $inputs['invited_user_id'] = $user_id;
         $validator = \Validator::make($inputs, [
             'activity_id' => 'required',
             'parent_user_id' => 'required',
-            'invited_user_id' => 'required',
         ], [
             'activity_id.required' => '活动ID必填',
             'parent_user_id.required' => '邀请人ID必填',
-            'invited_user_id.required' => '被邀请人ID必填',
         ]);
         if ($validator->fails()) {
             return self::parametersIllegal($validator->messages()->first());

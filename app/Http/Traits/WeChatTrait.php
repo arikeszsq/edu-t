@@ -2,6 +2,7 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Activity;
 use Carbon\Carbon;
 use EasyWeChat\Factory;
 use EasyWeChat\Kernel\Http\StreamResponse;
@@ -10,6 +11,29 @@ use Illuminate\Support\Facades\Log;
 
 trait WeChatTrait
 {
+
+    /**
+     * @param $user_id
+     * @param $activity_id
+     * @return mixed|string
+     * 直接根据用户id和活动id，生成分享二维码
+     */
+    public function getUserInvitePic($activity_id, $user_id)
+    {
+        $share_code_url = $this->getShareQCode($activity_id, $user_id);
+        $url = '';
+        if ($share_code_url['code'] == 200) {
+            $url = $share_code_url['url'];
+            $activity = Activity::query()->find($activity_id);
+            $share_bg = $activity->share_bg;
+            if ($share_bg) {
+                $url = $this->mergeImg($share_bg, $share_code_url['url']);
+            }
+        }
+        return $url;
+    }
+
+    /**没用这个，用的是下面的getShareQCode **/
     public function shareCodeByEasyWeChat($id, $user_id = null)
     {
 //        if ($user_id) {
@@ -125,7 +149,7 @@ trait WeChatTrait
 //        return '<image src=' . $data_uri . '></image>';
         $res = file_put_contents($file, $contents);//将微信返回的图片数据流写入文件
         if ($res === false) {
-            Log::error('getShareQCode:',['getShareQCode'=>'文件写入失败']);
+            Log::error('getShareQCode:', ['getShareQCode' => '文件写入失败']);
             return [
                 'code' => 10002,
                 'msg' => '文件写入失败'

@@ -300,15 +300,17 @@ class ActivityService
             ->where('invited_user_id', $invited_user_id)
             ->first();
         if ($first) {
-            throw new \Exception('用户已存在');
+            return [
+                'msg'=>'本活动用户已被邀请,无需重复邀请'
+            ];
         }
-        $a_user_id = User::getAUidByUid($inputs['parent_uid']);
+        $a_user_id = User::getAUidByUid($inputs['parent_user_id']);
         return UserActivityInvite::query()->insertGetId([
             'activity_id' => $activity_id,
             'A_user_id' => $a_user_id,
             'parent_user_id' => $parent_user_id,
             'invited_user_id' => $invited_user_id,
-            'has_pay' => 1,
+            'has_pay' => 2,//1已支付，2未支付
         ]);
     }
 

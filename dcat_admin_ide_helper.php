@@ -12,6 +12,10 @@ namespace Dcat\Admin {
 
     /**
      * @property Grid\Column|Collection id
+     * @property Grid\Column|Collection role
+     * @property Grid\Column|Collection type
+     * @property Grid\Column|Collection has_pay
+     * @property Grid\Column|Collection sign_sex
      * @property Grid\Column|Collection access_token
      * @property Grid\Column|Collection expires_in
      * @property Grid\Column|Collection created_at
@@ -34,6 +38,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection share_q_code
      * @property Grid\Column|Collection merge_img
      * @property Grid\Column|Collection a_invite_money
+     * @property Grid\Column|Collection a_other_money
      * @property Grid\Column|Collection second_invite_money
      * @property Grid\Column|Collection deal_group_num
      * @property Grid\Column|Collection activity_id
@@ -47,18 +52,14 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection success_time
      * @property Grid\Column|Collection company_id
      * @property Grid\Column|Collection group_id
-     * @property Grid\Column|Collection role
      * @property Grid\Column|Collection user_id
-     * @property Grid\Column|Collection type
      * @property Grid\Column|Collection order_no
      * @property Grid\Column|Collection money
-     * @property Grid\Column|Collection has_pay
      * @property Grid\Column|Collection pay_time
      * @property Grid\Column|Collection pay_cancel_time
      * @property Grid\Column|Collection sign_name
      * @property Grid\Column|Collection sign_mobile
      * @property Grid\Column|Collection sign_age
-     * @property Grid\Column|Collection sign_sex
      * @property Grid\Column|Collection is_agree
      * @property Grid\Column|Collection info_two
      * @property Grid\Column|Collection info_one
@@ -95,13 +96,14 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection is_commander
      * @property Grid\Column|Collection group_ok
      * @property Grid\Column|Collection is_free
-     * @property Grid\Column|Collection kf_name
-     * @property Grid\Column|Collection pic
      * @property Grid\Column|Collection buy_protocal
+     * @property Grid\Column|Collection my_activity_pic
+     * @property Grid\Column|Collection my_activity_mobile
      * @property Grid\Column|Collection intruduction
      * @property Grid\Column|Collection video_url
      * @property Grid\Column|Collection map_area
      * @property Grid\Column|Collection map_points
+     * @property Grid\Column|Collection wx_pic
      * @property Grid\Column|Collection total_num
      * @property Grid\Column|Collection sale_num
      * @property Grid\Column|Collection connection
@@ -111,6 +113,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection failed_at
      * @property Grid\Column|Collection email
      * @property Grid\Column|Collection token
+     * @property Grid\Column|Collection invite_pic
      * @property Grid\Column|Collection A_user_id
      * @property Grid\Column|Collection parent_user_id
      * @property Grid\Column|Collection invited_user_id
@@ -132,6 +135,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection address
      *
      * @method Grid\Column|Collection id(string $label = null)
+     * @method Grid\Column|Collection role(string $label = null)
+     * @method Grid\Column|Collection type(string $label = null)
+     * @method Grid\Column|Collection has_pay(string $label = null)
+     * @method Grid\Column|Collection sign_sex(string $label = null)
      * @method Grid\Column|Collection access_token(string $label = null)
      * @method Grid\Column|Collection expires_in(string $label = null)
      * @method Grid\Column|Collection created_at(string $label = null)
@@ -154,6 +161,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection share_q_code(string $label = null)
      * @method Grid\Column|Collection merge_img(string $label = null)
      * @method Grid\Column|Collection a_invite_money(string $label = null)
+     * @method Grid\Column|Collection a_other_money(string $label = null)
      * @method Grid\Column|Collection second_invite_money(string $label = null)
      * @method Grid\Column|Collection deal_group_num(string $label = null)
      * @method Grid\Column|Collection activity_id(string $label = null)
@@ -167,18 +175,14 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection success_time(string $label = null)
      * @method Grid\Column|Collection company_id(string $label = null)
      * @method Grid\Column|Collection group_id(string $label = null)
-     * @method Grid\Column|Collection role(string $label = null)
      * @method Grid\Column|Collection user_id(string $label = null)
-     * @method Grid\Column|Collection type(string $label = null)
      * @method Grid\Column|Collection order_no(string $label = null)
      * @method Grid\Column|Collection money(string $label = null)
-     * @method Grid\Column|Collection has_pay(string $label = null)
      * @method Grid\Column|Collection pay_time(string $label = null)
      * @method Grid\Column|Collection pay_cancel_time(string $label = null)
      * @method Grid\Column|Collection sign_name(string $label = null)
      * @method Grid\Column|Collection sign_mobile(string $label = null)
      * @method Grid\Column|Collection sign_age(string $label = null)
-     * @method Grid\Column|Collection sign_sex(string $label = null)
      * @method Grid\Column|Collection is_agree(string $label = null)
      * @method Grid\Column|Collection info_two(string $label = null)
      * @method Grid\Column|Collection info_one(string $label = null)
@@ -215,13 +219,14 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection is_commander(string $label = null)
      * @method Grid\Column|Collection group_ok(string $label = null)
      * @method Grid\Column|Collection is_free(string $label = null)
-     * @method Grid\Column|Collection kf_name(string $label = null)
-     * @method Grid\Column|Collection pic(string $label = null)
      * @method Grid\Column|Collection buy_protocal(string $label = null)
+     * @method Grid\Column|Collection my_activity_pic(string $label = null)
+     * @method Grid\Column|Collection my_activity_mobile(string $label = null)
      * @method Grid\Column|Collection intruduction(string $label = null)
      * @method Grid\Column|Collection video_url(string $label = null)
      * @method Grid\Column|Collection map_area(string $label = null)
      * @method Grid\Column|Collection map_points(string $label = null)
+     * @method Grid\Column|Collection wx_pic(string $label = null)
      * @method Grid\Column|Collection total_num(string $label = null)
      * @method Grid\Column|Collection sale_num(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
@@ -231,6 +236,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection failed_at(string $label = null)
      * @method Grid\Column|Collection email(string $label = null)
      * @method Grid\Column|Collection token(string $label = null)
+     * @method Grid\Column|Collection invite_pic(string $label = null)
      * @method Grid\Column|Collection A_user_id(string $label = null)
      * @method Grid\Column|Collection parent_user_id(string $label = null)
      * @method Grid\Column|Collection invited_user_id(string $label = null)
@@ -257,6 +263,10 @@ namespace Dcat\Admin {
 
     /**
      * @property Show\Field|Collection id
+     * @property Show\Field|Collection role
+     * @property Show\Field|Collection type
+     * @property Show\Field|Collection has_pay
+     * @property Show\Field|Collection sign_sex
      * @property Show\Field|Collection access_token
      * @property Show\Field|Collection expires_in
      * @property Show\Field|Collection created_at
@@ -279,6 +289,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection share_q_code
      * @property Show\Field|Collection merge_img
      * @property Show\Field|Collection a_invite_money
+     * @property Show\Field|Collection a_other_money
      * @property Show\Field|Collection second_invite_money
      * @property Show\Field|Collection deal_group_num
      * @property Show\Field|Collection activity_id
@@ -292,18 +303,14 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection success_time
      * @property Show\Field|Collection company_id
      * @property Show\Field|Collection group_id
-     * @property Show\Field|Collection role
      * @property Show\Field|Collection user_id
-     * @property Show\Field|Collection type
      * @property Show\Field|Collection order_no
      * @property Show\Field|Collection money
-     * @property Show\Field|Collection has_pay
      * @property Show\Field|Collection pay_time
      * @property Show\Field|Collection pay_cancel_time
      * @property Show\Field|Collection sign_name
      * @property Show\Field|Collection sign_mobile
      * @property Show\Field|Collection sign_age
-     * @property Show\Field|Collection sign_sex
      * @property Show\Field|Collection is_agree
      * @property Show\Field|Collection info_two
      * @property Show\Field|Collection info_one
@@ -340,13 +347,14 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection is_commander
      * @property Show\Field|Collection group_ok
      * @property Show\Field|Collection is_free
-     * @property Show\Field|Collection kf_name
-     * @property Show\Field|Collection pic
      * @property Show\Field|Collection buy_protocal
+     * @property Show\Field|Collection my_activity_pic
+     * @property Show\Field|Collection my_activity_mobile
      * @property Show\Field|Collection intruduction
      * @property Show\Field|Collection video_url
      * @property Show\Field|Collection map_area
      * @property Show\Field|Collection map_points
+     * @property Show\Field|Collection wx_pic
      * @property Show\Field|Collection total_num
      * @property Show\Field|Collection sale_num
      * @property Show\Field|Collection connection
@@ -356,6 +364,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection failed_at
      * @property Show\Field|Collection email
      * @property Show\Field|Collection token
+     * @property Show\Field|Collection invite_pic
      * @property Show\Field|Collection A_user_id
      * @property Show\Field|Collection parent_user_id
      * @property Show\Field|Collection invited_user_id
@@ -377,6 +386,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection address
      *
      * @method Show\Field|Collection id(string $label = null)
+     * @method Show\Field|Collection role(string $label = null)
+     * @method Show\Field|Collection type(string $label = null)
+     * @method Show\Field|Collection has_pay(string $label = null)
+     * @method Show\Field|Collection sign_sex(string $label = null)
      * @method Show\Field|Collection access_token(string $label = null)
      * @method Show\Field|Collection expires_in(string $label = null)
      * @method Show\Field|Collection created_at(string $label = null)
@@ -399,6 +412,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection share_q_code(string $label = null)
      * @method Show\Field|Collection merge_img(string $label = null)
      * @method Show\Field|Collection a_invite_money(string $label = null)
+     * @method Show\Field|Collection a_other_money(string $label = null)
      * @method Show\Field|Collection second_invite_money(string $label = null)
      * @method Show\Field|Collection deal_group_num(string $label = null)
      * @method Show\Field|Collection activity_id(string $label = null)
@@ -412,18 +426,14 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection success_time(string $label = null)
      * @method Show\Field|Collection company_id(string $label = null)
      * @method Show\Field|Collection group_id(string $label = null)
-     * @method Show\Field|Collection role(string $label = null)
      * @method Show\Field|Collection user_id(string $label = null)
-     * @method Show\Field|Collection type(string $label = null)
      * @method Show\Field|Collection order_no(string $label = null)
      * @method Show\Field|Collection money(string $label = null)
-     * @method Show\Field|Collection has_pay(string $label = null)
      * @method Show\Field|Collection pay_time(string $label = null)
      * @method Show\Field|Collection pay_cancel_time(string $label = null)
      * @method Show\Field|Collection sign_name(string $label = null)
      * @method Show\Field|Collection sign_mobile(string $label = null)
      * @method Show\Field|Collection sign_age(string $label = null)
-     * @method Show\Field|Collection sign_sex(string $label = null)
      * @method Show\Field|Collection is_agree(string $label = null)
      * @method Show\Field|Collection info_two(string $label = null)
      * @method Show\Field|Collection info_one(string $label = null)
@@ -460,13 +470,14 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection is_commander(string $label = null)
      * @method Show\Field|Collection group_ok(string $label = null)
      * @method Show\Field|Collection is_free(string $label = null)
-     * @method Show\Field|Collection kf_name(string $label = null)
-     * @method Show\Field|Collection pic(string $label = null)
      * @method Show\Field|Collection buy_protocal(string $label = null)
+     * @method Show\Field|Collection my_activity_pic(string $label = null)
+     * @method Show\Field|Collection my_activity_mobile(string $label = null)
      * @method Show\Field|Collection intruduction(string $label = null)
      * @method Show\Field|Collection video_url(string $label = null)
      * @method Show\Field|Collection map_area(string $label = null)
      * @method Show\Field|Collection map_points(string $label = null)
+     * @method Show\Field|Collection wx_pic(string $label = null)
      * @method Show\Field|Collection total_num(string $label = null)
      * @method Show\Field|Collection sale_num(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
@@ -476,6 +487,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection failed_at(string $label = null)
      * @method Show\Field|Collection email(string $label = null)
      * @method Show\Field|Collection token(string $label = null)
+     * @method Show\Field|Collection invite_pic(string $label = null)
      * @method Show\Field|Collection A_user_id(string $label = null)
      * @method Show\Field|Collection parent_user_id(string $label = null)
      * @method Show\Field|Collection invited_user_id(string $label = null)

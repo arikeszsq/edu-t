@@ -68,7 +68,8 @@ class User extends Authenticatable
             return $user->id;
         } else {
             $a_user = UserActivityInvite::query()->where('invited_user_id', $uid)
-                ->where('has_pay', 1)
+//                ->where('has_pay', 1)
+                ->where('A_user_id', '>', 0)
                 ->orderBy('id', 'desc')
                 ->first();
             return $a_user->A_user_id;

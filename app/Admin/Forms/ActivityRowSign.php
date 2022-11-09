@@ -44,15 +44,7 @@ class ActivityRowSign extends Form implements LazyRenderable
      */
     public function form()
     {
-        $activities = Activity::query()
-//            ->where('start_time', '>', Carbon::now())
-            ->orderBy('id', 'desc')
-            ->get();
-        $options = [];
-        foreach ($activities as $activity) {
-            $options[$activity->id] = $activity->title;
-        }
-
+        $options = Activity::getActivityListOptions();
         $this->confirm('您确定要提交表单吗', 'content');
         $this->select('activity_id','活动')->options($options)->required();
     }

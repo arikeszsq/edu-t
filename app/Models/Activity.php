@@ -14,13 +14,13 @@ class Activity extends Model
     const is_many_单商家 = 1;
     const is_many_多商家 = 2;
 
-    public static  $is_many_list = [
+    public static $is_many_list = [
         Activity::is_many_单商家 => '单商家',
         Activity::is_many_多商家 => '多商家'
     ];
 
 
-    public static  $status_list = [
+    public static $status_list = [
         Activity::Status_已上架 => '已上架',
         Activity::Status_已下架 => '已下架'
     ];
@@ -34,6 +34,20 @@ class Activity extends Model
 
     public function activityCompany()
     {
-        return $this->hasMany(ActivitySignCom::class,'activity_id','id');
+        return $this->hasMany(ActivitySignCom::class, 'activity_id', 'id');
+    }
+
+    public static function getActivityListOptions()
+    {
+        $activities = Activity::query()
+//            ->where('start_time', '>', Carbon::now())
+//            ->where('status', 1)//上架
+            ->orderBy('id', 'desc')
+            ->get();
+        $options = [];
+        foreach ($activities as $activity) {
+            $options[$activity->id] = $activity->title;
+        }
+        return $options;
     }
 }

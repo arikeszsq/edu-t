@@ -82,6 +82,7 @@ Route::prefix('/user')->group(function () {
     Route::any('/info', 'UserController@info');
     Route::any('/update', 'UserController@update');
     Route::any('/set-a', 'UserController@setA');
+    Route::any('/get-invite-pic', 'UserController@getInvitePic');
 });
 
 Route::prefix('/log')->group(function () {

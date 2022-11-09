@@ -4,13 +4,17 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Traits\WeChatTrait;
+use App\Models\Activity;
 use App\Models\UserActivityInvite;
+use App\Models\UserAInvitePic;
 use App\User;
 use Illuminate\Http\Request;
 use Exception;
 
 class UserController extends Controller
 {
+    use WeChatTrait;
     /**
      * @OA\Get(
      *     path="/api/user/info",
@@ -38,9 +42,9 @@ class UserController extends Controller
                 'is_A' => $user->is_A,
                 'address' => $user->address,
                 'map_points' => $user->map_points,
-                'share_num'=>UserActivityInvite::query()->where('parent_user_id',$user_id)->count(),
-                'share_success_num'=>UserActivityInvite::query()->where('parent_user_id',$user_id)
-                    ->where('has_pay',1)->count(),
+                'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
+                'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
+                    ->where('has_pay', 1)->count(),
             ];
             return self::success($data);
         } catch (Exception $e) {
@@ -103,9 +107,25 @@ class UserController extends Controller
             $user = User::query()->find($user_id);
             $user->is_A = 1;
             $user->save();
-            return self::success($user);
+//            $a_invite_user = UserAInvitePic::query()->orderBy('id', 'desc')->first();
+//            $activity = Activity::query()->find($a_invite_user->activity_id);
+            $data = [
+//                'type' => $activity->is_many,
+//                'activity_id' => $activity->id,
+                'name' => $user->name
+            ];
+            return self::success($data);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
+    }
+
+    public function getInvitePic(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        $activity_id = $inputs['activity_id'];
+        $pic_url = $this->getUserInvitePic($activity_id,$user_id);
+        return self::success($pic_url);
     }
 }

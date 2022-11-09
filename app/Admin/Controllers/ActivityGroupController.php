@@ -18,6 +18,7 @@ class ActivityGroupController extends AdminController
     protected function grid()
     {
         return Grid::make(ActivityGroup::with(['activity','openuser','user']), function (Grid $grid) {
+            $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
             $grid->column('activity.title','活动名称');
             $grid->column('name');
