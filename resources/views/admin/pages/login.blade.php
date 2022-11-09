@@ -1,4 +1,10 @@
 <style>
+    .login-page{
+        position: relative;
+        background: url(/static/images/bg.jpg) no-repeat center!important;
+        background-size: cover!important;
+    }
+
     .login-box {
         margin-top: -10rem;
         padding: 5px;
