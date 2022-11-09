@@ -49,6 +49,7 @@ class UserController extends Controller
                 'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
                 'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
                     ->where('has_pay', 1)->count(),
+                'current_stay_money' => ($this->getAllMoney($user_id)) - ($this->historyCashOutTotalMoney($user_id)),
             ];
             return self::success($data);
         } catch (Exception $e) {
