@@ -117,6 +117,11 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection A_user_id
      * @property Grid\Column|Collection parent_user_id
      * @property Grid\Column|Collection invited_user_id
+     * @property Grid\Column|Collection apply_money
+     * @property Grid\Column|Collection history_total_money
+     * @property Grid\Column|Collection current_stay_money
+     * @property Grid\Column|Collection pay_order
+     * @property Grid\Column|Collection pay_status
      * @property Grid\Column|Collection award_id
      * @property Grid\Column|Collection audit_id
      * @property Grid\Column|Collection audit_time
@@ -240,6 +245,11 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection A_user_id(string $label = null)
      * @method Grid\Column|Collection parent_user_id(string $label = null)
      * @method Grid\Column|Collection invited_user_id(string $label = null)
+     * @method Grid\Column|Collection apply_money(string $label = null)
+     * @method Grid\Column|Collection history_total_money(string $label = null)
+     * @method Grid\Column|Collection current_stay_money(string $label = null)
+     * @method Grid\Column|Collection pay_order(string $label = null)
+     * @method Grid\Column|Collection pay_status(string $label = null)
      * @method Grid\Column|Collection award_id(string $label = null)
      * @method Grid\Column|Collection audit_id(string $label = null)
      * @method Grid\Column|Collection audit_time(string $label = null)
@@ -368,6 +378,11 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection A_user_id
      * @property Show\Field|Collection parent_user_id
      * @property Show\Field|Collection invited_user_id
+     * @property Show\Field|Collection apply_money
+     * @property Show\Field|Collection history_total_money
+     * @property Show\Field|Collection current_stay_money
+     * @property Show\Field|Collection pay_order
+     * @property Show\Field|Collection pay_status
      * @property Show\Field|Collection award_id
      * @property Show\Field|Collection audit_id
      * @property Show\Field|Collection audit_time
@@ -491,6 +506,11 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection A_user_id(string $label = null)
      * @method Show\Field|Collection parent_user_id(string $label = null)
      * @method Show\Field|Collection invited_user_id(string $label = null)
+     * @method Show\Field|Collection apply_money(string $label = null)
+     * @method Show\Field|Collection history_total_money(string $label = null)
+     * @method Show\Field|Collection current_stay_money(string $label = null)
+     * @method Show\Field|Collection pay_order(string $label = null)
+     * @method Show\Field|Collection pay_status(string $label = null)
      * @method Show\Field|Collection award_id(string $label = null)
      * @method Show\Field|Collection audit_id(string $label = null)
      * @method Show\Field|Collection audit_time(string $label = null)

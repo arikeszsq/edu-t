@@ -33,6 +33,9 @@ Route::group([
     //A用户邀请码，小程序收到活动id为9999的活动，直接设置用户为A用户
     $router->resource('user-a-invite-pic', 'UserAInvitePicController');
 
+    //提现
+    $router->resource('user-apply-cash-out', 'UserApplyCashOutController');
+
     //订单管理
     $router->resource('order', 'OrderController');
 

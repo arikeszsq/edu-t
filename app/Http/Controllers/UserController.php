@@ -4,10 +4,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Traits\MoneyCountTrait;
 use App\Http\Traits\WeChatTrait;
 use App\Models\Activity;
 use App\Models\UserActivityInvite;
 use App\Models\UserAInvitePic;
+use App\Models\UserApplyCashOut;
 use App\User;
 use Illuminate\Http\Request;
 use Exception;
@@ -15,6 +17,8 @@ use Exception;
 class UserController extends Controller
 {
     use WeChatTrait;
+    use MoneyCountTrait;
+
     /**
      * @OA\Get(
      *     path="/api/user/info",
@@ -125,7 +129,25 @@ class UserController extends Controller
         $inputs = $request->all();
         $user_id = self::authUserId();
         $activity_id = $inputs['activity_id'];
-        $pic_url = $this->getUserInvitePic($activity_id,$user_id);
+        $pic_url = $this->getUserInvitePic($activity_id, $user_id);
         return self::success($pic_url);
+    }
+
+    public function applyCashOut(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        $apply_money = $inputs['apply_money'];
+
+        $his_money = $this->historyCashOutTotalMoney($user_id);
+        $data = [
+            'user_id' => $user_id,
+            'apply_money' => $apply_money,
+            'history_total_money' => $his_money,
+            'current_stay_money' => ($this->getAllMoney($user_id)) - $his_money,
+            'created_at' => date('Y-m-d H:i:s', time())
+        ];
+        $id = UserApplyCashOut::query()->insertGetId($data);
+        return self::success($id);
     }
 }
