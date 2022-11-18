@@ -67,7 +67,6 @@ Route::prefix('/course')->group(function () {
     Route::any('/lists', 'CourseController@lists');
     Route::any('/company-child-lists/{id}', 'CourseController@companyChildList');
 
-
     //通过课程id和学校id去拿4个报名的数据
     Route::any('/courseschool/info', 'CourseController@courseAndSchool');
 });
@@ -76,7 +75,6 @@ Route::prefix('/pay')->group(function () {
     Route::any('/pay', 'PayController@pay');
     Route::any('/notify', 'PayController@notify');
 });
-
 
 Route::prefix('/user')->group(function () {
     Route::any('/info', 'UserController@info');
@@ -88,6 +86,10 @@ Route::prefix('/user')->group(function () {
 
 Route::prefix('/log')->group(function () {
     Route::any('/list', 'LogController@lists');
+});
+
+Route::prefix('/upload')->group(function () {
+    Route::any('/file', 'UploadController@file');
 });
 
 //});
