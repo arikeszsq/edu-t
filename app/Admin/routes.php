@@ -16,6 +16,10 @@ Route::group([
 
     $router->resource('all-user', 'UserController');
     $router->resource('activity', 'ActivityController');
+    $router->resource('activity-one', 'OneController');
+    $router->resource('activity-many', 'ManyController');
+
+
     $router->resource('activity-sign-com', 'ActivitySignComController');
     $router->resource('activity-sign-user', 'ActivitySignUserController');
     $router->resource('activity-group', 'ActivityGroupController');

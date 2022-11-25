@@ -66,9 +66,8 @@ class ActivityBatchSign extends Form implements LazyRenderable
         $this->confirm('您确定要提交表单吗', 'content');
 
         $this->hidden('id')->attribute('id', 'select-ids');
-
-
-        $this->select('activity_id')->options($options)->required();
+        
+        $this->select('activity_id')->options($options)->default()->required();
     }
 
     /**
@@ -79,8 +78,7 @@ class ActivityBatchSign extends Form implements LazyRenderable
     public function default()
     {
         return [
-//            'name'  => 'John Doe',
-//            'email' => 'John.Doe@gmail.com',
+            'activity_id'  => request()->get('activity_id'),
         ];
     }
 }

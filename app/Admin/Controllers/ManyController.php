@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\ActivityComSign;
 use App\Admin\Actions\Grid\ChangeStatus;
+use App\Admin\Controllers\ActivityController;
 use App\Models\Activity;
 use App\Models\ActivitySignCom;
 use Dcat\Admin\Form;
@@ -11,7 +12,7 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
 
-class ActivityController extends AdminController
+class ManyController extends ActivityController
 {
     /**
      * Make a grid builder.
@@ -23,6 +24,7 @@ class ActivityController extends AdminController
         return Grid::make(new Activity(), function (Grid $grid) {
             // 设置表单提示值
             $grid->quickSearch('title')->placeholder('搜索活动标题');
+            $grid->model()->where('is_many', 2);
             $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
 //            $grid->column('title')->qrcode(function () {

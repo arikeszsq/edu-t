@@ -2,7 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\BackToActivityList;
 use App\Admin\Actions\Grid\BatchSign;
+use App\Admin\Actions\Grid\BatchSignNew;
 use App\Admin\Actions\Grid\RowSign;
 use App\Models\Company;
 use App\Models\CompanyCourse;
@@ -20,7 +22,7 @@ class CompanyController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Company(), function (Grid $grid) {
+        return Grid::make(new Company(), function (Grid $grid){
 
             $grid->model()->orderBy('id', 'desc');
 
@@ -38,9 +40,16 @@ class CompanyController extends AdminController
 
             });
 
-            $grid->batchActions([new BatchSign()]);
+            $grid->batchActions([
+                new BatchSignNew('报名', 1),
+                new BatchSignNew('取消报名', 0)
+            ]);
 
-            $grid->actions([new RowSign()]);
+
+            $grid->tools(function (Grid\Tools $tools) {
+                $tools->append(new BackToActivityList());
+            });
+
         });
     }
 

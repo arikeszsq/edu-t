@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\BackToActivityList;
 use App\Models\ActivitySignCom;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -19,6 +20,10 @@ class ActivitySignComController extends AdminController
     {
         return Grid::make(ActivitySignCom::with(['activity','company']), function (Grid $grid) {
             $grid->model()->orderBy('id', 'desc');
+            $activity_id = request()->get('activity_id');
+            if($activity_id){
+                $grid->model()->where('activity_id',$activity_id);
+            }
             $grid->column('id')->sortable();
             $grid->column('activity.title','活动名称');
             $grid->column('company.name','公司名称');
@@ -31,7 +36,12 @@ class ActivitySignComController extends AdminController
 
             });
             $grid->disableCreateButton();//禁用创建按钮
+            $grid->disableRowSelector();//禁用行选择框
+
             $grid->disableActions();//禁用所有操作
+            $grid->tools(function (Grid\Tools $tools) {
+                $tools->append(new BackToActivityList());
+            });
         });
     }
 
