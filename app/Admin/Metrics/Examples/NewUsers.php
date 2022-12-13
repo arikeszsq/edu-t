@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class NewUsers extends Line
 {
+    public $title;
+
+    public function __construct($title = null, $icon = null)
+    {
+        if (!$title) {
+            $this->title = '新用户';
+        } else {
+            $this->title = $title;
+        }
+        parent::__construct($title, $icon);
+    }
+
     /**
      * 初始化卡片内容
      *
@@ -16,13 +28,7 @@ class NewUsers extends Line
     {
         parent::init();
 
-        $this->title('New Users');
-        $this->dropdown([
-            '7' => 'Last 7 Days',
-            '28' => 'Last 28 Days',
-            '30' => 'Last Month',
-            '365' => 'Last Year',
-        ]);
+        $this->title($this->title);
     }
 
     /**
@@ -43,19 +49,19 @@ class NewUsers extends Line
         switch ($request->get('option')) {
             case '365':
                 // 卡片内容
-                $this->withContent(mt_rand(1000, 5000).'k');
+                $this->withContent(mt_rand(1000, 5000) . 'k');
                 // 图表数据
                 $this->withChart(collect($generator(30))->toArray());
                 break;
             case '30':
                 // 卡片内容
-                $this->withContent(mt_rand(400, 1000).'k');
+                $this->withContent(mt_rand(400, 1000) . 'k');
                 // 图表数据
                 $this->withChart(collect($generator(30))->toArray());
                 break;
             case '28':
                 // 卡片内容
-                $this->withContent(mt_rand(400, 1000).'k');
+                $this->withContent(mt_rand(400, 1000) . 'k');
                 // 图表数据
                 $this->withChart(collect($generator(28))->toArray());
                 break;

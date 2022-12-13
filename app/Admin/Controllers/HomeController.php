@@ -41,51 +41,53 @@ class HomeController extends Controller
      * 传入page，生成指定页面的二维码的前提是，小程序必须审核并发布
      * 审核成功并发布的小程序才能正常调用二维码生成接口
      */
-    public function index(Content $content)
-    {
-
-
-//        $access_token = $this->getShareQCode(3, 1);
-//
-//        var_dump($access_token);
-//        exit;
-
-//        return $content->body(UserTable::make());
-
-        $modal = Modal::make()
-            ->lg()
-            ->title('异步加载 - 表格')
-            ->body(CompanyList::make()) // Modal 组件支持直接传递 渲染类实例
-            ->button('打开表格');
-
-        return $content->body($modal);
-
-
-    }
-
-
-
-
 //    public function index(Content $content)
 //    {
-//        return $content
-//            ->header('Dashboard')
-//            ->description('Description...')
-//            ->body(function (Row $row) {
-//                $row->column(6, function (Column $column) {
-//                    $column->row(Dashboard::title());
-//                    $column->row(new Examples\Tickets());
-//                });
 //
-//                $row->column(6, function (Column $column) {
-//                    $column->row(function (Row $row) {
-//                        $row->column(6, new Examples\NewUsers());
-//                        $row->column(6, new Examples\NewDevices());
-//                    });
 //
-//                    $column->row(new Examples\Sessions());
-//                    $column->row(new Examples\ProductOrders());
-//                });
-//            });
+////        $access_token = $this->getShareQCode(3, 1);
+////
+////        var_dump($access_token);
+////        exit;
+//
+////        return $content->body(UserTable::make());
+//
+//        $modal = Modal::make()
+//            ->lg()
+//            ->title('异步加载 - 表格')
+//            ->body(CompanyList::make()) // Modal 组件支持直接传递 渲染类实例
+//            ->button('打开表格');
+//
+//        return $content->body($modal);
+//
+//
 //    }
+
+
+
+
+    public function index(Content $content)
+    {
+        return $content
+            ->header('首页概览')
+            ->description('数据分析')
+            ->body(function (Row $row) {
+
+                $row->column(12, function (Column $column) {
+                    $column->row(function (Row $row) {
+                        $row->column(6, new Examples\NewUsers('新增用户'));
+                        $row->column(6, new Examples\NewDevices('asdf'));
+                    });
+
+                    $column->row(new Examples\Sessions());
+                    $column->row(function (Row $row) {
+                        $row->column(3, new Examples\NewDevices('总活动数据'));
+                        $row->column(3, new Examples\NewDevices('总活动数据'));
+                        $row->column(3, new Examples\NewDevices('总活动数据'));
+                        $row->column(3, new Examples\NewDevices('总活动数据'));
+                    });
+
+                });
+            });
+    }
 }

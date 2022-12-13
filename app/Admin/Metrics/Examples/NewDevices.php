@@ -7,7 +7,27 @@ use Dcat\Admin\Widgets\Metrics\Donut;
 
 class NewDevices extends Donut
 {
-    protected $labels = ['Desktop', 'Mobile'];
+
+    public $title;
+    public $sub_title;
+
+    public function __construct($title = null,$sub_title=null, $icon = null)
+    {
+        if (!$title) {
+            $this->title = '统计';
+        } else {
+            $this->title = $title;
+        }
+
+        if (!$sub_title) {
+            $this->sub_title = '';
+        } else {
+            $this->sub_title = $sub_title;
+        }
+        parent::__construct($title, $icon);
+    }
+
+    protected $labels = ['今日新增', '历史总量'];
 
     /**
      * 初始化卡片内容
@@ -19,8 +39,8 @@ class NewDevices extends Donut
         $color = Admin::color();
         $colors = [$color->primary(), $color->alpha('blue2', 0.5)];
 
-        $this->title('New Devices');
-        $this->subTitle('Last 30 days');
+        $this->title($this->title);
+        $this->subTitle($this->sub_title);
         $this->chartLabels($this->labels);
         // 设置图表颜色
         $this->chartColors($colors);
