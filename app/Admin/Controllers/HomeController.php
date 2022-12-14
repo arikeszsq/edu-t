@@ -75,18 +75,14 @@ class HomeController extends Controller
 
                 $row->column(12, function (Column $column) {
                     $column->row(function (Row $row) {
-                        $row->column(6, new Examples\NewUsers('新增用户'));
-                        $row->column(6, new Examples\NewDevices('asdf'));
+                        $row->column(12, new Examples\ProductOrders());
                     });
 
-                    $column->row(new Examples\Sessions());
                     $column->row(function (Row $row) {
-                        $row->column(3, new Examples\NewDevices('总活动数据'));
-                        $row->column(3, new Examples\NewDevices('总活动数据'));
-                        $row->column(3, new Examples\NewDevices('总活动数据'));
-                        $row->column(3, new Examples\NewDevices('总活动数据'));
+                        $row->column(6, new Examples\DealCount());
+                        $row->column(6, new Examples\TotalCount());
                     });
-
+                    $column->row(new Examples\ShareCount());
                 });
             });
     }

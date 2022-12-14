@@ -7,7 +7,7 @@ use App\Models\User;
 use Dcat\Admin\Widgets\Metrics\Round;
 use Illuminate\Http\Request;
 
-class ProductOrders extends Round
+class TotalCount extends Round
 {
     /**
      * 初始化卡片内容
@@ -16,8 +16,8 @@ class ProductOrders extends Round
     {
         parent::init();
 
-        $this->title('客户统计');
-        $this->chartLabels(['总资产', '客户总数', '下单客户总数']);
+        $this->title('总活动数据');
+        $this->chartLabels(['访问量', '分享量', '报名量', '销售金额']);
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductOrders extends Round
     <div class="chart-info d-flex justify-content-between mb-1 mt-2" >
           <div class="series-info d-flex align-items-center">
               <i class="fa fa-circle-o text-bold-700 text-primary"></i>
-              <span class="text-bold-600 ml-50">总资产</span>
+              <span class="text-bold-600 ml-50">访问量</span>
           </div>
           <div class="product-result">
               <span>{$finished}</span>
@@ -84,7 +84,7 @@ class ProductOrders extends Round
     <div class="chart-info d-flex justify-content-between mb-1">
           <div class="series-info d-flex align-items-center">
               <i class="fa fa-circle-o text-bold-700 text-warning"></i>
-              <span class="text-bold-600 ml-50">客户总数</span>
+              <span class="text-bold-600 ml-50">分享量</span>
           </div>
           <div class="product-result">
               <span>{$pending}</span>
@@ -94,7 +94,16 @@ class ProductOrders extends Round
      <div class="chart-info d-flex justify-content-between mb-1">
           <div class="series-info d-flex align-items-center">
               <i class="fa fa-circle-o text-bold-700 text-danger"></i>
-              <span class="text-bold-600 ml-50">下单客户总数</span>
+              <span class="text-bold-600 ml-50">报名量</span>
+          </div>
+          <div class="product-result">
+              <span>{$rejected}</span>
+          </div>
+    </div>
+    <div class="chart-info d-flex justify-content-between mb-1">
+          <div class="series-info d-flex align-items-center">
+              <i class="fa fa-circle-o text-bold-700 text-danger"></i>
+              <span class="text-bold-600 ml-50">销售金额</span>
           </div>
           <div class="product-result">
               <span>{$rejected}</span>

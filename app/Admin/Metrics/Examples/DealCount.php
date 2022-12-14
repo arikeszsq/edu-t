@@ -7,7 +7,7 @@ use App\Models\User;
 use Dcat\Admin\Widgets\Metrics\Round;
 use Illuminate\Http\Request;
 
-class ProductOrders extends Round
+class DealCount extends Round
 {
     /**
      * 初始化卡片内容
@@ -16,8 +16,8 @@ class ProductOrders extends Round
     {
         parent::init();
 
-        $this->title('客户统计');
-        $this->chartLabels(['总资产', '客户总数', '下单客户总数']);
+        $this->title('成交线索统计');
+        $this->chartLabels(['今日新增', '总人数']);
     }
 
     /**
@@ -29,17 +29,20 @@ class ProductOrders extends Round
      */
     public function handle(Request $request)
     {
-        $total_user_num = User::query()->count();
+        $total_user_has_buy_today= ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at','>=',date('Y-m-d 00:00:00',time()))
+            ->where('created_at','<=',date('Y-m-d 23:59:00',time()))
+            ->groupBy('user_id')
+            ->count();
         $total_user_has_buy = ActivitySignUser::query()->where('has_pay', 1)->groupBy('user_id')->count();
-        $total_money = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
         switch ($request->get('option')) {
             default:
                 // 卡片内容
-                $this->withContent($total_money, $total_user_num, $total_user_has_buy);
+                $this->withContent($total_user_has_buy_today, $total_user_has_buy);
                 // 图表数据
-                $this->withChart([$total_user_num, $total_user_has_buy]);
+                $this->withChart([$total_user_has_buy_today, $total_user_has_buy]);
                 // 总数
-                $this->chartTotal('客户总数', $total_user_num);
+                $this->chartTotal('成交总人数', $total_user_has_buy);
         }
     }
 
@@ -62,11 +65,10 @@ class ProductOrders extends Round
      *
      * @param int $finished
      * @param int $pending
-     * @param int $rejected
      *
      * @return $this
      */
-    public function withContent($finished, $pending, $rejected)
+    public function withContent($finished, $pending)
     {
         return $this->content(
             <<<HTML
@@ -88,16 +90,6 @@ class ProductOrders extends Round
           </div>
           <div class="product-result">
               <span>{$pending}</span>
-          </div>
-    </div>
-
-     <div class="chart-info d-flex justify-content-between mb-1">
-          <div class="series-info d-flex align-items-center">
-              <i class="fa fa-circle-o text-bold-700 text-danger"></i>
-              <span class="text-bold-600 ml-50">下单客户总数</span>
-          </div>
-          <div class="product-result">
-              <span>{$rejected}</span>
           </div>
     </div>
 </div>
