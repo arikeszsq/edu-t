@@ -3,6 +3,7 @@
 namespace App\Admin\Metrics\Examples;
 
 use App\Models\ActivitySignUser;
+use App\Models\ActivityViewLog;
 use App\Models\User;
 use Dcat\Admin\Widgets\Metrics\Round;
 use Illuminate\Http\Request;
@@ -29,17 +30,14 @@ class TotalCount extends Round
      */
     public function handle(Request $request)
     {
-        $total_user_num = User::query()->count();
-        $total_user_has_buy = ActivitySignUser::query()->where('has_pay', 1)->groupBy('user_id')->count();
-        $total_money = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
+        $view_num = ActivityViewLog::query()->count();
+        $share_num = ActivitySignUser::query()->count();
+        $sign_num = ActivitySignUser::query()->where('has_pay', 1)->count();
+        $sale_num = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
         switch ($request->get('option')) {
             default:
                 // 卡片内容
-                $this->withContent($total_money, $total_user_num, $total_user_has_buy);
-                // 图表数据
-                $this->withChart([$total_user_num, $total_user_has_buy]);
-                // 总数
-                $this->chartTotal('客户总数', $total_user_num);
+                $this->withContent($view_num, $share_num,$sign_num, $sale_num);
         }
     }
 
@@ -57,16 +55,7 @@ class TotalCount extends Round
         ]);
     }
 
-    /**
-     * 卡片内容.
-     *
-     * @param int $finished
-     * @param int $pending
-     * @param int $rejected
-     *
-     * @return $this
-     */
-    public function withContent($finished, $pending, $rejected)
+    public function withContent($view_num, $share_num,$sign_num, $sale_num)
     {
         return $this->content(
             <<<HTML
@@ -77,7 +66,7 @@ class TotalCount extends Round
               <span class="text-bold-600 ml-50">访问量</span>
           </div>
           <div class="product-result">
-              <span>{$finished}</span>
+              <span>{$view_num}</span>
           </div>
     </div>
 
@@ -87,7 +76,7 @@ class TotalCount extends Round
               <span class="text-bold-600 ml-50">分享量</span>
           </div>
           <div class="product-result">
-              <span>{$pending}</span>
+              <span>{$share_num}</span>
           </div>
     </div>
 
@@ -97,7 +86,7 @@ class TotalCount extends Round
               <span class="text-bold-600 ml-50">报名量</span>
           </div>
           <div class="product-result">
-              <span>{$rejected}</span>
+              <span>{$sign_num}</span>
           </div>
     </div>
     <div class="chart-info d-flex justify-content-between mb-1">
@@ -106,7 +95,7 @@ class TotalCount extends Round
               <span class="text-bold-600 ml-50">销售金额</span>
           </div>
           <div class="product-result">
-              <span>{$rejected}</span>
+              <span>{$sale_num}</span>
           </div>
     </div>
 </div>
