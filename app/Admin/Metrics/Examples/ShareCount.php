@@ -3,6 +3,7 @@
 namespace App\Admin\Metrics\Examples;
 
 use App\Models\ActivitySignUser;
+use App\Models\ActivityViewLog;
 use App\Models\User;
 use Dcat\Admin\Widgets\Metrics\Round;
 use Illuminate\Http\Request;
@@ -46,14 +47,22 @@ class ShareCount extends Round
      */
     public function withContent()
     {
-        $today_view= 1;
-        $today_sign= 1;
-        $today_share= 1;
-        $today_pay= 1;
-        $total_view= 1;
-        $total_sign= 1;
-        $total_share= 1;
-        $total_pay= 1;
+        $today_view = ActivityViewLog::query()
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $today_sign = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $today_share = ActivitySignUser::query()
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $today_pay = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->sum('money');
+        $total_view = ActivityViewLog::query()->count();
+        $total_sign = ActivitySignUser::query()->where('has_pay', 1)->count();
+        $total_share = ActivitySignUser::query()->count();
+        $total_pay = ActivitySignUser::query()->where('has_pay', 1)->sum('money');;
         return $this->content(
             <<<HTML
 <div style="padding: 20px;width: 100%">

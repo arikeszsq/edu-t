@@ -30,7 +30,8 @@ class ProductOrders extends Round
     public function handle(Request $request)
     {
         $total_user_num = User::query()->count();
-        $total_user_has_buy = ActivitySignUser::query()->where('has_pay', 1)->groupBy('user_id')->count();
+        $total_user_has_buy = ActivitySignUser::query()->where('has_pay', 1)
+            ->groupBy('user_id')->count();
         $total_money = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
         switch ($request->get('option')) {
             default:
