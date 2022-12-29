@@ -27,27 +27,23 @@ class ManyController extends ActivityController
             $grid->model()->where('is_many', 2);
             $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
-//            $grid->column('title')->qrcode(function () {
-//                return 'http://www.baidu.com';
-//            }, 200, 200);
-            $grid->column('title');
-            $grid->column('ori_price');
-            $grid->column('real_price');
-//            $grid->column('is_many')->select(Activity::$is_many_list);
-            $grid->column('is_many')->using(Activity::$is_many_list)->label([1 => 'danger', 2 => 'success']);
-//            $grid->column('description');
-//            $grid->column('content');
-//            $grid->column('status')->select(Activity::$status_list);
-//            $grid->column('status')->display(function($status){
-//                return Activity::$status_list[$status];
-//            })->label(['primary','warning']);
-            $grid->column('status')->using(Activity::$status_list)->label(['primary', 'warning']);
+            $grid->column('title','活动名称');
+            $grid->column('start_time','开始时间');
+            $grid->column('end_time','结束时间');
+            $grid->column('stay_num','库存');
+            $grid->column('views_num','浏览量');
+            $grid->column('sign_success_num','成功报名');
+            $grid->column('refund_num','退款订单量');
+            $grid->column('refund_money','退款金额');
+            $grid->column('total_pay_money','总付款金额');
+            $grid->column('already_return_money','已返利总金额');
+            $grid->column('earn_money','净利润');
+            $grid->column('q_code','活动二维码');
+            $grid->column('status','上下架状态')->using(Activity::$status_list)->label(['primary', 'warning']);
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id')->width(6);
                 $filter->like('title')->width(6);
             });
-//            $grid->enableDialogCreate();
-//            $grid->actions(new ChangeStatus());
             $grid->actions(function (Grid\Displayers\Actions $actions) {
 
                 $actions->append(new ActivityComSign('<span class="btn btn-sm btn-primary">报名</span>'));
