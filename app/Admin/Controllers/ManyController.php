@@ -55,7 +55,12 @@ class ManyController extends ActivityController
                 $filter->equal('status', '上下架状态')->select(Activity::$status_list)->width(2);
             });
 
+
+            // 禁用详情按钮
+            $grid->disableViewButton();
+
             $grid->actions(function (Grid\Displayers\Actions $actions) {
+
                 $status = $actions->row->status;
                 if ($status == Activity::Status_已上架) {
                     $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">下架</span>'));
@@ -124,6 +129,17 @@ class ManyController extends ActivityController
             $form->display('updated_at');
             $form->saving(function (Form $form) {
                 $form->is_many = Activity::is_many_多商家;
+            });
+
+            $form->tools(function (Form\Tools $tools) {
+                // 去掉跳转详情页按钮
+                $tools->disableView();
+            });
+            $form->footer(function ($footer) {
+                // 去掉`重置`按钮
+                $footer->disableReset();
+                // 去掉`查看`checkbox
+                $footer->disableViewCheck();
             });
         });
     }
