@@ -74,15 +74,15 @@ class HomeController extends Controller
             ->body(function (Row $row) {
 
                 $row->column(12, function (Column $column) {
-                    $column->row(function (Row $row) {
-                        $row->column(12, new Examples\ProductOrders());
-                    });
-
-                    $column->row(function (Row $row) {
-                        $row->column(6, new Examples\DealCount());
-                        $row->column(6, new Examples\TotalCount());
-                    });
-                    $column->row(new Examples\ShareCount());
+//                    $column->row(function (Row $row) {
+//                        $row->column(12, new Examples\ProductOrders());
+//                    });
+//
+//                    $column->row(function (Row $row) {
+//                        $row->column(6, new Examples\DealCount());
+//                        $row->column(6, new Examples\TotalCount());
+//                    });
+//                    $column->row(new Examples\ShareCount());
                 });
             });
     }
