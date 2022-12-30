@@ -6,6 +6,7 @@ use App\Admin\Actions\Grid\ActivityComSign;
 use App\Admin\Actions\Grid\ChangeStatus;
 use App\Admin\Controllers\ActivityController;
 use App\Models\Activity;
+use App\Models\ActivityMusic;
 use App\Models\ActivitySignCom;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -105,29 +106,25 @@ class ManyController extends ActivityController
             $form->text('description', '活动描述')->required();
             $form->datetime('start_time', '活动开始时间')->required();
             $form->datetime('end_time', '活动结束时间')->required();
-
             $form->decimal('ori_price', '原价')->required();
             $form->decimal('real_price', '开团价')->required();
             $form->number('deal_group_num', '成团人数')->required();
-
             //music_id 活动音乐
-
+            $form->select('music_id','活动音乐')->options(ActivityMusic::getMusicArray());
             $form->decimal('a_invite_money', 'A用户直接邀请奖励')->required();
             $form->decimal('a_other_money', 'A用户别人邀请获得的奖励')->required();
             $form->decimal('second_invite_money', '非A二级邀请奖励')->required();
-
-
+            $form->number('vr_view', '虚拟浏览量')->required();
+            $form->number('vr_share', '虚拟分享量')->required();
             $form->image('share_bg', '分享海报背景图')->autoUpload();
-
+            $form->image('mini_bg', '小程序封面')->autoUpload();
+            $form->image('mini_over_bg', '小程序结束图')->autoUpload();
             $form->multipleImage('content', '活动的详情图片')->sortable()->autoUpload();
-
             $form->display('created_at');
             $form->display('updated_at');
-
-//            $form->saving(function (Form $form) {
-//                $form->is_many = Activity::is_many_多商家;
-//            });
-
+            $form->saving(function (Form $form) {
+                $form->is_many = Activity::is_many_多商家;
+            });
         });
     }
 }
