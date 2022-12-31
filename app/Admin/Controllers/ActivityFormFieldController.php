@@ -97,6 +97,7 @@ class ActivityFormFieldController extends AdminController
 
             $form->text('field_name')->required();
             $form->select('type')->options([1 => '文本框', 2 => '单选框', 3 => '多选框'])->required();
+            $form->number('sort','排序');
 
             $form->hasMany('options', function (Form\NestedForm $form) {
                 $form->text('name', '名称')->width(3);

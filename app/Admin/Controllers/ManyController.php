@@ -69,6 +69,8 @@ class ManyController extends ActivityController
                 }
                 $actions->append(new ActivityComSign('<span  style="margin-left: 5px;" class="btn btn-sm btn-primary">报名</span>'));
 
+                $actions->append('<a class="btn btn-sm btn-danger" style="margin-left: 5px;" href="/admin/user-sign-manage?activity_id='.$actions->row->id.'">报名管理</a>');
+
             });
         });
     }

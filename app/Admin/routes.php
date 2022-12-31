@@ -34,7 +34,10 @@ Route::group([
     $router->resource('invite-log', 'UserActivityInviteController');
     $router->resource('setting', 'BasicSettingController');
     $router->resource('music', 'ActivityMusicController');
+    //表单设置
     $router->resource('form-fields', 'ActivityFormFieldController');
+    //报名管理
+    $router->resource('user-sign-manage', 'UserSignManageController');
 
     //A用户邀请码，小程序收到活动id为9999的活动，直接设置用户为A用户
     $router->resource('user-a-invite-pic', 'UserAInvitePicController');
