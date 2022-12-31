@@ -67,9 +67,9 @@ class ManyController extends ActivityController
                 } else {
                     $actions->append(new ChangeStatus('<span class="btn btn-sm btn-warning">上架</span>'));
                 }
-                $actions->append(new ActivityComSign('<span class="btn btn-sm btn-primary">报名</span>'));
+                $actions->append(new ActivityComSign('<span  style="margin-left: 5px;" class="btn btn-sm btn-primary">报名</span>'));
 
-
+                $actions->append('<a class="btn btn-sm btn-success" style="margin-left: 5px;" href="/admin/form-fields?activity_id='.$actions->row->id.'">表单设置</a>');
             });
         });
     }
