@@ -39,9 +39,6 @@ class ActivitySignComController extends AdminController
             $grid->disableRowSelector();//禁用行选择框
 
             $grid->disableActions();//禁用所有操作
-            $grid->tools(function (Grid\Tools $tools) {
-                $tools->append(new BackToActivityList());
-            });
         });
     }
 

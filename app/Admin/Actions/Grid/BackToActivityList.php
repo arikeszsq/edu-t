@@ -2,12 +2,14 @@
 
 namespace App\Admin\Actions\Grid;
 
+use App\Models\Activity;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\Tools\AbstractTool;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BackToActivityList extends AbstractTool
 {
@@ -30,8 +32,13 @@ class BackToActivityList extends AbstractTool
      */
     public function handle(Request $request)
     {
-
-        return $this->response()->redirect('/activity');
+        $activity_id = Cache::get('activity_id');
+        $activity = Activity::getActivityById($activity_id);
+        if($activity->is_many == Activity::is_many_单商家){
+            return $this->response()->redirect('/activity-one');
+        }else{
+            return $this->response()->redirect('/activity-many');
+        }
     }
 
     /**

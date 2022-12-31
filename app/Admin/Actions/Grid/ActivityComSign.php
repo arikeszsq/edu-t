@@ -2,12 +2,14 @@
 
 namespace App\Admin\Actions\Grid;
 
+use App\Models\Activity;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ActivityComSign extends RowAction
 {
@@ -27,6 +29,9 @@ class ActivityComSign extends RowAction
     {
 //         dump($this->getKey());
         $activity_id = $this->getKey();
+
+        Cache::put('activity_id', $activity_id);
+
         return $this->response()
             ->warning('请选择需要报名的企业')
             ->redirect('/company?activity_id=' . $activity_id);

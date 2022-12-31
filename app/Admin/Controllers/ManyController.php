@@ -25,7 +25,7 @@ class ManyController extends ActivityController
     protected function grid()
     {
         return Grid::make(new Activity(), function (Grid $grid) {
-            $grid->model()->where('is_many', 2);
+            $grid->model()->where('is_many', Activity::is_many_多商家);
             $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
             $grid->column('title', '活动名称');
@@ -69,7 +69,6 @@ class ManyController extends ActivityController
                 }
                 $actions->append(new ActivityComSign('<span  style="margin-left: 5px;" class="btn btn-sm btn-primary">报名</span>'));
 
-                $actions->append('<a class="btn btn-sm btn-success" style="margin-left: 5px;" href="/admin/form-fields?activity_id='.$actions->row->id.'">表单设置</a>');
             });
         });
     }
