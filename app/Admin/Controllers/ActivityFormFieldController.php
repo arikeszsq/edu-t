@@ -50,6 +50,8 @@ class ActivityFormFieldController extends AdminController
             // 禁用过滤器按钮
             $grid->disableFilterButton();
 
+            $grid->tools('<a class="btn btn-info" href="/admin/activity-one">返回</a>');
+
         });
     }
 
