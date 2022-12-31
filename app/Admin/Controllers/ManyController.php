@@ -127,6 +127,8 @@ class ManyController extends ActivityController
             $form->multipleImage('content', '活动的详情图片')->sortable()->autoUpload();
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->hidden('is_many');
             $form->saving(function (Form $form) {
                 $form->is_many = Activity::is_many_多商家;
             });

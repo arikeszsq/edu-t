@@ -44,7 +44,15 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection second_invite_money
      * @property Grid\Column|Collection deal_group_num
      * @property Grid\Column|Collection music_id
+     * @property Grid\Column|Collection vr_view
+     * @property Grid\Column|Collection vr_share
+     * @property Grid\Column|Collection mini_bg
+     * @property Grid\Column|Collection mini_over_bg
      * @property Grid\Column|Collection activity_id
+     * @property Grid\Column|Collection field_name
+     * @property Grid\Column|Collection field_en_name
+     * @property Grid\Column|Collection sort
+     * @property Grid\Column|Collection activity_form_id
      * @property Grid\Column|Collection name
      * @property Grid\Column|Collection num
      * @property Grid\Column|Collection current_num
@@ -170,7 +178,15 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection second_invite_money(string $label = null)
      * @method Grid\Column|Collection deal_group_num(string $label = null)
      * @method Grid\Column|Collection music_id(string $label = null)
+     * @method Grid\Column|Collection vr_view(string $label = null)
+     * @method Grid\Column|Collection vr_share(string $label = null)
+     * @method Grid\Column|Collection mini_bg(string $label = null)
+     * @method Grid\Column|Collection mini_over_bg(string $label = null)
      * @method Grid\Column|Collection activity_id(string $label = null)
+     * @method Grid\Column|Collection field_name(string $label = null)
+     * @method Grid\Column|Collection field_en_name(string $label = null)
+     * @method Grid\Column|Collection sort(string $label = null)
+     * @method Grid\Column|Collection activity_form_id(string $label = null)
      * @method Grid\Column|Collection name(string $label = null)
      * @method Grid\Column|Collection num(string $label = null)
      * @method Grid\Column|Collection current_num(string $label = null)
@@ -301,7 +317,15 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection second_invite_money
      * @property Show\Field|Collection deal_group_num
      * @property Show\Field|Collection music_id
+     * @property Show\Field|Collection vr_view
+     * @property Show\Field|Collection vr_share
+     * @property Show\Field|Collection mini_bg
+     * @property Show\Field|Collection mini_over_bg
      * @property Show\Field|Collection activity_id
+     * @property Show\Field|Collection field_name
+     * @property Show\Field|Collection field_en_name
+     * @property Show\Field|Collection sort
+     * @property Show\Field|Collection activity_form_id
      * @property Show\Field|Collection name
      * @property Show\Field|Collection num
      * @property Show\Field|Collection current_num
@@ -427,7 +451,15 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection second_invite_money(string $label = null)
      * @method Show\Field|Collection deal_group_num(string $label = null)
      * @method Show\Field|Collection music_id(string $label = null)
+     * @method Show\Field|Collection vr_view(string $label = null)
+     * @method Show\Field|Collection vr_share(string $label = null)
+     * @method Show\Field|Collection mini_bg(string $label = null)
+     * @method Show\Field|Collection mini_over_bg(string $label = null)
      * @method Show\Field|Collection activity_id(string $label = null)
+     * @method Show\Field|Collection field_name(string $label = null)
+     * @method Show\Field|Collection field_en_name(string $label = null)
+     * @method Show\Field|Collection sort(string $label = null)
+     * @method Show\Field|Collection activity_form_id(string $label = null)
      * @method Show\Field|Collection name(string $label = null)
      * @method Show\Field|Collection num(string $label = null)
      * @method Show\Field|Collection current_num(string $label = null)
