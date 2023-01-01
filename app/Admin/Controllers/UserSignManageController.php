@@ -3,18 +3,18 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BackToActivityList;
+use App\Models\Activity;
+use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
-use App\Models\ActivitySignUserCourse;
-use Dcat\Admin\Form;
+use App\User;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
-use Dcat\Admin\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Cache;
 
 class UserSignManageController extends ActivitySignUserController
 {
 
-    public $title='报名管理';
+    public $title = '报名管理';
+
     /**
      * Make a grid builder.
      *
@@ -31,41 +31,64 @@ class UserSignManageController extends ActivitySignUserController
         if (!$activity_id) {
             return redirect('/admin/activity-one');
         }
-
-
         return Grid::make(ActivitySignUser::with(['activity']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->model()->orderBy('id', 'desc');
-            $grid->column('activity.title', '活动名称');
-            $grid->column('type')->display(function ($type) {
-                return ActivitySignUser::type_支付[$type];
-            });
-            $grid->column('order_no', '订单号');
-            $grid->column('sign_name', '报名人信息')->display(function ($sign_name) {
-                $sex = '';
-                if (isset($this->sign_sex) && $this->sign_sex) {
-                    $sex .= ActivitySignUser::Sex_List[$this->sign_sex];
-                }
-                return $sign_name . '-' . $this->sign_mobile . '-' . $sex . $this->sign_age . '岁';
-            });
-//            $grid->column('sign_mobile');
-//            $grid->column('sign_age');
-//            $grid->column('sign_sex')->display(function ($sign_sex) {
-//                return ActivitySignUser::Sex_List[$sign_sex];
-//            });
-            $grid->column('status', '状态')->display(function ($status) {
-                return ActivitySignUser::Status_支付[$status];
-            })->label([1 => 'danger', 2 => 'warning', 3 => 'success']);
-            $grid->column('created_at');
 
+            $grid->column('activity.title', '活动名称');
+            $grid->column('sign_name', '用户头像');
+            $grid->column('sign_name', '用户昵称');
+            $grid->column('sign_name', '报名名字');
+            $grid->column('sign_mobile', '报名电话');
+            $grid->column('role', '身份')->display(function ($role) {
+                $array = [
+                    1 => '团长',
+                    2 => '团员'
+                ];
+                return $array[$role];
+            });
+            $grid->column('is_true', '身份属性')->display(function ($is_true) {
+                $array = [
+                    1 => '真实数据',
+                    2 => '假数据'
+                ];
+                return $array[$is_true];
+            });
+            $grid->column('grouper_name', '团长');
+            $grid->column('group_id', '团人数')->display(function ($group_id) {
+                $group = ActivityGroup::query()->find($group_id);
+                return $group->current_num;
+            });
+            $grid->column('a_user_name', '推荐人头像');
+            $grid->column('a_user_name', '推荐人昵称');
+            $grid->column('a_user_name', '推荐人姓名');
+            $grid->column('a_mobile', '推荐人手机号');
+            $grid->column('info_all', '报名信息');
+            $grid->column('money', '付款金额');
+            $grid->column('a_money', '返利金额');//这个订单给老师的钱
+            $grid->column('pay_time', '支付订单时间');
+            $grid->column('refund_status', '退款状态');
+            $grid->column('refund_time', '退款时间');
+
+            // 禁用详情按钮
+            $grid->disableViewButton();
+            // 禁用过滤器按钮
+            $grid->disableFilterButton();
             $grid->filter(function (Grid\Filter $filter) {
+                // 展开过滤器
                 $filter->expand();
-                $filter->equal('id')->width(3);
-                $filter->like('activity.title', '活动名称')->width(3);
-                $filter->like('order_no', '订单号')->width(3);
-                $filter->like('sign_name', '报名人姓名')->width(3);
-                $filter->like('sign_mobile', '报名人手机号')->width(3);
-                $filter->like('status', '状态')->select(ActivitySignUser::Status_支付)->width(3);
+                $filter->like('grouper_name', '用户昵称')->width(3);
+                $filter->equal('role', '选择身份')->select([1 => '团长', 2 => '团员'])->width(3);
+                $filter->like('sign_name', '报名名字')->width(3);
+                $filter->like('sign_mobile', '报名电话')->width(3);
+                $filter->like('grouper_name', '团长名字')->width(3);
+                $filter->equal('is_true', '身份属性')->select([
+                    1 => '真实数据',
+                    2 => '假数据'
+                ])->width(3);
+                $filter->like('grouper_name', '推荐人昵称')->width(3);
+                $filter->like('grouper_name', '报名信息')->width(3);
+
             });
 
             $grid->disableCreateButton();//禁用创建按钮
@@ -73,99 +96,22 @@ class UserSignManageController extends ActivitySignUserController
             $grid->tools(function (Grid\Tools $tools) {
                 $tools->append(new BackToActivityList());
             });
-        });
-    }
 
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     *
-     * @return Show
-     */
-    protected function detail($id)
-    {
-        return Show::make($id, ActivitySignUser::with(['activity','group','user']), function (Show $show) {
-            $show->field('id');
-            $show->field('activity.title','活动名称');
-            $show->field('group.name','团名');
-            $show->field('role');
-            $show->role('身份')->using([1 => '团长', 2 => '团员']);
-            $show->field('user.name','姓名');
-            $show->divider();
-            $show->type('购买方式')->using([1 => '团购', 2 => '单独购买']);
-            $show->field('order_no','订单号');
-            $show->field('money','订单金额');
-            $show->has_pay('付款状态')->using([1 => '待支付', 2 => '支付取消',3=>'支付成功']);
-            $show->field('pay_time','付款时间');
-            $show->divider();
-            $show->field('sign_name','报名人');
-            $show->field('sign_mobile','报名手机号');
-            $show->divider();
-            $show->field('sign_age','报名人年龄');
-            $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
-            $show->field('info_one','信息一');
-            $show->field('info_two','信息二');
-            $show->relation('courses','课程信息', function ($model) {
-                $grid = new Grid(ActivitySignUserCourse::with(['school','course']));
-                $grid->model()->where('order_num', $model->order_no);
-//                $grid->number();
-//                $grid->id();
-                $grid->column('school.name', '学校名称');
-                $grid->column('course.name', '课程名称');
-                $grid->filter(function ($filter) {
-//                    $filter->like('')->width('300px');
-                });
-                $grid->disableCreateButton();//禁用创建按钮
-                $grid->disableActions();//禁用所有操作
-                return $grid;
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+
+                //移团
+                //并团
+                //独立成团
+                //升为团长
+                //退款
+
+
+//                $status = $actions->row->status;
+//                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">下架</span>'));
+
+
             });
-//            $show->field('is_agree');
-            $show->field('created_at');
-            $show->field('updated_at');
-
-            $show->panel()
-                ->tools(function ($tools) {
-                    $tools->disableEdit();
-//                    $tools->disableList();
-                    $tools->disableDelete();
-                    // 显示快捷编辑按钮
-//                    $tools->showQuickEdit();
-                });
-
         });
     }
 
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        return Form::make(new ActivitySignUser(), function (Form $form) {
-            $form->display('id');
-            $form->text('activity_id');
-            $form->text('group_id');
-            $form->text('role');
-            $form->text('user_id');
-            $form->text('type');
-            $form->text('creater_id');
-            $form->text('share_q_code');
-            $form->text('order_no');
-            $form->text('money');
-            $form->text('has_pay');
-            $form->text('status');
-            $form->text('pay_time');
-            $form->text('pay_cancel_time');
-            $form->text('sign_name');
-            $form->text('sign_mobile');
-            $form->text('sign_age');
-            $form->text('sign_sex');
-            $form->text('is_agree');
-
-            $form->display('created_at');
-            $form->display('updated_at');
-        });
-    }
 }

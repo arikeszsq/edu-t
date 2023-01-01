@@ -29,6 +29,7 @@ class ActivitySignUser extends Model
         return $this->hasOne(ActivityGroup::class, 'id', 'group_id');
     }
 
+
     public function courses()
     {
         return $this->hasMany(ActivitySignUserCourse::class,'order_num','order_no');
