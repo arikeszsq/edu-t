@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BackToActivityList;
+use App\Admin\Actions\Grid\MoveGroup;
 use App\Models\Activity;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
@@ -98,9 +99,13 @@ class UserSignManageController extends ActivitySignUserController
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new MoveGroup());
+            });
+
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
 
                 //移团
-                //并团
                 //独立成团
                 //升为团长
                 //退款

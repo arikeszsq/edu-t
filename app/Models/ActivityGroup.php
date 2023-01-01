@@ -35,6 +35,28 @@ class ActivityGroup extends Model
         return $this->hasOne(User::class, 'id', 'creater_id');
     }
 
+    public static function getGroupLeaderNameByGroupId($group_id)
+    {
+        $group= ActivityGroup::query()->find($group_id);
+        $leader_id = $group->leader_id;
+        $user = User::query()->find($leader_id);
+        return $user->name;
+    }
+
+
+    public static function getUnDealList()
+    {
+        $activitie_gs = ActivityGroup::query()
+            ->where('finished',2)
+            ->orderBy('id', 'desc')
+            ->get();
+        $options = [];
+        foreach ($activitie_gs as $activity_g) {
+            $options[$activity_g->id] = $activity_g->leader_wx_name.':'.$activity_g->name;
+        }
+        return $options;
+    }
+
     public static function getGroupById($id)
     {
         return ActivityGroup::query()->find($id);
