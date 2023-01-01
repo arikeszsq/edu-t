@@ -3,7 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BackToActivityList;
+use App\Admin\Actions\Grid\Manage\BeGrouper;
 use App\Admin\Actions\Grid\Manage\NewGroupDeal;
+use App\Admin\Actions\Grid\Manage\RowRefund;
 use App\Admin\Actions\Grid\MoveGroup;
 use App\Models\Activity;
 use App\Models\ActivityGroup;
@@ -102,21 +104,8 @@ class UserSignManageController extends ActivitySignUserController
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $actions->append(new MoveGroup());
                 $actions->append(new NewGroupDeal());
-            });
-
-
-            $grid->actions(function (Grid\Displayers\Actions $actions) {
-
-                //移团
-                //独立成团
-                //升为团长
-                //退款
-
-
-//                $status = $actions->row->status;
-//                    $actions->append(new ChangeStatus('<span class="btn btn-sm btn-primary">下架</span>'));
-
-
+                $actions->append(new BeGrouper());
+                $actions->append(new RowRefund());
             });
         });
     }
