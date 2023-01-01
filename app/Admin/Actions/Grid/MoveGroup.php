@@ -15,7 +15,7 @@ class MoveGroup extends RowAction
     /**
      * @return string
      */
-	protected $title = '移团';
+	protected $title = '<span style="margin-left: 5px;">移团</span>';
 
     public function render()
     {

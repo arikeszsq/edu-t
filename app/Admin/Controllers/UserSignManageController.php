@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\BackToActivityList;
+use App\Admin\Actions\Grid\Manage\NewGroupDeal;
 use App\Admin\Actions\Grid\MoveGroup;
 use App\Models\Activity;
 use App\Models\ActivityGroup;
@@ -100,6 +101,7 @@ class UserSignManageController extends ActivitySignUserController
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $actions->append(new MoveGroup());
+                $actions->append(new NewGroupDeal());
             });
 
 

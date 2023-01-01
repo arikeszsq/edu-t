@@ -13,6 +13,10 @@ class ActivitySignUser extends Model
 
     protected $table = 'activity_sign_user';
 
+    public static function getActivitySignUserById($id)
+    {
+        return ActivitySignUser::query()->find($id);
+    }
 
     public function activity()
     {
@@ -32,7 +36,7 @@ class ActivitySignUser extends Model
 
     public function courses()
     {
-        return $this->hasMany(ActivitySignUserCourse::class,'order_num','order_no');
+        return $this->hasMany(ActivitySignUserCourse::class, 'order_num', 'order_no');
     }
 
     const Sex_List = [
@@ -94,7 +98,7 @@ class ActivitySignUser extends Model
             'has_pay' => 2,//1是 2 否
             'status' => 1,//待支付
             'money' => $inputs['money'],
-            'created_at' => date('Y-m-d H:i:s',time()),
+            'created_at' => date('Y-m-d H:i:s', time()),
         ];
         if ($is_many == Activity::is_many_多商家) {
             $data_many = [
@@ -136,8 +140,6 @@ class ActivitySignUser extends Model
         }
         return DB::table('activity_sign_user_course')->insert($activity_sign_user_course);
     }
-
-
 
 
     /**
