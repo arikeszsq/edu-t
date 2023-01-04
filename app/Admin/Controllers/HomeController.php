@@ -64,16 +64,18 @@ class HomeController extends Controller
 //    }
 
 
-
-
     public function index(Content $content)
     {
-        return $content
-            ->header('首页概览')
-            ->description('数据分析')
-            ->body(function (Row $row) {
 
-                $row->column(12, function (Column $column) {
+//        return $content->body(admin_view('home'));
+        return $content->body(view('home'));
+
+//        return $content
+//            ->header('首页概览')
+//            ->description('数据分析')
+//            ->body(function (Row $row) {
+//
+//                $row->column(12, function (Column $column) {
 //                    $column->row(function (Row $row) {
 //                        $row->column(12, new Examples\ProductOrders());
 //                    });
@@ -83,7 +85,7 @@ class HomeController extends Controller
 //                        $row->column(6, new Examples\TotalCount());
 //                    });
 //                    $column->row(new Examples\ShareCount());
-                });
-            });
+//                });
+//            });
     }
 }
