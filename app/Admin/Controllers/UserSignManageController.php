@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Export\GridTool;
 use App\Admin\Actions\Grid\BackToActivityList;
 use App\Admin\Actions\Grid\Manage\BeGrouper;
 use App\Admin\Actions\Grid\Manage\NewGroupDeal;
@@ -99,6 +100,7 @@ class UserSignManageController extends ActivitySignUserController
             $grid->disableEditButton();//禁用编辑
             $grid->tools(function (Grid\Tools $tools) {
                 $tools->append(new BackToActivityList());
+                $tools->append(new GridTool());
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
