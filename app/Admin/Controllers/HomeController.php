@@ -68,7 +68,25 @@ class HomeController extends Controller
     {
 
 //        return $content->body(admin_view('home'));
-        return $content->body(view('home'));
+
+        $data = [
+            'total_money' => 1000,//总资产
+            'total_user' => 1000,//客户总数
+            'total_user_buy' => 1000,//下单客户总数
+            'total_user_buy' => 1000,//今日浏览人数
+            'total_user_buy' => 1000,//今日报名人数
+            'total_user_buy' => 1000,//今日分享人数
+            'total_user_buy' => 1000,//今日付款金额
+            'total_user_buy' => 1000,//总浏览人数
+            'total_user_buy' => 1000,//总报名人数
+            'total_user_buy' => 1000,//总分享人数
+            'total_user_buy' => 1000,//总付款金额
+            'total_user_buy' => 1000,//今日新增
+            'total_user_buy' => 1000,//总人数
+            'total_user_buy' => 1000,//访问量
+        ];
+
+        return $content->body(view('home', $data));
 
 //        return $content
 //            ->header('首页概览')

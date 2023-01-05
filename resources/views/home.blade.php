@@ -1,189 +1,177 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
-    <script src="/vue/vue.js"></script>
-    <script src="/vue/axios/axios.min.js"></script>
-    <script src="/vue/element-ui/index.js"></script>
-    <link rel="stylesheet" href="/vue/element-ui/index.css">
-
-    <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-<body>
-
-
-<div id="app">
-
-    <el-row :gutter="12">
-        <el-col :span="8">
-            <el-card shadow="always">
-                总是显示
-            </el-card>
-        </el-col>
-        <el-col :span="8">
-            <el-card shadow="hover">
-                鼠标悬浮时显示
-            </el-card>
-        </el-col>
-        <el-col :span="8">
-            <el-card shadow="never">
-                从不显示
-            </el-card>
-        </el-col>
-    </el-row>
-
-
-    <el-table
-        :data="tableData"
-        border
-        style="width: 100%">
-        <el-table-column
-            prop="date"
-            label="日期"
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="name"
-            label="姓名"
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="address"
-            label="地址">
-        </el-table-column>
-    </el-table>
-
+<div class="row">
+    <div class="col-md-12"><h3>客户统计</h3></div>
+    <div class="col-md-3">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3 style="color: white;">{{$total_money}}</h3>
+                <p>总资产</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3 style="color: white;"><?=\App\Models\Activity::query()->count()?>
+                    / <?=\App\Models\Activity::query()->count()?></h3>
+                <p>客户总数</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3 style="color: white;"><?=\App\Models\Activity::query()->count()?>
+                    / <?=\App\Models\Activity::query()->count()?></h3>
+                <p>下单客户总数</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script>
-    new Vue({
-        el: '#app',
-        data: function () {
-            return {
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '100'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: 200
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }],
-                total:60
-               }
-        },
-        methods: {
+<div class="row">
+    <div class="col-md-12"><h3>传播统计</h3></div>
+    <div class="col-md-12">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-info" style="width: 150px;">今日浏览人数</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">123</li>
 
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(file) {
-                console.log(file);
-            },
-            handleExceed(files, fileList) {
-                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-            },
-            beforeRemove(file, fileList) {
-                return this.$confirm(`确定移除 ${ file.name }？`);
-            },
+            <li class="list-group-item list-group-item-info" style="width: 150px;">今日报名人数</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
 
-            onSubmit() {
-                this.newOrder();
-            },
-            newOrder() {
-                var that = this;
-                that.loading=true;
-                var fd = new FormData();
-                fd.append('params', JSON.stringify(that.dynamicValidateForm));
-                var config = {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                };
-                var baseUrl = '/labour/protocalorder/ajaxAdd';
-                axios.post(baseUrl, fd, config
-                ).then(res => {
-                    if (res.data.code === 200) {
-                        $res_type = 'success';
-                        that.dynamicValidateForm.order_id = res.data.order_id;
-                    } else {
-                        $res_type = 'error';
-                    }
-                    that.loading=false;
-                    that.$message({
-                        type: $res_type,
-                        message: res.data.msg
-                    });
-                }).catch(res => {
-                    that.loading=false;
-                    console.log(res)
-                });
-            },
-        }
-    })
-</script>
+            <li class="list-group-item list-group-item-info" style="width: 150px;">今日分享人数</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
 
-</body>
-</html>
+            <li class="list-group-item list-group-item-info" style="width: 150px;">今日付款金额</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
+        </ul>
+        <ul class="list-group list-group-horizontal-sm" style="margin-top: 10px;">
+            <li class="list-group-item list-group-item-info" style="width: 150px;">总浏览人数</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
+
+            <li class="list-group-item list-group-item-info" style="width: 150px;">总报名人数</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
+
+            <li class="list-group-item list-group-item-info" style="width: 150px;">总分享人数</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
+
+            <li class="list-group-item list-group-item-info" style="width: 150px;">总付款金额</li>
+            <li class="list-group-item" style="width: 100px; margin-right: 20px;">100</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="col-md-12"><h3>成交线索统计</h3></div>
+    <div class="col-md-3">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3 style="color: white;"><?=\App\Models\Activity::query()->count()?>
+                    / <?=\App\Models\Activity::query()->count()?></h3>
+                <p>今日新增</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3 style="color: white;"><?=\App\Models\Activity::query()->count()?>
+                    / <?=\App\Models\Activity::query()->count()?></h3>
+                <p>总人数</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12"><h3>总活动数据</h3></div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
+                昨日
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                访问量
+                <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                分享量
+                <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                报名量
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                销售金额
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
+                今日
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                访问量
+                <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                分享量
+                <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                报名量
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                销售金额
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
+                总数据
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                访问量
+                <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                分享量
+                <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                报名量
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                销售金额
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
