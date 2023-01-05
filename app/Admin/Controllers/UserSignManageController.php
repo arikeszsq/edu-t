@@ -37,6 +37,20 @@ class UserSignManageController extends ActivitySignUserController
             return redirect('/admin/activity-one');
         }
         return Grid::make(ActivitySignUser::with(['activity']), function (Grid $grid) {
+
+
+            $grid->showColumnSelector();
+            $grid->export()->rows(function ($rows) {
+                foreach ($rows as $index => &$row) {
+//                    $row->{"activity.title"} = $row->activity->title;
+                    $row['sign_name'];
+//                    $row['nation'] = Company::NATION_ARRAY[$row['nation']] ?? '';
+//                    $row['license'] = Storage::disk('admin')->url($row['license']);
+                }
+                return $rows;
+            });
+
+
             $grid->column('id')->sortable();
             $grid->model()->orderBy('id', 'desc');
 
@@ -100,7 +114,6 @@ class UserSignManageController extends ActivitySignUserController
             $grid->disableEditButton();//禁用编辑
             $grid->tools(function (Grid\Tools $tools) {
                 $tools->append(new BackToActivityList());
-                $tools->append(new GridTool());
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {

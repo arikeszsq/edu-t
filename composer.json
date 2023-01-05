@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "darkaonline/l5-swagger": "6.*",
+        "dcat/easy-excel": "^1.1",
         "dcat/laravel-admin": "2.*",
         "fideloper/proxy": "^4.4",
         "laravel/framework": "^6.20.26",
