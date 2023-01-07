@@ -55,8 +55,16 @@ class UserSignManageController extends ActivitySignUserController
             $grid->model()->orderBy('id', 'desc');
 
             $grid->column('activity.title', '活动名称');
-            $grid->column('sign_name', '用户头像');
-            $grid->column('sign_name', '用户昵称');
+
+            $grid->column('user_id', '用户头像')->display(function ($user_id) {
+               $user = User::query()->find($user_id);
+                return $user->avatar;
+            });
+            $grid->column('user_id', '用户昵称')->display(function ($user_id) {
+                $user = User::query()->find($user_id);
+                return $user->nick_name;
+            });
+
             $grid->column('sign_name', '报名名字');
             $grid->column('sign_mobile', '报名电话');
             $grid->column('role', '身份')->display(function ($role) {

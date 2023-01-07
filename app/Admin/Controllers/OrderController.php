@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\ActivitySignUserCourse;
+use App\User;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -25,8 +26,14 @@ class OrderController extends ActivitySignUserController
             $grid->model()->orderBy('id', 'desc');
 
             $grid->column('order_no', '订单编号');
-            $grid->column('sign_name', '用户头像');
-            $grid->column('sign_name', '用户昵称');
+            $grid->column('user_id', '用户头像')->display(function ($user_id) {
+                $user = User::query()->find($user_id);
+                return $user->avatar;
+            });
+            $grid->column('user_id', '用户昵称')->display(function ($user_id) {
+                $user = User::query()->find($user_id);
+                return $user->nick_name;
+            });
             $grid->column('sign_name', '报名信息')->display(function ($sign_name) {
                 $sex = '';
                 if (isset($this->sign_sex) && $this->sign_sex) {
