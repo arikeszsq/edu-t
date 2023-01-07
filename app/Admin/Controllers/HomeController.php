@@ -8,6 +8,9 @@ use App\Admin\Renderable\CompanyList;
 use App\Admin\Renderable\UserTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\WeChatTrait;
+use App\Models\ActivitySignUser;
+use App\Models\ActivityViewLog;
+use App\Models\User;
 use Dcat\Admin\Http\Controllers\Dashboard;
 use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
@@ -66,24 +69,99 @@ class HomeController extends Controller
 
     public function index(Content $content)
     {
+        $total_user_num = User::query()->count();
+        $total_user_has_buy = ActivitySignUser::query()->where('has_pay', 1)
+            ->groupBy('user_id')
+            ->count();
 
-//        return $content->body(admin_view('home'));
+        $total_money = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
+
+        $total_user_has_buy_today = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))
+            ->groupBy('user_id')
+            ->count();
+
+        $view_num_today = ActivityViewLog::query()->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $sign_num_today = ActivitySignUser::query()->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->where('has_pay', 1)->count();
+        $share_num_today = ActivitySignUser::query()->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $sale_num_today = ActivitySignUser::query()->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->where('has_pay', 1)->sum('money');
+
+
+        $view_num = ActivityViewLog::query()->count();
+        $sign_num = ActivitySignUser::query()->where('has_pay', 1)->count();
+        $share_num = ActivitySignUser::query()->count();
+        $sale_num = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
+
+
+        $yesterday_view = ActivityViewLog::query()
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('-1 day')))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', strtotime('-1 day')))->count();
+        $yesterday_share = ActivitySignUser::query()
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('-1 day')))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', strtotime('-1 day')))->count();
+        $yesterday_sign = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('-1 day')))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', strtotime('-1 day')))->count();
+        $yesterday_pay = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('-1 day')))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', strtotime('-1 day')))->sum('money');
+
+        $today_view = ActivityViewLog::query()
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $today_share = ActivitySignUser::query()
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $today_sign = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->count();
+        $today_pay = ActivitySignUser::query()->where('has_pay', 1)
+            ->where('created_at', '>=', date('Y-m-d 00:00:00', time()))
+            ->where('created_at', '<=', date('Y-m-d 23:59:00', time()))->sum('money');
+
+        $total_view = ActivityViewLog::query()->count();
+        $total_share = ActivitySignUser::query()->count();
+        $total_sign = ActivitySignUser::query()->where('has_pay', 1)->count();
+        $total_pay = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
 
         $data = [
-            'total_money' => 1000,//总资产
-            'total_user' => 1000,//客户总数
-            'total_user_buy' => 1000,//下单客户总数
-            'total_user_buy' => 1000,//今日浏览人数
-            'total_user_buy' => 1000,//今日报名人数
-            'total_user_buy' => 1000,//今日分享人数
-            'total_user_buy' => 1000,//今日付款金额
-            'total_user_buy' => 1000,//总浏览人数
-            'total_user_buy' => 1000,//总报名人数
-            'total_user_buy' => 1000,//总分享人数
-            'total_user_buy' => 1000,//总付款金额
-            'total_user_buy' => 1000,//今日新增
-            'total_user_buy' => 1000,//总人数
-            'total_user_buy' => 1000,//访问量
+            //客户统计
+            'total_money' => $total_money,//总资产
+            'total_user' => $total_user_num,//客户总数
+            'total_pay_user_num' => $total_user_has_buy,//下单客户总数
+
+            //传播统计
+            'total_user_today_view' => $view_num_today,//今日浏览人数
+            'total_user_today_sign' => $sign_num_today,//今日报名人数
+            'total_user_today_share' => $share_num_today,//今日分享人数
+            'total_user_today_pay' => $sale_num_today,//今日付款金额
+            'total_user_view' => $view_num,//总浏览人数
+            'total_user_sign' => $sign_num,//总报名人数
+            'total_user_share' => $share_num,//总分享人数
+            'total_user_pay' => $sale_num,//总付款金额
+
+            //成交线索统计
+            'total_user_today_new' => $total_user_has_buy_today,//成交 - 今日新增
+            'total_user_num' => $total_user_has_buy,// 成交 - 总人数
+
+            //总活动数据
+            'yesterday_view' => $yesterday_view,//昨日-访问量
+            'yesterday_share' => $yesterday_share,//昨日-分享量
+            'yesterday_sign' => $yesterday_sign,//昨日-报名量
+            'yesterday_sale' => $yesterday_pay,//昨日-销售金额
+            'today_view' => $today_view,//今日-访问量
+            'today_share' => $today_share,//今日-分享量
+            'today_sign' => $today_sign,//今日-报名量
+            'today_sale' => $today_pay,//今日-销售金额
+            'total_view' => $total_view,//总-访问量
+            'total_share' => $total_share,//总-分享量
+            'total_sign' => $total_sign,//总-报名量
+            'total_sale' => $total_pay,//总-销售金额
         ];
 
         return $content->body(view('home', $data));

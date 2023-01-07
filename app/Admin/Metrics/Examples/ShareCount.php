@@ -62,7 +62,7 @@ class ShareCount extends Round
         $total_view = ActivityViewLog::query()->count();
         $total_sign = ActivitySignUser::query()->where('has_pay', 1)->count();
         $total_share = ActivitySignUser::query()->count();
-        $total_pay = ActivitySignUser::query()->where('has_pay', 1)->sum('money');;
+        $total_pay = ActivitySignUser::query()->where('has_pay', 1)->sum('money');
         return $this->content(
             <<<HTML
 <div style="padding: 20px;width: 100%">
