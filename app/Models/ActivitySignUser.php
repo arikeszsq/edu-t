@@ -47,7 +47,8 @@ class ActivitySignUser extends Model
     const Status_支付 = [
         1 => '待支付',
         2 => '支付取消',
-        3 => '支付成功'
+        3 => '支付成功',
+        4=>'已退款'
     ];
 
     const type_支付 = [

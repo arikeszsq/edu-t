@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\ActivitySignUserCourse;
 use Dcat\Admin\Form;
@@ -21,38 +22,49 @@ class OrderController extends ActivitySignUserController
     protected function grid()
     {
         return Grid::make(ActivitySignUser::with(['activity']), function (Grid $grid) {
-            $grid->column('id')->sortable();
             $grid->model()->orderBy('id', 'desc');
-            $grid->column('activity.title', '活动名称');
-            $grid->column('type')->display(function ($type) {
-                return ActivitySignUser::type_支付[$type];
-            });
-            $grid->column('order_no', '订单号');
-            $grid->column('sign_name', '报名人信息')->display(function ($sign_name) {
+
+            $grid->column('order_no', '订单编号');
+            $grid->column('sign_name', '用户头像');
+            $grid->column('sign_name', '用户昵称');
+            $grid->column('sign_name', '报名信息')->display(function ($sign_name) {
                 $sex = '';
                 if (isset($this->sign_sex) && $this->sign_sex) {
                     $sex .= ActivitySignUser::Sex_List[$this->sign_sex];
                 }
                 return $sign_name . '-' . $this->sign_mobile . '-' . $sex . $this->sign_age . '岁';
             });
-//            $grid->column('sign_mobile');
-//            $grid->column('sign_age');
-//            $grid->column('sign_sex')->display(function ($sign_sex) {
-//                return ActivitySignUser::Sex_List[$sign_sex];
-//            });
-            $grid->column('status', '状态')->display(function ($status) {
+
+            $grid->column('sign_name', '姓名');
+            $grid->column('sign_mobile', '电话');
+            $grid->column('role', '团内身份')->display(function ($role) {
+                $array = [
+                    1 => '团长',
+                    2 => '团员'
+                ];
+                return $array[$role];
+            });
+            $grid->column('group_id', '团内人数')->display(function ($group_id) {
+               $group = ActivityGroup::getGroupById($group_id);
+               return $group->current_num;
+            });
+            $grid->column('activity.title', '活动名称');
+            $grid->column('activity.title', '商品名称');
+            $grid->column('money', '支付金额');
+            $grid->column('status', '订单状态')->display(function ($status) {
                 return ActivitySignUser::Status_支付[$status];
             })->label([1 => 'danger', 2 => 'warning', 3 => 'success']);
-            $grid->column('created_at');
+            $grid->column('created_at','下单时间');
+            $grid->column('refund_status', '退款状态');
+            $grid->column('refund_time', '退款时间');
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->expand();
-                $filter->equal('id')->width(3);
-                $filter->like('activity.title', '活动名称')->width(3);
-                $filter->like('order_no', '订单号')->width(3);
-                $filter->like('sign_name', '报名人姓名')->width(3);
-                $filter->like('sign_mobile', '报名人手机号')->width(3);
-                $filter->like('status', '状态')->select(ActivitySignUser::Status_支付)->width(3);
+                $filter->like('activity.title', '活动名称')->width(2);
+                $filter->like('order_no', '订单号')->width(2);
+                $filter->like('sign_name', '姓名')->width(2);
+                $filter->like('sign_mobile', '电话')->width(2);
+                $filter->like('status', '状态')->select(ActivitySignUser::Status_支付)->width(2);
             });
 
             $grid->disableCreateButton();//禁用创建按钮
