@@ -64,6 +64,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection file
      * @property Grid\Column|Collection company_id
      * @property Grid\Column|Collection group_id
+     * @property Grid\Column|Collection grouper_name
      * @property Grid\Column|Collection user_id
      * @property Grid\Column|Collection order_no
      * @property Grid\Column|Collection money
@@ -75,6 +76,13 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection is_agree
      * @property Grid\Column|Collection info_two
      * @property Grid\Column|Collection info_one
+     * @property Grid\Column|Collection is_true
+     * @property Grid\Column|Collection a_user_name
+     * @property Grid\Column|Collection a_mobile
+     * @property Grid\Column|Collection a_money
+     * @property Grid\Column|Collection info_all
+     * @property Grid\Column|Collection refund_status
+     * @property Grid\Column|Collection refund_time
      * @property Grid\Column|Collection school_id
      * @property Grid\Column|Collection course_id
      * @property Grid\Column|Collection sign_user_id
@@ -135,6 +143,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection session
      * @property Grid\Column|Collection time_login
      * @property Grid\Column|Collection address
+     * @property Grid\Column|Collection nick_name
      * @property Grid\Column|Collection A_user_id
      * @property Grid\Column|Collection parent_user_id
      * @property Grid\Column|Collection invited_user_id
@@ -198,6 +207,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection file(string $label = null)
      * @method Grid\Column|Collection company_id(string $label = null)
      * @method Grid\Column|Collection group_id(string $label = null)
+     * @method Grid\Column|Collection grouper_name(string $label = null)
      * @method Grid\Column|Collection user_id(string $label = null)
      * @method Grid\Column|Collection order_no(string $label = null)
      * @method Grid\Column|Collection money(string $label = null)
@@ -209,6 +219,13 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection is_agree(string $label = null)
      * @method Grid\Column|Collection info_two(string $label = null)
      * @method Grid\Column|Collection info_one(string $label = null)
+     * @method Grid\Column|Collection is_true(string $label = null)
+     * @method Grid\Column|Collection a_user_name(string $label = null)
+     * @method Grid\Column|Collection a_mobile(string $label = null)
+     * @method Grid\Column|Collection a_money(string $label = null)
+     * @method Grid\Column|Collection info_all(string $label = null)
+     * @method Grid\Column|Collection refund_status(string $label = null)
+     * @method Grid\Column|Collection refund_time(string $label = null)
      * @method Grid\Column|Collection school_id(string $label = null)
      * @method Grid\Column|Collection course_id(string $label = null)
      * @method Grid\Column|Collection sign_user_id(string $label = null)
@@ -269,6 +286,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection session(string $label = null)
      * @method Grid\Column|Collection time_login(string $label = null)
      * @method Grid\Column|Collection address(string $label = null)
+     * @method Grid\Column|Collection nick_name(string $label = null)
      * @method Grid\Column|Collection A_user_id(string $label = null)
      * @method Grid\Column|Collection parent_user_id(string $label = null)
      * @method Grid\Column|Collection invited_user_id(string $label = null)
@@ -337,6 +355,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection file
      * @property Show\Field|Collection company_id
      * @property Show\Field|Collection group_id
+     * @property Show\Field|Collection grouper_name
      * @property Show\Field|Collection user_id
      * @property Show\Field|Collection order_no
      * @property Show\Field|Collection money
@@ -348,6 +367,13 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection is_agree
      * @property Show\Field|Collection info_two
      * @property Show\Field|Collection info_one
+     * @property Show\Field|Collection is_true
+     * @property Show\Field|Collection a_user_name
+     * @property Show\Field|Collection a_mobile
+     * @property Show\Field|Collection a_money
+     * @property Show\Field|Collection info_all
+     * @property Show\Field|Collection refund_status
+     * @property Show\Field|Collection refund_time
      * @property Show\Field|Collection school_id
      * @property Show\Field|Collection course_id
      * @property Show\Field|Collection sign_user_id
@@ -408,6 +434,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection session
      * @property Show\Field|Collection time_login
      * @property Show\Field|Collection address
+     * @property Show\Field|Collection nick_name
      * @property Show\Field|Collection A_user_id
      * @property Show\Field|Collection parent_user_id
      * @property Show\Field|Collection invited_user_id
@@ -471,6 +498,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection file(string $label = null)
      * @method Show\Field|Collection company_id(string $label = null)
      * @method Show\Field|Collection group_id(string $label = null)
+     * @method Show\Field|Collection grouper_name(string $label = null)
      * @method Show\Field|Collection user_id(string $label = null)
      * @method Show\Field|Collection order_no(string $label = null)
      * @method Show\Field|Collection money(string $label = null)
@@ -482,6 +510,13 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection is_agree(string $label = null)
      * @method Show\Field|Collection info_two(string $label = null)
      * @method Show\Field|Collection info_one(string $label = null)
+     * @method Show\Field|Collection is_true(string $label = null)
+     * @method Show\Field|Collection a_user_name(string $label = null)
+     * @method Show\Field|Collection a_mobile(string $label = null)
+     * @method Show\Field|Collection a_money(string $label = null)
+     * @method Show\Field|Collection info_all(string $label = null)
+     * @method Show\Field|Collection refund_status(string $label = null)
+     * @method Show\Field|Collection refund_time(string $label = null)
      * @method Show\Field|Collection school_id(string $label = null)
      * @method Show\Field|Collection course_id(string $label = null)
      * @method Show\Field|Collection sign_user_id(string $label = null)
@@ -542,6 +577,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection session(string $label = null)
      * @method Show\Field|Collection time_login(string $label = null)
      * @method Show\Field|Collection address(string $label = null)
+     * @method Show\Field|Collection nick_name(string $label = null)
      * @method Show\Field|Collection A_user_id(string $label = null)
      * @method Show\Field|Collection parent_user_id(string $label = null)
      * @method Show\Field|Collection invited_user_id(string $label = null)

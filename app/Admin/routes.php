@@ -7,8 +7,8 @@ use Dcat\Admin\Admin;
 Admin::routes();
 
 Route::group([
-    'prefix'     => config('admin.route.prefix'),
-    'namespace'  => config('admin.route.namespace'),
+    'prefix' => config('admin.route.prefix'),
+    'namespace' => config('admin.route.namespace'),
     'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
 
@@ -38,6 +38,8 @@ Route::group([
     $router->resource('form-fields', 'ActivityFormFieldController');
     //报名管理
     $router->resource('user-sign-manage', 'UserSignManageController');
+    //投诉管理
+    $router->resource('complaint', 'ComplaintController');
 
     //A用户邀请码，小程序收到活动id为9999的活动，直接设置用户为A用户
     $router->resource('user-a-invite-pic', 'UserAInvitePicController');

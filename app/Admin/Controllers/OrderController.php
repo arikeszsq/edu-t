@@ -22,18 +22,12 @@ class OrderController extends ActivitySignUserController
      */
     protected function grid()
     {
-        return Grid::make(ActivitySignUser::with(['activity']), function (Grid $grid) {
+        return Grid::make(ActivitySignUser::with(['activity','user']), function (Grid $grid) {
             $grid->model()->orderBy('id', 'desc');
 
             $grid->column('order_no', '订单编号');
-            $grid->column('user_id', '用户头像')->display(function ($user_id) {
-                $user = User::query()->find($user_id);
-                return $user->avatar;
-            });
-            $grid->column('user_id', '用户昵称')->display(function ($user_id) {
-                $user = User::query()->find($user_id);
-                return $user->nick_name;
-            });
+            $grid->column('user.avatar', '用户头像')->image('',50,50);
+            $grid->column('user.nick_name', '用户昵称');
             $grid->column('sign_name', '报名信息')->display(function ($sign_name) {
                 $sex = '';
                 if (isset($this->sign_sex) && $this->sign_sex) {
