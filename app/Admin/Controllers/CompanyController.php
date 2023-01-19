@@ -25,13 +25,10 @@ class CompanyController extends AdminController
         return Grid::make(new Company(), function (Grid $grid){
 
             $grid->model()->orderBy('id', 'desc');
-
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('short_name');
             $grid->column('intruduction');
-            $grid->column('video_url');
-            $grid->column('creater_id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
