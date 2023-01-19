@@ -25,19 +25,20 @@ Page({
                         wx.showToast({
                             title: '您已经成为A用户',
                             icon: 'success', //图标，支持"success"、"loading"
-                        }),
-                            // var type = res.data.response.type;
-                            // var id = res.data.response.activity_id;
-                            // if (type === 1) {
-                            //     wx.redirectTo({
-                            //         url: '../activity/one/index?id=' + id
-                            //     });
-                            // } else {
-                            //     wx.redirectTo({
-                            //         url: '../activity/many/index?id=' + id
-                            //     });
-                            // }
-                        }
+                        })
+                        //,
+                        // var type = res.data.response.type;
+                        // var id = res.data.response.activity_id;
+                        // if (type === 1) {
+                        //     wx.redirectTo({
+                        //         url: '../activity/one/index?id=' + id
+                        //     });
+                        // } else {
+                        //     wx.redirectTo({
+                        //         url: '../activity/many/index?id=' + id
+                        //     });
+                        // }
+                    }
                 });
             } else {
                 //设置全局异步缓存activity_id
@@ -50,8 +51,8 @@ Page({
                         url: '/activity/invite-user',
                         method: 'post',
                         data: {
-                            'activity_id':activity_id,
-                            'parent_user_id':share_user_id
+                            'activity_id': activity_id,
+                            'parent_user_id': share_user_id
                         },
                         success: res => {
                         }
