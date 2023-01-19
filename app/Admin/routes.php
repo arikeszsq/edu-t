@@ -31,7 +31,13 @@ Route::group([
     $router->resource('company-child', 'CompanyChildController');
     $router->resource('award', 'AwardController');
     $router->resource('user-award', 'UserAwardController');
+
+    //用户被邀请支付记录，用来发放a用户奖励这些
     $router->resource('invite-log', 'UserActivityInviteController');
+    //潜在客户-传播分享 [统计]
+    $router->resource('share', 'ShareController');
+
+
     $router->resource('setting', 'BasicSettingController');
     $router->resource('music', 'ActivityMusicController');
     //表单设置

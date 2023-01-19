@@ -133,6 +133,11 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection failed_at
      * @property Grid\Column|Collection email
      * @property Grid\Column|Collection token
+     * @property Grid\Column|Collection share_user_id
+     * @property Grid\Column|Collection sign_num
+     * @property Grid\Column|Collection pay_total_num
+     * @property Grid\Column|Collection red_bag_num
+     * @property Grid\Column|Collection red_bag_total_num
      * @property Grid\Column|Collection openid
      * @property Grid\Column|Collection email_verified_at
      * @property Grid\Column|Collection is_A
@@ -144,6 +149,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection time_login
      * @property Grid\Column|Collection address
      * @property Grid\Column|Collection nick_name
+     * @property Grid\Column|Collection is_real
      * @property Grid\Column|Collection A_user_id
      * @property Grid\Column|Collection parent_user_id
      * @property Grid\Column|Collection invited_user_id
@@ -276,6 +282,11 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection failed_at(string $label = null)
      * @method Grid\Column|Collection email(string $label = null)
      * @method Grid\Column|Collection token(string $label = null)
+     * @method Grid\Column|Collection share_user_id(string $label = null)
+     * @method Grid\Column|Collection sign_num(string $label = null)
+     * @method Grid\Column|Collection pay_total_num(string $label = null)
+     * @method Grid\Column|Collection red_bag_num(string $label = null)
+     * @method Grid\Column|Collection red_bag_total_num(string $label = null)
      * @method Grid\Column|Collection openid(string $label = null)
      * @method Grid\Column|Collection email_verified_at(string $label = null)
      * @method Grid\Column|Collection is_A(string $label = null)
@@ -287,6 +298,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection time_login(string $label = null)
      * @method Grid\Column|Collection address(string $label = null)
      * @method Grid\Column|Collection nick_name(string $label = null)
+     * @method Grid\Column|Collection is_real(string $label = null)
      * @method Grid\Column|Collection A_user_id(string $label = null)
      * @method Grid\Column|Collection parent_user_id(string $label = null)
      * @method Grid\Column|Collection invited_user_id(string $label = null)
@@ -424,6 +436,11 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection failed_at
      * @property Show\Field|Collection email
      * @property Show\Field|Collection token
+     * @property Show\Field|Collection share_user_id
+     * @property Show\Field|Collection sign_num
+     * @property Show\Field|Collection pay_total_num
+     * @property Show\Field|Collection red_bag_num
+     * @property Show\Field|Collection red_bag_total_num
      * @property Show\Field|Collection openid
      * @property Show\Field|Collection email_verified_at
      * @property Show\Field|Collection is_A
@@ -435,6 +452,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection time_login
      * @property Show\Field|Collection address
      * @property Show\Field|Collection nick_name
+     * @property Show\Field|Collection is_real
      * @property Show\Field|Collection A_user_id
      * @property Show\Field|Collection parent_user_id
      * @property Show\Field|Collection invited_user_id
@@ -567,6 +585,11 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection failed_at(string $label = null)
      * @method Show\Field|Collection email(string $label = null)
      * @method Show\Field|Collection token(string $label = null)
+     * @method Show\Field|Collection share_user_id(string $label = null)
+     * @method Show\Field|Collection sign_num(string $label = null)
+     * @method Show\Field|Collection pay_total_num(string $label = null)
+     * @method Show\Field|Collection red_bag_num(string $label = null)
+     * @method Show\Field|Collection red_bag_total_num(string $label = null)
      * @method Show\Field|Collection openid(string $label = null)
      * @method Show\Field|Collection email_verified_at(string $label = null)
      * @method Show\Field|Collection is_A(string $label = null)
@@ -578,6 +601,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection time_login(string $label = null)
      * @method Show\Field|Collection address(string $label = null)
      * @method Show\Field|Collection nick_name(string $label = null)
+     * @method Show\Field|Collection is_real(string $label = null)
      * @method Show\Field|Collection A_user_id(string $label = null)
      * @method Show\Field|Collection parent_user_id(string $label = null)
      * @method Show\Field|Collection invited_user_id(string $label = null)
