@@ -38,6 +38,8 @@ Route::group([
     $router->resource('share', 'ShareController');
     //潜在用户-成交线索
     $router->resource('user-view-count', 'UserViewCountController');
+    //机器人
+    $router->resource('robot', 'RobotController');
 
 
     $router->resource('setting', 'BasicSettingController');
