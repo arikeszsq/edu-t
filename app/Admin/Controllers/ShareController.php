@@ -22,8 +22,8 @@ class ShareController extends AdminController
             $grid->model()->orderBy('id','desc');
             $grid->column('id')->sortable();
 
-            $grid->column('shareUser.name', '传播人头像');
-            $grid->column('shareUser.name', '传播人昵称');
+            $grid->column('shareUser.avatar', '传播人头像')->image('','100%','40');
+            $grid->column('shareUser.nick_name', '传播人昵称');
             $grid->column('activity.title', '活动名称');
             $grid->column('share_num');
             $grid->column('sign_num');

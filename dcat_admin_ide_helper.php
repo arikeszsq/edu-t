@@ -159,6 +159,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection area
      * @property Grid\Column|Collection gap
      * @property Grid\Column|Collection add_new_address_status
+     * @property Grid\Column|Collection has_info
+     * @property Grid\Column|Collection has_sign
+     * @property Grid\Column|Collection view_num
+     * @property Grid\Column|Collection view_at
      *
      * @method Grid\Column|Collection id(string $label = null)
      * @method Grid\Column|Collection role(string $label = null)
@@ -308,6 +312,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection area(string $label = null)
      * @method Grid\Column|Collection gap(string $label = null)
      * @method Grid\Column|Collection add_new_address_status(string $label = null)
+     * @method Grid\Column|Collection has_info(string $label = null)
+     * @method Grid\Column|Collection has_sign(string $label = null)
+     * @method Grid\Column|Collection view_num(string $label = null)
+     * @method Grid\Column|Collection view_at(string $label = null)
      */
     class Grid {}
 
@@ -462,6 +470,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection area
      * @property Show\Field|Collection gap
      * @property Show\Field|Collection add_new_address_status
+     * @property Show\Field|Collection has_info
+     * @property Show\Field|Collection has_sign
+     * @property Show\Field|Collection view_num
+     * @property Show\Field|Collection view_at
      *
      * @method Show\Field|Collection id(string $label = null)
      * @method Show\Field|Collection role(string $label = null)
@@ -611,6 +623,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection area(string $label = null)
      * @method Show\Field|Collection gap(string $label = null)
      * @method Show\Field|Collection add_new_address_status(string $label = null)
+     * @method Show\Field|Collection has_info(string $label = null)
+     * @method Show\Field|Collection has_sign(string $label = null)
+     * @method Show\Field|Collection view_num(string $label = null)
+     * @method Show\Field|Collection view_at(string $label = null)
      */
     class Show {}
 

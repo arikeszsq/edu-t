@@ -36,6 +36,8 @@ Route::group([
     $router->resource('invite-log', 'UserActivityInviteController');
     //潜在客户-传播分享 [统计]
     $router->resource('share', 'ShareController');
+    //潜在用户-成交线索
+    $router->resource('user-view-count', 'UserViewCountController');
 
 
     $router->resource('setting', 'BasicSettingController');
