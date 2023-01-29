@@ -35,8 +35,6 @@ Page({
         nowDate:''
     },
 
-
-
     //切换视频时候设置视频暂停：整体思路data里面indexCurrent,默认值是第一个视频，当我们切换的时候，就会重新给一个id，更新indexCurrent，这样只要切换了就能暂停
     currentVideoPuase(index) {
         let curIdx = `video${index}`;//新的dom的id
@@ -140,6 +138,7 @@ Page({
                     nowDate: res.data.response.end_time
                 })
                 this.countTime();
+                app.backmusic(res.data.response.music_url);
             }
         });
     },

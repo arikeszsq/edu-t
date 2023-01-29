@@ -1,0 +1,47 @@
+
+.zsq{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(218, 186, 186);
+  padding-top:380rpx;
+}
+
+.logo{
+  height: 100px;
+}
+.logo_label{
+  margin-top: 20rpx;
+  font-size: 24rpx;
+}
+
+.label-text{
+  color: white;
+}
+
+.avatar-wrapper{
+  text-align: center;
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 25rpx;
+  border-radius: 50%;
+}
+
+.avatar{
+  width: 128rpx;
+  height: 128rpx;
+  /* 居中0 */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* 居中1 */
+}
+
+
+.nickname{
+  margin-top: 20rpx;
+  height: 50px;
+  text-align: center;
+}

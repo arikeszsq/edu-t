@@ -59,24 +59,14 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
         if (!$user) {
             $user = new User();
             $user->openid = $open_id;
-            $user->name = $this->filterEmoji($decryptedData['nickName']);
-            $user->avatar = $decryptedData['avatarUrl'];
-            $user->gender = $decryptedData['gender'];
-            $user->country = $decryptedData['country'];
-            $user->province = $decryptedData['province'];
-            $user->city = $decryptedData['city'];
+            /**下面信息已经拿不到了，被放弃了**/
+//            $user->name = $this->filterEmoji($decryptedData['nickName']);
+//            $user->avatar = $decryptedData['avatarUrl'];
+//            $user->gender = $decryptedData['gender'];
+//            $user->country = $decryptedData['country'];
+//            $user->province = $decryptedData['province'];
+//            $user->city = $decryptedData['city'];
         }
-//        $user = User::query()->firstOrCreate([
-//            'openid' => $decryptedData['openId'],
-//        ], [
-//            'openid' => $decryptedData['openId'],
-//            'name' => $this->filterEmoji($decryptedData['nickName']),
-//            'avatar' => $decryptedData['avatarUrl'],
-//            'gender' => $decryptedData['gender'],
-//            'country' => $decryptedData['country'],
-//            'province' => $decryptedData['province'],
-//            'city' => $decryptedData['city'],
-//        ]);
         $user->token = $user->generateToken();
         $user->save();
         return self::success($user)->withHeaders(['token' => $user->token]);
@@ -91,7 +81,6 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
                 return strlen($match[0]) >= 4 ? '' : $match[0];
             },
             $str);
-
         return $str;
     }
 }

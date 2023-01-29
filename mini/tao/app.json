@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/user/index",
         "pages/activity/one/index",
         "pages/activity/many/index",
         "pages/activity/group/index",

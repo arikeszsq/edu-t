@@ -6,6 +6,7 @@ use App\Exceptions\ObjectNotExistException;
 use App\Http\Traits\ImageTrait;
 use App\Models\Activity;
 use App\Models\ActivityGroup;
+use App\Models\ActivityMusic;
 use App\Models\ActivitySignCom;
 use App\Models\ActivitySignUser;
 use App\Models\Award;
@@ -103,6 +104,10 @@ class ActivityService
     {
         $data = [];
         $activity = $this->getActivityById($id);
+
+        $music = ActivityMusic::query()->find($activity->music_id);
+        $data['music_url'] = $this->fullImgUrl($music->file);
+
         $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
         $data['title'] = $activity->title;
         $data['description'] = $activity->description;
@@ -155,6 +160,10 @@ class ActivityService
     {
         $data = [];
         $activity = $this->getActivityById($id);
+
+        $music = ActivityMusic::query()->find($activity->music_id);
+        $data['music_url'] = $this->fullImgUrl($music->file);
+
         $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
         $data['title'] = $activity->title;
         $data['description'] = $activity->description;

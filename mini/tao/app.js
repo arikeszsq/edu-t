@@ -58,7 +58,7 @@ App({
         hasUserInfo: false,
         apiDomain: 'http://edu.com.me/api', //生产：https://zsq.a-poor.com/api
         defaultDailyFreeParseNum: 10,
-        type:1,//开团类型必填：1开团 2单独购买
+        type: 1,//开团类型必填：1开团 2单独购买
         activity_id: 2,
         share_user_id: 0,
         //选课得信息
@@ -175,16 +175,25 @@ App({
     },
     toManyGroupList() {
         wx.setStorageSync('activity_type', 2);//活动类型 :1单商家，2多商家
-        wx.setStorageSync('buy_method',2);//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
+        wx.setStorageSync('buy_method', 2);//购买方式 1 表示直接购买，购买方式 2，参团购买，这里是开团，参团的话，直接跳转到团列表页选择团
         wx.navigateTo({
             url: "/pages/activity/group/index",
         })
     },
-    toCursePage(){
+    toCursePage() {
         wx.navigateTo({
             url: '/pages/course/course',
         })
-    }
-
-
+    },
+    //  音乐播放函数
+    backmusic: function (music_url) {
+        player();
+        function player() {
+            back.title = "背景音乐";   // 必须要有一个title
+            back.src = music_url;
+            back.onEnded(() => {
+                player();  // 音乐循环播放
+            })
+        }
+    },
 })

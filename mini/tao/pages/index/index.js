@@ -8,7 +8,7 @@ Page({
     onLoad(query) {
 
         // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
-        const scene = decodeURIComponent(query.scene)
+        const scene = decodeURIComponent(query.scene);
         if (scene !== 'undefined') {
             console.log(scene);
             var res = scene.split(',');
@@ -69,16 +69,19 @@ Page({
         var id = event.currentTarget.dataset.id;
         var one = event.currentTarget.dataset.one;
         //设置全局异步缓存activity_id
-        wx.setStorageSync('activity_id', id)
-        if (one === 1) {
-            wx.redirectTo({
-                url: '../activity/one/index?id=' + id
-            });
-        } else {
-            wx.redirectTo({
-                url: '../activity/many/index?id=' + id
-            });
-        }
+        wx.setStorageSync('activity_id', id);
+        this.userInfoToDetail(one, id);
+
+
+        // if (one === 1) {
+        //     wx.redirectTo({
+        //         url: '../activity/one/index?id=' + id
+        //     });
+        // } else {
+        //     wx.redirectTo({
+        //         url: '../activity/many/index?id=' + id
+        //     });
+        // }
     },
 
     toActivityDetail: function (id) {
@@ -88,13 +91,31 @@ Page({
             data: {},
             success: res => {
                 var type = res.data.response;
+                this.userInfoToDetail(type, id);
+            }
+        });
+    },
+
+    userInfoToDetail: function (type, id) {
+        app.apiRequest({
+            url: '/user/info',
+            method: 'get',
+            data: {},
+            success: res => {
+                console.log(res);
+                var avatar = res.data.response.avatar;
                 if (type === 1) {
+                    wx.setStorageSync('activity_url', '../activity/one/index?id=' + id);
+                } else {
+                    wx.setStorageSync('activity_url', '../activity/many/index?id=' + id);
+                }
+                if (!avatar) {
                     wx.redirectTo({
-                        url: '../activity/one/index?id=' + id
+                        url: '../user/index'
                     });
                 } else {
                     wx.redirectTo({
-                        url: '../activity/many/index?id=' + id
+                        url: wx.getStorageSync('activity_url')
                     });
                 }
             }

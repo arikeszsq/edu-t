@@ -46,10 +46,10 @@ class UserController extends Controller
                 'is_A' => $user->is_A,
                 'address' => $user->address,
                 'map_points' => $user->map_points,
-                'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
-                'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
-                    ->where('has_pay', 1)->count(),
-                'current_stay_money' => ($this->getAllMoney($user_id)) - ($this->historyCashOutTotalMoney($user_id)),
+//                'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
+//                'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
+//                    ->where('has_pay', 1)->count(),
+//                'current_stay_money' => ($this->getAllMoney($user_id)) - ($this->historyCashOutTotalMoney($user_id)),
             ];
             return self::success($data);
         } catch (Exception $e) {
@@ -95,6 +95,13 @@ class UserController extends Controller
             if (isset($inputs['address']) && $inputs['address']) {
                 $user->address = $inputs['address'];
             }
+            if (isset($inputs['nickname']) && $inputs['nickname']) {
+                $user->nick_name = $inputs['nickname'];
+            }
+            if (isset($inputs['avatarUrl']) && $inputs['avatarUrl']) {
+                $user->avatar = $inputs['avatarUrl'];
+            }
+            $user->updated_at = date('Y-m-d H:i:s', time());
             $user->save();
             return self::success($user);
         } catch (Exception $e) {

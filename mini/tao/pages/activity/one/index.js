@@ -106,6 +106,7 @@ Page({
                     nowDate: res.data.response.end_time
                 })
                 this.countTime();
+                app.backmusic(res.data.response.music_url);
             }
         });
     },

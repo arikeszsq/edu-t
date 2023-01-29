@@ -1,0 +1,17 @@
+<view class="zsq">
+
+  <label class="logo_label">点击上传头像</label>
+  <view class="logo">
+    <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar" src="{{avatarUrl}}"></image>
+    </button>
+  </view>
+
+  <view class="nickname">
+    <input bindinput="userNameInputAction" type="nickname" class="weui-input" placeholder="点击确定您的昵称"/>
+  </view>
+
+  <view class="nickname">
+    <button class="mini-btn" type="primary" size="mini" bindtap="submit">提交</button>
+  </view>
+</view>
