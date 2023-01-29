@@ -49,7 +49,15 @@ class ActivityMusicController extends AdminController
         return Form::make(new ActivityMusic(), function (Form $form) {
             $form->display('id');
             $form->text('name')->required();
-            $form->file('file')->autoUpload()->required()->accept('MP3,AAC,Ogg Vorbis,Opus,WAV,FLAC,APE,ALAC,WavPack,mp3');
+
+            ini_set('memory_limit', '-1');
+            ini_set('max_execution_time', '0');
+            $form->file('file')->autoUpload()
+                ->chunkSize(1024)
+                ->maxSize(1024*100)
+                ->threads(5)
+                ->required()
+                ->accept('MP3,AAC,Ogg Vorbis,Opus,WAV,FLAC,APE,ALAC,WavPack,mp3');
         });
     }
 }

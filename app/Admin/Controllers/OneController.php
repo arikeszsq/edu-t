@@ -132,7 +132,7 @@ class OneController extends ActivityController
 
             $form->hidden('is_many');
             $form->saving(function (Form $form) {
-                $form->is_many = Activity::is_many_多商家;
+                $form->is_many = Activity::is_many_单商家;
             });
 
             $form->tools(function (Form\Tools $tools) {
