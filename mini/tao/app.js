@@ -187,12 +187,12 @@ App({
     },
     //  音乐播放函数
     backmusic: function (music_url) {
-        player();
-        function player() {
+        player(wx.getBackgroundAudioManager());
+        function player(back) {
             back.title = "背景音乐";   // 必须要有一个title
             back.src = music_url;
             back.onEnded(() => {
-                player();  // 音乐循环播放
+                player(wx.getBackgroundAudioManager());  // 音乐循环播放
             })
         }
     },
