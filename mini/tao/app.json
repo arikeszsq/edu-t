@@ -33,5 +33,6 @@
     },
     "requiredPrivateInfos": [
         "chooseLocation"
-    ]
+    ],
+    "requiredBackgroundModes": ["audio", "location"]
 }

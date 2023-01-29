@@ -107,7 +107,7 @@ class ManyController extends ActivityController
     {
         return Form::make(new Activity(), function (Form $form) {
             $form->display('id');
-            $form->multipleImage('bg_banner', '轮播图')->required()->autoUpload();
+            $form->multipleImage('bg_banner', '轮播图')->required()->saveFullUrl()->autoUpload();
             $form->text('title', '活动名称')->required();
             $form->text('description', '活动描述')->required();
             $form->datetime('start_time', '活动开始时间')->required();
@@ -125,7 +125,7 @@ class ManyController extends ActivityController
             $form->image('share_bg', '分享海报背景图')->autoUpload();
             $form->image('mini_bg', '小程序封面')->autoUpload();
             $form->image('mini_over_bg', '小程序结束图')->autoUpload();
-            $form->multipleImage('content', '活动的详情图片')->sortable()->autoUpload();
+            $form->multipleImage('content', '活动的详情图片')->sortable()->saveFullUrl()->autoUpload();
             $form->display('created_at');
             $form->display('updated_at');
 
