@@ -57,6 +57,7 @@ class ActivityMusicController extends AdminController
                 ->maxSize(1024*100)
                 ->threads(5)
                 ->required()
+                ->saveFullUrl()
                 ->accept('MP3,AAC,Ogg Vorbis,Opus,WAV,FLAC,APE,ALAC,WavPack,mp3');
         });
     }

@@ -106,7 +106,7 @@ class ActivityService
         $activity = $this->getActivityById($id);
 
         $music = ActivityMusic::query()->find($activity->music_id);
-        $data['music_url'] = $this->fullImgUrl($music->file);
+        $data['music_url'] = $music->file;
 
         $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
         $data['title'] = $activity->title;
@@ -162,7 +162,7 @@ class ActivityService
         $activity = $this->getActivityById($id);
 
         $music = ActivityMusic::query()->find($activity->music_id);
-        $data['music_url'] = $this->fullImgUrl($music->file);
+        $data['music_url'] = $music->file;
 
         $data['bg_banner'] = $this->fullImgUrl($activity->bg_banner);
         $data['title'] = $activity->title;
