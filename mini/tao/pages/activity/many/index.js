@@ -32,7 +32,13 @@ Page({
         videoIndex: 0,
         //当前播放的视频
         indexCurrent: "video1",
-        nowDate:''
+        nowDate:'',
+        imgUrls: [
+        ],
+        indicatorDots: true,
+        autoplay: true,
+        interval: 3000,
+        duration: 1000
     },
 
     //切换视频时候设置视频暂停：整体思路data里面indexCurrent,默认值是第一个视频，当我们切换的时候，就会重新给一个id，更新indexCurrent，这样只要切换了就能暂停
@@ -135,7 +141,8 @@ Page({
                     oriPrice: util.cutZero(res.data.response.ori_price),
                     realPrice: util.cutZero(res.data.response.real_price),
                     oriPriceAfter: res.data.response.ori_price_after,
-                    nowDate: res.data.response.end_time
+                    nowDate: res.data.response.end_time,
+                    imgUrls: JSON.parse(res.data.response.bg_banner)
                 })
                 this.countTime();
                 app.backmusic(res.data.response.music_url);

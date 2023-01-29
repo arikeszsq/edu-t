@@ -1,3 +1,14 @@
+/* pages/activity/one/index.wxss */
+.slide-image {
+    width: 750rpx;
+    height: 750rpx;
+}
+
+.banner_div {
+    height: 750rpx;
+    width: 750rpx;
+}
+
 .index-container {
     position: relative;
 }
@@ -15,6 +26,7 @@
     overflow: hidden;
     height: 160rpx;
 }
+
 /* banner */
 
 .banner-container {
@@ -328,7 +340,7 @@
     border-radius: 8rpx;
     margin-right: 8rpx;
     margin-left: 8rpx;
-    padding:0 4rpx;
+    padding: 0 4rpx;
 }
 
 .settime .nei {
@@ -462,6 +474,7 @@
     flex-grow: 1;
     text-align: right;
 }
+
 .separate {
-     margin-bottom: 0rpx;
+    margin-bottom: 0rpx;
 }

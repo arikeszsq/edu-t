@@ -1,7 +1,13 @@
 <view class="index-container">
     <!-- banner -->
     <view class="banner-container">
-        <image src="{{bannerInfo}}" class="banner" mode="scaleToFill"></image>
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="banner_div">
+            <block wx:for="{{imgUrls}}" wx:key="*this">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
         <view class="price-container">
             <view class="middle-content">
                 <text class="price danger">
