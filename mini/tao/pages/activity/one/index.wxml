@@ -2,7 +2,16 @@
 <view class="one-container">
     <!-- banner -->
     <view class="banner-container">
-        <image class="banner-image" src="{{info.bg_banner}}"></image>
+        <!-- <image class="banner-image" src="{{info.bg_banner}}"></image> -->
+
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="banner_div">
+            <block wx:for="{{imgUrls}}" wx:key="*this">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
+
         <view class="banner-desc middle-content">
             <view class="title">{{info.title}}</view>
             <view class="box banner-container-desc">

@@ -1,5 +1,14 @@
 /* pages/activity/one/index.wxss */
+.slide-image{
+    width: 750rpx;
+    height:750rpx;
+  }
 
+  .banner_div{
+    height:750rpx;
+    width: 750rpx;
+  }
+  
 .banner-image {
     width: 750rpx;
     height: 750rpx;

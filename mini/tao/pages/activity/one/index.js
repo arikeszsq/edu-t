@@ -17,7 +17,13 @@ Page({
         info1: '',
         info2: '',
         name: '',
-        phoneNum: ''
+        phoneNum: '',
+        imgUrls: [
+        ],
+        indicatorDots: true,
+        autoplay: true,
+        interval: 3000,
+        duration: 1000
     },
 
     doPay(e) {
@@ -31,43 +37,42 @@ Page({
             this.setData({
                 isShowDislogue: false
             }),
-            wx.showToast({
-                title: '加载中',
-                icon:'loading', //图标，支持"success"、"loading"
-              }),
-            //信息完整发起支付
-            app.apiRequest({
-                url: '/pay/pay',
-                method: 'post',
-                data: {
-                    'activity_id': activity_id,
-                    'type': 1,//1开团 2单独购买
-                    'sign_name': name,
-                    'sign_mobile': mobile,
-                    'info_one': info1,
-                    'info_two': info2
-                },
-                success: res => {
-                    wx.requestPayment({
-                        timeStamp: res.data.response.timeStamp,
-                        nonceStr: res.data.response.nonceStr,
-                        package: res.data.response.package,
-                        signType: res.data.response.signType,
-                        paySign: res.data.response.paySign,
-                        success(res) {
-                            wx.navigateTo({
-                                url: "/pages/myOrder/myOrder",
-                    
-                            });
-                            console.log('支付成功')
-                        },
-                        fail(res) {
-                            console.log('支付失败')
-                        }
-                    })
+                wx.showToast({
+                    title: '加载中',
+                    icon: 'loading', //图标，支持"success"、"loading"
+                }),
+                //信息完整发起支付
+                app.apiRequest({
+                    url: '/pay/pay',
+                    method: 'post',
+                    data: {
+                        'activity_id': activity_id,
+                        'type': 1,//1开团 2单独购买
+                        'sign_name': name,
+                        'sign_mobile': mobile,
+                        'info_one': info1,
+                        'info_two': info2
+                    },
+                    success: res => {
+                        wx.requestPayment({
+                            timeStamp: res.data.response.timeStamp,
+                            nonceStr: res.data.response.nonceStr,
+                            package: res.data.response.package,
+                            signType: res.data.response.signType,
+                            paySign: res.data.response.paySign,
+                            success(res) {
+                                wx.navigateTo({
+                                    url: "/pages/myOrder/myOrder",
+                                });
+                                console.log('支付成功')
+                            },
+                            fail(res) {
+                                console.log('支付失败')
+                            }
+                        })
 
-                }
-            });
+                    }
+                });
         } else {
             wx.showToast({
                 title: '请填完整信息',
@@ -94,16 +99,16 @@ Page({
 
     //info数据的获取
     getActivityDetail: function (activity_id) {
+        var that = this;
         app.apiRequest({
             url: '/activity/detail/' + activity_id,
             method: 'get',
-            data: {
-            },
+            data: {},
             success: res => {
-                var that = this;
                 that.setData({
                     info: res.data.response,
-                    nowDate: res.data.response.end_time
+                    nowDate: res.data.response.end_time,
+                    imgUrls: JSON.parse(res.data.response.bg_banner)
                 })
                 this.countTime();
                 app.backmusic(res.data.response.music_url);
@@ -115,8 +120,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(wx.getStorageSync('activity_id'),'activity_id')
-        
         this.getActivityDetail(wx.getStorageSync('activity_id'));
     },
     handletoCourseOne() {
@@ -125,7 +128,6 @@ Page({
         wx.navigateTo({
             url: "/pages/activity/group/index",
         })
-
     },
     handletoCourseTwo() {
         this.setData({
