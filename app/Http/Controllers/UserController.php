@@ -37,6 +37,7 @@ class UserController extends Controller
         $user = User::query()->find($user_id);
         try {
             $data = [
+                'id' => $user->id,
                 'name' => $user->name,
                 'avatar' => $user->avatar,
                 'gender' => $user->gender,
@@ -157,5 +158,29 @@ class UserController extends Controller
         ];
         $id = UserApplyCashOut::query()->insertGetId($data);
         return self::success($id);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     * 小程序转发时，获取活动名，转发图，转发人等信息
+     */
+    public function shareInfo(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        $inputs['uid'] = $user_id;
+        $user = User::query()->find($user_id);
+        $activity = Activity::query()->find($inputs['activity_id']);
+        try {
+            $data = [
+                'user_id' => $user->id,
+                'bg' => $activity->mini_bg,
+                'title' => $activity->title
+            ];
+            return self::success($data);
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
     }
 }

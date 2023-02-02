@@ -80,6 +80,7 @@ Route::prefix('/pay')->group(function () {
 
 Route::prefix('/user')->group(function () {
     Route::any('/info', 'UserController@info');
+    Route::any('/share-info', 'UserController@shareInfo');
     Route::any('/update', 'UserController@update');
     Route::any('/set-a', 'UserController@setA');
     Route::any('/get-invite-pic', 'UserController@getInvitePic');

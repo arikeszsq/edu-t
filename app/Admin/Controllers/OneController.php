@@ -124,7 +124,7 @@ class OneController extends ActivityController
             $form->number('vr_view', '虚拟浏览量')->required();
             $form->number('vr_share', '虚拟分享量')->required();
             $form->image('share_bg', '分享海报背景图')->autoUpload();
-            $form->image('mini_bg', '小程序封面')->autoUpload();
+            $form->image('mini_bg', '小程序封面')->autoUpload()->saveFullUrl();
             $form->image('mini_over_bg', '小程序结束图')->autoUpload();
             $form->multipleImage('content', '活动的详情图片')->sortable()->saveFullUrl()->autoUpload();
             $form->display('created_at');
