@@ -207,9 +207,19 @@
                     </swiper-item>
                 </swiper>
             </view>
-
-
         </view>
+    </view>
+
+    <view class="createActivity">
+        <navigator url="/pages/activity/createActivity/index" class="text-act">
+            <view>我要</view>
+            <view>做活动</view>
+        </navigator>
+    </view>
+    <view class="complaint">
+        <navigator url="/pages/complaint/index" class="complaint_text_act">
+            <view>投诉</view>
+        </navigator>
     </view>
 
     <!-- 底部空白区 -->

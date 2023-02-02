@@ -446,3 +446,25 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* 投诉*/
+.complaint {
+    position: fixed;
+    width: 96rpx;
+    height:96rpx;
+    bottom: 140rpx;
+    left: 30rpx;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 24rpx;
+    background-color: #91c5b1;
+    border:12rpx solid #ffe0c4;
+    text-align: center;
+}
+
+.complaint_text_act{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+}

@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/complaint/index",
         "pages/user/index",
         "pages/activity/one/index",
         "pages/activity/many/index",
@@ -15,8 +16,8 @@
         "pages/position/position",
         "pages/checkSchool/checkSchool",
         "pages/list/list",
-        "pages/logs/logs",
-        "pages/myProfit/myProfit"
+        "pages/myProfit/myProfit",
+        "pages/logs/logs"
     ],
     "window": {
         "backgroundTextStyle": "dark",

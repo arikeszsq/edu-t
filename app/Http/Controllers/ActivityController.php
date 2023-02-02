@@ -216,5 +216,24 @@ class ActivityController extends Controller
         }
     }
 
+    public function complaint(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        try {
+            $data = [
+                'activity_id' => $inputs['activity_id'],
+                'type' => $inputs['type'],
+                'content' => $inputs['content'],
+                'mobile' => $inputs['mobile'],
+                'created_at' => Carbon::now(),
+                'user_id' => $user_id
+            ];
+            $ret = DB::table('complaint')->insert($data);
+            return self::success($ret);
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
 
 }

@@ -27,6 +27,7 @@ Route::prefix('/activity')->group(function () {
 Route::prefix('/basic')->group(function () {
     Route::any('/settings', 'BasicController@settings');
     Route::any('/kf/{id}', 'BasicController@kflist');
+    Route::any('/kf', 'BasicController@kflist');
 });
 
 //以下接口，需要登录
@@ -37,6 +38,7 @@ Route::prefix('/activity')->group(function () {
     Route::any('/detail/{id}', 'ActivityController@detail');
     Route::any('/invite-user', 'ActivityController@inviteUser');
     Route::any('/web-create', 'ActivityController@webCreate');
+    Route::any('/complaint', 'ActivityController@complaint');
 });
 
 Route::prefix('/group')->group(function () {

@@ -1,9 +1,6 @@
 <!--pages/activity/one/index.wxml-->
 <view class="one-container">
-    <!-- banner -->
     <view class="banner-container">
-        <!-- <image class="banner-image" src="{{info.bg_banner}}"></image> -->
-
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="banner_div">
             <block wx:for="{{imgUrls}}" wx:key="*this">
                 <swiper-item>
@@ -25,8 +22,6 @@
                     <image src="../../../images/one/xuanfuchuang@2x.png"></image>
                 </view>
             </view>
-
-
         </view>
     </view>
     <view class="gray-block"></view>
@@ -59,7 +54,6 @@
             </view>
             <view class="list-container">
                 <!-- 循环位置 -->
-
                 <view class="item box align-center" wx:for="{{info.pay_group_list}}" wx:key="index">
                     <image src="{{item.avatar}}"></image>
                     <view class="center">
@@ -71,7 +65,6 @@
                         <view class="desc gray">成功支付<text class="primary">{{info.real_price}}元</text></view>
                     </view>
                 </view>
-
             </view>
         </view>
         <view class="common container-two">
@@ -123,10 +116,7 @@
         </view>
         <view class="jiange"></view>
     </view>
-
     <ServiceOne bindtoCourseOne="handletoCourseOne" bindtoCourseTwo="handletoCourseTwo"></ServiceOne>
-
-
     <view class="dislogue-group-bj {{isShowDislogue?'show-dislogue':''}}">
         <form bindsubmit="doPay">
             <view class="dislogue-group">
@@ -163,6 +153,11 @@
         <navigator url="/pages/activity/createActivity/index" class="text-act">
             <view>我要</view>
             <view>做活动</view>
+        </navigator>
+    </view>
+    <view class="complaint">
+        <navigator url="/pages/complaint/index" class="complaint_text_act">
+            <view>投诉</view>
         </navigator>
     </view>
 
