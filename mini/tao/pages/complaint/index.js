@@ -92,8 +92,11 @@ Page({
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload() {
-
+    onUnload: function () {
+        let activity_url = wx.getStorageSync('activity_url');
+        wx.reLaunch({
+            url: activity_url,
+        })
     },
 
     /**

@@ -21,15 +21,15 @@ Page({
 
         })
     },
- 
-    toMyProfit() { 
+
+    toMyProfit() {
         wx.setStorageSync('log_type', 2);//2 我的收益
         wx.navigateTo({
             url: "/pages/myProfit/myProfit",
         })
     },
 
-    toInviteLog() { 
+    toInviteLog() {
         wx.setStorageSync('log_type', 1);//1 邀请用户记录
         wx.navigateTo({
             url: "/pages/myProfit/myProfit",
@@ -37,7 +37,7 @@ Page({
     },
 
 
-    toAgreement(){
+    toAgreement() {
         wx.navigateTo({
             url: "/pages/Agreement/Agreement",
         })
@@ -46,6 +46,12 @@ Page({
 
     onLoad: function (options) {
         this.getUserInfo();
+    },
+    onUnload: function () {
+        let activity_url = wx.getStorageSync('activity_url');
+        wx.reLaunch({
+            url: activity_url,
+        })
     },
     getUserInfo: function () {
         app.apiRequest({
