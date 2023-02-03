@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\ActivityService;
 use App\Models\Share;
+use App\Models\UserViewCount;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -165,6 +166,8 @@ class ActivityController extends Controller
                 'created_at' => Carbon::now()
             ];
             $ret = DB::table('activity_view_log')->insert($data);
+            UserViewCount::addViewLog($inputs['activity_id'],$user_id,$inputs['share_user_id']);
+
             return self::success($ret);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());

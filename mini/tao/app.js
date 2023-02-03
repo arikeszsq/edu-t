@@ -203,7 +203,8 @@ App({
             url: '/activity/view',
             method: 'get',
             data: {
-                'activity_id': wx.getStorageSync('activity_id')
+                'activity_id': wx.getStorageSync('activity_id'),
+                'share_user_id':wx.getStorageSync('share_user_id')
             },
             success: res => {
             }
