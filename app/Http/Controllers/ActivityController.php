@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Services\ActivityService;
+use App\Models\Share;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -230,6 +231,34 @@ class ActivityController extends Controller
                 'user_id' => $user_id
             ];
             $ret = DB::table('complaint')->insert($data);
+            return self::success($ret);
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
+    public function addShareNum(Request $request)
+    {
+        $inputs = $request->all();
+        $user_id = self::authUserId();
+        try {
+            $share = Share::query()->where('activity_id', $inputs['activity_id'])
+                ->where('share_user_id', $user_id)
+                ->first();
+            if ($share) {
+                $ret = Share::query()->where('id', $share->id)->update([
+                    'share_num' => $share->share_num + 1,
+                    'updated_at' => Carbon::now()
+                ]);
+            } else {
+                $ret = Share::query()->insert([
+                    'activity_id' => $inputs['activity_id'],
+                    'share_user_id' => $user_id,
+                    'share_num' => 1,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
             return self::success($ret);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());

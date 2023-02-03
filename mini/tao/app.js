@@ -231,11 +231,25 @@ App({
     },
 
     newShareObj: function (options) {
+        this.addShareNum();
         var shareObj = {
             title: wx.getStorageSync('share_title'),    // 默认是小程序的名称(可以写slogan等)
             path: wx.getStorageSync('share_url'),    // 默认是当前页面，必须是以‘/'开头的完整路径
             imageUrl: wx.getStorageSync('share_imageUrl'),//自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
         }
         return shareObj;
-    }
+    },
+    
+    // 增加分享次数
+    addShareNum() {
+        this.apiRequest({
+            url: '/activity/add-share-num',
+            method: 'post',
+            data: {
+                'activity_id': wx.getStorageSync('activity_id')
+            },
+            success: res => {
+            }
+        });
+    },
 })
