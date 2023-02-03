@@ -8,6 +8,7 @@ use App\Http\Traits\ImageTrait;
 use App\Models\Company;
 use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
+use App\Models\CompanyCourseType;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class CourseController extends Controller
      */
     public function typeLists()
     {
-        $data = CompanyCourse::Type_类型列表;
+        $data = CompanyCourseType::getListArray();
         $type = [];
         foreach ($data as $v) {
             $type[] = $v;

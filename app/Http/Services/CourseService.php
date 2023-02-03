@@ -7,6 +7,7 @@ use App\Http\Traits\ImageTrait;
 use App\Http\Traits\UserTrait;
 use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
+use App\Models\CompanyCourseType;
 use Illuminate\Support\Facades\DB;
 
 class CourseService
@@ -23,7 +24,7 @@ class CourseService
 //            "name" => "全部",
 //            "children" => $list['total']
 //        ];
-        $types = CompanyCourse::Type_类型列表;
+        $types = CompanyCourseType::getListArray();
         foreach ($types as $type_id => $type_name) {
             $data[] = [
                 "id" => ($type_id + 1),

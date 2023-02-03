@@ -8,6 +8,7 @@ use App\Admin\Actions\Grid\BatchSignNew;
 use App\Admin\Actions\Grid\RowSign;
 use App\Models\Company;
 use App\Models\CompanyCourse;
+use App\Models\CompanyCourseType;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -93,7 +94,7 @@ class CompanyController extends AdminController
 //            })->useTable()->label('校区')->required();
 
             $form->hasMany('courses', function (Form\NestedForm $form) {
-                $form->select('type')->options(CompanyCourse::Type_类型列表)->width(3);
+                $form->select('type')->options(CompanyCourseType::getListArray())->width(3);
                 $form->image('logo')->width(3);
                 $form->text('name')->width(3);
                 $form->decimal('price', '价格')->width(3);

@@ -28,6 +28,9 @@ Route::group([
 
 
     $router->resource('company', 'CompanyController');
+
+    $router->resource('company-course-type', 'CompanyCourseTypeController');
+
     $router->resource('company-child', 'CompanyChildController');
     $router->resource('award', 'AwardController');
     $router->resource('user-award', 'UserAwardController');
