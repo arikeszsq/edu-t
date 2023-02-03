@@ -85,17 +85,7 @@ Page({
         app.toOneGroupList();
     },
 
-    addViewNum() {
-        app.apiRequest({
-            url: '/activity/view',
-            method: 'get',
-            data: {
-                'activity_id': wx.getStorageSync('activity_id')
-            },
-            success: res => {
-            }
-        });
-    },
+
 
     //info数据的获取
     getActivityDetail: function (activity_id) {
@@ -181,27 +171,13 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-        this.addViewNum();
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-        wx.hideHomeButton();
+        
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
 
     },
 
@@ -219,10 +195,21 @@ Page({
 
     },
 
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
+    onShow() {
+        wx.hideHomeButton();
+        app.addViewNum();
+        app.setMiniProgramShareCache();
+    },
 
+    onUnload(){
+        let activity_url = wx.getStorageSync('activity_url');
+        wx.reLaunch({
+            url: activity_url,
+        })
+    },
+
+    onShareAppMessage: function (options) {
+        var shareObj = app.newShareObj(options);
+        return shareObj;
     }
 })

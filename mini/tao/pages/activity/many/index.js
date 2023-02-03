@@ -32,7 +32,7 @@ Page({
         videoIndex: 0,
         //当前播放的视频
         indexCurrent: "video1",
-        nowDate:'',
+        nowDate: '',
         imgUrls: [
         ],
         indicatorDots: true,
@@ -181,39 +181,16 @@ Page({
         //     wx.setStorageSync(keyName, id);
         // }
         // var activity_id = wx.getStorageSync(keyName);
-        this.getActivityDetail( wx.getStorageSync('activity_id'));
+        this.getActivityDetail(wx.getStorageSync('activity_id'));
         this.getHomeAdress();//初始化家的位置
         //加载页面时候就计算swiper
         this.setSwiperHeight(".timu_list0")
     },
 
     /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-        wx.hideHomeButton();
-        //增加浏览数
-        this.addViewNum();
-    },
-
-    //初始化时，获取家的位置
-    addViewNum() {
-        app.apiRequest({
-            url: '/activity/view',
-            method: 'get',
-            data: {
-                'activity_id': wx.getStorageSync('activity_id')
-            },
-            success: res => {
-            }
-        });
-    },
-
-    /**
      * 生命周期函数--监听页面隐藏
      */
     onHide() {
-
     },
 
     /**
@@ -237,14 +214,7 @@ Page({
 
     },
 
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
 
-    },
-
-    
     countTime() {
         var that = this;
         var days, hours, minutes, seconds;
@@ -276,5 +246,27 @@ Page({
                 countdown: '已截止'
             })
         }
+    },
+
+    /**
+ * 生命周期函数--监听页面显示
+ */
+    onShow: function () {
+        wx.hideHomeButton();
+        //增加浏览数
+        app.addViewNum();
+        app.setMiniProgramShareCache();
+    },
+
+    onUnload() {
+        let activity_url = wx.getStorageSync('activity_url');
+        wx.reLaunch({
+            url: activity_url,
+        })
+    },
+
+    onShareAppMessage: function (options) {
+        var shareObj = app.newShareObj(options);
+        return shareObj;
     }
 })

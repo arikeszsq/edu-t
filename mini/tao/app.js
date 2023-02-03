@@ -196,4 +196,46 @@ App({
             })
         }
     },
+
+    // 增加浏览人数
+    addViewNum() {
+        this.apiRequest({
+            url: '/activity/view',
+            method: 'get',
+            data: {
+                'activity_id': wx.getStorageSync('activity_id')
+            },
+            success: res => {
+            }
+        });
+    },
+
+    setMiniProgramShareCache() {
+        let activity_id = wx.getStorageSync('activity_id') ? wx.getStorageSync('activity_id') : 2;
+        this.apiRequest({
+            url: '/user/share-info',
+            method: 'post',
+            data: {
+                'activity_id': activity_id
+            },
+            success: res => {
+                var user_id = res.data.response.user_id;
+                let share_url = 'pages/index/index?activity_id=' + activity_id + '&invite_user_id' + user_id;
+                let share_title = res.data.response.title;
+                let share_imageUrl = res.data.response.bg ? res.data.response.bg : '';
+                wx.setStorageSync('share_url', share_url);
+                wx.setStorageSync('share_title', share_title);
+                wx.setStorageSync('share_imageUrl', share_imageUrl);
+            }
+        });
+    },
+
+    newShareObj: function (options) {
+        var shareObj = {
+            title: wx.getStorageSync('share_title'),    // 默认是小程序的名称(可以写slogan等)
+            path: wx.getStorageSync('share_url'),    // 默认是当前页面，必须是以‘/'开头的完整路径
+            imageUrl: wx.getStorageSync('share_imageUrl'),//自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+        }
+        return shareObj;
+    }
 })

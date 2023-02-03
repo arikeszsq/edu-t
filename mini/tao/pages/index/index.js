@@ -6,6 +6,12 @@ Page({
         news: {}
     },
     onLoad(query) {
+        console.log(query);
+
+        var activity_id = query.activity_id;
+        if(activity_id){
+            this.toActivityDetail(activity_id);
+        }
 
         // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
         const scene = decodeURIComponent(query.scene);
@@ -26,18 +32,6 @@ Page({
                             title: '您已经成为A用户',
                             icon: 'success', //图标，支持"success"、"loading"
                         })
-                        //,
-                        // var type = res.data.response.type;
-                        // var id = res.data.response.activity_id;
-                        // if (type === 1) {
-                        //     wx.redirectTo({
-                        //         url: '../activity/one/index?id=' + id
-                        //     });
-                        // } else {
-                        //     wx.redirectTo({
-                        //         url: '../activity/many/index?id=' + id
-                        //     });
-                        // }
                     }
                 });
             } else {
@@ -61,7 +55,7 @@ Page({
                 this.toActivityDetail(activity_id);
             }
         }
-        console.log('no scene');
+        // console.log('no scene');
         this.getList();
     },
 
@@ -71,17 +65,6 @@ Page({
         //设置全局异步缓存activity_id
         wx.setStorageSync('activity_id', id);
         this.userInfoToDetail(one, id);
-
-
-        // if (one === 1) {
-        //     wx.redirectTo({
-        //         url: '../activity/one/index?id=' + id
-        //     });
-        // } else {
-        //     wx.redirectTo({
-        //         url: '../activity/many/index?id=' + id
-        //     });
-        // }
     },
 
     toActivityDetail: function (id) {
