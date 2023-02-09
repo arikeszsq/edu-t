@@ -154,26 +154,39 @@ class ActivityService
         }
         $data['pay_group_list'] = $pay_group_list;
 
-        $fields = ActivityFormField::query()->with('options')
-            ->where('activity_id',$id)
+        $fields = ActivityFormField::query()
+            ->with('options')
+            ->where('activity_id', $id)
+            ->where('type', 2)
             ->get();
-        $ret_field=[];
-        foreach ($fields as $field)
-        {
-            var_dump($field);exit;
+        $ret_field = [];
+        foreach ($fields as $field) {
             $type = $field->type;
-            if($type>1){
-
+            if ($type == 1) {
+                $ret_field[] = [
+                    'field_name' => $field->field_name,
+                    'field_en_name' => $field->field_en_name,
+                    'type' => $field->type,
+                ];
+            } else {
+                $options = [];
+                foreach ($field->options as $option) {
+                    $options[] = [
+                        'option_id' => $option->id,
+                        'option_title' => $option->name,
+                    ];
+                }
+                $ret_field[] = [
+                    'field_name' => $field->field_name,
+                    'field_en_name' => $field->field_en_name,
+                    'type' => $field->type,
+                    'options' => $options
+                ];
             }
-            $ret_field[]=[
-              'field_name'=>  $field->field_name,
-              'field_en_name'=>  $field->field_en_name,
-              'type'=>  $field->type,
-            ];
         }
 
-        $data['fields']=$ret_field;
-        return $ret_field;
+        $data['fields'] = $ret_field;
+        return $data;
 
     }
 
@@ -331,7 +344,7 @@ class ActivityService
             ->first();
         if ($first) {
             return [
-                'msg'=>'本活动用户已被邀请,无需重复邀请'
+                'msg' => '本活动用户已被邀请,无需重复邀请'
             ];
         }
         $a_user_id = User::getAUidByUid($inputs['parent_user_id']);

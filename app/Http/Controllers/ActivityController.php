@@ -100,35 +100,6 @@ class ActivityController extends Controller
     public function detail($id)
     {
         try {
-
-            $fields = ActivityFormField::query()
-                ->with('options')
-                ->where('activity_id',$id)
-                ->get();
-            $ret_field=[];
-            foreach ($fields as $field)
-            {
-                var_dump($field->options);exit;
-                $type = $field->type;
-                if($type==1){
-                    $ret_field[]=[
-                        'field_name'=>  $field->field_name,
-                        'field_en_name'=>  $field->field_en_name,
-                        'type'=>  $field->type,
-                    ];
-                }else{
-                    $ret_field[]=[
-                        'field_name'=>  $field->field_name,
-                        'field_en_name'=>  $field->field_en_name,
-                        'type'=>  $field->type,
-                        'options'=>0
-                    ];
-                }
-
-            }
-            var_dump($ret_field);exit;
-
-
             $detail = $this->activityService->detail($id);
             return self::success($detail);
         } catch (Exception $e) {
@@ -196,7 +167,7 @@ class ActivityController extends Controller
                 'created_at' => Carbon::now()
             ];
             $ret = DB::table('activity_view_log')->insert($data);
-            UserViewCount::addViewLog($inputs['activity_id'],$user_id,$inputs['share_user_id']);
+            UserViewCount::addViewLog($inputs['activity_id'], $user_id, $inputs['share_user_id']);
 
             return self::success($ret);
         } catch (Exception $e) {
