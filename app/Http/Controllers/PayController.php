@@ -128,18 +128,6 @@ class PayController extends Controller
             }
         }
 
-        if ($is_many == Activity::is_many_单商家) {
-            $validator3 = \Validator::make($inputs, [
-                'info_one' => 'required',
-                'info_two' => 'required',
-            ], [
-                'info_one.required' => '信息一必填',
-                'info_two.required' => '信息二必填',
-            ]);
-            if ($validator3->fails()) {
-                return self::parametersIllegal($validator3->messages()->first());
-            }
-        }
         $order_number = 'Or' . rand(1111, 9999) . '-' . date('Ymdhis') . '-' . $user_id;
         $inputs['order_num'] = $order_number;
 
@@ -152,6 +140,8 @@ class PayController extends Controller
         $inputs['money'] = $fee;
         // 新建订单
         $order_id = ActivitySignUser::createOrder($inputs);
+
+        var_dump($order_id);exit;
         if (!$order_id) {
             return self::error('10001', '创建订单失败');
         }

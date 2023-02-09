@@ -50,4 +50,10 @@ class Activity extends Model
         }
         return $options;
     }
+
+    public static function isManyById($id)
+    {
+        $activity = self::getActivityById($id);
+        return $activity->is_many;
+    }
 }

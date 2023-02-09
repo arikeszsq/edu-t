@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Activity;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\ActivitySignUserCourse;
@@ -14,7 +15,8 @@ use Dcat\Admin\Http\Controllers\AdminController;
 class OrderController extends ActivitySignUserController
 {
 
-    public $title='订单';
+    public $title = '订单';
+
     /**
      * Make a grid builder.
      *
@@ -22,11 +24,11 @@ class OrderController extends ActivitySignUserController
      */
     protected function grid()
     {
-        return Grid::make(ActivitySignUser::with(['activity','user']), function (Grid $grid) {
+        return Grid::make(ActivitySignUser::with(['activity', 'user']), function (Grid $grid) {
             $grid->model()->orderBy('id', 'desc');
 
             $grid->column('order_no', '订单编号');
-            $grid->column('user.avatar', '用户头像')->image('',50,50);
+            $grid->column('user.avatar', '用户头像')->image('', 50, 50);
             $grid->column('user.nick_name', '用户昵称');
             $grid->column('sign_name', '报名信息')->display(function ($sign_name) {
                 $sex = '';
@@ -46,8 +48,13 @@ class OrderController extends ActivitySignUserController
                 return $array[$role];
             });
             $grid->column('group_id', '团内人数')->display(function ($group_id) {
-               $group = ActivityGroup::getGroupById($group_id);
-               return $group->current_num;
+
+                $group = ActivityGroup::getGroupById($group_id);
+                if ($group) {
+                    return $group->current_num;
+                } else {
+                    return 0;
+                }
             });
             $grid->column('activity.title', '活动名称');
             $grid->column('activity.title', '商品名称');
@@ -55,7 +62,7 @@ class OrderController extends ActivitySignUserController
             $grid->column('status', '订单状态')->display(function ($status) {
                 return ActivitySignUser::Status_支付[$status];
             })->label([1 => 'danger', 2 => 'warning', 3 => 'success']);
-            $grid->column('created_at','下单时间');
+            $grid->column('created_at', '下单时间');
             $grid->column('refund_status', '退款状态');
             $grid->column('refund_time', '退款时间');
 
@@ -82,41 +89,63 @@ class OrderController extends ActivitySignUserController
      */
     protected function detail($id)
     {
-        return Show::make($id, ActivitySignUser::with(['activity','group','user']), function (Show $show) {
+        return Show::make($id, ActivitySignUser::with(['activity', 'group', 'user']), function (Show $show) use ($id) {
+
+            $order = ActivitySignUser::query()->find($id);
+            $is_many = Activity::isManyById($order->activity_id);
+
             $show->field('id');
-            $show->field('activity.title','活动名称');
-            $show->field('group.name','团名');
+            $show->field('activity.title', '活动名称');
+            $show->field('group.name', '团名');
             $show->field('role');
             $show->role('身份')->using([1 => '团长', 2 => '团员']);
-            $show->field('user.name','姓名');
+            $show->field('user.name', '姓名');
             $show->divider();
             $show->type('购买方式')->using([1 => '团购', 2 => '单独购买']);
-            $show->field('order_no','订单号');
-            $show->field('money','订单金额');
-            $show->has_pay('付款状态')->using([1 => '待支付', 2 => '支付取消',3=>'支付成功']);
-            $show->field('pay_time','付款时间');
+            $show->field('order_no', '订单号');
+            $show->field('money', '订单金额');
+            $show->has_pay('付款状态')->using([1 => '待支付', 2 => '支付取消', 3 => '支付成功']);
+            $show->field('pay_time', '付款时间');
             $show->divider();
-            $show->field('sign_name','报名人');
-            $show->field('sign_mobile','报名手机号');
+            $show->field('sign_name', '报名人');
+            $show->field('sign_mobile', '报名手机号');
             $show->divider();
-            $show->field('sign_age','报名人年龄');
-            $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
-            $show->field('info_one','信息一');
-            $show->field('info_two','信息二');
-            $show->relation('courses','课程信息', function ($model) {
-                $grid = new Grid(ActivitySignUserCourse::with(['school','course']));
-                $grid->model()->where('order_num', $model->order_no);
+            if ($is_many == Activity::is_many_多商家) {
+                $show->field('sign_age', '报名人年龄');
+                $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
+            }
+            if ($is_many == Activity::is_many_单商家) {
+                $show->field('info_one', '信息')->as(function ($info_one) {
+                    $lists = json_decode($info_one, true);
+                    $html = '';
+                    foreach ($lists as $key => $value) {
+                        if (is_array($value)) {
+                            $str = join('、', $value);
+                            $html .= $key . '：' . $str . '； ';
+                        } else {
+                            $html .= $key . '：' . $value . '； ';
+                        }
+                    }
+                    return $html;
+                });
+            }
+            if ($is_many == Activity::is_many_多商家) {
+                $show->relation('courses', '课程信息', function ($model) {
+                    $grid = new Grid(ActivitySignUserCourse::with(['school', 'course']));
+                    $grid->model()->where('order_num', $model->order_no);
 //                $grid->number();
 //                $grid->id();
-                $grid->column('school.name', '学校名称');
-                $grid->column('course.name', '课程名称');
-                $grid->filter(function ($filter) {
+                    $grid->column('school.name', '学校名称');
+                    $grid->column('course.name', '课程名称');
+                    $grid->filter(function ($filter) {
 //                    $filter->like('')->width('300px');
+                    });
+                    $grid->disableCreateButton();//禁用创建按钮
+                    $grid->disableActions();//禁用所有操作
+                    return $grid;
                 });
-                $grid->disableCreateButton();//禁用创建按钮
-                $grid->disableActions();//禁用所有操作
-                return $grid;
-            });
+            }
+
 //            $show->field('is_agree');
             $show->field('created_at');
             $show->field('updated_at');

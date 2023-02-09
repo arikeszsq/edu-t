@@ -137,23 +137,23 @@
                     <block wx:for="{{fields}}" wx:for-item="field">
                         <!-- 文本 -->
                         <view class="group-item-dis" wx:if="{{field.type==1}}">
-                            <input type="text" name="{{field.field_en_name}}" placeholder-class="placeholder-style" placeholder="请输入{{field.field_name}}" />
+                            <input type="text" name="{{field.field_name}}" placeholder-class="placeholder-style" placeholder="请输入{{field.field_name}}" />
                         </view>
                         <!-- 单选 -->
                         <view class="info" wx:if="{{field.type==2}}">
                             <view class="bt">{{field.field_name}}</view>
-                            <radio-group>
+                            <radio-group name="{{field.field_name}}">
                                 <block wx:for="{{field.options}}">
-                                    <radio name="{{field.field_en_name}}" value="{{item.option_id}}" />{{item.option_title}}
+                                    <radio value="{{item.option_title}}" />{{item.option_title}}
                                 </block>
                             </radio-group>
                         </view>
                         <!-- 多选 -->
                         <view class="info info2" wx:if="{{field.type==3}}">
                             <view class="bt">{{field.field_name}}</view>
-                            <checkbox-group>
+                            <checkbox-group name="{{field.field_name}}">
                                 <block wx:for="{{field.options}}">
-                                    <checkbox name="{{field.field_en_name}}" value="{{item.option_id}}" />
+                                    <checkbox value="{{item.option_title}}" />
                                     {{item.option_title}}
                                 </block>
                             </checkbox-group>

@@ -109,9 +109,11 @@ class ActivitySignUser extends Model
             self::createUserCourse($inputs);
             $order = ActivitySignUser::query()->insertGetId(array_merge($data, $data_many));
         } else {
+            $info = $inputs['info'];
+            unset($info['name']);
+            unset($info['phoneNum']);
             $data_one = [
-                'info_one' => isset($inputs['info_one']) && $inputs['info_one'] ? $inputs['info_one'] : '',
-                'info_two' => isset($inputs['info_two']) && $inputs['info_two'] ? $inputs['info_two'] : '',
+                'info_one' => json_encode($info),
             ];
             $order = ActivitySignUser::query()->insertGetId(array_merge($data, $data_one));
         }

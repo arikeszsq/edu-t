@@ -32,8 +32,7 @@ Page({
         var activity_id = wx.getStorageSync('activity_id');
         var name = e.detail.value.name;
         var mobile = e.detail.value.phoneNum;
-        var info1 = e.detail.value.info1;
-        var info2 = e.detail.value.info2;
+        var info = e.detail.value;
         if (name && mobile) {
             this.setData({
                 isShowDislogue: false
@@ -51,8 +50,7 @@ Page({
                         'type': 1,//1开团 2单独购买
                         'sign_name': name,
                         'sign_mobile': mobile,
-                        'info_one': info1,
-                        'info_two': info2
+                        'info': info,
                     },
                     success: res => {
                         wx.requestPayment({
