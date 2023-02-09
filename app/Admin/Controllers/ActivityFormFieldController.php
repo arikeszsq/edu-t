@@ -29,8 +29,8 @@ class ActivityFormFieldController extends AdminController
         }
 
         return Grid::make(new ActivityFormField(), function (Grid $grid) use ($activity_id) {
-            $grid->model()->where('activity_id', $activity_id);
-            $grid->column('id')->sortable();
+            $grid->model()->where('activity_id', $activity_id)->orderBy('sort','asc');
+            $grid->column('id')->bold()->sortable();
             $grid->column('field_name');
             $grid->column('type')->display(function ($type) {
                 $array = [
@@ -38,6 +38,9 @@ class ActivityFormFieldController extends AdminController
                 ];
                 return $array[$type];
             });
+
+            $grid->column('sort','排序')->orderable(); // 开启排序功能
+
             $grid->column('created_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
@@ -92,16 +95,23 @@ class ActivityFormFieldController extends AdminController
             return redirect('/admin/activity-one');
         }
 
-        return Form::make(new ActivityFormField(), function (Form $form) {
+        return Form::make(ActivityFormField::with(['options']), function (Form $form) {
             $form->display('id');
 
             $form->text('field_name')->required();
-            $form->select('type')->options([1 => '文本框', 2 => '单选框', 3 => '多选框'])->required();
-            $form->number('sort','排序');
 
-            $form->hasMany('options', function (Form\NestedForm $form) {
-                $form->text('name', '名称')->width(3);
-            })->label('选项列表')->required();
+            $form->radio('type')
+                ->options([
+                    1 => '文本框',
+                    2 => '单选框',
+                    3 => '多选框'
+                ])->default(1)
+                ->required()
+                ->when([2, 3], function (Form $form) {
+                    $form->hasMany('options', function (Form\NestedForm $form) {
+                        $form->text('name', '名称');
+                    })->label('选项列表');
+                });
 
             $form->display('created_at');
             $form->display('updated_at');

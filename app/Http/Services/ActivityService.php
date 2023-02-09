@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Exceptions\ObjectNotExistException;
 use App\Http\Traits\ImageTrait;
 use App\Models\Activity;
+use App\Models\ActivityFormField;
 use App\Models\ActivityGroup;
 use App\Models\ActivityMusic;
 use App\Models\ActivitySignCom;
@@ -152,7 +153,27 @@ class ActivityService
             }
         }
         $data['pay_group_list'] = $pay_group_list;
-        return $data;
+
+        $fields = ActivityFormField::query()->with('options')
+            ->where('activity_id',$id)
+            ->get();
+        $ret_field=[];
+        foreach ($fields as $field)
+        {
+            var_dump($field);exit;
+            $type = $field->type;
+            if($type>1){
+
+            }
+            $ret_field[]=[
+              'field_name'=>  $field->field_name,
+              'field_en_name'=>  $field->field_en_name,
+              'type'=>  $field->type,
+            ];
+        }
+
+        $data['fields']=$ret_field;
+        return $ret_field;
 
     }
 
