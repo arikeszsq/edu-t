@@ -6,67 +6,18 @@ Page({
      * 页面的初始数据
      */
     data: {
+        fields:[],
         name: "",
         phoneNum: "",
         //第一个下拉选框
-        conditionList: [{
-            title: '选项1',
-            id: '1',
-            select: true
-        },
-        {
-            title: '选项2',
-            id: '2',
-            select: false
-        },
-        {
-            title: '选项3',
-            id: '3',
-            select: false
-        },
-        {
-            title: '选项4',
-            id: '4',
-            select: false
-        },
-        {
-            title: '选项5',
-            id: '5',
-            select: false
-        }
-        ],
+        conditionList: [],
         choosedCondition: {
             title: '请选择',
             id: '1'
         },
         conditionVisible: false,
         //第二个下拉选框
-        conditionList2: [{
-            title: '选项01',
-            id: '1',
-            select: true
-        },
-        {
-            title: '选项02',
-            id: '2',
-            select: false
-        },
-        {
-            title: '选项03',
-            id: '3',
-            select: false
-        },
-        {
-            title: '选项04',
-            id: '4',
-            select: false
-        },
-        {
-            title: '选项04',
-            id: '5',
-            select: false
-        }
-        ],
+        conditionList2: [],
         choosedCondition2: {
             title: '请选择',
             id: '1'
@@ -356,7 +307,9 @@ Page({
      */
     onLoad(options) {
         this.getGroupLists(wx.getStorageSync('activity_id'));
-
+        this.setData({
+            fields:wx.getStorageSync('activity_fields')
+        })
     },
 
     /**

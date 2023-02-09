@@ -6,6 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        fields:[],
         isShowDislogue: false,//弹窗是否显示
         info: {},
         nowDate: '2021-12-22 18:00:00', //结束时间
@@ -85,8 +86,6 @@ Page({
         app.toOneGroupList();
     },
 
-
-
     //info数据的获取
     getActivityDetail: function (activity_id) {
         var that = this;
@@ -98,8 +97,10 @@ Page({
                 that.setData({
                     info: res.data.response,
                     nowDate: res.data.response.end_time,
-                    imgUrls: JSON.parse(res.data.response.bg_banner)
-                })
+                    imgUrls: JSON.parse(res.data.response.bg_banner),
+                    fields:res.data.response.fields,
+                });
+                wx.setStorageSync('activity_fields',res.data.response.fields)
                 this.countTime();
                 app.backmusic(res.data.response.music_url);
             }
@@ -171,7 +172,7 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-        
+
     },
 
     /**
@@ -201,7 +202,7 @@ Page({
         app.setMiniProgramShareCache();
     },
 
-    onUnload(){
+    onUnload() {
         let activity_url = wx.getStorageSync('activity_url');
         wx.reLaunch({
             url: activity_url,

@@ -157,7 +157,6 @@ class ActivityService
         $fields = ActivityFormField::query()
             ->with('options')
             ->where('activity_id', $id)
-            ->where('type', 2)
             ->get();
         $ret_field = [];
         foreach ($fields as $field) {

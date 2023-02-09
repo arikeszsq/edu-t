@@ -2,7 +2,7 @@
 <view class="group-container">
     <!-- 搜索 -->
     <view class="search">
-        <input class="weui-input"  bindinput="onChangeSearch" value="{{group_name}}" placeholder="搜索团长名称" />
+        <input class="weui-input" bindinput="onChangeSearch" value="{{group_name}}" placeholder="搜索团长名称" />
         <view>
             <image class="weui-image" src="../../../images/activity/sousuo.png"></image>
         </view>
@@ -62,17 +62,32 @@
                         <text>手机</text>
                         <input type="text" name="phoneNum" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" />
                     </view>
-                    <view class="desc-dis">请在姓名一栏填写孩子名字</view>
-                    <view class="info">
-                        <!-- 下来选框-->
-                        <view class="bt">信息一</view>
-                        <input type="text" name="info1" placeholder-class="placeholder-style" placeholder="请输入" value="{{info1}}" />
-                    </view>
-                    <view class="info info2">
-                        <view class="bt">信息二</view>
-                        <input type="text" name="info2" placeholder-class="placeholder-style" placeholder="请输入" value="{{info2}}" />
-                    </view>
-                    <!-- <view class="btn-ss" bindtap="doPay">提交</view> -->
+
+                    <block wx:for="{{fields}}" wx:for-item="field">
+                        <!-- 文本 -->
+                        <view class="group-item-dis" wx:if="{{field.type==1}}">
+                            <input type="text" name="{{field.field_en_name}}" placeholder-class="placeholder-style" placeholder="请输入{{field.field_name}}" />
+                        </view>
+                        <!-- 单选 -->
+                        <view class="info" wx:if="{{field.type==2}}">
+                            <view class="bt">{{field.field_name}}</view>
+                            <radio-group>
+                                <block wx:for="{{field.options}}">
+                                    <radio name="{{field.field_en_name}}" value="{{item.option_id}}" />{{item.option_title}}
+                                </block>
+                            </radio-group>
+                        </view>
+                        <!-- 多选 -->
+                        <view class="info info2" wx:if="{{field.type==3}}">
+                            <view class="bt">{{field.field_name}}</view>
+                            <checkbox-group>
+                                <block wx:for="{{field.options}}">
+                                    <checkbox name="{{field.field_en_name}}" value="{{item.option_id}}" />
+                                    {{item.option_title}}
+                                </block>
+                            </checkbox-group>
+                        </view>
+                    </block>
                     <button class="btn-ss" form-type='submit'>提交</button>
                 </view>
             </view>
