@@ -522,3 +522,7 @@
     top: 50%;
     transform: translate(-50%, -50%); 
 }
+
+.detail_pic{
+    width: 100%;
+}

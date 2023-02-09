@@ -9,7 +9,7 @@ Page({
         // 页面总高度将会放在这里
         // scroll-view的高度
         isShowDialogue: true,
-        height: 0,
+        height: 100,
         //详情所有信息
         info: {},
         oriPrice: "0",
@@ -33,8 +33,8 @@ Page({
         //当前播放的视频
         indexCurrent: "video1",
         nowDate: '',
-        imgUrls: [
-        ],
+        imgUrls: [],
+        contentImgUrls:[],
         indicatorDots: true,
         autoplay: true,
         interval: 3000,
@@ -142,7 +142,8 @@ Page({
                     realPrice: util.cutZero(res.data.response.real_price),
                     oriPriceAfter: res.data.response.ori_price_after,
                     nowDate: res.data.response.end_time,
-                    imgUrls: JSON.parse(res.data.response.bg_banner)
+                    imgUrls: JSON.parse(res.data.response.bg_banner),
+                    contentImgUrls: JSON.parse(res.data.response.content),
                 })
                 this.countTime();
                 app.backmusic(res.data.response.music_url);

@@ -99,12 +99,19 @@
                 <image src="../../../images/one/bl-arrow.png"></image>
             </view>
         </view>
+
+
+        <block wx:for="{{contentImgUrls}}" wx:key="*this">
+            <image class="detail_pic" src="{{item}}" />
+        </block>
+
+        <!-- 
         <view class="common container-three">
             <view class="box align-center">
                 <image src="" class="tu"></image>
                 <view class="desc">
                     <view class="title">
-                        免费赠书一年（运费自理）ssssss
+                        免费赠书一年（运费自理）
                     </view>
                     <view class="gray">浙江省杭州市富阳区春秋北路2329号玉长</view>
                 </view>
@@ -113,7 +120,8 @@
                     <view class="contact-n">联系Ta</view>
                 </view>
             </view>
-        </view>
+        </view> -->
+
         <view class="jiange"></view>
     </view>
     <ServiceOne bindtoCourseOne="handletoCourseOne" bindtoCourseTwo="handletoCourseTwo"></ServiceOne>
@@ -134,7 +142,7 @@
                         <input type="text" name="phoneNum" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" />
                     </view>
 
-                    <block wx:for="{{fields}}" wx:for-item="field">
+                    <block wx:for="{{fields}}" wx:for-item="field" wx:key="index">
                         <!-- 文本 -->
                         <view class="group-item-dis" wx:if="{{field.type==1}}">
                             <input type="text" name="{{field.field_name}}" placeholder-class="placeholder-style" placeholder="请输入{{field.field_name}}" />
@@ -143,7 +151,7 @@
                         <view class="info" wx:if="{{field.type==2}}">
                             <view class="bt">{{field.field_name}}</view>
                             <radio-group name="{{field.field_name}}">
-                                <block wx:for="{{field.options}}">
+                                <block wx:for="{{field.options}}" wx:key="index1">
                                     <radio value="{{item.option_title}}" />{{item.option_title}}
                                 </block>
                             </radio-group>
@@ -152,7 +160,7 @@
                         <view class="info info2" wx:if="{{field.type==3}}">
                             <view class="bt">{{field.field_name}}</view>
                             <checkbox-group name="{{field.field_name}}">
-                                <block wx:for="{{field.options}}">
+                                <block wx:for="{{field.options}}" wx:key="index3">
                                     <checkbox value="{{item.option_title}}" />
                                     {{item.option_title}}
                                 </block>

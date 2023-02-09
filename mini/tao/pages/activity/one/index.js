@@ -19,8 +19,8 @@ Page({
         info2: '',
         name: '',
         phoneNum: '',
-        imgUrls: [
-        ],
+        imgUrls: [],
+        contentImgUrls:[],
         indicatorDots: true,
         autoplay: true,
         interval: 3000,
@@ -97,6 +97,7 @@ Page({
                     nowDate: res.data.response.end_time,
                     imgUrls: JSON.parse(res.data.response.bg_banner),
                     fields:res.data.response.fields,
+                    contentImgUrls: JSON.parse(res.data.response.content),
                 });
                 wx.setStorageSync('activity_fields',res.data.response.fields)
                 this.countTime();
