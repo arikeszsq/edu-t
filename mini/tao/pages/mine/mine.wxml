@@ -11,11 +11,11 @@
     <view class="money-container box align-center" bindtap="toCashOut">
         <image src="{{info.avatar}}" wx:if="info.avatar" class="money-image"></image>
         <view class="money-ti">钱包余额</view>
-        <view class="money-m">¥{{info.share_num}}</view>
+        <view class="money-m">¥{{info.current_stay_money}}</view>
         <view class="money-xian"> |</view>
 
         <view money-ti>历史提现</view>
-        <view class="money-m">¥{{info.share_num}}</view>
+        <view class="money-m">¥{{info.history_total_money}}</view>
         <view class="money-arrow">
             <image src="../../images/mine/arrow@2x.png" class="money-arrow-image"></image>
         </view>
