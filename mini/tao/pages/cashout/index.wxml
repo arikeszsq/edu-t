@@ -1,0 +1,19 @@
+<!--pages/activity/createActivity/index.wxml-->
+<view class="create-activity">
+  <form bindsubmit="doCashOut">
+    <view class="create-activity-container box">
+      <view class="activity-form">
+        <view class="item box">
+          <view class="text">金额</view>
+          <input type="text" name="apply_money" placeholder="请输入提现金额" placeholder-class="phcolor" />
+        </view>
+        <button class="btn-ss submit" form-type='submit' style="width: 150rpx;margin-top: 150rpx;">提现</button>
+      </view>
+      <view class="footer">
+        <view class="copy">版权所有
+        </view>
+      </view>
+    </view>
+  </form>
+</view>
+<ServiceMine></ServiceMine>

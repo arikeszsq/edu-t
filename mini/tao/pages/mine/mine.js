@@ -21,6 +21,12 @@ Page({
 
         })
     },
+    toCashOut(){
+        //去体现
+        wx.navigateTo({
+            url: "/pages/cashout/index",
+        })
+    },
 
     toMyProfit() {
         wx.setStorageSync('log_type', 2);//2 我的收益

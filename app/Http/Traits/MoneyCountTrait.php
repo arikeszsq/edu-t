@@ -15,7 +15,8 @@ trait MoneyCountTrait
 {
     public function historyCashOutTotalMoney($user_id)
     {
-        return UserApplyCashOut::query()->where('status', 1)
+        return UserApplyCashOut::query()
+            ->where('status','!=',3)
             ->where('user_id', $user_id)
             ->sum('apply_money');
     }
@@ -27,7 +28,7 @@ trait MoneyCountTrait
         ->where('A_user_id', $user_id)
         ->where('parent_user_id', $user_id)
         ->get();
-        $money = 0;
+        $money = 100;
         foreach ($A_money_lists as $list)
         {
             $activity = Activity::query()->find($list->activity_id);

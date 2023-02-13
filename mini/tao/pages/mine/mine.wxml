@@ -8,7 +8,7 @@
         </view>
     </view>
     <!-- 钱包余额 -->
-    <view class="money-container box align-center">
+    <view class="money-container box align-center" bindtap="toCashOut">
         <image src="{{info.avatar}}" wx:if="info.avatar" class="money-image"></image>
         <view class="money-ti">钱包余额</view>
         <view class="money-m">¥0</view>

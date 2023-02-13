@@ -147,17 +147,23 @@ class UserController extends Controller
         $inputs = $request->all();
         $user_id = self::authUserId();
         $apply_money = $inputs['apply_money'];
+        $user_total_money = $this->getAllMoney($user_id);
+        $history_out_money = $this->historyCashOutTotalMoney($user_id);
+        $current_money = $user_total_money -$history_out_money - $apply_money;
 
-        $his_money = $this->historyCashOutTotalMoney($user_id);
-        $data = [
-            'user_id' => $user_id,
-            'apply_money' => $apply_money,
-            'history_total_money' => $his_money,
-            'current_stay_money' => ($this->getAllMoney($user_id)) - $his_money,
-            'created_at' => date('Y-m-d H:i:s', time())
-        ];
-        $id = UserApplyCashOut::query()->insertGetId($data);
-        return self::success($id);
+        if ($apply_money <= $current_money) {
+            $data = [
+                'user_id' => $user_id,
+                'apply_money' => $apply_money,
+                'history_total_money' => $history_out_money,
+                'current_stay_money' => $current_money,
+                'created_at' => date('Y-m-d H:i:s', time())
+            ];
+            $id = UserApplyCashOut::query()->insertGetId($data);
+            return self::success($id);
+        } else {
+            return self::error(10001, '余额不足');
+        }
     }
 
     /**
