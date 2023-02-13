@@ -6,7 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        fields:[],
+        fields: [],
         isShowDislogue: false,//弹窗是否显示
         info: {},
         nowDate: '2021-12-22 18:00:00', //结束时间
@@ -20,7 +20,7 @@ Page({
         name: '',
         phoneNum: '',
         imgUrls: [],
-        contentImgUrls:[],
+        contentImgUrls: [],
         indicatorDots: true,
         autoplay: true,
         interval: 3000,
@@ -92,16 +92,18 @@ Page({
             method: 'get',
             data: {},
             success: res => {
+
                 that.setData({
                     info: res.data.response,
                     nowDate: res.data.response.end_time,
                     imgUrls: JSON.parse(res.data.response.bg_banner),
-                    fields:res.data.response.fields,
+                    fields: res.data.response.fields,
                     contentImgUrls: JSON.parse(res.data.response.content),
                 });
-                wx.setStorageSync('activity_fields',res.data.response.fields)
+                wx.setStorageSync('activity_fields', res.data.response.fields)
                 this.countTime();
                 app.backmusic(res.data.response.music_url);
+
             }
         });
     },

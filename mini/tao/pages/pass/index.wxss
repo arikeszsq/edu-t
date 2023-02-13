@@ -1,0 +1,5 @@
+/* pages/pass/index.wxss */
+
+.pic{
+  width: 100%;
+}

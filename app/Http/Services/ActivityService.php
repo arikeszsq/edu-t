@@ -28,7 +28,11 @@ class ActivityService
     public function type($id)
     {
         $activity = $this->getActivityById($id);
-        return $activity->is_many;
+        return [
+            'type'=>$activity->is_many,
+            'has_over' => 1,
+            'mini_over_bg' => $activity->mini_over_bg
+        ];
     }
 
     public function lists()
@@ -67,8 +71,9 @@ class ActivityService
             ->where('end_time', '>', Carbon::now())
             ->first();
         if (!$activity) {
-            throw new ObjectNotExistException('活动已结束，请核实');
+            throw new ObjectNotExistException('活动不存在，请核实');
         }
+
         $is_many = $activity->is_many;
 
         if ($is_many == Activity::is_many_单商家) {

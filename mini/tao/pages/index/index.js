@@ -6,7 +6,6 @@ Page({
         news: {}
     },
     onLoad(query) {
-        console.log(query);
 
         var activity_id = query.activity_id;
         if(activity_id){
@@ -73,8 +72,17 @@ Page({
             method: 'get',
             data: {},
             success: res => {
-                var type = res.data.response;
-                this.userInfoToDetail(type, id);
+                var type = res.data.response.type;
+                var has_over = res.data.response.has_over;
+                if(has_over==1){
+                    wx.setStorageSync('mini_over_bg',res.data.response.mini_over_bg);
+                    wx.redirectTo({
+                        url: '../pass/index'
+                    });
+                    return false;
+                }else{
+                    this.userInfoToDetail(type, id);
+                }
             }
         });
     },

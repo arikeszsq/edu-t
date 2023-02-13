@@ -34,7 +34,7 @@ Page({
         indexCurrent: "video1",
         nowDate: '',
         imgUrls: [],
-        contentImgUrls:[],
+        contentImgUrls: [],
         indicatorDots: true,
         autoplay: true,
         interval: 3000,
@@ -133,7 +133,6 @@ Page({
             },
             success: res => {
                 var that = this;
-                console.log(res.data.response.end_time);
                 that.setData({
                     info: res.data.response,
                     bannerInfo: res.data.response.bg_banner,
@@ -147,6 +146,7 @@ Page({
                 })
                 this.countTime();
                 app.backmusic(res.data.response.music_url);
+
             }
         });
     },

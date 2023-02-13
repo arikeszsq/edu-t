@@ -1,7 +1,7 @@
 {
     "pages": [
-
         "pages/index/index",
+        "pages/pass/index",
         "pages/activity/one/index",
         "pages/activity/many/index",
         "pages/complaint/index",

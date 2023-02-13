@@ -21,7 +21,7 @@ Component({
         info: []
     },
     created() {
-        console.log(156132)
+        console.log('初始化组件onlineServices')
         this.getkflists()
     },
     /**
@@ -30,10 +30,8 @@ Component({
     methods: {
         closedHanler() {
             this.triggerEvent('closedHanler')
-
         },
         getkflists() {
-            console.log(9999)
             app.apiRequest({
                 url: '/basic/kf/' + wx.getStorageSync('activity_id'),
                 method: 'get',
