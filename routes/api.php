@@ -85,6 +85,7 @@ Route::prefix('/user')->group(function () {
     Route::any('/update', 'UserController@update');
     Route::any('/set-a', 'UserController@setA');
     Route::any('/get-invite-pic', 'UserController@getInvitePic');
+    //提现
     Route::any('/apply-cash-out', 'UserController@applyCashOut');
 });
 
