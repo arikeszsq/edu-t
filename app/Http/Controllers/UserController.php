@@ -33,7 +33,6 @@ class UserController extends Controller
     public function info()
     {
         $user_id = self::authUserId();
-        $inputs['uid'] = $user_id;
         $user = User::query()->find($user_id);
         try {
             $data = [
@@ -47,10 +46,11 @@ class UserController extends Controller
                 'is_A' => $user->is_A,
                 'address' => $user->address,
                 'map_points' => $user->map_points,
-//                'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
-//                'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
-//                    ->where('has_pay', 1)->count(),
-//                'current_stay_money' => ($this->getAllMoney($user_id)) - ($this->historyCashOutTotalMoney($user_id)),
+                'current_stay_money' => ($this->getAllMoney($user_id)) - ($this->historyCashOutTotalMoney($user_id)),
+                'history_total_money' => $this->historyCashOutTotalMoney($user_id),
+                'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
+                'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
+                    ->where('has_pay', 1)->count(),
             ];
             return self::success($data);
         } catch (Exception $e) {
@@ -149,7 +149,7 @@ class UserController extends Controller
         $apply_money = $inputs['apply_money'];
         $user_total_money = $this->getAllMoney($user_id);
         $history_out_money = $this->historyCashOutTotalMoney($user_id);
-        $current_money = $user_total_money -$history_out_money - $apply_money;
+        $current_money = $user_total_money - $history_out_money - $apply_money;
 
         if ($apply_money <= $current_money) {
             $data = [

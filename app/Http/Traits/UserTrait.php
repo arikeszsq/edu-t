@@ -24,7 +24,6 @@ trait UserTrait
      */
     public static function authUserId()
     {
-        return 11;
         return self::authUser() ? self::authUser()->id : null;
     }
 
