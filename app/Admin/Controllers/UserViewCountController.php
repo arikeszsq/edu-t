@@ -28,13 +28,14 @@ class UserViewCountController extends AdminController
                 $array = [
                     1 => '已报名', 2 => '未报名'
                 ];
-                return $array[$has_sign];
+
+                return $array[$has_sign]??'';
             });
             $grid->column('has_info', '预留信息')->display(function ($has_info) {
                 $array = [
                     1 => '留下信息', 2 => '未留下信息'
                 ];
-                return $array[$has_info];
+                return $array[$has_info]??'';
             });
             $grid->column('view_num', '浏览次数');
             $grid->column('view_at', '访问时间');
