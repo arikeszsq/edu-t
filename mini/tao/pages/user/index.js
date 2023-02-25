@@ -40,14 +40,15 @@ Page({
         let value = options.detail.value;//获取输入框输入的内容
         console.log("输入框输入的内容是 " + value);
         that.setData({
-            "nickname":value   
+            "nickname": value
         });
         // console.log("输出内容是 " + that.data.nickname);
     },
 
     submit() {
         var that = this;
-        if (!that.data.nickname) {
+
+        if (!that.data.nickname || that.data.nickname == '点击确定您的昵称') {
             wx.showToast({
                 title: '用户昵称必填',
                 icon: 'error',
@@ -55,7 +56,7 @@ Page({
             })
             return false;
         }
-        if (!that.data.avatarUrl) {
+        if (!that.data.avatarUrl || that.data.avatarUrl == defaultAvatarUrl) {
             wx.showToast({
                 title: '用户头像必填',
                 icon: 'error',
