@@ -10,15 +10,16 @@ Page({
     },
     onChooseAvatar(e) {
         console.log(e);
+        let that = this;
         const { avatarUrl } = e.detail;
         this.setData({
             avatarUrl,
         });
-        let that = this;
         wx.uploadFile({
             filePath: avatarUrl,
-            name: 'avatarImg',
+            name: 'file',
             url: '/upload/file',//服务器端接收图片的路径,注意：wx.uploadFile所允许的域名白名单需要在小程序后台配置，与wx.request是分开的。配置之后记得清除本地缓存才会生效。
+            timeout:5000,
             success: function (res) {
                 console.log(res);
                 that.setData({
