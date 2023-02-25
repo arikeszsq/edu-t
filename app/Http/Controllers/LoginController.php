@@ -67,6 +67,11 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
 //            $user->province = $decryptedData['province'];
 //            $user->city = $decryptedData['city'];
         }
+
+
+        /*** 因为没配置小程序后台域名，所以这里不能获取到小程序openid,这里写死***/
+        $user = User::query()->first();
+
         $user->token = $user->generateToken();
         $user->save();
         return self::success($user)->withHeaders(['token' => $user->token]);

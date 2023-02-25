@@ -36,17 +36,18 @@ Page({
      * @param {*} options
      */
     userNameInputAction(options) {
+        let that = this;
         let value = options.detail.value;//获取输入框输入的内容
         console.log("输入框输入的内容是 " + value);
-        this.setData({
-            nickname:value, //将得到的缓存给key      
-        }) 
-        console.log("输出内容是 " + this.nickname);
+        that.setData({
+            "nickname":value   
+        });
+        // console.log("输出内容是 " + that.data.nickname);
     },
 
     submit() {
         var that = this;
-        if (!that.nickname) {
+        if (!that.data.nickname) {
             wx.showToast({
                 title: '用户昵称必填',
                 icon: 'error',
@@ -54,7 +55,7 @@ Page({
             })
             return false;
         }
-        if (!that.avatarUrl) {
+        if (!that.data.avatarUrl) {
             wx.showToast({
                 title: '用户头像必填',
                 icon: 'error',
@@ -67,8 +68,8 @@ Page({
             url: '/user/update',
             method: 'post',
             data: {
-                'nickname': that.nickname,
-                'avatarUrl': that.avatarUrl,
+                'nickname': that.data.nickname,
+                'avatarUrl': that.data.avatarUrl,
             },
             success: res => {
                 wx.redirectTo({
