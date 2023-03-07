@@ -84,8 +84,8 @@ class CompanyController extends AdminController
             $form->text('name');
             $form->text('short_name');
             $form->text('intruduction');
-            $form->image('logo')->width(6);
-            $form->file('video_url')->width(6);
+            $form->image('logo','公司logo')->autoUpload()->uniqueName()->width(6);
+            $form->file('video_url')->autoUpload()->width(6);
 
 //            因为要添加经纬度，所有不想在这里加了，因为是别人写的地图插件，这里加的，只能定位一个
 //            $form->hasMany('children', function (Form\NestedForm $form) {
@@ -95,7 +95,7 @@ class CompanyController extends AdminController
 
             $form->hasMany('courses', function (Form\NestedForm $form) {
                 $form->select('type')->options(CompanyCourseType::getListArray())->width(3);
-                $form->image('logo')->width(3);
+                $form->image('image_c','课程logo')->autoUpload()->width(3);
                 $form->text('name')->width(3);
                 $form->decimal('price', '价格')->width(3);
                 $form->number('total_num', '名额数')->width(3);
