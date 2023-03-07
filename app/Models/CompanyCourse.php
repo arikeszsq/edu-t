@@ -11,6 +11,6 @@ class CompanyCourse extends Model
 
     protected $table = 'company_course';
 
-    protected $fillable = ['type', 'company_id', 'logo', 'name', 'price', 'total_num', 'sale_num'];
+    protected $fillable = ['type', 'company_id', 'logo_c', 'name', 'price', 'total_num', 'sale_num'];
 
 }
