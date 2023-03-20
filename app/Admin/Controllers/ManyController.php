@@ -105,6 +105,8 @@ class ManyController extends ActivityController
      */
     protected function form()
     {
+
+
         return Form::make(new Activity(), function (Form $form) {
             $form->display('id');
             $form->multipleImage('bg_banner', '轮播图')->required()->saveFullUrl()->autoUpload()->saving(function ($v) {

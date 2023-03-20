@@ -48,6 +48,11 @@ class CompanyController extends AdminController
                 $tools->append(new BackToActivityList());
             });
 
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append('<a class="btn btn-sm btn-warning" style="margin: 3px;"
+                href="/admin/company-child/create?activity_id='.$actions->row->id.'">添加校区</a>');
+            });
+
         });
     }
 
