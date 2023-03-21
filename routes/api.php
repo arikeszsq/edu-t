@@ -30,7 +30,11 @@ Route::prefix('/basic')->group(function () {
     Route::any('/kf', 'BasicController@kflist');
 });
 
+
+
+
 //以下接口，需要登录
+
 
 //Route::middleware('auth:user')->group(function () {
 Route::prefix('/activity')->group(function () {
@@ -95,6 +99,11 @@ Route::prefix('/log')->group(function () {
 
 Route::prefix('/upload')->group(function () {
     Route::any('/file', 'UploadController@file');
+});
+
+//机构
+Route::prefix('/company')->group(function () {
+    Route::any('/detail', 'CompanyController@detail');
 });
 
 //});

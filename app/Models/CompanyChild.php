@@ -16,4 +16,9 @@ class CompanyChild extends Model
     {
         return $this->hasOne(Company::class, 'id', 'company_id');
     }
+
+    public static function getAllSchoolsByCompanyId($id)
+    {
+        return CompanyChild::query()->where('company_id',$id)->get();
+    }
 }

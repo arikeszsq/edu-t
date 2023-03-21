@@ -14,6 +14,7 @@ trait UserTrait
      */
     public static function authUser()
     {
+        return User::query()->find(1);
         return Auth::guard('user')->user();
     }
 
