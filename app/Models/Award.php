@@ -20,5 +20,9 @@ class Award extends Model
         self::Yes_是 => '是',
         self::No_否 => '否'
     ];
+    public function activity()
+    {
+        return $this->hasOne(Activity::class, 'id', 'activity_id');
+    }
 
 }
