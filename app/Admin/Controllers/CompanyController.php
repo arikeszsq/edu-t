@@ -36,8 +36,11 @@ class CompanyController extends AdminController
             $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
+                $filter->expand();
+                $filter->like('name', '名称')->width(4);
+                $filter->like('short_name', '简称')->width(4);
+                $filter->like('contacter', '联系人')->width(4);
+                $filter->like('mobile', '联系电话')->width(4);
             });
 
             $grid->batchActions([
