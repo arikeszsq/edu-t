@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\MoneyCountTrait;
 use App\Http\Traits\WeChatTrait;
 use App\Models\Activity;
+use App\Models\Share;
 use App\Models\UserActivityInvite;
 use App\Models\UserAInvitePic;
 use App\Models\UserApplyCashOut;
@@ -30,11 +31,15 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function info()
+    public function info(Request $request)
     {
+        $inputs = $request->all();
         $user_id = self::authUserId();
+        $activity_id = $inputs['activity_id'];
         $user = User::query()->find($user_id);
         try {
+            $user_activity_total_money = $this->getAllMoney($user_id, $activity_id);
+            $user_activity_cash_out_money = $this->historyCashOutTotalMoney($user_id, $activity_id);
             $data = [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -46,11 +51,12 @@ class UserController extends Controller
                 'is_A' => $user->is_A,
                 'address' => $user->address,
                 'map_points' => $user->map_points,
-                'current_stay_money' => ($this->getAllMoney($user_id)) - ($this->historyCashOutTotalMoney($user_id)),
-                'history_total_money' => $this->historyCashOutTotalMoney($user_id),
-                'share_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)->count(),
-                'share_success_num' => UserActivityInvite::query()->where('parent_user_id', $user_id)
-                    ->where('has_pay', 1)->count(),
+                'user_activity_total_money' => $user_activity_total_money,//总奖励
+                'user_activity_cash_out_money' => $user_activity_cash_out_money,//总提取
+                'current_stay_money' => ($user_activity_total_money) - ($user_activity_cash_out_money),//账户余额
+                'history_total_money' => $user_activity_cash_out_money,
+                'share_num' => Share::shareNum($user_id, $activity_id),
+                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($user_id, $activity_id),
             ];
             return self::success($data);
         } catch (Exception $e) {
@@ -145,10 +151,11 @@ class UserController extends Controller
     public function applyCashOut(Request $request)
     {
         $inputs = $request->all();
+        $activity_id = $inputs['activity_id'];
         $user_id = self::authUserId();
         $apply_money = $inputs['apply_money'];
-        $user_total_money = $this->getAllMoney($user_id);
-        $history_out_money = $this->historyCashOutTotalMoney($user_id);
+        $user_total_money = $this->getAllMoney($user_id,$activity_id);
+        $history_out_money = $this->historyCashOutTotalMoney($user_id,$activity_id);
         $current_money = $user_total_money - $history_out_money - $apply_money;
 
         if ($apply_money <= $current_money) {

@@ -11,6 +11,10 @@ class UserApplyCashOut extends Model
 
     protected $table = 'user_apply_cash_out';
 
+    const Status_审核状态_待审核=1;
+
+    const Status_审核状态_拒绝=3;
+
     const Status_审核状态 = [
         1 => '待审核',
         2 => '通过',

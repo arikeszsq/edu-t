@@ -33,7 +33,7 @@ class UserActivityInvite extends Model
     }
 
     /***
-     * 用户邀请成功的用户数
+     * 用户邀请成功的用户数:包括直接邀请，和间接邀请的总数
      * @param $activity_id
      * @param $user_id
      * @return int

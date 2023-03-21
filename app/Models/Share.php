@@ -20,4 +20,10 @@ class Share extends Model
     {
         return $this->hasOne(User::class, 'id', 'share_user_id');
     }
+
+    public static function shareNum($user_id, $activity_id)
+    {
+        return Share::query()->where('share_user_id', $user_id)
+            ->where('activity_id', $activity_id)->value('share_num');
+    }
 }
