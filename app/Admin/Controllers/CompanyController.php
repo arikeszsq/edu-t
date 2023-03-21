@@ -23,13 +23,15 @@ class CompanyController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Company(), function (Grid $grid){
+        return Grid::make(new Company(), function (Grid $grid) {
 
             $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('short_name');
             $grid->column('intruduction');
+            $grid->column('contacter', '联系人');
+            $grid->column('mobile', '联系电话');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -50,7 +52,7 @@ class CompanyController extends AdminController
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
                 $actions->append('<a class="btn btn-sm btn-warning" style="margin: 3px;"
-                href="/admin/company-child/create?activity_id='.$actions->row->id.'">添加校区</a>');
+                href="/admin/company-child/create?activity_id=' . $actions->row->id . '">添加校区</a>');
             });
 
         });
@@ -89,8 +91,10 @@ class CompanyController extends AdminController
             $form->text('name');
             $form->text('short_name');
             $form->text('intruduction');
+            $form->text('contacter', '联系人');
+            $form->mobile('mobile', '联系电话');
 
-            $form->image('logo','公司logo')
+            $form->image('logo', '公司logo')
                 ->move('logo_images')
                 ->uniqueName()
                 ->autoUpload()
@@ -101,7 +105,7 @@ class CompanyController extends AdminController
             $form->hasMany('courses', function (Form\NestedForm $form) {
                 $form->select('type')->options(CompanyCourseType::getListArray())->width(3);
 
-                $form->image('logo_c','课程logo')
+                $form->image('logo_c', '课程logo')
                     ->uniqueName()
                     ->autoSave()
                     ->autoUpload()
