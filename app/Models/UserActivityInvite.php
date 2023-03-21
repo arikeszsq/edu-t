@@ -31,4 +31,21 @@ class UserActivityInvite extends Model
     {
         return $this->hasOne(User::class, 'id', 'invited_user_id');
     }
+
+    /***
+     * 用户邀请成功的用户数
+     * @param $activity_id
+     * @param $user_id
+     * @return int
+     */
+    public static function getUserInviteSuccessNum($activity_id, $user_id)
+    {
+        return UserActivityInvite::query()
+            ->where('activity_id', $activity_id)
+            ->where('has_pay', 1)
+            ->where(function ($query) use ($user_id) {
+                $query->where('A_user_id', $user_id)
+                    ->orWhere('parent_user_id', $user_id);
+            })->count();
+    }
 }
