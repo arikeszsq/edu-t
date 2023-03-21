@@ -31,8 +31,6 @@ Route::prefix('/basic')->group(function () {
 });
 
 
-
-
 //以下接口，需要登录
 
 
@@ -59,8 +57,11 @@ Route::prefix('/group')->group(function () {
 });
 
 Route::prefix('/award')->group(function () {
+    //奖励列表
     Route::any('/lists', 'AwardController@lists');
+    //领取奖励
     Route::any('/create', 'AwardController@create');
+    //我的奖励
     Route::any('/my-lists', 'AwardController@myLists');
 });
 
