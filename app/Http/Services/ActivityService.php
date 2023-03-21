@@ -12,6 +12,7 @@ use App\Models\ActivitySignCom;
 use App\Models\ActivitySignUser;
 use App\Models\Award;
 use App\Models\UserActivityInvite;
+use App\Models\UserViewCount;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -122,7 +123,7 @@ class ActivityService
         $data['real_price'] = $activity->real_price;
         $data['end_time'] = $activity->end_time;
 
-        $data['views_num'] = DB::table('activity_view_log')->where('activity_id', $id)->count();
+        $data['views_num'] = UserViewCount::query()->where('activity_id', $id)->sum('view_num');
         $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id', $id)
             ->where('has_pay', 1)
             ->count();
@@ -234,7 +235,7 @@ class ActivityService
         }
 
         $data['end_time'] = $activity->end_time;
-        $data['views_num'] = DB::table('activity_view_log')->where('activity_id', $id)->count();
+        $data['views_num'] = UserViewCount::query()->where('activity_id', $id)->sum('view_num');
         $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id', $id)
             ->where('has_pay', 1)
             ->count();
@@ -272,7 +273,10 @@ class ActivityService
                 'course_num' => $course_num,
             ];
         }
-        $awards = Award::query()->where('status', Award::Status_有效)->get();
+        /** 活动的奖励 ***/
+        $awards = Award::query()->where('status', Award::Status_有效)
+            ->where('activity_id', $id)
+            ->get();
         $data_award = [];
         foreach ($awards as $award) {
             $data_award[] = [

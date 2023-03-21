@@ -25,8 +25,12 @@ trait ImageTrait
     public function fullImgUrl($url)
     {
         if (isset($url) && $url) {
-            return env('IMG_SERVE') . $url;
-        }else{
+            if (strpos($url, 'http') !== false) {
+                return $url;
+            } else {
+                return env('IMG_SERVE') . $url;
+            }
+        } else {
             return $url;
         }
     }

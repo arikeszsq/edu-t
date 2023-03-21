@@ -125,9 +125,11 @@ class AwardController extends Controller
      */
     public function lists(Request $request)
     {
+        $inputs = $request->all();
         try {
             $list = Award::query()
                 ->where('status', Award::Status_有效)
+                ->where('activity_id', $inputs['activity_id'])
                 ->orderBy('id', 'desc')
                 ->get();
             $data = [];
