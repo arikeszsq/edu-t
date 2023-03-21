@@ -69,7 +69,7 @@ class ManyController extends ActivityController
                 }
                 $actions->append(new ActivityComSign('<span  style="margin: 3px;" class="btn btn-sm btn-primary">报名</span>'));
 
-                $actions->append('<a class="btn btn-sm btn-danger" style="margin: 3px;" href="/admin/user-sign-manage?activity_id='.$actions->row->id.'">报名管理</a>');
+                $actions->append('<a class="btn btn-sm btn-danger" style="margin: 3px;" href="/admin/user-sign-manage?activity_id=' . $actions->row->id . '">报名管理</a>');
 
             });
         });
@@ -119,8 +119,9 @@ class ManyController extends ActivityController
             $form->decimal('ori_price', '原价')->required();
             $form->decimal('real_price', '开团价')->required();
             $form->number('deal_group_num', '成团人数')->required();
+            $form->number('course_num', '选择课程数量')->default(4)->required();
             //music_id 活动音乐
-            $form->select('music_id','活动音乐')->options(ActivityMusic::getMusicArray());
+            $form->select('music_id', '活动音乐')->options(ActivityMusic::getMusicArray());
             $form->decimal('a_invite_money', 'A用户直接邀请奖励')->required();
             $form->decimal('a_other_money', 'A用户别人邀请获得的奖励')->required();
             $form->decimal('second_invite_money', '非A二级邀请奖励')->required();

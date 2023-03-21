@@ -29,7 +29,7 @@ class ActivityService
     {
         $activity = $this->getActivityById($id);
         return [
-            'type'=>$activity->is_many,
+            'type' => $activity->is_many,
             'has_over' => 1,
             'mini_over_bg' => $activity->mini_over_bg
         ];
@@ -82,6 +82,7 @@ class ActivityService
             $data = $this->getManyDetail($id);
         }
 
+        $data['course_num'] = $activity->course_num;//选择课程的数量
         $data['group_num'] = ActivityGroup::query()->where('activity_id', $id)->count();
         $data['group_people_num'] = ActivitySignUser::query()->where('activity_id', $id)
             ->where('has_pay', 1)
