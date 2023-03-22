@@ -8,11 +8,13 @@ use App\Models\ActivitySignUser;
 use App\Models\ActivitySignUserCourse;
 use App\Models\CompanyCourse;
 use App\Models\UserActivityInvite;
+use App\Models\UserViewCount;
 use Carbon\Carbon;
 
 trait PaySuccessTrait
 {
     use WeChatTrait;
+
     /**
      * 支付成功后：
      *
@@ -20,7 +22,7 @@ trait PaySuccessTrait
      * 新建团或修改团信息：如果type是开团，group_id 不存在，才新建团，否则去修改团里面的信息
      * 给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付
      * 修改订单的状态及信息
-     * 修改邀请记录的支付状态
+     * 修改访问记录的报名状态has_sign
      * 生成用户的专属分享图片
      * @param $order
      * @return bool
@@ -35,6 +37,8 @@ trait PaySuccessTrait
         }
         $this->updateInviterInfo($order);//给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付,因为邀请人数是统计的邀请表数据
         $this->genInvitePic($order);
+        $this->updateUserViewCount($order);//修改访问记录表的报名状态
+
         return true;
     }
 
@@ -65,15 +69,38 @@ trait PaySuccessTrait
             ]);
     }
 
+    /**
+     * 修改邀请表中支付状态，也就是发放奖励
+     * @param $order
+     * @return void
+     */
     public function updateInviterInfo($order)
     {
         $user_id = $order->user_id;
         $activity_id = $order->activity_id;
-        if($activity_id){
+        if ($activity_id) {
             UserActivityInvite::query()->where('activity_id', $activity_id)
                 ->where('invited_user_id', $user_id)
                 ->orderBy('id', 'desc')->update([
                     'has_pay' => 1
+                ]);
+        }
+    }
+
+    /**
+     * 修改报名状态
+     * @param $order
+     * @return void
+     */
+    public function updateUserViewCount($order)
+    {
+        $user_id = $order->user_id;
+        $activity_id = $order->activity_id;
+        if ($activity_id) {
+            UserViewCount::query()->where('activity_id', $activity_id)
+                ->where('user_id', $user_id)
+                ->orderBy('id', 'desc')->update([
+                    'has_sign' => 1
                 ]);
         }
     }
@@ -87,13 +114,13 @@ trait PaySuccessTrait
         $order_no = $order->order_no;
         $activity_id = $order->activity_id;
         $user_id = $order->user_id;
-        $share_code_url = $this->getShareQCode($activity_id,$user_id);
-        if($share_code_url['code']==200){
+        $share_code_url = $this->getShareQCode($activity_id, $user_id);
+        if ($share_code_url['code'] == 200) {
             $url = $share_code_url['url'];
             $activity = Activity::query()->find($activity_id);
             $share_bg = $activity->share_bg;
-            if($share_bg){
-                $url = $this->mergeImg($share_bg,$share_code_url['url']);
+            if ($share_bg) {
+                $url = $this->mergeImg($share_bg, $share_code_url['url']);
             }
             ActivitySignUser::query()->where('order_no', $order_no)
                 ->update([
