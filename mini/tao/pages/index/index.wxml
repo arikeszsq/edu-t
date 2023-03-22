@@ -1,5 +1,5 @@
 <!-- 活动列表页 -->
-<block wx:for="{{news}}" wx:for_item="item" wx:key="index">
+<block wx:for="{{news}}" wx:for_item="item" wx:key="index" wx:if="{{activity_id<9999990}}">
     <view class="activity" bindtap="toDetail" data-id="{{item.id}}" data-one="{{item.is_many}}">
         <view class="left">
             <image src="{{item.bg_banner}}" class="logo"></image>
@@ -10,3 +10,11 @@
         </view>
     </view>
 </block>
+
+<block wx:if="{{activity_id>9999990}}">
+    <view class="scan-success">
+    <image src="{{logo}}" class="logo_index"></image>
+</view>
+</block>
+
+

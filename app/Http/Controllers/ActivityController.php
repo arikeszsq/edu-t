@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\ActivityService;
 use App\Models\ActivityFormField;
+use App\Models\CompanyChildTeam;
 use App\Models\Share;
 use App\Models\UserViewCount;
 use Carbon\Carbon;
@@ -263,6 +264,25 @@ class ActivityController extends Controller
                     'updated_at' => Carbon::now(),
                 ]);
             }
+            return self::success($ret);
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
+
+    public function jointeam($team_id)
+    {
+        $user_id = self::authUserId();
+        try {
+            $ret = CompanyChildTeam::query()->updateOrInsert([
+                'child_id' => $team_id,
+                'user_id' => $user_id
+            ], [
+                'child_id' => $team_id,
+                'user_id' => $user_id,
+                'created_at' => Carbon::now()
+            ]);
             return self::success($ret);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());

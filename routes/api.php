@@ -42,6 +42,7 @@ Route::prefix('/activity')->group(function () {
     Route::any('/web-create', 'ActivityController@webCreate');
     Route::any('/complaint', 'ActivityController@complaint');
     Route::any('/add-share-num', 'ActivityController@addShareNum');
+    Route::any('/jointeam/{id}', 'ActivityController@jointeam');
 });
 
 Route::prefix('/group')->group(function () {

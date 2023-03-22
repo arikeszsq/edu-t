@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Http\Traits\WeChatTrait;
 use App\Models\Company;
 use App\Models\CompanyChild;
 use Dcat\Admin\Form;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Cache;
 
 class CompanyChildController extends AdminController
 {
+    use WeChatTrait;
+
     /**
      * Make a grid builder.
      *
@@ -24,6 +27,7 @@ class CompanyChildController extends AdminController
             $grid->model()->orderBy('id', 'desc');
 
             $grid->column('id')->sortable();
+            $grid->column('team_pic', '战队邀请码')->image(env('APP_URL'), '100%', '40');
             $grid->column('company.name', '企业名称');
             $grid->column('name');
             $grid->column('map_area');
@@ -97,6 +101,19 @@ class CompanyChildController extends AdminController
 
             $form->display('created_at');
             $form->display('updated_at');
+
+            $form->hidden('team_pic');
+
+            $obj = new self();
+            $form->saved(function (Form $form, $result) use ($obj) {
+                $company_child_id = $result;
+                $url_ret = $obj->getShareQCode(9999998, $company_child_id);
+                if ($url_ret['code'] == 200) {
+                    $url = $url_ret['url'];
+                    CompanyChild::query()->where('id', $company_child_id)->update(['team_pic' => $url]);
+                }
+            });
+
 
             $form->tools(function (Form\Tools $tools) {
                 // 去掉跳转列表按钮

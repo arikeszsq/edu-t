@@ -48,12 +48,14 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection vr_share
      * @property Grid\Column|Collection mini_bg
      * @property Grid\Column|Collection mini_over_bg
+     * @property Grid\Column|Collection course_num
+     * @property Grid\Column|Collection activity_form_id
+     * @property Grid\Column|Collection name
      * @property Grid\Column|Collection activity_id
      * @property Grid\Column|Collection field_name
      * @property Grid\Column|Collection field_en_name
      * @property Grid\Column|Collection sort
-     * @property Grid\Column|Collection activity_form_id
-     * @property Grid\Column|Collection name
+     * @property Grid\Column|Collection parent_id
      * @property Grid\Column|Collection num
      * @property Grid\Column|Collection current_num
      * @property Grid\Column|Collection leader_id
@@ -61,6 +63,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection leader_boy_name
      * @property Grid\Column|Collection finished
      * @property Grid\Column|Collection success_time
+     * @property Grid\Column|Collection is_recommand
      * @property Grid\Column|Collection file
      * @property Grid\Column|Collection company_id
      * @property Grid\Column|Collection group_id
@@ -91,18 +94,17 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection contacter
      * @property Grid\Column|Collection mobile
      * @property Grid\Column|Collection version
-     * @property Grid\Column|Collection is_enabled
      * @property Grid\Column|Collection detail
-     * @property Grid\Column|Collection parent_id
+     * @property Grid\Column|Collection is_enabled
      * @property Grid\Column|Collection order
      * @property Grid\Column|Collection icon
      * @property Grid\Column|Collection uri
      * @property Grid\Column|Collection extension
+     * @property Grid\Column|Collection permission_id
+     * @property Grid\Column|Collection menu_id
      * @property Grid\Column|Collection slug
      * @property Grid\Column|Collection http_method
      * @property Grid\Column|Collection http_path
-     * @property Grid\Column|Collection permission_id
-     * @property Grid\Column|Collection menu_id
      * @property Grid\Column|Collection role_id
      * @property Grid\Column|Collection value
      * @property Grid\Column|Collection username
@@ -124,6 +126,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection map_area
      * @property Grid\Column|Collection map_points
      * @property Grid\Column|Collection wx_pic
+     * @property Grid\Column|Collection team_pic
+     * @property Grid\Column|Collection child_id
+     * @property Grid\Column|Collection logo_c
      * @property Grid\Column|Collection total_num
      * @property Grid\Column|Collection sale_num
      * @property Grid\Column|Collection connection
@@ -138,6 +143,19 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection pay_total_num
      * @property Grid\Column|Collection red_bag_num
      * @property Grid\Column|Collection red_bag_total_num
+     * @property Grid\Column|Collection A_user_id
+     * @property Grid\Column|Collection parent_user_id
+     * @property Grid\Column|Collection invited_user_id
+     * @property Grid\Column|Collection apply_money
+     * @property Grid\Column|Collection audit_id
+     * @property Grid\Column|Collection audit_time
+     * @property Grid\Column|Collection history_total_money
+     * @property Grid\Column|Collection current_stay_money
+     * @property Grid\Column|Collection award_id
+     * @property Grid\Column|Collection has_info
+     * @property Grid\Column|Collection has_sign
+     * @property Grid\Column|Collection view_num
+     * @property Grid\Column|Collection view_at
      * @property Grid\Column|Collection openid
      * @property Grid\Column|Collection email_verified_at
      * @property Grid\Column|Collection is_A
@@ -150,19 +168,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection address
      * @property Grid\Column|Collection nick_name
      * @property Grid\Column|Collection is_real
-     * @property Grid\Column|Collection A_user_id
-     * @property Grid\Column|Collection parent_user_id
-     * @property Grid\Column|Collection invited_user_id
-     * @property Grid\Column|Collection award_id
-     * @property Grid\Column|Collection audit_id
-     * @property Grid\Column|Collection audit_time
-     * @property Grid\Column|Collection area
-     * @property Grid\Column|Collection gap
-     * @property Grid\Column|Collection add_new_address_status
-     * @property Grid\Column|Collection has_info
-     * @property Grid\Column|Collection has_sign
-     * @property Grid\Column|Collection view_num
-     * @property Grid\Column|Collection view_at
      *
      * @method Grid\Column|Collection id(string $label = null)
      * @method Grid\Column|Collection role(string $label = null)
@@ -201,12 +206,14 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection vr_share(string $label = null)
      * @method Grid\Column|Collection mini_bg(string $label = null)
      * @method Grid\Column|Collection mini_over_bg(string $label = null)
+     * @method Grid\Column|Collection course_num(string $label = null)
+     * @method Grid\Column|Collection activity_form_id(string $label = null)
+     * @method Grid\Column|Collection name(string $label = null)
      * @method Grid\Column|Collection activity_id(string $label = null)
      * @method Grid\Column|Collection field_name(string $label = null)
      * @method Grid\Column|Collection field_en_name(string $label = null)
      * @method Grid\Column|Collection sort(string $label = null)
-     * @method Grid\Column|Collection activity_form_id(string $label = null)
-     * @method Grid\Column|Collection name(string $label = null)
+     * @method Grid\Column|Collection parent_id(string $label = null)
      * @method Grid\Column|Collection num(string $label = null)
      * @method Grid\Column|Collection current_num(string $label = null)
      * @method Grid\Column|Collection leader_id(string $label = null)
@@ -214,6 +221,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection leader_boy_name(string $label = null)
      * @method Grid\Column|Collection finished(string $label = null)
      * @method Grid\Column|Collection success_time(string $label = null)
+     * @method Grid\Column|Collection is_recommand(string $label = null)
      * @method Grid\Column|Collection file(string $label = null)
      * @method Grid\Column|Collection company_id(string $label = null)
      * @method Grid\Column|Collection group_id(string $label = null)
@@ -244,18 +252,17 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection contacter(string $label = null)
      * @method Grid\Column|Collection mobile(string $label = null)
      * @method Grid\Column|Collection version(string $label = null)
-     * @method Grid\Column|Collection is_enabled(string $label = null)
      * @method Grid\Column|Collection detail(string $label = null)
-     * @method Grid\Column|Collection parent_id(string $label = null)
+     * @method Grid\Column|Collection is_enabled(string $label = null)
      * @method Grid\Column|Collection order(string $label = null)
      * @method Grid\Column|Collection icon(string $label = null)
      * @method Grid\Column|Collection uri(string $label = null)
      * @method Grid\Column|Collection extension(string $label = null)
+     * @method Grid\Column|Collection permission_id(string $label = null)
+     * @method Grid\Column|Collection menu_id(string $label = null)
      * @method Grid\Column|Collection slug(string $label = null)
      * @method Grid\Column|Collection http_method(string $label = null)
      * @method Grid\Column|Collection http_path(string $label = null)
-     * @method Grid\Column|Collection permission_id(string $label = null)
-     * @method Grid\Column|Collection menu_id(string $label = null)
      * @method Grid\Column|Collection role_id(string $label = null)
      * @method Grid\Column|Collection value(string $label = null)
      * @method Grid\Column|Collection username(string $label = null)
@@ -277,6 +284,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection map_area(string $label = null)
      * @method Grid\Column|Collection map_points(string $label = null)
      * @method Grid\Column|Collection wx_pic(string $label = null)
+     * @method Grid\Column|Collection team_pic(string $label = null)
+     * @method Grid\Column|Collection child_id(string $label = null)
+     * @method Grid\Column|Collection logo_c(string $label = null)
      * @method Grid\Column|Collection total_num(string $label = null)
      * @method Grid\Column|Collection sale_num(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
@@ -291,6 +301,19 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection pay_total_num(string $label = null)
      * @method Grid\Column|Collection red_bag_num(string $label = null)
      * @method Grid\Column|Collection red_bag_total_num(string $label = null)
+     * @method Grid\Column|Collection A_user_id(string $label = null)
+     * @method Grid\Column|Collection parent_user_id(string $label = null)
+     * @method Grid\Column|Collection invited_user_id(string $label = null)
+     * @method Grid\Column|Collection apply_money(string $label = null)
+     * @method Grid\Column|Collection audit_id(string $label = null)
+     * @method Grid\Column|Collection audit_time(string $label = null)
+     * @method Grid\Column|Collection history_total_money(string $label = null)
+     * @method Grid\Column|Collection current_stay_money(string $label = null)
+     * @method Grid\Column|Collection award_id(string $label = null)
+     * @method Grid\Column|Collection has_info(string $label = null)
+     * @method Grid\Column|Collection has_sign(string $label = null)
+     * @method Grid\Column|Collection view_num(string $label = null)
+     * @method Grid\Column|Collection view_at(string $label = null)
      * @method Grid\Column|Collection openid(string $label = null)
      * @method Grid\Column|Collection email_verified_at(string $label = null)
      * @method Grid\Column|Collection is_A(string $label = null)
@@ -303,19 +326,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection address(string $label = null)
      * @method Grid\Column|Collection nick_name(string $label = null)
      * @method Grid\Column|Collection is_real(string $label = null)
-     * @method Grid\Column|Collection A_user_id(string $label = null)
-     * @method Grid\Column|Collection parent_user_id(string $label = null)
-     * @method Grid\Column|Collection invited_user_id(string $label = null)
-     * @method Grid\Column|Collection award_id(string $label = null)
-     * @method Grid\Column|Collection audit_id(string $label = null)
-     * @method Grid\Column|Collection audit_time(string $label = null)
-     * @method Grid\Column|Collection area(string $label = null)
-     * @method Grid\Column|Collection gap(string $label = null)
-     * @method Grid\Column|Collection add_new_address_status(string $label = null)
-     * @method Grid\Column|Collection has_info(string $label = null)
-     * @method Grid\Column|Collection has_sign(string $label = null)
-     * @method Grid\Column|Collection view_num(string $label = null)
-     * @method Grid\Column|Collection view_at(string $label = null)
      */
     class Grid {}
 
@@ -359,12 +369,14 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection vr_share
      * @property Show\Field|Collection mini_bg
      * @property Show\Field|Collection mini_over_bg
+     * @property Show\Field|Collection course_num
+     * @property Show\Field|Collection activity_form_id
+     * @property Show\Field|Collection name
      * @property Show\Field|Collection activity_id
      * @property Show\Field|Collection field_name
      * @property Show\Field|Collection field_en_name
      * @property Show\Field|Collection sort
-     * @property Show\Field|Collection activity_form_id
-     * @property Show\Field|Collection name
+     * @property Show\Field|Collection parent_id
      * @property Show\Field|Collection num
      * @property Show\Field|Collection current_num
      * @property Show\Field|Collection leader_id
@@ -372,6 +384,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection leader_boy_name
      * @property Show\Field|Collection finished
      * @property Show\Field|Collection success_time
+     * @property Show\Field|Collection is_recommand
      * @property Show\Field|Collection file
      * @property Show\Field|Collection company_id
      * @property Show\Field|Collection group_id
@@ -402,18 +415,17 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection contacter
      * @property Show\Field|Collection mobile
      * @property Show\Field|Collection version
-     * @property Show\Field|Collection is_enabled
      * @property Show\Field|Collection detail
-     * @property Show\Field|Collection parent_id
+     * @property Show\Field|Collection is_enabled
      * @property Show\Field|Collection order
      * @property Show\Field|Collection icon
      * @property Show\Field|Collection uri
      * @property Show\Field|Collection extension
+     * @property Show\Field|Collection permission_id
+     * @property Show\Field|Collection menu_id
      * @property Show\Field|Collection slug
      * @property Show\Field|Collection http_method
      * @property Show\Field|Collection http_path
-     * @property Show\Field|Collection permission_id
-     * @property Show\Field|Collection menu_id
      * @property Show\Field|Collection role_id
      * @property Show\Field|Collection value
      * @property Show\Field|Collection username
@@ -435,6 +447,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection map_area
      * @property Show\Field|Collection map_points
      * @property Show\Field|Collection wx_pic
+     * @property Show\Field|Collection team_pic
+     * @property Show\Field|Collection child_id
+     * @property Show\Field|Collection logo_c
      * @property Show\Field|Collection total_num
      * @property Show\Field|Collection sale_num
      * @property Show\Field|Collection connection
@@ -449,6 +464,19 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection pay_total_num
      * @property Show\Field|Collection red_bag_num
      * @property Show\Field|Collection red_bag_total_num
+     * @property Show\Field|Collection A_user_id
+     * @property Show\Field|Collection parent_user_id
+     * @property Show\Field|Collection invited_user_id
+     * @property Show\Field|Collection apply_money
+     * @property Show\Field|Collection audit_id
+     * @property Show\Field|Collection audit_time
+     * @property Show\Field|Collection history_total_money
+     * @property Show\Field|Collection current_stay_money
+     * @property Show\Field|Collection award_id
+     * @property Show\Field|Collection has_info
+     * @property Show\Field|Collection has_sign
+     * @property Show\Field|Collection view_num
+     * @property Show\Field|Collection view_at
      * @property Show\Field|Collection openid
      * @property Show\Field|Collection email_verified_at
      * @property Show\Field|Collection is_A
@@ -461,19 +489,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection address
      * @property Show\Field|Collection nick_name
      * @property Show\Field|Collection is_real
-     * @property Show\Field|Collection A_user_id
-     * @property Show\Field|Collection parent_user_id
-     * @property Show\Field|Collection invited_user_id
-     * @property Show\Field|Collection award_id
-     * @property Show\Field|Collection audit_id
-     * @property Show\Field|Collection audit_time
-     * @property Show\Field|Collection area
-     * @property Show\Field|Collection gap
-     * @property Show\Field|Collection add_new_address_status
-     * @property Show\Field|Collection has_info
-     * @property Show\Field|Collection has_sign
-     * @property Show\Field|Collection view_num
-     * @property Show\Field|Collection view_at
      *
      * @method Show\Field|Collection id(string $label = null)
      * @method Show\Field|Collection role(string $label = null)
@@ -512,12 +527,14 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection vr_share(string $label = null)
      * @method Show\Field|Collection mini_bg(string $label = null)
      * @method Show\Field|Collection mini_over_bg(string $label = null)
+     * @method Show\Field|Collection course_num(string $label = null)
+     * @method Show\Field|Collection activity_form_id(string $label = null)
+     * @method Show\Field|Collection name(string $label = null)
      * @method Show\Field|Collection activity_id(string $label = null)
      * @method Show\Field|Collection field_name(string $label = null)
      * @method Show\Field|Collection field_en_name(string $label = null)
      * @method Show\Field|Collection sort(string $label = null)
-     * @method Show\Field|Collection activity_form_id(string $label = null)
-     * @method Show\Field|Collection name(string $label = null)
+     * @method Show\Field|Collection parent_id(string $label = null)
      * @method Show\Field|Collection num(string $label = null)
      * @method Show\Field|Collection current_num(string $label = null)
      * @method Show\Field|Collection leader_id(string $label = null)
@@ -525,6 +542,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection leader_boy_name(string $label = null)
      * @method Show\Field|Collection finished(string $label = null)
      * @method Show\Field|Collection success_time(string $label = null)
+     * @method Show\Field|Collection is_recommand(string $label = null)
      * @method Show\Field|Collection file(string $label = null)
      * @method Show\Field|Collection company_id(string $label = null)
      * @method Show\Field|Collection group_id(string $label = null)
@@ -555,18 +573,17 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection contacter(string $label = null)
      * @method Show\Field|Collection mobile(string $label = null)
      * @method Show\Field|Collection version(string $label = null)
-     * @method Show\Field|Collection is_enabled(string $label = null)
      * @method Show\Field|Collection detail(string $label = null)
-     * @method Show\Field|Collection parent_id(string $label = null)
+     * @method Show\Field|Collection is_enabled(string $label = null)
      * @method Show\Field|Collection order(string $label = null)
      * @method Show\Field|Collection icon(string $label = null)
      * @method Show\Field|Collection uri(string $label = null)
      * @method Show\Field|Collection extension(string $label = null)
+     * @method Show\Field|Collection permission_id(string $label = null)
+     * @method Show\Field|Collection menu_id(string $label = null)
      * @method Show\Field|Collection slug(string $label = null)
      * @method Show\Field|Collection http_method(string $label = null)
      * @method Show\Field|Collection http_path(string $label = null)
-     * @method Show\Field|Collection permission_id(string $label = null)
-     * @method Show\Field|Collection menu_id(string $label = null)
      * @method Show\Field|Collection role_id(string $label = null)
      * @method Show\Field|Collection value(string $label = null)
      * @method Show\Field|Collection username(string $label = null)
@@ -588,6 +605,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection map_area(string $label = null)
      * @method Show\Field|Collection map_points(string $label = null)
      * @method Show\Field|Collection wx_pic(string $label = null)
+     * @method Show\Field|Collection team_pic(string $label = null)
+     * @method Show\Field|Collection child_id(string $label = null)
+     * @method Show\Field|Collection logo_c(string $label = null)
      * @method Show\Field|Collection total_num(string $label = null)
      * @method Show\Field|Collection sale_num(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
@@ -602,6 +622,19 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection pay_total_num(string $label = null)
      * @method Show\Field|Collection red_bag_num(string $label = null)
      * @method Show\Field|Collection red_bag_total_num(string $label = null)
+     * @method Show\Field|Collection A_user_id(string $label = null)
+     * @method Show\Field|Collection parent_user_id(string $label = null)
+     * @method Show\Field|Collection invited_user_id(string $label = null)
+     * @method Show\Field|Collection apply_money(string $label = null)
+     * @method Show\Field|Collection audit_id(string $label = null)
+     * @method Show\Field|Collection audit_time(string $label = null)
+     * @method Show\Field|Collection history_total_money(string $label = null)
+     * @method Show\Field|Collection current_stay_money(string $label = null)
+     * @method Show\Field|Collection award_id(string $label = null)
+     * @method Show\Field|Collection has_info(string $label = null)
+     * @method Show\Field|Collection has_sign(string $label = null)
+     * @method Show\Field|Collection view_num(string $label = null)
+     * @method Show\Field|Collection view_at(string $label = null)
      * @method Show\Field|Collection openid(string $label = null)
      * @method Show\Field|Collection email_verified_at(string $label = null)
      * @method Show\Field|Collection is_A(string $label = null)
@@ -614,19 +647,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection address(string $label = null)
      * @method Show\Field|Collection nick_name(string $label = null)
      * @method Show\Field|Collection is_real(string $label = null)
-     * @method Show\Field|Collection A_user_id(string $label = null)
-     * @method Show\Field|Collection parent_user_id(string $label = null)
-     * @method Show\Field|Collection invited_user_id(string $label = null)
-     * @method Show\Field|Collection award_id(string $label = null)
-     * @method Show\Field|Collection audit_id(string $label = null)
-     * @method Show\Field|Collection audit_time(string $label = null)
-     * @method Show\Field|Collection area(string $label = null)
-     * @method Show\Field|Collection gap(string $label = null)
-     * @method Show\Field|Collection add_new_address_status(string $label = null)
-     * @method Show\Field|Collection has_info(string $label = null)
-     * @method Show\Field|Collection has_sign(string $label = null)
-     * @method Show\Field|Collection view_num(string $label = null)
-     * @method Show\Field|Collection view_at(string $label = null)
      */
     class Show {}
 

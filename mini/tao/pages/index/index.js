@@ -3,27 +3,34 @@ const app = getApp();
 
 Page({
     data: {
-        news: {}
+        news: {},
+        activity_id:0,
+        logo:'./../../images/mine/yiwancheng@2x.png'
     },
     onLoad(query) {
-
         var activity_id = query.activity_id;
-        if(activity_id){
+        if (activity_id) {
+            wx.setStorageSync('activity_id', activity_id);
             this.toActivityDetail(activity_id);
         }
 
         // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
         const scene = decodeURIComponent(query.scene);
         if (scene !== 'undefined') {
-            console.log(scene);
+            //通过二维码进来的
             var res = scene.split(',');
             var res_length = res.length;
             var activity_id = res[0];
+    
+            this.setData({
+                activity_id:activity_id,
+            });
+            wx.setStorageSync('activity_id', activity_id);
 
-            if (activity_id == 999999) {
+            if (activity_id == 9999999) {
                 //999999，表示是用来设置老师为A用户的
                 app.apiRequest({
-                    url: '/user/set-a/' + id,
+                    url: '/user/set-a',
                     method: 'get',
                     data: {},
                     success: res => {
@@ -33,13 +40,25 @@ Page({
                         })
                     }
                 });
+            } else if (activity_id == 9999998) {
+                //999998,加入战队
+                var team_id = res[1];
+                app.apiRequest({
+                    url: '/activity/jointeam/' + team_id,
+                    method: 'get',
+                    data: {},
+                    success: res => {
+                        wx.showToast({
+                            title: '您已经成功加入战队',
+                            icon: 'success', //图标，支持"success"、"loading"
+                        })
+                    }
+                });
             } else {
-                //设置全局异步缓存activity_id
-                wx.setStorageSync('activity_id', activity_id);
+                 //用户邀请用户成功
                 if (res_length >= 2) {
                     var share_user_id = res[1];
                     wx.setStorageSync('share_user_id', share_user_id);
-                    //用户邀请用户成功
                     app.apiRequest({
                         url: '/activity/invite-user',
                         method: 'post',
@@ -48,13 +67,17 @@ Page({
                             'parent_user_id': share_user_id
                         },
                         success: res => {
+                            wx.showToast({
+                                title: '用户邀请',
+                                icon: 'success', //图标，支持"success"、"loading"
+                            })
                         }
                     });
                 }
                 this.toActivityDetail(activity_id);
             }
         }
-        // console.log('no scene');
+
         this.getList();
     },
 
@@ -74,13 +97,13 @@ Page({
             success: res => {
                 var type = res.data.response.type;
                 var has_over = res.data.response.has_over;
-                if(has_over==1){
-                    wx.setStorageSync('mini_over_bg',res.data.response.mini_over_bg);
+                if (has_over == 1) {
+                    wx.setStorageSync('mini_over_bg', res.data.response.mini_over_bg);
                     wx.redirectTo({
                         url: '../pass/index'
                     });
                     return false;
-                }else{
+                } else {
                     this.userInfoToDetail(type, id);
                 }
             }
