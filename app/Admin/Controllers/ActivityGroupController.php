@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\Group\Recommand;
 use App\Models\ActivityGroup;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -34,8 +35,18 @@ class ActivityGroupController extends AdminController
                 $filter->like('user.name','团长');
             });
 
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+
+                $status = $actions->row->is_recommand;
+                if ($status == 1) {
+                    $actions->append(new Recommand('<span class="btn btn-sm btn-primary">不推荐</span>'));
+                } else {
+                    $actions->append(new Recommand('<span class="btn btn-sm btn-warning">推荐</span>'));
+                }
+            });
+
             $grid->disableCreateButton();//禁用创建按钮
-            $grid->disableActions();//禁用所有操作
+//            $grid->disableActions();//禁用所有操作
         });
     }
 
