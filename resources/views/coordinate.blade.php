@@ -1,4 +1,4 @@
-<iframe id="map" src="/admin/custom/map" width="100%" height="500" style="border:none"></iframe>
+<iframe id="map" src="/admin/custom/map" width="100%" height="600" style="border:none"></iframe>
 <script>
     /**
      * 设置坐标点

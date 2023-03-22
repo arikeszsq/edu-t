@@ -26,7 +26,7 @@
             position: relative;
             z-index: 100;
             color: white;
-            display: none;
+            /*display: none;*/
         }
 
         #bside_left {
@@ -268,12 +268,12 @@
                        onKeyPress="if(event.keyCode==13) {btnSearch.click();return false;}"/></div>
             <div id="btn_search" class="btn">搜索</div>
         </div>
-        <div style="color: red;font-size: 16px;">【* 区域选择：直接在地图上确认，或者输入后点击搜索】</div>
+        <div style="color: red;font-size: 16px;">【* 注意 ：搜索后，需要在地图上点击确认地址，否则拿不到位置的经纬度】</div>
     </div>
     <div id="main">
         <div id="tooles">
             <div id="cur_city">
-                <strong>北京市</strong><span class="change_city">[<span
+                <strong>杭州</strong><span class="change_city">[<span
                         style="text-decoration:underline;">更换城市</span>]<span id="level">当前缩放等级：10</span></span>
                 <div id="city" class="hide">
                     <h3 class="city_class">热门城市<span class="close">X</span></h3>
