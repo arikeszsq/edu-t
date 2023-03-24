@@ -30,6 +30,7 @@ class CompanyChildController extends AdminController
             $grid->column('team_pic', '战队邀请码')->image(env('APP_URL'), '100%', '40');
             $grid->column('company.name', '企业名称');
             $grid->column('name');
+            $grid->column('team_name','战队名称');
             $grid->column('map_area');
             $grid->column('mobile', '联系电话');
             $grid->column('created_at');
@@ -91,6 +92,7 @@ class CompanyChildController extends AdminController
                 ->options($company_option)
                 ->required();
             $form->text('name')->required();
+            $form->text('team_name','战队名称')->required();
 
             $form->html(view('coordinate'), '区域选择'); // 加载自定义地图
             $form->hidden('map_points', '经纬度'); // 隐藏域，用于接收坐标点（这里如果想数据回填可以，->value('49.121221,132.2321312')）
