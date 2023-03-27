@@ -28,7 +28,7 @@ class CompanyChildController extends AdminController
 
             $grid->column('id')->sortable();
             $grid->column('team_pic', '战队邀请码')->image(env('APP_URL'), '100%', '40');
-            $grid->column('company.name', '企业名称');
+            $grid->column('company.name', '机构名称');
             $grid->column('name');
             $grid->column('team_name','战队名称');
             $grid->column('map_area');
@@ -38,7 +38,7 @@ class CompanyChildController extends AdminController
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-                $filter->like('company.name', '企业名称');
+                $filter->like('company.name', '机构名称');
             });
         });
     }
@@ -54,7 +54,7 @@ class CompanyChildController extends AdminController
     {
         return Show::make($id, CompanyChild::with(['company']), function (Show $show) {
             $show->field('id');
-            $show->field('company.name', '企业名称');
+            $show->field('company.name', '机构名称');
             $show->field('name');
             $show->field('map_area');
             $show->field('created_at');

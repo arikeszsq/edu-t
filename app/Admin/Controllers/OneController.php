@@ -80,7 +80,11 @@ class OneController extends ActivityController
 
                 $actions->append('<a class="btn btn-sm btn-success" style="margin: 3px;;" href="/admin/form-fields?activity_id=' . $actions->row->id . '">表单设置</a>');
 
+
                 $actions->append('<a class="btn btn-sm btn-danger" style="margin: 3px;;" href="/admin/user-sign-manage?activity_id=' . $actions->row->id . '">报名管理</a>');
+
+                $actions->append('<a class="btn btn-sm btn-success" style="margin: 3px;;" href="/admin/team-total?activity_id='.$actions->row->id.'">战队统计</a>');
+
             });
         });
     }

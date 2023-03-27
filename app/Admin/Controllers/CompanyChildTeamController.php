@@ -23,10 +23,11 @@ class CompanyChildTeamController extends AdminController
             $grid->column('user_id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
+            $grid->disableActions();//禁用所有操作
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -60,7 +61,7 @@ class CompanyChildTeamController extends AdminController
             $form->display('id');
             $form->text('child_id');
             $form->text('user_id');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

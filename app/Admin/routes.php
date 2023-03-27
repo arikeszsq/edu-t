@@ -69,4 +69,9 @@ Route::group([
 
     $router->get('custom/map', 'CompanyChildController@customMap'); // 自定义地图视图
 
+    //战队统计
+    $router->resource('team-total', 'TeamTotalController');
+    //战队明细
+    $router->resource('company-child-team', 'CompanyChildTeamController');
+
 });
