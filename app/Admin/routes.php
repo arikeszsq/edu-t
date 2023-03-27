@@ -64,6 +64,9 @@ Route::group([
     $router->resource('order', 'OrderController');
 
 
+    $router->resource('activity-new', 'ActivityNewController');
+
+
     $router->get('custom/map', 'CompanyChildController@customMap'); // 自定义地图视图
 
 });
