@@ -112,6 +112,7 @@ class ActivityService
             ->where('has_pay', 1)
             ->where('role', 1)//团长
             ->where('type', 1)//开团购买
+            ->where('is_recommand', 1)
             ->limit(3)
             ->get();
 
