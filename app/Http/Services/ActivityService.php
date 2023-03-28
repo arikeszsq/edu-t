@@ -72,7 +72,7 @@ class ActivityService
             ->where('end_time', '>', Carbon::now())
             ->first();
         if (!$activity) {
-            throw new ObjectNotExistException('活动不存在，请核实');
+            throw new ObjectNotExistException('活动不存在或已经下架，请核实', 10001);
         }
 
         $is_many = $activity->is_many;
@@ -83,11 +83,29 @@ class ActivityService
             $data = $this->getManyDetail($id);
         }
 
+        $music = ActivityMusic::query()->find($activity->music_id);
+        $data['music_url'] = $music->file ?? '';
+        $data['bg_banner'] = $activity->bg_banner;
+        $data['title'] = $activity->title;
+        $data['description'] = $activity->description;
+        $data['ori_price'] = $activity->ori_price;
+        $data['real_price'] = $activity->real_price;
+        $data['start_time'] = $activity->start_time;
+        $data['end_time'] = $activity->end_time;
+        $data['views_num'] = UserViewCount::getActivityViewNum($id);
+        $data['buy_num'] = ActivitySignUser::getHasPayNum($id);
+        $data['share_num'] = UserActivityInvite::getActivityShareNum($id);
+        $data['content'] = $activity->content;
+        $data['vr_view'] = $activity->content;//虚拟浏览量
+        $data['vr_share'] = $activity->content;//虚拟分享量
+        $data['fields'] = $this->getFormFields($id);
         $data['course_num'] = $activity->course_num;//选择课程的数量
+
         $data['group_num'] = ActivityGroup::query()->where('activity_id', $id)->count();
         $data['group_people_num'] = ActivitySignUser::query()->where('activity_id', $id)
             ->where('has_pay', 1)
             ->count();
+
         $data['group_people_list'] = ActivitySignUser::query()
             ->with('group.user')
             ->where('activity_id', $id)
@@ -105,31 +123,13 @@ class ActivityService
             ->where('type', 1)//开团购买
             ->orderBy('id', 'desc')
             ->first();
+
         return $data;
     }
 
     public function geSignalDetail($id)
     {
         $data = [];
-        $activity = $this->getActivityById($id);
-
-        $music = ActivityMusic::query()->find($activity->music_id);
-        $data['music_url'] = $music->file;
-
-        $data['bg_banner'] = $activity->bg_banner;
-        $data['title'] = $activity->title;
-        $data['description'] = $activity->description;
-        $data['ori_price'] = $activity->ori_price;
-        $data['real_price'] = $activity->real_price;
-        $data['end_time'] = $activity->end_time;
-
-        $data['views_num'] = UserViewCount::query()->where('activity_id', $id)->sum('view_num');
-        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id', $id)
-            ->where('has_pay', 1)
-            ->count();
-        $data['share_num'] = UserActivityInvite::query()->where('activity_id', $id)->count();
-        $data['content'] = $activity->content;
-
         $sign_users = ActivitySignUser::getHasPayList($id);
         $pay_group_list = [];
         foreach ($sign_users as $group) {
@@ -160,38 +160,6 @@ class ActivityService
             }
         }
         $data['pay_group_list'] = $pay_group_list;
-
-        $fields = ActivityFormField::query()
-            ->with('options')
-            ->where('activity_id', $id)
-            ->get();
-        $ret_field = [];
-        foreach ($fields as $field) {
-            $type = $field->type;
-            if ($type == 1) {
-                $ret_field[] = [
-                    'field_name' => $field->field_name,
-                    'field_en_name' => $field->field_en_name,
-                    'type' => $field->type,
-                ];
-            } else {
-                $options = [];
-                foreach ($field->options as $option) {
-                    $options[] = [
-                        'option_id' => $option->id,
-                        'option_title' => $option->name,
-                    ];
-                }
-                $ret_field[] = [
-                    'field_name' => $field->field_name,
-                    'field_en_name' => $field->field_en_name,
-                    'type' => $field->type,
-                    'options' => $options
-                ];
-            }
-        }
-
-        $data['fields'] = $ret_field;
         return $data;
 
     }
@@ -200,15 +168,6 @@ class ActivityService
     {
         $data = [];
         $activity = $this->getActivityById($id);
-
-        $music = ActivityMusic::query()->find($activity->music_id);
-        $data['music_url'] = $music->file;
-
-        $data['bg_banner'] = $activity->bg_banner;
-        $data['title'] = $activity->title;
-        $data['description'] = $activity->description;
-
-        $data['ori_price'] = $activity->ori_price;
         $ori_price_array = explode('.', $activity->ori_price);
         if (isset($ori_price_array[0]) && $ori_price_array[0]) {
             $data['ori_price_before'] = $ori_price_array[0];
@@ -234,13 +193,6 @@ class ActivityService
             $data['real_price_after'] = 00;
         }
 
-        $data['end_time'] = $activity->end_time;
-        $data['views_num'] = UserViewCount::query()->where('activity_id', $id)->sum('view_num');
-        $data['buy_num'] = DB::table('activity_sign_user')->where('activity_id', $id)
-            ->where('has_pay', 1)
-            ->count();
-        $data['share_num'] = UserActivityInvite::query()->where('activity_id', $id)->count();
-        $data['content'] = $activity->content;
         $companies = ActivitySignCom::query()->with('company')
             ->where('activity_id', $id)
             ->get();
@@ -334,6 +286,40 @@ class ActivityService
         $data['pay_group_list'] = $pay_group_list;
 
         return $data;
+    }
+
+    public function getFormFields($activity_id)
+    {
+        $fields = ActivityFormField::query()
+            ->with('options')
+            ->where('activity_id', $activity_id)
+            ->get();
+        $ret_field = [];
+        foreach ($fields as $field) {
+            $type = $field->type;
+            if ($type == 1) {
+                $ret_field[] = [
+                    'field_name' => $field->field_name,
+                    'field_en_name' => $field->field_en_name,
+                    'type' => $field->type,
+                ];
+            } else {
+                $options = [];
+                foreach ($field->options as $option) {
+                    $options[] = [
+                        'option_id' => $option->id,
+                        'option_title' => $option->name,
+                    ];
+                }
+                $ret_field[] = [
+                    'field_name' => $field->field_name,
+                    'field_en_name' => $field->field_en_name,
+                    'type' => $field->type,
+                    'options' => $options
+                ];
+            }
+        }
+        return $ret_field;
     }
 
 

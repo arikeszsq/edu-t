@@ -158,4 +158,17 @@ class ActivitySignUser extends Model
                 'pay_time' => Carbon::now(),
             ]);
     }
+
+    /**
+     * 支付成功后回调
+     * @param $order_no
+     */
+    public static function getHasPayNum($activity_id)
+    {
+        return ActivitySignUser::query()
+            ->where('activity_id', $activity_id)
+            ->where('has_pay', 1)
+            ->count();;
+    }
+
 }

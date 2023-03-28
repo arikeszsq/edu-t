@@ -48,4 +48,14 @@ class UserActivityInvite extends Model
                     ->orWhere('parent_user_id', $user_id);
             })->count();
     }
+
+    /**
+     * 获取活动的分享数目
+     * @param $id
+     * @return int
+     */
+    public static function getActivityShareNum($id)
+    {
+        return UserActivityInvite::query()->where('activity_id', $id)->count();
+    }
 }

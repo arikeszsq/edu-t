@@ -54,4 +54,15 @@ class UserViewCount extends Model
             ]);
         }
     }
+
+
+    /**
+     * 获取活动浏览数
+     * @param $id
+     * @return int|mixed
+     */
+    public static function getActivityViewNum($id)
+    {
+        return UserViewCount::query()->where('activity_id', $id)->sum('view_num');
+    }
 }
