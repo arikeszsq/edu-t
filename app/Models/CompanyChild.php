@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CompanyChild extends Model
 {
@@ -21,4 +22,5 @@ class CompanyChild extends Model
     {
         return CompanyChild::query()->where('company_id',$id)->get();
     }
+
 }
