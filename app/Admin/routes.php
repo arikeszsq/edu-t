@@ -47,6 +47,7 @@ Route::group([
 
     $router->resource('setting', 'BasicSettingController');
     $router->resource('music', 'ActivityMusicController');
+
     //表单设置
     $router->resource('form-fields', 'ActivityFormFieldController');
     //报名管理

@@ -76,12 +76,13 @@ class OneController extends ActivityController
                 } else {
                     $actions->append(new ChangeStatus('<span class="btn btn-sm btn-warning">上架</span>'));
                 }
-                $actions->append(new ActivityComSign('<span  style="margin: 3px;;" class="btn btn-sm btn-primary">报名</span>'));
+                $actions->append(new ActivityComSign('<span  style="margin: 3px;;" class="btn btn-sm btn-primary">机构报名</span>'));
 
-                $actions->append('<a class="btn btn-sm btn-success" style="margin: 3px;;" href="/admin/form-fields?activity_id=' . $actions->row->id . '">表单设置</a>');
+                $actions->append('<a class="btn btn-sm btn-success" style="margin: 3px;;"
+                href="/admin/form-fields?activity_id=' . $actions->row->id . '">表单设置</a>');
 
-
-                $actions->append('<a class="btn btn-sm btn-danger" style="margin: 3px;;" href="/admin/user-sign-manage?activity_id=' . $actions->row->id . '">报名管理</a>');
+                $actions->append('<a class="btn btn-sm btn-danger" style="margin: 3px;;"
+                href="/admin/user-sign-manage?activity_id=' . $actions->row->id . '">报名管理</a>');
 
                 $actions->append('<a class="btn btn-sm btn-success" style="margin: 3px;;"
                 href="/admin/team-total?activity_id=' . $actions->row->id . '">战队统计</a>');

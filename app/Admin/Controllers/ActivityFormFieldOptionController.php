@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\BackToActivityList;
 use App\Models\ActivityFormFieldOption;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -17,16 +18,21 @@ class ActivityFormFieldOptionController extends AdminController
      */
     protected function grid()
     {
+
         return Grid::make(new ActivityFormFieldOption(), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('activity_form_id');
             $grid->column('name');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
+            });
+
+            $grid->tools(function (Grid\Tools $tools) {
+                $tools->append(new BackToActivityList());
             });
         });
     }
@@ -60,7 +66,7 @@ class ActivityFormFieldOptionController extends AdminController
             $form->display('id');
             $form->text('activity_form_id');
             $form->text('name');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\BackToActivityList;
 use App\Models\ActivityFormField;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -29,7 +30,7 @@ class ActivityFormFieldController extends AdminController
         }
 
         return Grid::make(new ActivityFormField(), function (Grid $grid) use ($activity_id) {
-            $grid->model()->where('activity_id', $activity_id)->orderBy('sort','asc');
+            $grid->model()->where('activity_id', $activity_id)->orderBy('sort', 'asc');
             $grid->column('id')->bold()->sortable();
             $grid->column('field_name');
             $grid->column('type')->display(function ($type) {
@@ -39,7 +40,7 @@ class ActivityFormFieldController extends AdminController
                 return $array[$type];
             });
 
-            $grid->column('sort','排序')->orderable(); // 开启排序功能
+            $grid->column('sort', '排序')->orderable(); // 开启排序功能
 
             $grid->column('created_at')->sortable();
 
@@ -53,7 +54,9 @@ class ActivityFormFieldController extends AdminController
             // 禁用过滤器按钮
             $grid->disableFilterButton();
 
-            $grid->tools('<a class="btn btn-info" href="/admin/activity-one">返回活动列表</a>');
+            $grid->tools(function (Grid\Tools $tools) {
+                $tools->append(new BackToActivityList());
+            });
 
         });
     }
@@ -107,7 +110,12 @@ class ActivityFormFieldController extends AdminController
                     3 => '多选框'
                 ])->default(1)
                 ->required()
-                ->when([2, 3], function (Form $form) {
+                ->when([2], function (Form $form) {
+                    $form->hasMany('options', function (Form\NestedForm $form) {
+                        $form->text('name', '名称');
+                    })->label('选项列表');
+                })->when([3], function (Form $form) {
+                    $form->number('select_num', '选择几项')->default(0)->help('0 表示选项任意几项，不做限制');
                     $form->hasMany('options', function (Form\NestedForm $form) {
                         $form->text('name', '名称');
                     })->label('选项列表');
