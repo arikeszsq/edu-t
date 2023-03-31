@@ -137,81 +137,69 @@
         </view>
     </view>
 
-    <!-- 活动 -->
+
     <view class="activity-container  all_view">
-        <!-- 滚动区域 -->
-        <view class="active-bar-container">
-            <scroll-view class="tab-scroll middle-content" scroll-x="true" :scroll-with-animation="true">
-                <view class="tab-scroll-box box">
-                    <block wx:for="{{ActiveBarList}}" wx:key="id">
-                        <view class="scroll-view-item {{index===activeIndex?'active':''}}" bindtap="bindtapActiveBar" data-index="{{index}}">{{item.name}}</view>
-                    </block>
-                </view>
-            </scroll-view>
-            <!-- 地图 -->
-            <view class="map box justify-between align-center">
-                <image class="icons" src="../../../images/activity/dizhi.png"></image>
-                <view class="address">
-                    {{adressObj.name}}
-                </view>
-                <view class="home-set" bindtap="setHomeAdress">点击设置家的位置</view>
+        <view class="section">
+            <view style="display:flex;flex-direction:row;">
+                <view class="flex-item title_change {{isSelected==1 ? 'title_current':''}}" bindtap="clickTap" data-id="1">
+                    活动详情</view>
+                <view class="flex-item title_change {{isSelected==2 ? 'title_current':''}}" bindtap="clickTap" data-id="2">
+                    机构详情</view>
+                <view class="flex-item title_change {{isSelected==3 ? 'title_current':''}}" bindtap="clickTap" data-id="3">
+                    奖励详情</view>
             </view>
-            <view class="swiper-index-container middle-content">
-                <swiper style="height:{{height}}rpx" current='{{activeIndex}}' bindchange='changeCurrent'>
-                    <swiper-item>
-                            <block wx:for="{{contentImgUrls}}" wx:key="*this">
-                                <image class="detail_pic" src="{{item}}" />
-                            </block>
-                    </swiper-item>
-                    <swiper-item>
-                        <view class="timu_list1">
-                            <view class="listItem-container">
-                                <view class="timu-list1-item box  align-center" wx:for="{{info.company_list}}" wx:key="id">
-                                    <view class="image-container" wx:if="{{item.company_logo}}">
-                                        <image mode="aspectFit" src="{{item.company_logo}}"></image>
-                                    </view>
-                                    <view class="timu-list1-container">
-                                        <view class="title">{{item.company_name}}</view>
-                                        <view class="desc gray">
-                                            <view>校区：{{item.school_num}}</view>
-                                            <view>机构课程：{{item.sign_user_num}}</view>
-                                            <view>报名人数：{{item.course_num}}</view>
-                                        </view>
-
-                                    </view>
-                                    <!-- <view class="address gray">离家14.2km</view> -->
-                                </view>
-                            </view>
+        </view>
+        <!-- 地图 -->
+        <view class="map box justify-between align-center">
+            <image class="icons" src="../../../images/activity/dizhi.png"></image>
+            <view class="address">
+                {{adressObj.name}}
+            </view>
+            <view class="home-set" bindtap="setHomeAdress">点击设置家的位置</view>
+        </view>
+        <view class="timu_list0" wx:if="{{isSelected==1}}">
+            <view class="listItem-container">
+                <view wx:for="{{contentImgUrls}}" wx:key="*this">
+                    <image class="detail_pic" src="{{item}}" />
+                </view>
+            </view>
+        </view>
+        <view class="timu_list1" wx:if="{{isSelected==2}}">
+            <view class="listItem-container">
+                <view class="timu-list1-item box  align-center" wx:for="{{info.company_list}}" wx:key="id">
+                    <view class="image-container" wx:if="{{item.company_logo}}">
+                        <image mode="aspectFit" src="{{item.company_logo}}"></image>
+                    </view>
+                    <view class="timu-list1-container">
+                        <view class="title">{{item.company_name}}</view>
+                        <view class="desc gray">
+                            <view>校区：{{item.school_num}}</view>
+                            <view>机构课程：{{item.sign_user_num}}</view>
+                            <view>报名人数：{{item.course_num}}</view>
                         </view>
-                    </swiper-item>
-                    <swiper-item>
-                        <view class="timu_list2">
-                            <view class="listItem-container">
-                                <view class="timu-list1-item box  align-center" wx:for="{{info.award}}" wx:key="id">
-                                    <view class="image-container" wx:if="{{item.logo}}">
-                                        <image mode="aspectFit" src="{{item.logo}}"></image>
-                                    </view>
-                                    <view class="timu-list1-container">
-                                        <view class="title">{{item.name}}</view>
-                                        <view class="desc gray">
-                                            <view>{{item.short_name}}</view>
-                                            <view>{{item.description}}</view>
-                                            <view>{{item.price}}</view>
-                                        </view>
-
-                                    </view>
-
-                                </view>
-                            </view>
+                    </view>
+                    <view class="address gray">离家14.2km</view>
+                </view>
+            </view>
+        </view>
+        <view class="timu_list2">
+            <view class="listItem-container">
+                <view class="timu-list1-item box  align-center" wx:for="{{info.award}}" wx:key="id">
+                    <view class="image-container" wx:if="{{item.logo}}">
+                        <image mode="aspectFit" src="{{item.logo}}"></image>
+                    </view>
+                    <view class="timu-list1-container">
+                        <view class="title">{{item.name}}</view>
+                        <view class="desc gray">
+                            <view>{{item.short_name}}</view>
+                            <view>{{item.description}}</view>
+                            <view>{{item.price}}</view>
                         </view>
-                    </swiper-item>
-                </swiper>
+                    </view>
+                </view>
             </view>
         </view>
     </view>
-
-
-
     <view class="createActivity">
         <navigator url="/pages/activity/createActivity/index" class="text-act">
             <view>我要</view>

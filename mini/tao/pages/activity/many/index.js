@@ -6,6 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        isSelected:1,
         // 页面总高度将会放在这里
         // scroll-view的高度
         isShowDialogue: true,
@@ -41,6 +42,13 @@ Page({
         duration: 1000
     },
 
+    clickTap:function(e){
+        var curId =e.currentTarget.dataset.id;
+        this.setData({
+            isSelected: curId,
+        })
+    },
+
     /**
 * 生命周期函数--监听页面加载
 */
@@ -51,7 +59,7 @@ Page({
         }
         this.getActivityDetail(wx.getStorageSync('activity_id'));
         this.getHomeAdress();//初始化家的位置
-        this.setSwiperHeight(".timu_list0");//加载页面时候就计算swiper
+        // this.setSwiperHeight(".timu_list0");//加载页面时候就计算swiper
     },
 
     onReady() {

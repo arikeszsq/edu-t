@@ -56,7 +56,7 @@ App({
     globalData: {
         userInfo: null,
         hasUserInfo: false,
-        apiDomain: 'http://edu.com.me/api', //生产：https://zsq.a-poor.com/api
+        apiDomain: 'http://edu.com.me/api',
         defaultDailyFreeParseNum: 10
     },
 

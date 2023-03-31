@@ -526,3 +526,23 @@
 .detail_pic{
     width: 100%;
 }
+
+.all_view{
+    margin-bottom: 200rpx;
+}
+
+.title_change{
+    text-align: center;
+    font-size: 26rpx;
+    width: 33%;
+    margin: 20rpx;
+    padding: 30rpx;
+    margin-top: -50rpx;
+}
+.title_current{
+    font-weight: 600;
+    border-bottom: 1rpx red solid;
+}
+.section{
+    margin-bottom: -30rpx;
+}

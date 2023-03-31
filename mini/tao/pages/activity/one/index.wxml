@@ -101,9 +101,9 @@
         </view>
 
 
-        <block wx:for="{{contentImgUrls}}" wx:key="*this">
+        <view wx:for="{{contentImgUrls}}" wx:key="*this">
             <image class="detail_pic" src="{{item}}" />
-        </block>
+        </view>
 
         <!-- 
         <view class="common container-three">
