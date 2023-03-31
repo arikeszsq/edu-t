@@ -41,6 +41,27 @@ Page({
         duration: 1000
     },
 
+    /**
+* 生命周期函数--监听页面加载
+*/
+    onLoad: function (options) {
+        let activity_id = wx.getStorageSync('activity_id');
+        if (!activity_id) {
+            wx.setStorageSync('activity_id', 9);
+        }
+        this.getActivityDetail(wx.getStorageSync('activity_id'));
+        this.getHomeAdress();//初始化家的位置
+        this.setSwiperHeight(".timu_list0");//加载页面时候就计算swiper
+    },
+
+    onReady() {
+        //防止数据没有加载完成1表秒之后获取
+        setTimeout(() => {
+            this.setSwiperHeight(".timu_list0")
+        }, 3000)
+
+    },
+
     //切换视频时候设置视频暂停：整体思路data里面indexCurrent,默认值是第一个视频，当我们切换的时候，就会重新给一个id，更新indexCurrent，这样只要切换了就能暂停
     currentVideoPuase(index) {
         let curIdx = `video${index}`;//新的dom的id
@@ -72,13 +93,6 @@ Page({
         this.currentVideoPuase(e.detail.current);
     },
 
-    onReady() {
-        //防止数据没有加载完成1表秒之后获取
-        setTimeout(() => {
-            this.setSwiperHeight(".timu_list0")
-        }, 3000)
-
-    },
     //设置swiper高度的方法
     setSwiperHeight(dom) {
         let query = wx.createSelectorQuery();
@@ -171,22 +185,6 @@ Page({
                 })
             }
         });
-    },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-        // var keyName = app.globalData.userInfo.nickName;
-        // if (options.id) {
-        //     var id = options.id;
-        //     wx.setStorageSync(keyName, id);
-        // }
-        // var activity_id = wx.getStorageSync(keyName);
-        this.getActivityDetail(wx.getStorageSync('activity_id'));
-        this.getHomeAdress();//初始化家的位置
-        //加载页面时候就计算swiper
-        this.setSwiperHeight(".timu_list0")
     },
 
     /**

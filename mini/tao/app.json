@@ -1,10 +1,11 @@
 {
     "pages": [
+        "pages/activity/many/index",
         "pages/index/index",
         "pages/cashout/index",
         "pages/pass/index",
         "pages/activity/one/index",
-        "pages/activity/many/index",
+
         "pages/complaint/index",
         "pages/user/index",
         "pages/activity/group/index",
