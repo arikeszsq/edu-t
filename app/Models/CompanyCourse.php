@@ -15,7 +15,7 @@ class CompanyCourse extends Model
 
     public static function getAllCourseByCompanyId($id)
     {
-        return CompanyChild::query()->where('company_id', $id)->get();
+        return CompanyCourse::query()->where('company_id', $id)->get();
     }
 
     /**

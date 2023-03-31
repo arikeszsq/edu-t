@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\ActivityService;
 use App\Http\Traits\AreaTrait;
+use App\Http\Traits\ImageTrait;
 use App\Models\ActivityFormField;
 use App\Models\Company;
 use App\Models\CompanyChild;
@@ -22,6 +23,7 @@ use phpDocumentor\Reflection\Types\Integer;
 class CompanyController extends Controller
 {
     use AreaTrait;
+    use ImageTrait;
 
     /**
      * 根据机构id,获取机构详情
@@ -50,7 +52,7 @@ class CompanyController extends Controller
             foreach ($courses as $course) {
                 $course_array[] = [
                     'name' => $course->name,
-                    'logo_c' => $course->logo_c,
+                    'logo_c' => $this->fullImgUrl($course->logo_c),
                     'sign_num' => CompanyCourse::getSignNumByCourseId($activity_id, $course->id)
                 ];
             }
