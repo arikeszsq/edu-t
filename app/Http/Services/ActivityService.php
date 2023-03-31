@@ -221,6 +221,7 @@ class ActivityService
                 ->count();
 
             $data_company[] = [
+                'company_id'=>$company->company_id,
                 'company_name' => $company->company->name,
                 'company_logo' => $this->fullImgUrl($company->company->logo),
                 'school_num' => $school_num,

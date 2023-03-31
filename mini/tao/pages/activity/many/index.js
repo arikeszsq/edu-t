@@ -6,7 +6,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        isSelected:1,
+        hideModal: true, //模态框的状态 true-隐藏 false-显示
+        animationData: {},//模态框
+        isSelected: 1,
         isShowDialogue: true,
         info: {},
         oriPrice: "0",
@@ -32,11 +34,19 @@ Page({
         indicatorDots: true,
         autoplay: true,
         interval: 3000,
-        duration: 1000
+        duration: 1000,
+        company:{
+            name:'',
+            contacter:'',
+            mobile:'',
+            intruduction:'',
+            schools:[],
+            courses:[],
+        },
     },
 
-    clickTap:function(e){
-        var curId =e.currentTarget.dataset.id;
+    clickTap: function (e) {
+        var curId = e.currentTarget.dataset.id;
         this.setData({
             isSelected: curId,
         })
@@ -243,5 +253,74 @@ Page({
     onShareAppMessage: function (options) {
         var shareObj = app.newShareObj(options);
         return shareObj;
-    }
+    },
+
+
+    // 显示遮罩层
+    showModal: function (e) {
+        var that = this;
+        that.setData({
+            hideModal: false
+        });
+        var animation = wx.createAnimation({
+            duration: 600,//动画的持续时间 默认400ms  数值越大，动画越慢  数值越小，动画越快
+            timingFunction: 'ease',//动画的效果 默认值是linear
+        })
+        this.animation = animation
+        setTimeout(function () {
+            that.fadeIn();//调用显示动画
+        }, 200)
+
+        var company_id = e.currentTarget.dataset.id;
+        console.log(company_id);
+        app.apiRequest({
+            url: '/company/detail',
+            method: 'get',
+            data: {
+                id:company_id,
+                activity_id:wx.getStorageSync('activity_id')
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                   'company.name':res.data.response.company_name,
+                   'company.contacter':res.data.response.contacter,
+                   'company.mobile':res.data.response.mobile,
+                   'company.intruduction':res.data.response.intruduction,
+                   'company.schools':res.data.response.schools,
+                   'company.courses':res.data.response.courses,
+                })
+            }
+        });
+   },
+
+    // 隐藏遮罩层
+    hideModal: function () {
+        var that = this;
+        var animation = wx.createAnimation({
+            duration: 800,//动画的持续时间 默认400ms  数值越大，动画越慢  数值越小，动画越快
+            timingFunction: 'ease',//动画的效果 默认值是linear
+        })
+        this.animation = animation
+        that.fadeDown();//调用隐藏动画
+        setTimeout(function () {
+            that.setData({
+                hideModal: true
+            })
+        }, 720)//先执行下滑动画，再隐藏模块
+    },
+
+    //动画集
+    fadeIn: function () {
+        this.animation.translateY(0).step()
+        this.setData({
+            animationData: this.animation.export()//动画实例的export方法导出动画数据传递给组件的animation属性
+        })
+    },
+    fadeDown: function () {
+        this.animation.translateY(300).step()
+        this.setData({
+            animationData: this.animation.export(),
+        })
+    },
 })
