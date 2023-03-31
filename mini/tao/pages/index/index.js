@@ -114,7 +114,9 @@ Page({
         app.apiRequest({
             url: '/user/info',
             method: 'get',
-            data: {},
+            data: {
+                'activity_id':id
+            },
             success: res => {
                 console.log(res);
                 var avatar = res.data.response.avatar;
