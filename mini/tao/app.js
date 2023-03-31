@@ -56,14 +56,8 @@ App({
     globalData: {
         userInfo: null,
         hasUserInfo: false,
-        apiDomain: 'http://1.117.160.70/api', //生产：https://zsq.a-poor.com/api
-        defaultDailyFreeParseNum: 10,
-        type: 1,//开团类型必填：1开团 2单独购买
-        activity_id: 2,
-        share_user_id: 0,
-        //选课得信息
-        selectedCourse: [],  //校区得id
-        selectedSchoolId: []  //课程得id
+        apiDomain: 'http://edu.com.me/api', //生产：https://zsq.a-poor.com/api
+        defaultDailyFreeParseNum: 10
     },
 
 

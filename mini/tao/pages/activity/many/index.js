@@ -158,8 +158,9 @@ Page({
     },
     //初始化时，获取家的位置
     getHomeAdress() {
+        var activity_id = wx.getStorageSync('activity_id');
         app.apiRequest({
-            url: '/user/info',
+            url: '/user/info?activity_id=' + activity_id,
             method: 'get',
             data: {
             },
