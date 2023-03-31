@@ -7,11 +7,7 @@ Page({
      */
     data: {
         isSelected:1,
-        // 页面总高度将会放在这里
-        // scroll-view的高度
         isShowDialogue: true,
-        height: 100,
-        //详情所有信息
         info: {},
         oriPrice: "0",
         realPrice: "0",
@@ -26,9 +22,6 @@ Page({
             longitude: '',
             name: '',
         },
-
-        //活动分类
-        ActiveBarList: [{ name: "活动详情", id: "1" }, { name: "机构详情", id: "2" }, { name: "奖励详情", id: "3" }],
         activeIndex: 0,
         videoIndex: 0,
         //当前播放的视频
@@ -59,15 +52,9 @@ Page({
         }
         this.getActivityDetail(wx.getStorageSync('activity_id'));
         this.getHomeAdress();//初始化家的位置
-        // this.setSwiperHeight(".timu_list0");//加载页面时候就计算swiper
     },
 
     onReady() {
-        //防止数据没有加载完成1表秒之后获取
-        setTimeout(() => {
-            this.setSwiperHeight(".timu_list0")
-        }, 3000)
-
     },
 
     //切换视频时候设置视频暂停：整体思路data里面indexCurrent,默认值是第一个视频，当我们切换的时候，就会重新给一个id，更新indexCurrent，这样只要切换了就能暂停
@@ -86,7 +73,6 @@ Page({
     },
     changeCurrent(e) {
         this.setData({ activeIndex: e.detail.current })
-        this.setSwiperHeight(".timu_list" + e.detail.current)
     },
     //设置机构视频
     bindtapVideoBar(e) {
@@ -101,21 +87,6 @@ Page({
         this.currentVideoPuase(e.detail.current);
     },
 
-    //设置swiper高度的方法
-    setSwiperHeight(dom) {
-        let query = wx.createSelectorQuery();
-        var that = this
-        query.select(dom).boundingClientRect(rect => {
-            let clientHeight = rect.height;
-            let clientWidth = rect.width;
-            let ratio = 750 / clientWidth;
-            let height = clientHeight * ratio;
-            that.setData({
-                // 获取要循环标签的高度
-                height: height,
-            })
-        }).exec();
-    },
     //单独购买跳转页面
     toCourseOne(e) {
         wx.setStorageSync('buy_method', 1);//购买方式 1，单独购买
@@ -222,7 +193,6 @@ Page({
 
     },
 
-
     countTime() {
         var that = this;
         var days, hours, minutes, seconds;
@@ -246,7 +216,6 @@ Page({
                 minutes,
                 seconds
             })
-            // console.log(that.data.countdown)
             //递归每秒调用countTime方法，显示动态时间效果
             setTimeout(that.countTime, 1000);
         } else {
@@ -256,9 +225,7 @@ Page({
         }
     },
 
-    /**
- * 生命周期函数--监听页面显示
- */
+    //生命周期函数--监听页面显示
     onShow: function () {
         wx.hideHomeButton();
         //增加浏览数
