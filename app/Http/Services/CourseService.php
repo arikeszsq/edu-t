@@ -49,6 +49,7 @@ class CourseService
         if (isset($inputs['type']) && $inputs['type']) {
             $query->where('course.type', $inputs['type']);
         }
+        $query->distinct('com.company_id');
         $lists = $query->get();
 
         $course_total = [];

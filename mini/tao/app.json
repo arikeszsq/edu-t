@@ -1,17 +1,16 @@
 {
     "pages": [
-        "pages/activity/many/index",
+        "pages/course/course",
         "pages/index/index",
+        "pages/activity/one/index",
+        "pages/activity/many/index",
         "pages/cashout/index",
         "pages/pass/index",
-        "pages/activity/one/index",
-
         "pages/complaint/index",
         "pages/user/index",
         "pages/activity/group/index",
         "pages/activity/createActivity/index",
         "pages/activity/pay/index",
-        "pages/course/course",
         "pages/mine/mine",
         "pages/myAward/myAward",
         "pages/myOrder/myOrder",
