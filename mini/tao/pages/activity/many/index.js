@@ -255,12 +255,36 @@ Page({
   },
 
 
+
+  //动画集
+  fadeIn: function () {
+    this.animation.translateY(0).step()
+    this.setData({
+      animationData: this.animation.export()//动画实例的export方法导出动画数据传递给组件的animation属性
+    })
+  },
+  fadeDown: function () {
+    this.animation.translateY(300).step()
+    this.setData({
+      animationData: this.animation.export(),
+    })
+  },
+
   // 显示遮罩层
   showModal: function (e) {
     var that = this;
     that.setData({
       showModal: true
     });
+    var animation = wx.createAnimation({
+      duration: 600,//动画的持续时间 默认400ms  数值越大，动画越慢  数值越小，动画越快
+      timingFunction: 'ease',//动画的效果 默认值是linear
+    })
+    this.animation = animation
+    setTimeout(function () {
+      that.fadeIn();//调用显示动画
+    }, 200)
+
     var company_id = e.currentTarget.dataset.id;
     console.log(company_id);
     app.apiRequest({
@@ -284,8 +308,17 @@ Page({
     });
   },
   hideModal: function () {
-    this.setData({
-      showModal: false
-    });
+    var that = this;
+    var animation = wx.createAnimation({
+      duration: 800,//动画的持续时间 默认400ms  数值越大，动画越慢  数值越小，动画越快
+      timingFunction: 'ease',//动画的效果 默认值是linear
+    })
+    this.animation = animation
+    that.fadeDown();//调用隐藏动画
+    setTimeout(function () {
+      that.setData({
+        showModal: false
+      })
+    }, 720)//先执行下滑动画，再隐藏模块
   }
 })

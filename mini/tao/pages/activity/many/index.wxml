@@ -155,7 +155,11 @@
     </view>
     <view class="timu_list1" wx:if="{{isSelected==2}}">
       <view class="listItem-container">
-        <view class="timu-list1-item box  align-center" wx:for="{{info.company_list}}" wx:key="id" bindtap="showModal" data-id="{{item.company_id}}">
+        <view class="timu-list1-item box  align-center" 
+        wx:for="{{info.company_list}}" 
+        wx:key="id" 
+        bindtap="showModal" 
+        data-id="{{item.company_id}}">
           <view class="image-container" wx:if="{{item.company_logo}}">
             <image mode="aspectFit" src="{{item.company_logo}}"></image>
           </view>
@@ -206,9 +210,37 @@
   <Service id="Service" oriPrice="{{oriPrice}}" realPrice="{{realPrice}}" bindtoCourseOne="toCourseOne" bindtoCourseTwo="bindtoCourseTwo"></Service>
 </view>
 
+
+
+<!-- <view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
+  <view class="modals-cancel" bindtap="hideModal"></view>
+  <view class="bottom-dialog-body bottom-pos" animation="{{animationData}}">
+    <view class="school_name">{{company.name}}</view>
+    <view>联系人：{{company.contacter}}</view>
+    <view>联系电话：
+      <navigator wx:if="{{company.mobile}}" class="dis-btn" url="tel:{{company.mobile}}">{{company.mobile}}</navigator>
+    </view>
+    <view class="school_name">机构介绍</view>
+    <view>{{company.intruduction}}</view>
+    <view class="school_name">机构校区</view>
+    <view wx:for="{{company.schools}}" wx:key="id">{{item.name}} : {{item.map_area}} ({{item.gap}}km)</view>
+    <view class="school_name">机构课程</view>
+    <view class="timu-list1-item box  align-center" wx:for="{{company.courses}}" wx:key="id">
+      <view class="image-container">
+        <image mode="aspectFit" src="{{item.logo_c}}" wx:if="{{item.logo_c}}"></image>
+      </view>
+      <view class="timu-list1-container">
+        <view class="title">{{item.name}}</view>
+        <view class="title">报名数 ： {{item.sign_num}}</view>
+      </view>
+    </view>
+  </view>
+</view> -->
+
+
 <!--弹窗-->
-<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog bottom-dialog-body bottom-pos" wx:if="{{showModal}}" animation="{{animationData}}">
   <view class="modal-content">
     <scroll-view scroll-y="true" style="height: 70vh;">
       <view class="school_name">{{company.name}}</view>
