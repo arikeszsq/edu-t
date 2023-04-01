@@ -20,7 +20,7 @@
                     </view>
                     <view class="swiper-view-item" wx:for="{{CourseCategroy[indexSize].children}}" wx:key="index">
                         <view class="view-item-title box align-center {{item.isSelected ? 'active':''}}" data-id='{{item.id}}' bindtap='getSchoolLists' hover-class='this-check'>
-                            <image src="../../images/mine/qianbao.png" class="item-images"></image>
+                            <image src="{{item.logo}}" class="item-images"></image>
                             <view class="content">
                                 <view class="title">{{item.name}}</view>
                                 <view class="desc gray">
