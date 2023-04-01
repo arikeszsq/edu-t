@@ -483,14 +483,14 @@
 .createActivity {
     position: fixed;
     width: 96rpx;
-    height:96rpx;
+    height: 96rpx;
     bottom: 140rpx;
     right: 30rpx;
     border-radius: 50%;
     color: #fff;
     font-size: 24rpx;
     background-color: #FF7A08;
-    border:12rpx solid #ffe0c4;
+    border: 12rpx solid #ffe0c4;
     text-align: center;
 }
 
@@ -505,33 +505,33 @@
 .complaint {
     position: fixed;
     width: 96rpx;
-    height:96rpx;
+    height: 96rpx;
     bottom: 140rpx;
     left: 30rpx;
     border-radius: 50%;
     color: #fff;
     font-size: 24rpx;
     background-color: #91c5b1;
-    border:12rpx solid #ffe0c4;
+    border: 12rpx solid #ffe0c4;
     text-align: center;
 }
 
-.complaint_text_act{
+.complaint_text_act {
     position: relative;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
 }
 
-.detail_pic{
+.detail_pic {
     width: 100%;
 }
 
-.all_view{
+.all_view {
     margin-bottom: 200rpx;
 }
 
-.title_change{
+.title_change {
     text-align: center;
     font-size: 26rpx;
     width: 33%;
@@ -539,11 +539,13 @@
     padding: 30rpx;
     margin-top: -50rpx;
 }
-.title_current{
+
+.title_current {
     font-weight: 600;
     border-bottom: 1rpx red solid;
 }
-.section{
+
+.section {
     margin-bottom: -30rpx;
 }
 
@@ -555,9 +557,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-   }
-    
-   .modals-cancel {
+}
+
+.modals-cancel {
     position: absolute;
     z-index: 1000;
     top: 0;
@@ -565,9 +567,9 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, .5);
-   }
-    
-   .bottom-dialog-body {
+}
+
+.bottom-dialog-body {
     position: absolute;
     z-index: 10001;
     bottom: 0;
@@ -576,18 +578,146 @@
     padding: 30rpx;
     height: 800rpx;
     background-color: #fff;
-   }
-    
-   /*动画前初始位置*/
-   .bottom-pos {
+}
+
+/*动画前初始位置*/
+.bottom-pos {
     -webkit-transform: translateY(100%);
     transform: translateY(100%);
-   }
+}
 
 
-   .school_name{
-       font-size: 32rpx;
-       font-weight: 600;
-       margin-top: 20rpx;
-       margin-bottom: 20rpx;
-   }
+.school_name {
+    font-size: 32rpx;
+    font-weight: 600;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+.showModal {
+    position: absolute;
+    height: 50px;
+    left: 30%;
+    width: 40%;
+    top: 40%;
+    background: rgb(95, 228, 83);
+    color: #fff;
+    font-size: 20px;
+}
+
+
+/*以下全是弹窗样式*/
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+.modal-dialog {
+    height: 70vh;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    background: #f9f9f9;
+    border-radius: 36rpx;
+}
+
+.modal-title {
+    padding-top: 30rpx;
+    font-size: 20px;
+    color: #030303;
+    text-align: center;
+}
+
+.modal-title-sc {
+    padding-top: 10rpx;
+    font-size: 15px;
+    color: #bebcbc;
+    text-align: center;
+}
+
+.modal-content {
+    padding: 10rpx 32rpx;
+}
+
+.info {
+    height: 100%;
+    left: 0%;
+    text-align: left;
+    font-size: 12px;
+    color: #bebcbc;
+}
+
+.info::after {
+    border: 0px;
+}
+
+.name_List {
+    position: absolute;
+    left: 0%;
+    width: 40%;
+    text-align: left;
+}
+
+.quantity_List {
+    position: absolute;
+    left: 40%;
+    width: 10%;
+    text-align: left;
+}
+
+.reason_List {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    text-align: right;
+    overflow: hidden;
+}
+
+.modal-content-return {
+    padding: 15rpx 32rpx;
+    font-size: 15px;
+    color: #bebcbc;
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    height: 86rpx;
+    border-top: 1px solid #dedede;
+    font-size: 34rpx;
+    line-height: 86rpx;
+}
+
+.btn-cancel {
+    width: 50%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 50%;
+    color: #ec5300;
+    text-align: center;
+}
