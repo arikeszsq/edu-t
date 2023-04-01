@@ -43,7 +43,7 @@ class CourseService
         $query = DB::table('activity_sign_com as com')
             ->leftJoin('company_course as course', 'com.company_id', 'course.company_id')
             ->leftJoin('company', 'course.company_id', 'company.id')
-            ->select(['course.id as id', 'course.logo', 'course.name', 'course.price', 'course.total_num', 'course.sale_num',
+            ->select(['course.id as id', 'course.logo_c as logo', 'course.name', 'course.price', 'course.total_num', 'course.sale_num',
                 'company.name as company_name', 'course.type as type'])
             ->where('com.activity_id', $activity_id);
         if (isset($inputs['type']) && $inputs['type']) {
