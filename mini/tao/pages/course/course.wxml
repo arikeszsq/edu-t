@@ -16,10 +16,14 @@
                 <scroll-view scroll-y="true" class="swiper-view-list">
                     <view class="swiper-view-item">
                         <!-- 还可以选4门课程 -->
-                        <view class="course-title">还可以选<text class="primary">{{4-selectedCourse.length}}</text>门课程</view>
+                        <view class="course-title">还可以选<text class="primary">{{canSelectedNum-courseSelectedIds.length}}</text>门课程</view>
                     </view>
                     <view class="swiper-view-item" wx:for="{{CourseCategroy[indexSize].children}}" wx:key="index">
-                        <view class="view-item-title box align-center {{item.isSelected ? 'active':''}}" data-id='{{item.id}}' bindtap='getSchoolLists' hover-class='this-check'>
+                        <view class="view-item-title box align-center {{item.isSelected ? 'active':''}}" 
+                        data-id='{{item.id}}'
+                        bindtap='getSchoolLists' 
+                        hover-class='this-check'
+                        >
                             <image src="{{item.logo}}" class="item-images"></image>
                             <view class="content">
                                 <view class="title">{{item.name}}</view>
@@ -37,7 +41,7 @@
         </swiper>
     </view>
     <view class="service box">
-        <view class="choose">已选<text class="primary">{{selectedCourse.length}}</text>个</view>
+        <view class="choose">已选<text class="primary">{{courseSelectedIds.length}}</text>个</view>
         <view class="share" bindtap="nextHandle">下一步</view>
     </view>
     <view class="dislogue-bj {{dialogShow?'display-show':'display-hide'}}">
@@ -50,13 +54,10 @@
             <view class="address" wx:for="{{schoolLists}}" wx:key="id" data-item="{{item}}" bindtap="chooseSchoolHandle">
                 <text>{{item.name}}:</text> <text class="warn">{{item.map_area}}<view wx:if="{{item.msg}}">（</view>{{item.msg}}<view wx:if="{{item.msg}}">）</view></text>
             </view>
-
             <view class="box comfire-container">
                 <view class="cancel" bindtap="handleCancel">取消</view>
                 <view class="comfire" bindtap="handleComfire">确认</view>
             </view>
-
-
         </view>
     </view>
 </view>

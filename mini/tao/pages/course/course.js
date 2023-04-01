@@ -5,6 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        canSelectedNum: 0,
         type: "",
         //家的地址
         adressObj: {
@@ -20,47 +21,78 @@ Page({
         duration: 0,  // 滑动动画时长
         dialogShow: false,
         //四个校区的集合,需要发送给后端
-        selectedCourse: [],
+        schoolSelectedIds: [],
         //四个课程id,需要发后端
-        selectedSchoolId: [],
+        courseSelectedIds: [],
+        selectedTypeArray: [],//已经选择的大类数组，每个大类只能选一个
+
         //单个选择校区的
         selectedSchool: {},
         //一次性保存，用来修改isSelected
-        selectedCourseId: "",
+        tempChoosedCourseId: "",
     },
 
-    //课程校区的获取
+    //点击课程，获取校区列表
     getSchoolLists: function (e) {
-        //这个id，存在地方isSelectd true
-        const that = this
-        let id = e.currentTarget.dataset.id;
-        //取消选择
-        const arryCourse = this.data.CourseCategroy[this.data.indexSize].children;
-        console.log(arryCourse, "arryCourse")
-        for (const item of arryCourse) {
-            //根据资料里面值进行判断
-            if (item.id === id && item.isSelected) {
-                this.data.selectedCourse.splice(this.data.selectedCourse.indexOf(id), 1);
-                this.data.selectedSchoolId.splice(this.data.selectedCourse.indexOf(id), 1);
-                //需要重新设置一下isSelected
-                item.isSelected = false
-                that.setData({
-                    selectedCourse: this.data.selectedCourse,
-                    CourseCategroy: this.data.CourseCategroy
-                })
-                return
+        //第一步，判断是取消还是选择课程：是取消的则直接取消后结束代码
+        const that = this;
+        let id = e.currentTarget.dataset.id;//点击的课程id
+        //判断这个课程id,是否在已选中的课程数组里：在的话，就是取消操作；不在的话，就是添加操作则展示校区列表
+
+        if (this.data.courseSelectedIds.indexOf(id) !== -1) {
+            //找到了，这是取消操作
+            console.log('取消操作', '方式');
+            //第一步，取消课程id
+            this.data.courseSelectedIds.splice(this.data.courseSelectedIds.indexOf(id), 1);
+            //第二步，取消大类id
+            this.data.selectedTypeArray.splice(this.data.selectedTypeArray.indexOf(this.data.indexSize), 1);
+            //第三步，取消校区id ,校区数组的key和课程数组的key是一样的，所有可以直接找到课程的key,从校区数组中删除校区ID
+            this.data.schoolSelectedIds.splice(this.data.courseSelectedIds.indexOf(id), 1);
+            //第四步，去掉选中表示的红色标记勾
+            const arryCourse = this.data.CourseCategroy[this.data.indexSize].children;
+            for (const item of arryCourse) {
+                //根据资料里面值进行判断
+                if (item.id === id && item.isSelected) {
+                    //需要重新设置一下isSelected
+                    item.isSelected = false;
+                }
             }
+            that.setData({
+                courseSelectedIds: this.data.courseSelectedIds,
+                schoolSelectedIds: this.data.schoolSelectedIds,
+                selectedTypeArray: this.data.selectedTypeArray,
+                CourseCategroy: this.data.CourseCategroy,
+            })
+            return;
         }
-        if (that.data.selectedCourse.length >= 4) {
+
+        //第二步：判断是选则课程，则判断选择课程总数是否超标
+        if (that.data.schoolSelectedIds.length >= that.data.canSelectedNum) {
             wx.showToast({
-                title: '选择的',
+                title: '只能选' + that.data.canSelectedNum + '门',
+                icon: 'error',
+                duration: 2000
+            });
+            return;
+        }
+
+        //第三步：选择大类是否超标，每个大类只能选一个
+        if (this.data.selectedTypeArray.indexOf(this.data.indexSize) !== -1) {
+            wx.showToast({
+                title: '每大类限一项',
+                icon: 'error',
+                duration: 2000
             })
             return
         }
+
+        //第四步：是选取操作，获取校区列表
         this.setData({
-            selectedCourseId: id,
-            dialogShow: true
+            tempChoosedCourseId: id,
+            dialogShow: true,//显示校区选的的弹框
         })
+
+
         // 第二次点击就是需要取消课程的
         app.apiRequest({
             url: '/course/company-child-lists/' + id,
@@ -76,21 +108,23 @@ Page({
         });
     },
     nextHandle() {
-        const length = this.data.selectedCourse.length
-        if (length < 4) {
+        const length = this.data.schoolSelectedIds.length
+        if (length < this.data.canSelectedNum) {
             wx.showToast({
-                title: `还需要选择${4 - length}个课程`,
+                title: `还需要选择${canSelectedNum - length}个课程`,
             })
             return
         } else {
-            //课程储存到app.js得globalData里面
-            //校区得id
-            app.globalData.selectedCourse = this.data.selectedCourse;
+            //课程储存到缓存里去
             //课程得id
-            app.globalData.selectedSchoolId = this.data.selectedSchoolId;
-            wx.navigateTo({
-                url: '/pages/activity/pay/index',
-            })
+            wx.setStorageSync('courseSelectedIds', this.data.courseSelectedIds);
+            console.log(wx.getStorageSync('courseSelectedIds'),'courseSelectedIds');
+            //校区得id
+            wx.setStorageSync('schoolSelectedIds', this.data.schoolSelectedIds);
+            console.log(wx.getStorageSync('schoolSelectedIds'),'courseSelectedIds');
+            // wx.navigateTo({
+            //     url: '/pages/activity/pay/index',
+            // })
         }
 
 
@@ -111,15 +145,13 @@ Page({
     },
 
 
-
     //选择校区的处理函数
     chooseSchoolHandle(e) {
         //选择的校区数据的展示
-        let item = e.currentTarget.dataset.item
+        let item = e.currentTarget.dataset.item;
         this.setData({
             selectedSchool: item
         })
-
     },
     handleCancel() {
         this.setData({
@@ -136,28 +168,30 @@ Page({
             })
             return
         }
-        //集合selectedCourse，选中的id
-        this.data.selectedCourse.push(this.data.selectedSchool.id);
-        this.data.selectedSchoolId.push(this.data.selectedCourseId);
+        //集合schoolSelectedIds，选中的id
+        this.data.schoolSelectedIds.push(this.data.selectedSchool.id);
+        this.data.courseSelectedIds.push(this.data.tempChoosedCourseId);
+        this.data.selectedTypeArray.push(this.data.indexSize);
 
         this.setData({
-            selectedCourse: this.data.selectedCourse,
-            selectedSchoolId: this.data.selectedSchoolId,
+            schoolSelectedIds: this.data.schoolSelectedIds,
+            courseSelectedIds: this.data.courseSelectedIds,
+            selectedTypeArray: this.data.selectedTypeArray,
             dialogShow: false,
             selectedSchool: {}
         })
-        // console.log(this.data.selectedCourse, "id");
+        // console.log(this.data.schoolSelectedIds, "id");
         //设置列表页面的选中状态
-        this.isSelectedCourse(this.data.selectedCourseId, true)
+        this.isSelectedCourse(this.data.tempChoosedCourseId, true)
     },
 
     /**
      * 一级分类选择
      */
     chooseTypes: function (e) {
-
+        console.log(e.target.dataset.index, 'indexSize');//当前选中的大类
         this.setData({
-            indexSize: e.target.dataset.index
+            indexSize: e.target.dataset.index,
         })
     },
 
@@ -179,7 +213,7 @@ Page({
             url: '/course/lists',
             method: 'get',
             data: {
-                'activity_id':  wx.getStorageSync('activity_id')
+                'activity_id': wx.getStorageSync('activity_id')
             },
             success: res => {
                 var that = this;
@@ -202,11 +236,21 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+        if (wx.getStorageSync('canSelectedNum')) {
+            var canSelectedNum = wx.getStorageSync('canSelectedNum');
+        } else {
+            var canSelectedNum = 3;
+        }
+        if (!wx.getStorageSync('activity_id')) {
+            wx.setStorageSync('activity_id', 9);
+        }
+        this.setData({
+            canSelectedNum: canSelectedNum
+        })
         this.getCourseCategroy();
         var buy_type = wx.getStorageSync('buy_type');
-        console.log(buy_type)
         // 家的位置的设置
-        const obj = wx.getStorageSync('trueCity')
+        const obj = wx.getStorageSync('trueCity');
         if (obj.latitude) {
             console.log('adressObj:' + JSON.stringify(obj));
             this.setData({
