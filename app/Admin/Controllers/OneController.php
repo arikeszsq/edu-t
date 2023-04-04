@@ -142,8 +142,8 @@ class OneController extends ActivityController
             $form->decimal('a_invite_money', 'A用户直接邀请奖励')->required();
             $form->decimal('a_other_money', 'A用户别人邀请获得的奖励')->required();
             $form->decimal('second_invite_money', '非A二级邀请奖励')->required();
-            $form->number('vr_view', '虚拟浏览量')->required();
-            $form->number('vr_share', '虚拟分享量')->required();
+//            $form->number('vr_view', '虚拟浏览量')->required();
+//            $form->number('vr_share', '虚拟分享量')->required();
             $form->image('share_bg', '分享海报背景图')->autoUpload();
             $form->image('mini_bg', '小程序封面')->autoUpload()->saveFullUrl();
             $form->image('mini_over_bg', '小程序结束图')->saveFullUrl()->autoUpload();
