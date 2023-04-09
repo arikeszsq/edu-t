@@ -1,1 +1,77 @@
-/* pages/award/index.wxss */
+.container{
+    margin: 0;
+    padding: 0;
+}
+
+.newsitem {
+    width: 100%;
+    height: 230rpx;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10rpx;
+    border: 2rpx solid lightblue;
+}
+
+.item_checkbox{
+    margin-left: 30rpx;
+    margin-top: 90rpx;
+}
+
+.img {
+    width: 200rpx;
+    height: 200rpx;
+    padding: 10rpx;
+}
+
+.news-text {
+    display: flex;
+    flex-direction: column;
+    padding: 20rpx;
+}
+.title{
+    width: 380rpx;
+}
+.description{
+    width: 380rpx;
+}
+
+.bottext {
+    width: 100%;
+    height: 200rpx;
+    display: flex;
+    align-items: flex-end;
+    font-size: 30rpx;
+}
+
+
+.course-container{
+    display: flex;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0rpx;
+    height: 100%;
+}
+
+.service {
+    position: absolute;
+    width: 100%;
+    height: 120rpx;
+    background-color: #fff;
+    line-height: 120rpx;
+    bottom: 0px;
+}
+
+.service .choose {
+    width: 210rpx;
+    padding-left: 40rpx;
+    color: #858585;
+}
+
+.service .share {
+    color: #fff;
+    flex-grow: 1;
+    text-align: center;
+    font-size: 30rpx;
+    background-image: linear-gradient(#FF7A08, #FF4D00);
+}
