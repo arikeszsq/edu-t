@@ -10,7 +10,7 @@ Page({
                 id: 1,
                 imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
                 title: 'CHN',
-                description: '撒旦发个萨芬飞洒地方 ',
+                description: '撒旦发个asfsadfasdfasd萨芬飞洒地方 ',
                 checked: false
             },
             {
@@ -26,49 +26,7 @@ Page({
                 title: 'CHN',
                 description: '美国',
                 checked: false
-            },
-            {
-                id: 1,
-                imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
-                title: 'CHN',
-                description: '撒旦发个萨芬飞洒地方 ',
-                checked: false
-            },
-            {
-                id: 2,
-                imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
-                title: 'CHN',
-                description: '美国',
-                checked: false
-            },
-            {
-                id: 3,
-                imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
-                title: 'CHN',
-                description: '美国',
-                checked: false
-            },
-            {
-                id: 1,
-                imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
-                title: 'CHN',
-                description: '撒旦发个萨芬飞洒地方 ',
-                checked: false
-            },
-            {
-                id: 2,
-                imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
-                title: 'CHN',
-                description: '美国',
-                checked: false
-            },
-            {
-                id: 3,
-                imgUrl: 'https://img1.baidu.com/it/u=348861822,4093687718&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
-                title: 'CHN',
-                description: '美国',
-                checked: false
-            },
+            }
         ],
         selectedIds: []
     },
