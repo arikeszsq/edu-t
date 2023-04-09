@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        canSelectedNum: 0,
+        canSelectedNum: 4,
         type: "",
         //家的地址
         adressObj: {
@@ -121,7 +121,7 @@ Page({
             console.log(wx.getStorageSync('courseSelectedIds'),'courseSelectedIds');
             //校区得id
             wx.setStorageSync('schoolSelectedIds', this.data.schoolSelectedIds);
-            console.log(wx.getStorageSync('schoolSelectedIds'),'courseSelectedIds');
+            console.log(wx.getStorageSync('schoolSelectedIds'),'schoolSelectedIds');
             // wx.navigateTo({
             //     url: '/pages/activity/pay/index',
             // })
@@ -236,17 +236,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        if (wx.getStorageSync('canSelectedNum')) {
-            var canSelectedNum = wx.getStorageSync('canSelectedNum');
-        } else {
-            var canSelectedNum = 3;
+        if (!wx.getStorageSync('canSelectedNum')) {
+            wx.setStorageSync('canSelectedNum', 4);
         }
         if (!wx.getStorageSync('activity_id')) {
             wx.setStorageSync('activity_id', 9);
         }
-        this.setData({
-            canSelectedNum: canSelectedNum
-        })
         this.getCourseCategroy();
         var buy_type = wx.getStorageSync('buy_type');
         // 家的位置的设置

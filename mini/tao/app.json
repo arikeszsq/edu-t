@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/award/index",
         "pages/course/course",
         "pages/index/index",
         "pages/activity/one/index",
