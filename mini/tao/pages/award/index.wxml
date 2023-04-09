@@ -23,9 +23,7 @@
         </view>
     </view>
 </view>
-<view class="course-container">
-    <view class="service box">
-        <view class="choose">已选<text class="primary">{{courseSelectedIds.length}}</text>个</view>
-        <view class="share" bindtap="nextHandle">下一步</view>
-    </view>
+<view class="service box">
+    <view class="choose">已选<text class="primary">{{selectedIds.length}}</text>个</view>
+    <view class="share" bindtap="nextHandle">下一步</view>
 </view>
