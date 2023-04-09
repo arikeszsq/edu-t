@@ -5,6 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        canSelectedNum:1,
         awardList: [
             {
                 id: 1,
@@ -39,14 +40,25 @@ Page({
     },
 
     nextHandle() {
-        console.log('下一步')
+        if (this.data.selectedIds.length > this.data.canSelectedNum) {
+            wx.showToast({
+                title: '只能选' + this.data.canSelectedNum + '项',
+                icon: 'error',
+                duration: 2000
+            });
+            return;
+        }
+        wx.setStorageSync('award_ids', JSON.stringify(this.data.selectedIds));
+        console.log(wx.getStorageSync('award_ids'), 'selectedIds');
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        if (!wx.getStorageSync('canSelectedNum')) {
+            wx.setStorageSync('canSelectedNum', 1);
+        }
     },
 
     /**
