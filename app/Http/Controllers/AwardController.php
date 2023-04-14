@@ -8,6 +8,7 @@ use App\Models\ActivitySignUser;
 use App\Models\Award;
 use App\Models\UserActivityInvite;
 use App\Models\UserAward;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,7 @@ class AwardController extends Controller
             ->where('award_id', $inputs['id'])
             ->first();
         if ($first) {
-            return self::error(10001, '请勿重复领取奖励');
+            return self::error(10002, '请勿重复领取奖励');
         }
         try {
             $ret = Award::isUserCanGet($inputs['id'], $user_id);
@@ -48,11 +49,12 @@ class AwardController extends Controller
                 $user_award = UserAward::query()->insert([
                     'activity_id' => $inputs['activity_id'],
                     'user_id' => $inputs['uid'],
-                    'award_id' => $inputs['id']
-                ]);;
+                    'award_id' => $inputs['id'],
+                    'created_at' => Carbon::now()
+                ]);
                 return self::success($user_award);
             } else {
-                return self::error(10001, $ret);
+                return self::error(10001, '失败');
             }
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
@@ -76,6 +78,7 @@ class AwardController extends Controller
     {
         $inputs = $request->all();
         $user_id = self::authUserId();
+        $activity_id = $inputs['activity_id'];
         try {
             $list = Award::query()
                 ->where('status', Award::Status_有效)
@@ -85,6 +88,7 @@ class AwardController extends Controller
             $data = [];
             $user_invite_num = UserActivityInvite::getUserInviteSuccessNum($inputs['activity_id'], $user_id);
             foreach ($list as $award) {
+                $has_get = UserAward::hasGetAlready($activity_id, $user_id, $award->id);
                 $can_user_get = Award::isUserCanGet($award->id, $user_id);
                 if ($can_user_get == 200) {
                     $can_get = 1;
@@ -92,6 +96,7 @@ class AwardController extends Controller
                     $can_get = 2;
                 }
                 $data[] = [
+                    'id' => $award->id,
                     'name' => $award->name,
                     'short_name' => $award->short_name,
                     'logo' => $this->fullImgUrl($award->logo),
@@ -103,8 +108,9 @@ class AwardController extends Controller
                     'is_commander' => $award->is_commander,
                     'group_ok' => $award->group_ok,
                     'is_free' => $award->is_free,
-                    'can_get' => $can_get,
-                    'user_invite_num' => $user_invite_num
+                    'can_get' => $award->is_free == 1 ? 1 : $can_get,
+                    'user_invite_num' => $user_invite_num,
+                    'has_get' => $has_get
                 ];
             }
             return self::success($data);
@@ -120,6 +126,7 @@ class AwardController extends Controller
      */
     public function myLists(Request $request)
     {
+        $inputs = $request->all();
         $user_id = self::authUserId();
         $inputs['uid'] = $user_id;
         try {
@@ -130,7 +137,16 @@ class AwardController extends Controller
                 ->where('user_id', $inputs['uid'])
                 ->orderBy('id', 'desc')
                 ->get();
-            return self::success($list);
+            $data = [];
+            foreach ($list as $award) {
+                $data[] = [
+                    'name' => $award->award->name,
+                    'short_name' => $award->award->short_name,
+                    'logo' => $this->fullImgUrl($award->award->logo),
+                    'description' => $award->award->description
+                ];
+            }
+            return self::success($data);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }

@@ -47,7 +47,6 @@ class Award extends Model
                     return '只有团长才可以领取';
                 }
             }
-
             if ($award->group_ok == 1) {
                 $is_group_ok = ActivitySignUser::query()->where('activity_id', $activity_id)
                     ->with('group')
@@ -58,7 +57,6 @@ class Award extends Model
                     return '成团后才可以领取';
                 }
             }
-
             if ($award->invite_num > 0) {
                 $user_invite_num = UserActivityInvite::getUserInviteSuccessNum($activity_id, $user_id);
                 $num = $user_invite_num;
@@ -66,7 +64,7 @@ class Award extends Model
                     return '邀请人数不足，无法领取';
                 }
             }
-            return 200;
         }
+        return 200;
     }
 }

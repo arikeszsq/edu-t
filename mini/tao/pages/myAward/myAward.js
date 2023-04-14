@@ -7,11 +7,44 @@ Page({
      * 页面的初始数据
      */
     data: {
-        //别表数据
         info: [],
-        //当前打开的
+        my_info: [],
+        //当前打开的swiper
         currentIndex: 0
     },
+
+    getAward(e) {
+        var id = e.currentTarget.dataset.index;
+        console.log(id);
+        app.apiRequest({
+            url: '/award/create',
+            method: 'post',
+            data: {
+                'activity_id': wx.getStorageSync('activity_id'),
+                'id': id
+            },
+            success: res => {
+                console.log(res.data.msg_code);
+
+                if (res.data.msg_code == 100000) {
+                    wx.showToast({
+                        title: '成功',
+                        icon: 'success',
+                        duration: 2000
+                    });
+                    this.getAwardlist();
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'error',
+                        duration: 2000
+                    });
+                }
+
+            }
+        });
+    },
+
     changeScrollView(e) {
         //改变当前值
         this.setData({
@@ -22,19 +55,41 @@ Page({
         this.setData({
             currentIndex: e.detail.current
         })
+        console.log(e.detail.current)
+        if (e.detail.current == 1) {
+            this.getMyAwardlist();
+        }
     },
-    //info数据的获取
-    getAwardlist: function (activity_id) {
+    //全部奖励列表
+    getAwardlist: function () {
+        var activity_id = wx.getStorageSync('activity_id');
         app.apiRequest({
             url: '/award/lists',
-            method: 'get',
+            method: 'post',
             data: {
+                'activity_id': activity_id
             },
             success: res => {
                 var that = this;
-                console.log(res.data.response, "s")
                 that.setData({
                     info: res.data.response
+                })
+            }
+        });
+    },
+    //我的奖励列表
+    getMyAwardlist: function () {
+        var activity_id = wx.getStorageSync('activity_id');
+        app.apiRequest({
+            url: '/award/my-lists',
+            method: 'post',
+            data: {
+                'activity_id': activity_id
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                    my_info: res.data.response
                 })
             }
         });
@@ -43,7 +98,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        this.getAwardlist(wx.getStorageSync('activity_id'));
+        this.getAwardlist();
     },
 
     /**

@@ -93,3 +93,7 @@
 .kjeikai {
     color: #FF2020;
 }
+
+.has_get_a{
+    background-color: gray;
+}

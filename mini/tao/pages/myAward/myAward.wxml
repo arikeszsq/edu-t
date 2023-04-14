@@ -18,18 +18,32 @@
                         <view class="desc gray">
                             <view>{{item.short_name}}</view>
                             <view>{{item.description}}</view>
-                            <view class="kjeikai">未解锁</view>
+                            <view class="kjeikai" wx:if="{{item.can_get==1}}">已解锁</view>
+                            <view class="kjeikai" wx:if="{{item.can_get==2}}">未解锁</view>
                         </view>
-                        <view class="free-btn">免费获取</view>
+
+                        <view class="free-btn" wx:if="{{item.can_get==1&&!item.has_get}}" data-index="{{item.id}}" bindtap="getAward">获取</view>
+                        <view class="free-btn has_get_a" wx:if="{{item.has_get==1}}">已领取</view>
+
                     </view>
                 </view>
-
             </view>
-
         </swiper-item>
         <swiper-item>
-        <!-- 判断一下资料是否为空 -->
-            <Empty></Empty>
+            <!-- 判断一下资料是否为空 -->
+            <Empty wx:if="{{my_info.length===0}}"></Empty>
+            <view class="swiper-item-container box" wx:for="{{my_info}}" wx:key="id">
+                <image src="{{item.logo}}"></image>
+                <view class="item-right">
+                    <view class="title">{{item.name}}</view>
+                    <view class="swiper-item-desc box align-center justify-between">
+                        <view class="desc gray">
+                            <view>{{item.short_name}}</view>
+                            <view>{{item.description}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
         </swiper-item>
     </swiper>
 </view>

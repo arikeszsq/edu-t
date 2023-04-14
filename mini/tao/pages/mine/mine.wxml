@@ -62,14 +62,12 @@
             </view>
         </view>
         <!-- 邀请记录 -->
-        <view class="index-item-list request-record" bindtap="toInviteLog">
+        <view class="index-item-list request-record">
             <view class="top box align-center">
                 <view class="order-one" style="padding-bottom: 20rpx;">邀请记录</view>
-
-                <view class="money-arrow">
+                <view class="money-arrow" bindtap="toInviteLog">
                     <image src="../../images/mine/arrow@2x.png" class="money-arrow-image"></image>
                 </view>
-
             </view>
             <view class="bottom box align-center justify-between">
                 <view class="request-list">

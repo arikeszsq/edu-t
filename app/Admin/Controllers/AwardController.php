@@ -32,7 +32,7 @@ class AwardController extends AdminController
         return Grid::make(Award::with(['activity']), function (Grid $grid) {
             $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
-            $grid->column('activity.name', '活动名称');
+            $grid->column('activity.title', '活动名称');
             $grid->column('name');
             $grid->column('logo')->image(env('IMG_SERVE'), '100%', '40');
             $grid->column('invite_num');
@@ -47,7 +47,7 @@ class AwardController extends AdminController
             $grid->quickSearch('name')->placeholder('搜索标题');
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id')->width(6);
-                $filter->like('activity.name', '活动名称')->width(6);
+                $filter->like('activity.title', '活动名称')->width(6);
             });
         });
     }
