@@ -365,6 +365,7 @@ class ActivityService
             ->first();
         if ($first) {
             return [
+                'code' => 10001,
                 'msg' => '本活动用户已被邀请,无需重复邀请'
             ];
         }

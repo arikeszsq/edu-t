@@ -62,8 +62,9 @@ Page({
     getUserInfo: function () {
         app.apiRequest({
             url: '/user/info',
-            method: 'get',
+            method: 'post',
             data: {
+                'activity_id':wx.getStorageSync('activity_id')
             },
             success: res => {
                 var that = this;

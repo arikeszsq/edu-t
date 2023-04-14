@@ -55,8 +55,8 @@ class UserController extends Controller
                 'user_activity_cash_out_money' => $user_activity_cash_out_money,//总提取
                 'current_stay_money' => ($user_activity_total_money) - ($user_activity_cash_out_money),//账户余额
                 'history_total_money' => $user_activity_cash_out_money,
-                'share_num' => Share::shareNum($user_id, $activity_id),
-                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($user_id, $activity_id),
+                'share_num' => Share::shareNum($user_id, $activity_id) ?: 0,
+                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($user_id, $activity_id) ?: 0,
             ];
             return self::success($data);
         } catch (Exception $e) {
@@ -154,8 +154,8 @@ class UserController extends Controller
         $activity_id = $inputs['activity_id'];
         $user_id = self::authUserId();
         $apply_money = $inputs['apply_money'];
-        $user_total_money = $this->getAllMoney($user_id,$activity_id);
-        $history_out_money = $this->historyCashOutTotalMoney($user_id,$activity_id);
+        $user_total_money = $this->getAllMoney($user_id, $activity_id);
+        $history_out_money = $this->historyCashOutTotalMoney($user_id, $activity_id);
         $current_money = $user_total_money - $history_out_money - $apply_money;
 
         if ($apply_money <= $current_money) {

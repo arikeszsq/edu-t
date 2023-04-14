@@ -4,13 +4,19 @@ const app = getApp();
 Page({
     data: {
         news: {},
-        activity_id:0,
-        logo:'./../../images/mine/yiwancheng@2x.png'
+        activity_id: 0,
+        logo: './../../images/mine/yiwancheng@2x.png'
     },
     onLoad(query) {
         var activity_id = query.activity_id;
         if (activity_id) {
             wx.setStorageSync('activity_id', activity_id);
+            //用户邀请用户成功
+            if (query.invite_user_id) {
+                var share_user_id = query.invite_user_id;
+                wx.setStorageSync('share_user_id', share_user_id);
+                this.addInviteUser(activity_id, share_user_id);
+            }
             this.toActivityDetail(activity_id);
         }
 
@@ -21,9 +27,9 @@ Page({
             var res = scene.split(',');
             var res_length = res.length;
             var activity_id = res[0];
-    
+
             this.setData({
-                activity_id:activity_id,
+                activity_id: activity_id,
             });
             wx.setStorageSync('activity_id', activity_id);
 
@@ -55,30 +61,34 @@ Page({
                     }
                 });
             } else {
-                 //用户邀请用户成功
+                //用户邀请用户成功
                 if (res_length >= 2) {
                     var share_user_id = res[1];
                     wx.setStorageSync('share_user_id', share_user_id);
-                    app.apiRequest({
-                        url: '/activity/invite-user',
-                        method: 'post',
-                        data: {
-                            'activity_id': activity_id,
-                            'parent_user_id': share_user_id
-                        },
-                        success: res => {
-                            wx.showToast({
-                                title: '用户邀请',
-                                icon: 'success', //图标，支持"success"、"loading"
-                            })
-                        }
-                    });
+                    this.addInviteUser(activity_id, share_user_id);
                 }
                 this.toActivityDetail(activity_id);
             }
         }
 
         this.getList();
+    },
+
+    addInviteUser(activity_id, share_user_id) {
+        app.apiRequest({
+            url: '/activity/invite-user',
+            method: 'post',
+            data: {
+                'activity_id': activity_id,
+                'parent_user_id': share_user_id
+            },
+            success: res => {
+                wx.showToast({
+                    title: '用户邀请',
+                    icon: 'success', //图标，支持"success"、"loading"
+                })
+            }
+        });
     },
 
     toDetail: function (event) {
@@ -115,7 +125,7 @@ Page({
             url: '/user/info',
             method: 'get',
             data: {
-                'activity_id':id
+                'activity_id': id
             },
             success: res => {
                 console.log(res);

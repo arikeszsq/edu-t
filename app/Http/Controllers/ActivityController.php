@@ -243,6 +243,11 @@ class ActivityController extends Controller
         }
     }
 
+    /**
+     * 分享增加分享记录
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function addShareNum(Request $request)
     {
         $inputs = $request->all();
