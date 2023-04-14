@@ -19,9 +19,10 @@ Page({
     getLogList(){
         app.apiRequest({
             url: '/log/list',
-            method: 'get',
+            method: 'post',
             data: {
-                'log_type':wx.getStorageSync('log_type')
+                'log_type':wx.getStorageSync('log_type'),
+                'activity_id':wx.getStorageSync('activity_id')
             },
             success: res => {
                 var that = this;
