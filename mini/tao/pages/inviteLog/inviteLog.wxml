@@ -1,2 +1,29 @@
-<!--pages/inviteLog/inviteLog.wxml-->
-<text>pages/inviteLog/inviteLog.wxml</text>
+<view class="content">
+    <view class="header">
+        <view style="display:flex;flex-direction:row;">
+            <view class="flex-item title_change {{isSelected==1 ? 'title_current':''}}" bindtap="clickTap" data-id="1">
+                <view>单独购买</view>
+                <view>(0)</view>
+            </view>
+            <view class="flex-item title_change {{isSelected==2 ? 'title_current':''}}" bindtap="clickTap" data-id="2">
+                <view>未成团</view>
+                <view>(0)</view>
+            </view>
+            <view class="flex-item title_change {{isSelected==3 ? 'title_current':''}}" bindtap="clickTap" data-id="3">
+                <view>已成团</view>
+                <view>(0)</view>
+            </view>
+        </view>
+    </view>
+    <view class="list">
+        <view class="logo">
+            <image class="img_logo" src="../../images/activity/editor@2x.png"></image>
+        </view>
+        <view class="info">
+            <view class="name">姓名</view>
+            <view>2022-12-12 12:12:12</view>
+        </view>
+        <view class="buy">购买人：任泽天</view>
+    </view>
+
+</view>

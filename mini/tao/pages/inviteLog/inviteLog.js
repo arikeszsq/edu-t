@@ -5,7 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isSelected:1,
+  },
 
+  clickTap: function (e) {
+    var curId = e.currentTarget.dataset.id;
+    this.setData({
+      isSelected: curId,
+    })
   },
 
   /**

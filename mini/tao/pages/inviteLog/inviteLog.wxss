@@ -1,1 +1,48 @@
 /* pages/inviteLog/inviteLog.wxss */
+.content{
+    background-color: rgb(208, 216, 219);
+    min-height: 1400rpx;
+}
+
+.header{
+    background-color: #fff;
+    padding-bottom: 20rpx;
+}
+
+.title_change{
+    text-align: center;
+    width: 33%;
+    padding-bottom: 20rpx;
+}
+.title_current{
+    border-bottom: 1px solid red;
+    border-bottom-width: 3rpx;
+}
+
+.list{
+    display:flex;
+    margin-top: 10rpx;
+    background-color: #fff;
+    height: 100rpx;
+}
+
+.img_logo{
+    margin: 20rpx;
+    height: 60rpx;
+    width: 60rpx;
+    border-radius: 30rpx;
+}
+
+.list .info{
+    margin-top: 20rpx;
+    margin-left: 30rpx;
+    font-size: 24rpx;
+    text-align: left;
+    width: 50%;
+}
+
+.list .buy{
+    height: 100rpx;
+    line-height: 100rpx;
+    font-size: 30rpx;
+}
