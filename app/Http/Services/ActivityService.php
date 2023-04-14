@@ -105,6 +105,7 @@ class ActivityService
         $data['vr_share'] = $activity->content;//虚拟分享量
         $data['fields'] = $this->getFormFields($id);
         $data['course_num'] = $activity->course_num;//选择课程的数量
+        $data['award_num'] = $activity->award_num;
 
         $data['group_num'] = ActivityGroup::query()->where('activity_id', $id)->count();
         $data['group_people_num'] = ActivitySignUser::query()->where('activity_id', $id)

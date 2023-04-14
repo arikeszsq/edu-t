@@ -128,13 +128,13 @@ Page({
   },
   //info数据的获取
   getActivityDetail: function (activity_id) {
+    var that = this;
     app.apiRequest({
       url: '/activity/detail/' + activity_id,
       method: 'get',
       data: {
       },
       success: res => {
-        var that = this;
         that.setData({
           info: res.data.response,
           bannerInfo: res.data.response.bg_banner,
@@ -146,8 +146,11 @@ Page({
           imgUrls: JSON.parse(res.data.response.bg_banner),
           contentImgUrls: JSON.parse(res.data.response.content),
         })
-        this.countTime();
+        that.countTime();
         app.backmusic(res.data.response.music_url);
+
+        wx.setStorageSync('canSelectedNum', res.data.response.course_num);
+        wx.setStorageSync('canAwardSelectedNum', res.data.response.award_num);
 
       }
     });
