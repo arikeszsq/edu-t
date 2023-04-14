@@ -21,7 +21,7 @@ Page({
 
         })
     },
-    toCashOut(){
+    toCashOut() {
         //去体现
         wx.navigateTo({
             url: "/pages/cashout/index",
@@ -39,6 +39,12 @@ Page({
         wx.setStorageSync('log_type', 1);//1 邀请用户记录
         wx.navigateTo({
             url: "/pages/myProfit/myProfit",
+        })
+    },
+
+    toInvitePageLog() {
+        wx.navigateTo({
+            url: "/pages/inviteLog/inviteLog",
         })
     },
 
@@ -64,7 +70,7 @@ Page({
             url: '/user/info',
             method: 'post',
             data: {
-                'activity_id':wx.getStorageSync('activity_id')
+                'activity_id': wx.getStorageSync('activity_id')
             },
             success: res => {
                 var that = this;

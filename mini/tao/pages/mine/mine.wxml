@@ -74,7 +74,7 @@
                     <view class="share-number">分享人数</view>
                     <view class="primary share-n">{{info.share_num}}</view>
                 </view>
-                <view class="request-list">
+                <view class="request-list" bindtap="toInvitePageLog">
                     <view class="share-number">邀请人数</view>
                     <view class="primary share-n">{{info.share_success_num}}</view>
                 </view>
