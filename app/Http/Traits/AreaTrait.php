@@ -13,6 +13,7 @@ trait AreaTrait
 
     /**
      * 腾讯地图，根据俩个地址经纬度和出行方式，计算俩地的距离 ：需要配置域名白名单
+     * 1.	需要在腾讯的控制台添加域名白名单和小程序的appid
      * @param $mapFrom
      * @param $mapTo
      * @return false|mixed|string
