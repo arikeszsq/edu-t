@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Http\Traits\AreaTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model

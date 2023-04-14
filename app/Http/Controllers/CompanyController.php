@@ -44,7 +44,7 @@ class CompanyController extends Controller
                 $child[] = [
                     'name' => $school->name,
                     'map_area' => $school->map_area,
-                    'gap' => $this->getDistance($user->map_points, $school->map_points),
+                    'gap' => $this->getDistance($user->map_points, $school->map_points),//需要配置域名白名单
                 ];
             }
             $courses = CompanyCourse::getAllCourseByCompanyId($id);

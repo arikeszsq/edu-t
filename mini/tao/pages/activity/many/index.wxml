@@ -171,7 +171,7 @@
               <view>报名人数：{{item.course_num}}</view>
             </view>
           </view>
-          <view class="address gray">离家14.2km</view>
+          <view class="address gray">离家{{item.min_gap}}km</view>
         </view>
       </view>
     </view>

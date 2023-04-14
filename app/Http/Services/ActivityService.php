@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Exceptions\ObjectNotExistException;
+use App\Http\Traits\AreaTrait;
 use App\Http\Traits\ImageTrait;
 use App\Models\Activity;
 use App\Models\ActivityFormField;
@@ -11,6 +12,8 @@ use App\Models\ActivityMusic;
 use App\Models\ActivitySignCom;
 use App\Models\ActivitySignUser;
 use App\Models\Award;
+use App\Models\Company;
+use App\Models\CompanyChild;
 use App\Models\UserActivityInvite;
 use App\Models\UserViewCount;
 use App\User;
@@ -20,6 +23,7 @@ use Illuminate\Support\Facades\DB;
 class ActivityService
 {
     use ImageTrait;
+    use AreaTrait;
 
     public function getActivityById($id)
     {
@@ -62,10 +66,11 @@ class ActivityService
 
     /**
      * @param $id
+     * @param $user_id
      * @return array
      * @throws ObjectNotExistException
      */
-    public function detail($id)
+    public function detail($id, $user_id)
     {
         $activity = Activity::query()->where('id', $id)
             ->where('status', 1)
@@ -80,7 +85,7 @@ class ActivityService
         if ($is_many == Activity::is_many_单商家) {
             $data = $this->geSignalDetail($id);
         } else {
-            $data = $this->getManyDetail($id);
+            $data = $this->getManyDetail($id, $user_id);
         }
 
         $music = ActivityMusic::query()->find($activity->music_id);
@@ -167,8 +172,22 @@ class ActivityService
 
     }
 
-    public function getManyDetail($id)
+    public function getCompanyMinGap($user_id_area, $company_id)
     {
+        $childs = CompanyChild::query()->where('company_id', $company_id)->get();
+        $gaps = [];
+        foreach ($childs as $child) {
+            $point = $child->map_points;
+            $gaps[] = (float)$this->getDistance($point, $user_id_area);
+        }
+        return min($gaps);
+    }
+
+    public function getManyDetail($id, $user_id)
+    {
+        if ($user_id) {
+            $user = \App\Models\User::query()->find($user_id);
+        }
         $data = [];
         $activity = $this->getActivityById($id);
         $ori_price_array = explode('.', $activity->ori_price);
@@ -201,6 +220,7 @@ class ActivityService
             ->get();
         $data_video = [];
         $data_company = [];
+
         foreach ($companies as $company) {
             $data_video[] = [
                 'company_name' => $company->company->name,
@@ -221,12 +241,13 @@ class ActivityService
                 ->count();
 
             $data_company[] = [
-                'company_id'=>$company->company_id,
+                'company_id' => $company->company_id,
                 'company_name' => $company->company->name,
                 'company_logo' => $this->fullImgUrl($company->company->logo),
                 'school_num' => $school_num,
                 'sign_user_num' => $sign_user_num,
                 'course_num' => $course_num,
+                'min_gap' => isset($user->map_points) && $user->map_points ? $this->getCompanyMinGap($user->map_points, $company->company_id) : 0
             ];
         }
         /** 活动的奖励 ***/

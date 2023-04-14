@@ -101,7 +101,8 @@ class ActivityController extends Controller
     public function detail($id)
     {
         try {
-            $detail = $this->activityService->detail($id);
+            $user_id = self::authUserId();
+            $detail = $this->activityService->detail($id,$user_id);
             return self::success($detail);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());

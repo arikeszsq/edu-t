@@ -12,7 +12,7 @@ trait AreaTrait
 {
 
     /**
-     * 腾讯地图，根据俩个地址经纬度和出行方式，计算俩地的距离
+     * 腾讯地图，根据俩个地址经纬度和出行方式，计算俩地的距离 ：需要配置域名白名单
      * @param $mapFrom
      * @param $mapTo
      * @return false|mixed|string
@@ -28,9 +28,9 @@ trait AreaTrait
         $url = 'https://apis.map.qq.com/ws/distance/v1/?mode=' . $mode . '&from=' . $mapFrom . '&to=' . $mapTo . '&key=' . $key;
         $info = file_get_contents($url);
         $info = json_decode($info, true);
-        if(isset($info['result']['elements'][0]['distance'])){
+        if (isset($info['result']['elements'][0]['distance'])) {
             $info = $info['result']['elements'][0]['distance'];
-        }else{
+        } else {
             $info = 0;
         }
         return $info;

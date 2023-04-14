@@ -1,8 +1,8 @@
 {
     "pages": [
+        "pages/index/index",
         "pages/award/index",
         "pages/course/course",
-        "pages/index/index",
         "pages/activity/one/index",
         "pages/activity/many/index",
         "pages/cashout/index",
