@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::any('/index/add-content', 'IndexController@addContent');
+
+
+
 Route::middleware('auth:api')->any('/user', function (Request $request) {
     return $request->user();
 });
