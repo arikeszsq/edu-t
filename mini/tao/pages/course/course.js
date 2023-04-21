@@ -122,12 +122,10 @@ Page({
             //校区得id
             wx.setStorageSync('schoolSelectedIds', this.data.schoolSelectedIds);
             console.log(wx.getStorageSync('schoolSelectedIds'),'schoolSelectedIds');
-            // wx.navigateTo({
-            //     url: '/pages/activity/pay/index',
-            // })
+            wx.navigateTo({
+                url: '/pages/award/index',
+            })
         }
-
-
     },
     //辅助选中的函数
     isSelectedCourse(id, isSelected) {

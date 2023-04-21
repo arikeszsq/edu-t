@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        canAwardSelectedNum:1,
+        canAwardSelectedNum: 1,
         awardList: [
             {
                 id: 1,
@@ -50,6 +50,10 @@ Page({
         }
         wx.setStorageSync('award_ids', JSON.stringify(this.data.selectedIds));
         console.log(wx.getStorageSync('award_ids'), 'selectedIds');
+
+        wx.navigateTo({
+            url: '/pages/activity/pay/index',
+        })
     },
 
     /**
