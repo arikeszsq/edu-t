@@ -49,6 +49,10 @@ Route::prefix('/activity')->group(function () {
     Route::any('/jointeam/{id}', 'ActivityController@jointeam');
 });
 
+Route::prefix('/invite')->group(function () {
+    Route::any('/lists', 'InviteController@lists');
+});
+
 Route::prefix('/group')->group(function () {
 //    //立即开团  --- 支付成功之后放在回调里
 //    Route::any('/create', 'GroupController@create');
