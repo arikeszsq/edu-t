@@ -63,6 +63,9 @@ class InviteController extends Controller
                 'signal' => $signal,
                 'ok' => $ok,
                 'no' => $no,
+                'signal_num' => count($signal),
+                'ok_no' =>count($ok),
+                'no_no' => count($no),
             ];
             return self::success($data);
         } catch (Exception $e) {

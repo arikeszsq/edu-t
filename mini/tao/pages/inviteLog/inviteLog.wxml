@@ -3,27 +3,51 @@
         <view style="display:flex;flex-direction:row;">
             <view class="flex-item title_change {{isSelected==1 ? 'title_current':''}}" bindtap="clickTap" data-id="1">
                 <view>单独购买</view>
-                <view>(0)</view>
+                <view>({{signal_num}})</view>
             </view>
             <view class="flex-item title_change {{isSelected==2 ? 'title_current':''}}" bindtap="clickTap" data-id="2">
                 <view>未成团</view>
-                <view>(0)</view>
+                <view>({{no_no}})</view>
             </view>
             <view class="flex-item title_change {{isSelected==3 ? 'title_current':''}}" bindtap="clickTap" data-id="3">
                 <view>已成团</view>
-                <view>(0)</view>
+                <view>({{ok_no}})</view>
             </view>
         </view>
     </view>
-    <view class="list">
+
+    <view class="list" wx:if="{{isSelected==1}}" wx:for="{{lists.signal}}" wx:key="id">
         <view class="logo">
-            <image class="img_logo" src="../../images/activity/editor@2x.png"></image>
+            <image class="img_logo" src="{{item.logo}}"></image>
         </view>
         <view class="info">
-            <view class="name">姓名</view>
-            <view>2022-12-12 12:12:12</view>
+            <view class="name">{{item.name}}</view>
+            <view>{{item.pay_time}}</view>
         </view>
-        <view class="buy">购买人：任泽天</view>
+        <view class="buy">购买人：{{item.buy_name}}</view>
     </view>
+
+    <view class="list" wx:if="{{isSelected==2}}" wx:for="{{lists.no}}" wx:key="id">
+        <view class="logo">
+            <image class="img_logo" src="{{item.logo}}"></image>
+        </view>
+        <view class="info">
+            <view class="name">{{item.name}}</view>
+            <view>{{item.pay_time}}</view>
+        </view>
+        <view class="buy">购买人：{{item.buy_name}}</view>
+    </view>
+
+    <view class="list" wx:if="{{isSelected==3}}" wx:for="{{lists.ok}}" wx:key="id">
+        <view class="logo">
+            <image class="img_logo" src="{{item.logo}}"></image>
+        </view>
+        <view class="info">
+            <view class="name">{{item.name}}</view>
+            <view>{{item.pay_time}}</view>
+        </view>
+        <view class="buy">购买人：{{item.buy_name}}</view>
+    </view>
+
 
 </view>
