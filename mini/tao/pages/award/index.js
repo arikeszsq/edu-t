@@ -49,9 +49,8 @@ Page({
             });
             return;
         }
-        wx.setStorageSync('award_ids', JSON.stringify(this.data.selectedIds));
+        wx.setStorageSync('award_ids', this.data.selectedIds.join(','));
         console.log(wx.getStorageSync('award_ids'), 'selectedIds');
-
         wx.navigateTo({
             url: '/pages/activity/pay/index',
         })

@@ -14,7 +14,8 @@ Page({
             sign_sex: true,
             is_agree: true
         },
-        courseInfo: {},
+        courseInfo: [],
+        awardInfo:[],
         money: 0
     },
 
@@ -129,13 +130,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
         this.getSelectCourseInfo();
         this.getActivityDetail(wx.getStorageSync('activity_id'));
-
-        this.setData({
-            "data.activity_id": wx.getStorageSync('activity_id')
-        })
     },
 
     //info数据的获取
@@ -166,14 +162,15 @@ Page({
             url: '/course/courseschool/info',
             method: 'post',
             data: {
-                'course_ids': wx.getStorageSync('courseSelectedIds'),
-                'school_ids': wx.getStorageSync('schoolSelectedIds'),
+                'course_ids': wx.getStorageSync('courseSelectedIds').join(','),
+                'school_ids': wx.getStorageSync('schoolSelectedIds').join(','),
                 'award_ids': wx.getStorageSync('award_ids'),
             },
             success: res => {
                 console.log(res);
                 this.setData({
-                    courseInfo: res.data.response
+                    courseInfo: res.data.response.course,
+                    awardInfo:res.data.response.award
                 })
             }
         });

@@ -33,15 +33,25 @@
         <view class="user-course form-info">
             <view class="title">选课信息</view>
             <view class="course-container">
-                <!-- 环位置循 -->
                 <view class="course-item box" wx:for="{{courseInfo}}">
                     <view class="image-tu">
                         <image src="{{item.course_logo}}"></image>
                     </view>
-                    
                     <view class="info">
                         <view class="title-course">{{item.course_name}}</view>
                         <view class="des">机构：{{item.company_name}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="title">奖励信息</view>
+            <view class="course-container">
+                <view class="course-item box" wx:for="{{awardInfo}}">
+                    <view class="image-tu">
+                        <image src="{{item.logo}}"></image>
+                    </view>
+                    <view class="info">
+                        <view class="title-course">{{item.name}}</view>
+                        <view class="des">{{item.description}}</view>
                     </view>
                 </view>
             </view>

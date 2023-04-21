@@ -87,8 +87,8 @@ Route::prefix('/course')->group(function () {
     Route::any('/lists', 'CourseController@lists');
     Route::any('/company-child-lists/{id}', 'CourseController@companyChildList');
 
-    //通过课程id和学校id去拿4个报名的数据
-    Route::any('/courseschool/info', 'CourseController@courseAndSchool');
+    //购买页，获取已经选择的校区，课程和奖励信息
+    Route::any('/courseschool/info', 'CourseController@checkInfo');
 });
 
 Route::prefix('/pay')->group(function () {

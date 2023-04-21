@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\CourseService;
 use App\Http\Traits\ImageTrait;
+use App\Models\Award;
 use App\Models\Company;
 use App\Models\CompanyChild;
 use App\Models\CompanyCourse;
@@ -137,7 +138,7 @@ class CourseController extends Controller
     public function companyChildList($course_id)
     {
 //        try {
-            return self::success($this->courseService->companyChildList($course_id));
+        return self::success($this->courseService->companyChildList($course_id));
 //        } catch (Exception $e) {
 //            return self::error($e->getCode(), $e->getMessage());
 //        }
@@ -157,12 +158,13 @@ class CourseController extends Controller
      *     )
      * )
      */
-    public function courseAndSchool(Request $request)
+    public function checkInfo(Request $request)
     {
         $inputs = $request->all();
         try {
             $school_ids = explode(',', $inputs['school_ids']);
             $course_ids = explode(',', $inputs['course_ids']);
+            $award_ids = explode(',', $inputs['award_ids']);
             $data = [];
             foreach ($school_ids as $key => $school_id) {
                 $school = CompanyChild::query()->find($school_id);
@@ -174,7 +176,21 @@ class CourseController extends Controller
                     'course_name' => $course->name
                 ];
             }
-            return self::success($data);
+            $data_award = [];
+            foreach ($award_ids as $award_id) {
+                $award = Award::query()->find($award_id);
+                $data_award[] = [
+                    'logo' => $this->fullImgUrl($award->logo),
+                    'name' => $award->name,
+                    'description' => $award->description
+                ];
+            }
+
+            $data_info = [
+                'course' => $data,
+                'award' => $data_award
+            ];
+            return self::success($data_info);
         } catch (Exception $e) {
             return self::error($e->getCode(), $e->getMessage());
         }
