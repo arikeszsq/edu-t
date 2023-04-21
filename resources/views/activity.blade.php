@@ -8,7 +8,7 @@
 <script src="/vue/element-ui/index.js"></script>
 <link rel="stylesheet" href="/vue/element-ui/index.css">
 <input class="hidden" id="type" value="{{ $type }}">
-<div id="app">
+<div id="app_vue">
 
     <h1>{{$name}}</h1>
     <el-row :gutter="10" style="margin-bottom: 20px;">
@@ -101,15 +101,25 @@
             </el-table-column>
 
             <el-table-column
-                prop="start_time"
-                label="活动二维码">
+                        prop="pic"
+                        header-align="center"
+                        align="center"
+                        label="活动二维码">
+                <template
+                 slot-scope="scope">
+                <el-popover
+                    placement="right"
+                    trigger="click">
+                    <img :src="scope.row.pic" width="600px">
+                    <img slot="reference" :src="scope.row.pic" width="60px" height="60px">
+                </el-popover>
+                </template>
             </el-table-column>
 
             <el-table-column
                 prop="start_time"
                 label="上下架状态">
             </el-table-column>
-
 
 
             <el-table-column
@@ -151,9 +161,11 @@
         </el-row>
     </div>
 </div>
+        
+</div>
 <script>
     new Vue({
-        el: '#app',
+        el: '#app_vue',
         data: function () {
             return {
                 new_url: '/admin/activity-one/create',
@@ -163,10 +175,22 @@
                 current_page: 1,
                 page_size: 10,
                 total: 10,
-                tableData: []
+                tableData: [
+                    {
+                        'name': 'asf',
+                        'start_time': 'asf',
+                        'pic': 'https://img69.imagetwist.com/th/55553/sf801t70x1vl.jpg',
+                    }
+                ],
+                dialogVisible: false,
+                previewpic: ""
             }
         },
         methods: {
+            previewPic(url) {
+                this.previewpic = url;
+                this.dialogVisible = true;
+            },
             search(start, end) {
 
             },
