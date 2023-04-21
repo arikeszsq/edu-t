@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Traits\ImageTrait;
 use App\Http\Traits\MoneyCountTrait;
 use App\Http\Traits\WeChatTrait;
 use App\Models\Activity;
@@ -19,6 +20,7 @@ class UserController extends Controller
 {
     use WeChatTrait;
     use MoneyCountTrait;
+    use ImageTrait;
 
     /**
      * @OA\Get(
@@ -56,7 +58,7 @@ class UserController extends Controller
                 'current_stay_money' => ($user_activity_total_money) - ($user_activity_cash_out_money),//账户余额
                 'history_total_money' => $user_activity_cash_out_money,
                 'share_num' => Share::shareNum($user_id, $activity_id) ?: 0,
-                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($activity_id,$user_id) ?: 0,
+                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($activity_id, $user_id) ?: 0,
             ];
             return self::success($data);
         } catch (Exception $e) {
@@ -145,7 +147,7 @@ class UserController extends Controller
         $user_id = self::authUserId();
         $activity_id = $inputs['activity_id'];
         $pic_url = $this->getUserInvitePic($activity_id, $user_id);
-        return self::success($pic_url);
+        return self::success($this->fullImgUrl($pic_url));
     }
 
     public function applyCashOut(Request $request)

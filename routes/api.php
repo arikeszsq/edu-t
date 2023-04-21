@@ -49,6 +49,7 @@ Route::prefix('/activity')->group(function () {
     Route::any('/jointeam/{id}', 'ActivityController@jointeam');
 });
 
+//邀请列表的接口
 Route::prefix('/invite')->group(function () {
     Route::any('/lists', 'InviteController@lists');
 });
@@ -98,6 +99,7 @@ Route::prefix('/user')->group(function () {
     Route::any('/share-info', 'UserController@shareInfo');
     Route::any('/update', 'UserController@update');
     Route::any('/set-a', 'UserController@setA');
+    //获取我的海报
     Route::any('/get-invite-pic', 'UserController@getInvitePic');
     //提现
     Route::any('/apply-cash-out', 'UserController@applyCashOut');

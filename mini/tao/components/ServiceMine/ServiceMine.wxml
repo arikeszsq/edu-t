@@ -11,9 +11,25 @@
                 <view class="gray">客服</view>
             </view>
         </view>
-        <view class="item">
+        <view class="item" bindtap="getHaiBao">
             领取我的分享海报
         </view>
     </view>
 </view>
 <OnlineService isShow="{{isShow}}" bindtap="closedHanler"></OnlineService>
+
+
+<view class="dialogue  active" wx:if="{{isHaiBaoShow}}">
+    <view class=" dialogue-container">
+        <view class="dialogue-item">
+            <view class="dis-top">
+                <view class="title">
+                    <view class="closed primary" bindtap="closedHaiBao">关闭</view>
+                </view>
+            </view>
+            <view class="contain-disa">
+                <image show-menu-by-longpress src="{{img_url}}" mode="widthFix"></image>
+            </view>
+        </view>
+    </view>
+</view>

@@ -13,10 +13,8 @@ Component({
      * 组件的初始数据
      */
     data: {
-        kf_name: '',
-        mobile: "15062332900",
-        pic: "https://zsq.a-poor.com/uploads/images/8376382dd5344e8ee76cda8ac697c909.png"
-
+        isHaiBaoShow: false,
+        img_url:''
     },
 
     computed: {
@@ -27,7 +25,34 @@ Component({
 
 
     methods: {
+        //获取海报
+        getHaiBao() {
+            this.setData({
+                isHaiBaoShow: true
+            });
+            if (!wx.getStorageSync('activity_id')) {
+                wx.setStorageSync('activity_id', 9)
+            }
+            var that = this;
+            app.apiRequest({
+                url: '/user/get-invite-pic',
+                method: 'post',
+                data: {
+                    'activity_id': wx.getStorageSync('activity_id'),
+                },
+                success: res => {
+                    that.setData({
+                        img_url: res.data.response,
+                    })
+                }
+            });
 
+        },
+        closedHaiBao() {
+            this.setData({
+                isHaiBaoShow: false
+            })
+        },
 
         //我的页面跳转
         navigatorMy() {
@@ -58,7 +83,7 @@ Component({
                     that.setData({
                         kf_name: res.data.response.kf_name,
                         mobile: res.data.response.mobile,
-                        pic :res.data.response.pic
+                        pic: res.data.response.pic
                     })
                 }
             });
