@@ -25,6 +25,7 @@ class UserViewCountController extends AdminController
             $grid->column('user.mobile', '用户昵称');
             $grid->column('activity.title', '活动标题');
             $grid->column('has_sign')->display(function ($has_sign) {
+                //付钱了就是已报名
                 $array = [
                     1 => '已报名', 2 => '未报名'
                 ];
