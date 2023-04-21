@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/inviteLog/inviteLog",
         "pages/index/index",
+        "pages/inviteLog/inviteLog",
         "pages/award/index",
         "pages/course/course",
         "pages/activity/one/index",

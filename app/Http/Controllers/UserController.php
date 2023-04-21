@@ -56,7 +56,7 @@ class UserController extends Controller
                 'current_stay_money' => ($user_activity_total_money) - ($user_activity_cash_out_money),//账户余额
                 'history_total_money' => $user_activity_cash_out_money,
                 'share_num' => Share::shareNum($user_id, $activity_id) ?: 0,
-                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($user_id, $activity_id) ?: 0,
+                'share_success_num' => UserActivityInvite::getUserInviteSuccessNum($activity_id,$user_id) ?: 0,
             ];
             return self::success($data);
         } catch (Exception $e) {
