@@ -61,6 +61,7 @@ class AwardController extends Controller
         }
     }
 
+
     /**
      * @OA\Get(
      *     path="/api/award/lists",
@@ -111,6 +112,46 @@ class AwardController extends Controller
                     'can_get' => $award->is_free == 1 ? 1 : $can_get,
                     'user_invite_num' => $user_invite_num,
                     'has_get' => $has_get
+                ];
+            }
+            return self::success($data);
+        } catch (Exception $e) {
+            return self::error($e->getCode(), $e->getMessage());
+        }
+    }
+
+
+    /**
+     * 选择课程时，可以选择的奖励
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function onlyLists(Request $request)
+    {
+        $inputs = $request->all();
+        $activity_id = $inputs['activity_id'];
+        try {
+            $list = Award::query()
+                ->where('status', Award::Status_有效)
+                ->where('activity_id', $activity_id)
+                ->orderBy('id', 'desc')
+                ->get();
+            $data = [];
+            foreach ($list as $award) {
+                $data[] = [
+                    'id' => $award->id,
+                    'title' => $award->name,
+                    'short_name' => $award->short_name,
+                    'imgUrl' => $this->fullImgUrl($award->logo),
+                    'description' => $award->description,
+                    'invite_num' => $award->invite_num,
+                    'status' => $award->status,
+                    'created_at' => $award->created_at,
+                    'price' => $award->price,
+                    'is_commander' => $award->is_commander,
+                    'group_ok' => $award->group_ok,
+                    'is_free' => $award->is_free,
+                    'checked' => false
                 ];
             }
             return self::success($data);

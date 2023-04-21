@@ -1,4 +1,5 @@
 // pages/award/index.js
+const app = getApp();
 Page({
 
     /**
@@ -62,7 +63,25 @@ Page({
     onLoad(options) {
         if (!wx.getStorageSync('canAwardSelectedNum')) {
             wx.setStorageSync('canAwardSelectedNum', 1);
+        }else{
+            this.setData({
+                'canAwardSelectedNum': wx.getStorageSync('canAwardSelectedNum')
+            }); 
         }
+        //获取奖励列表
+        app.apiRequest({
+            url: '/award/only-lists',
+            method: 'post',
+            data: {
+                'activity_id': wx.getStorageSync('activity_id')
+            },
+            success: res => {
+                var that = this;
+                that.setData({
+                    awardList: res.data.response
+                })
+            }
+        });
     },
 
     /**

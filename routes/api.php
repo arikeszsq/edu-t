@@ -67,7 +67,9 @@ Route::prefix('/group')->group(function () {
 });
 
 Route::prefix('/award')->group(function () {
-    //奖励列表
+    //所有的奖励列表
+    Route::any('/only-lists', 'AwardController@onlyLists');
+    //奖励列表，包括判断是否可以领取
     Route::any('/lists', 'AwardController@lists');
     //领取奖励
     Route::any('/create', 'AwardController@create');

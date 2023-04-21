@@ -166,8 +166,9 @@ Page({
             url: '/course/courseschool/info',
             method: 'post',
             data: {
-                'course_ids': app.globalData.selectedSchoolId.join(','),
-                'school_ids': app.globalData.selectedCourse.join(',')
+                'course_ids': wx.getStorageSync('courseSelectedIds'),
+                'school_ids': wx.getStorageSync('schoolSelectedIds'),
+                'award_ids': wx.getStorageSync('award_ids'),
             },
             success: res => {
                 console.log(res);
