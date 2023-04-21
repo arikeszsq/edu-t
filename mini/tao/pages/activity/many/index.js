@@ -150,8 +150,9 @@ Page({
         app.backmusic(res.data.response.music_url);
 
         wx.setStorageSync('canSelectedNum', res.data.response.course_num);
+        console.log(wx.getStorageSync('canSelectedNum'))
         wx.setStorageSync('canAwardSelectedNum', res.data.response.award_num);
-
+        console.log(wx.getStorageSync('canAwardSelectedNum'))
       }
     });
   },

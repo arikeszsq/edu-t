@@ -108,8 +108,9 @@ Page({
         });
     },
     nextHandle() {
+        let canSelectedNum=this.data.canSelectedNum;
         const length = this.data.schoolSelectedIds.length
-        if (length < this.data.canSelectedNum) {
+        if (length < canSelectedNum) {
             wx.showToast({
                 title: `还需要选择${canSelectedNum - length}个课程`,
             })
@@ -236,6 +237,10 @@ Page({
     onLoad(options) {
         if (!wx.getStorageSync('canSelectedNum')) {
             wx.setStorageSync('canSelectedNum', 4);
+        }else{
+            this.setData({
+                canSelectedNum: wx.getStorageSync('canSelectedNum')
+            })
         }
         if (!wx.getStorageSync('activity_id')) {
             wx.setStorageSync('activity_id', 9);
