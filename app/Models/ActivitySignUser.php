@@ -102,7 +102,7 @@ class ActivitySignUser extends Model
         ];
         if ($is_many == Activity::is_many_多商家) {
             $data_many = [
-                'info' => json_encode($inputs['info']),
+                'info' => $inputs['info'],
                 'course_ids' => $inputs['course_ids'],
                 'school_ids' => $inputs['school_ids'],
                 'award_ids' => $inputs['award_ids'],

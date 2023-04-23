@@ -6,6 +6,7 @@ use App\Models\Activity;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\ActivitySignUserCourse;
+use App\Models\Award;
 use App\User;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -109,27 +110,38 @@ class OrderController extends ActivitySignUserController
             $show->has_pay('付款状态')->using([1 => '待支付', 2 => '支付取消', 3 => '支付成功']);
             $show->field('pay_time', '付款时间');
 
-            $show->divider();
 //            if ($is_many == Activity::is_many_多商家) {
 //                $show->field('sign_age', '报名人年龄');
 //                $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
 //            }
 
-                $show->field('info', '报名信息')->as(function ($info_one) {
-                    $lists = json_decode($info_one, true);
+            $show->divider();
+
+            $show->field('info', '报名信息')->as(function ($info_one) {
+                $lists = json_decode($info_one, true);
+                $html = '';
+                foreach ($lists as $key => $value) {
+                    if (is_array($value)) {
+                        $str = join('、', $value);
+                        $html .= $key . '：' . $str . '； ';
+                    } else {
+                        $html .= $key . '：' . $value . '； ';
+                    }
+                }
+                return $html;
+            });
+            $show->divider();
+            if ($is_many == Activity::is_many_多商家) {
+                $show->field('award_ids', '报名选择的奖励')->as(function ($award_ids) {
+                    $ids = explode(',', $award_ids);
+                    $awards = Award::query()->whereIn('id',$ids)->get();
                     $html = '';
-                    foreach ($lists as $key => $value) {
-                        if (is_array($value)) {
-                            $str = join('、', $value);
-                            $html .= $key . '：' . $str . '； ';
-                        } else {
-                            $html .= $key . '：' . $value . '； ';
-                        }
+                    foreach ($awards as $key => $award) {
+                            $html .=  $award->id .':' . $award->name . '； ';
                     }
                     return $html;
                 });
-
-            if ($is_many == Activity::is_many_多商家) {
+                $show->divider();
                 $show->relation('courses', '课程信息', function ($model) {
                     $grid = new Grid(ActivitySignUserCourse::with(['school', 'course']));
                     $grid->model()->where('order_num', $model->order_no);
