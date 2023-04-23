@@ -220,7 +220,7 @@ Page({
                     'activity_id': activity_id,
                     'group_id': wx.getStorageSync('group_id'),
                     'type': 1,//1开团 2单独购买
-                    'info': info,
+                    'info': JSON.stringify(info),
                 },
                 success: res => {
                     //隐藏加载界面
