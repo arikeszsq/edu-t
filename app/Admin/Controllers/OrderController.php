@@ -108,16 +108,14 @@ class OrderController extends ActivitySignUserController
             $show->field('money', '订单金额');
             $show->has_pay('付款状态')->using([1 => '待支付', 2 => '支付取消', 3 => '支付成功']);
             $show->field('pay_time', '付款时间');
+
             $show->divider();
-            $show->field('sign_name', '报名人');
-            $show->field('sign_mobile', '报名手机号');
-            $show->divider();
-            if ($is_many == Activity::is_many_多商家) {
-                $show->field('sign_age', '报名人年龄');
-                $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
-            }
-            if ($is_many == Activity::is_many_单商家) {
-                $show->field('info_one', '信息')->as(function ($info_one) {
+//            if ($is_many == Activity::is_many_多商家) {
+//                $show->field('sign_age', '报名人年龄');
+//                $show->sign_sex('报名人性别')->using([1 => '男', 2 => '女']);
+//            }
+
+                $show->field('info', '报名信息')->as(function ($info_one) {
                     $lists = json_decode($info_one, true);
                     $html = '';
                     foreach ($lists as $key => $value) {
@@ -130,7 +128,7 @@ class OrderController extends ActivitySignUserController
                     }
                     return $html;
                 });
-            }
+
             if ($is_many == Activity::is_many_多商家) {
                 $show->relation('courses', '课程信息', function ($model) {
                     $grid = new Grid(ActivitySignUserCourse::with(['school', 'course']));
