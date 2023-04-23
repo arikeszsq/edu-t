@@ -48,7 +48,7 @@ class ActivitySignUser extends Model
         1 => '待支付',
         2 => '支付取消',
         3 => '支付成功',
-        4=>'已退款'
+        4 => '已退款'
     ];
 
     const type_支付 = [
@@ -56,14 +56,14 @@ class ActivitySignUser extends Model
         2 => '单独购买',
     ];
 
-    Const Status_已支付 = 3;
+    const Status_已支付 = 3;
 
-    Const Role_团长 = 1;
-    Const Role_团员 = 2;
+    const Role_团长 = 1;
+    const Role_团员 = 2;
 
 
-    Const Type_团 = 1;
-    Const Type_直接买 = 2;
+    const Type_团 = 1;
+    const Type_直接买 = 2;
 
     public static function getHasPayList($activity_id)
     {
@@ -90,8 +90,6 @@ class ActivitySignUser extends Model
             'activity_id' => $activity_id,
             'group_id' => isset($inputs['group_id']) && $inputs['group_id'] ? $inputs['group_id'] : 0,
             'role' => isset($inputs['group_id']) && $inputs['group_id'] ? 2 : 1,
-            'sign_name' => $inputs['sign_name'],
-            'sign_mobile' => $inputs['sign_mobile'],
             'type' => $inputs['type'],//1开团 2单独购买
             'creater_id' => $inputs['uid'],
             'order_no' => $inputs['order_num'],
@@ -103,8 +101,10 @@ class ActivitySignUser extends Model
         ];
         if ($is_many == Activity::is_many_多商家) {
             $data_many = [
-                'sign_age' => $inputs['sign_age'],
-                'sign_sex' => $inputs['sign_sex'],
+                'info' => json_encode($inputs['info']),
+                'course_ids' => $inputs['course_ids'],
+                'school_ids' => $inputs['school_ids'],
+                'award_ids' => $inputs['award_ids'],
             ];
             self::createUserCourse($inputs);
             $order = ActivitySignUser::query()->insertGetId(array_merge($data, $data_many));
@@ -114,6 +114,7 @@ class ActivitySignUser extends Model
             unset($info['phoneNum']);
             $data_one = [
                 'info_one' => json_encode($info),
+                'info' => $inputs['info'],
             ];
             $order = ActivitySignUser::query()->insertGetId(array_merge($data, $data_one));
         }
@@ -128,7 +129,7 @@ class ActivitySignUser extends Model
     public static function createUserCourse($inputs)
     {
         $course_ids = $inputs['course_ids'];
-        $school_child_ids = $inputs['school_child_ids'];
+        $school_child_ids = $inputs['school_ids'];
         $course_ids_array = explode(',', $course_ids);
         $school_child_ids_array = explode(',', $school_child_ids);
         $activity_sign_user_course = [];

@@ -6,6 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        fields: [],
         userInfo: {
             activity_id: "",
             sign_name: "",
@@ -15,7 +16,7 @@ Page({
             is_agree: true
         },
         courseInfo: [],
-        awardInfo:[],
+        awardInfo: [],
         money: 0
     },
 
@@ -73,59 +74,76 @@ Page({
     /**
      * 确认支付
      */
-    doPay() {
-        if (this.data.userInfo.sign_name && this.data.userInfo.sign_mobile && this.data.userInfo.sign_age && this.data.userInfo.is_agree) {
+    doPay(e) {
+        wx.showLoading({  // 显示加载中loading效果 
+            title: "加载中",
+            mask: true  //开启蒙版遮罩
+        });
+        if (!this.data.userInfo.is_agree) {
             wx.showToast({
-                title: '加载中',
-                icon: 'loading', //图标，支持"success"、"loading"
-            }),
-                //信息完整发起支付
-                app.apiRequest({
-                    url: '/pay/pay',
-                    method: 'post',
-                    data: {
-                        'activity_id': wx.getStorageSync('activity_id'),
-                        'type': app.globalData.type,
-                        'sign_name': this.data.userInfo.sign_name,
-                        'sign_mobile': this.data.userInfo.sign_mobile,
-                        'sign_age': this.data.userInfo.sign_age,
-                        'sign_sex': this.data.userInfo.sign_sex,
-                        'is_agree': this.data.userInfo.is_agree,
-                        'course_ids': app.globalData.selectedSchoolId.join(','),
-                        'school_child_ids': app.globalData.selectedCourse.join(','),
-                        'group_id': wx.getStorageSync('group_id')
-                    },
-                    success: res => {
-                        console.log(res);
-                        //信息完整发起支付
-                        wx.requestPayment({
-                            timeStamp: res.data.response.timeStamp,
-                            nonceStr: res.data.response.nonceStr,
-                            package: res.data.response.package,
-                            signType: res.data.response.signType,
-                            paySign: res.data.response.paySign,
-                            success(res) {
-                                wx.navigateTo({
-                                    url: "/pages/myOrder/myOrder",
-                                });
-                                console.log('支付成功')
-                            },
-                            fail(res) {
-                                console.log('支付失败')
-                            }
-                        })
-                    }
-                });
-        } else {
-            //信息不完整
-            wx.showToast({
-                title: '信息不完整',
-                icon: 'error',
-                duration: 2000
+                title: '必须同意协议',
+                icon: 'error', //图标，支持"success"、"loading"
             })
+            return false;
         }
-        console.log(this.data.userInfo, "sssss")
+        var info = e.detail.value;
+        const that = this;
+        app.apiRequest({
+            url: '/pay/pay',
+            method: 'post',
+            data: {
+                'activity_id': wx.getStorageSync('activity_id'),
+                'course_ids': wx.getStorageSync('courseSelectedIds').join(','),
+                'school_ids': wx.getStorageSync('schoolSelectedIds').join(','),
+                'award_ids': wx.getStorageSync('award_ids'),
+                'type': wx.getStorageSync('buy_method'),//购买方式 1 直接购买 2，团购买
+                'group_id': wx.getStorageSync('group_id'),
+                'info': JSON.stringify(info),
+            },
+            success: res => {
+                //隐藏加载界面
+                wx.hideLoading();
+                console.log(res);
+                let code = res.data.msg_code;
+                if (code == 100000) {
+                    //调起支付组件
+                    that.launchPayBg(res);
+                } else {
+                    wx.showModal({
+                        title: '出错',
+                        content: res.data.message,
+                        showCancel: true,//是否显示取消按钮
+                        cancelText: "否",//默认是“取消”
+                        cancelColor: 'skyblue',//取消文字的颜色
+                        confirmText: "是",//默认是“确定”
+                        confirmColor: 'skyblue',//确定文字的颜
+                    })
+                }
+            }
+        });
     },
+
+    launchPayBg(res) {
+        //信息完整发起支付
+        wx.requestPayment({
+            timeStamp: res.data.response.timeStamp,
+            nonceStr: res.data.response.nonceStr,
+            package: res.data.response.package,
+            signType: res.data.response.signType,
+            paySign: res.data.response.paySign,
+            success(res) {
+                wx.navigateTo({
+                    url: "/pages/myOrder/myOrder",
+                });
+                console.log('支付成功')
+            },
+            fail(res) {
+                console.log('支付失败')
+            }
+        })
+    },
+
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -153,6 +171,10 @@ Page({
                         money: res.data.response.real_price
                     })
                 }
+                that.setData({
+                    fields: res.data.response.fields,
+                });
+                wx.setStorageSync('activity_fields', res.data.response.fields)
             }
         });
     },
@@ -170,7 +192,7 @@ Page({
                 console.log(res);
                 this.setData({
                     courseInfo: res.data.response.course,
-                    awardInfo:res.data.response.award
+                    awardInfo: res.data.response.award
                 })
             }
         });

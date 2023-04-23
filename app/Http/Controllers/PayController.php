@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\PaySuccessTrait;
 use App\Models\Activity;
+use App\Models\ActivityFormField;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\Pay;
@@ -40,57 +41,19 @@ class PayController extends Controller
      */
 
 
-    /**
-     * @OA\Post(
-     *     path="/api/pay/pay",
-     *     tags={"支付"},
-     *     summary="支付",
-     *   @OA\RequestBody(
-     *       required=true,
-     *       description="支付",
-     *       @OA\MediaType(
-     *         mediaType="application/x-www-form-urlencoded",
-     *         @OA\Schema(
-     *              @OA\Property(property="activity_id",type="Integer",description="活动的id"),
-     *              @OA\Property(property="type",type="Integer",description="开团类型必填：1开团 2单独购买"),
-     *              @OA\Property(property="sign_name",type="Integer",description="报名学生姓名必填"),
-     *              @OA\Property(property="sign_mobile",type="Integer",description="报名手机号必填"),
-     *              @OA\Property(property="sign_age",type="Integer",description="报名学生年龄"),
-     *              @OA\Property(property="sign_sex",type="Integer",description="性别：1男2女"),
-     *              @OA\Property(property="course_ids",type="Integer",description="课程，1，2，3"),
-     *              @OA\Property(property="is_agree",type="Integer",description="同意协议 1"),
-     *              @OA\Property(property="school_child_ids",type="Integer",description="校区，1，2，3"),
-     *              @OA\Property(property="info_one",type="Integer",description="信息一"),
-     *              @OA\Property(property="info_two",type="Integer",description="信息二"),
-     *          ),
-     *       ),
-     *   ),
-     *     @OA\Response(
-     *         response=100000,
-     *         description="success"
-     *     )
-     * )
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|string
-     */
     public function pay(Request $request)
     {
         $inputs = $request->all();
         $user_id = self::authUserId();
-        Log::info('用户:', ['user_id' => $user_id]);
         $inputs['uid'] = $user_id;
         $inputs['user_id'] = $user_id;
 
         $validator = \Validator::make($inputs, [
             'activity_id' => 'required',
             'type' => 'required',
-            'sign_name' => 'required',
-            'sign_mobile' => 'required',
         ], [
             'activity_id.required' => '活动ID必填',
             'type.required' => '开团类型必填：1开团 2单独购买',
-            'sign_name.required' => '报名学生姓名必填',
-            'sign_mobile.required' => '报名手机号必填',
         ]);
         if ($validator->fails()) {
             return self::parametersIllegal($validator->messages()->first());
@@ -103,57 +66,50 @@ class PayController extends Controller
             }
         }
 
-
-        self::updateUserName($inputs['sign_name']);
         $activity_id = $inputs['activity_id'];
-        $activity = Activity::getActivityById($activity_id);
-        $is_many = $activity->is_many;
-
-        if ($is_many == Activity::is_many_多商家) {
-            $validator2 = \Validator::make($inputs, [
-                'sign_age' => 'required',
-                'sign_sex' => 'required',
-                'is_agree' => 'required',
-                'course_ids' => 'required',
-                'school_child_ids' => 'required',
-            ], [
-                'sign_age.required' => '报名学生年龄必填',
-                'sign_sex.required' => '性别必填：1男2女',
-                'is_agree.required' => '必须同意协议',
-                'course_ids.required' => '课程必填',
-                'school_child_ids.required' => '校区必填',
-            ]);
-            if ($validator2->fails()) {
-                return self::parametersIllegal($validator2->messages()->first());
+        $activity_form_fields_3 = ActivityFormField::query()->where('activity_id', $activity_id)
+            ->where('type', 3)->get();
+        $activity_form_fields_3_cols = [];
+        $num_key = [];
+        foreach ($activity_form_fields_3 as $field) {
+            if ($field->select_num > 0) {
+                $num_key[$field->field_name] = $field->select_num;
+                $activity_form_fields_3_cols[] = $field->field_name;
             }
         }
 
-        $order_number = 'Or' . rand(1111, 9999) . '-' . date('Ymdhis') . '-' . $user_id;
-        $inputs['order_num'] = $order_number;
-
-        //总金额 最低为一分 必须是整数
+        if (isset($inputs['info']) && $inputs['info']) {
+            $info_array = json_decode($inputs['info'], true);
+            foreach ($info_array as $key => $value) {
+                if (in_array($key, $activity_form_fields_3_cols)) {
+                    if ($num_key[$key] != count($value)) {
+                        return self::error('10007', $key . '请选择' . $num_key[$key] . '项');
+                    }
+                }
+            }
+        }
+        $activity = Activity::getActivityById($activity_id);
         if ($inputs['type'] == ActivitySignUser::Type_直接买) {
             $fee = $activity->ori_price;
         } else {
             $fee = $activity->real_price;
         }
-        $inputs['money'] = $fee;
-        // 新建订单
-        $order_id = ActivitySignUser::createOrder($inputs);
-
-        var_dump($order_id);exit;
+        $inputs['money'] = $fee;//根据购买方式，获取支付的金额 最低为一分 必须是整数
+        $order_number = 'Or' . rand(1111, 9999) . '-' . date('Ymdhis') . '-' . $user_id;
+        $inputs['order_num'] = $order_number;
+        $order_id = ActivitySignUser::createOrder($inputs);// 新建订单
         if (!$order_id) {
             return self::error('10001', '创建订单失败');
         }
 
 //        正式支付开始
-        $obj = new Pay();
-        $info = $obj->paytwo($order_number);
-        return self::success($info);
+//        $obj = new Pay();
+//        $info = $obj->paytwo($order_number);
+//        return self::success($info);
 
         //        测试支付用
-//        $order_obj = ActivitySignUser::query()->find($order_id);
-//        return self::success($this->paySuccessDeal($order_obj));
+        $order_obj = ActivitySignUser::query()->find($order_id);
+        return self::success($this->paySuccessDeal($order_obj));
     }
 
 

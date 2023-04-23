@@ -341,7 +341,8 @@ class ActivityService
                     'field_name' => $field->field_name,
                     'field_en_name' => $field->field_en_name,
                     'type' => $field->type,
-                    'options' => $options
+                    'options' => $options,
+                    'select_num'=>$field->select_num,
                 ];
             }
         }

@@ -176,3 +176,25 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
     font-size: 30rpx;
     color: #fff;
 }
+
+
+
+
+.bt{
+    font-weight: 600;
+    font-size: 32rpx;
+    margin-bottom: 12rpx;
+    margin-top: 16rpx;
+    border-top:1px solid lightblue;
+    padding-top: 20rpx;
+}
+
+.option_title{
+    font-size: 26rpx;
+    margin-right: 20rpx;
+}
+
+.bt .field_notice{
+    font-size: 24rpx;
+    color: red;
+}

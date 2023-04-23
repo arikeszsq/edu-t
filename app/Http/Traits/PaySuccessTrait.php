@@ -23,7 +23,7 @@ trait PaySuccessTrait
      * 给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付
      * 修改订单的状态及信息
      * 修改访问记录的报名状态has_sign
-     * 生成用户的专属分享图片
+     * 生成用户的专属分享图片 ： 这个改了，无论是否支付，都可以直接获取分享图片
      * @param $order
      * @return bool
      */
@@ -36,7 +36,7 @@ trait PaySuccessTrait
             $this->updateActivityGroup($order);//新建团或修改团信息
         }
         $this->updateInviterInfo($order);//给邀请人分发奖励:也就是把邀请记录表支付状态变成已支付,因为邀请人数是统计的邀请表数据
-        $this->genInvitePic($order);
+//        $this->genInvitePic($order);//无论是否支付，都可以直接获取分享图片
         $this->updateUserViewCount($order);//修改访问记录表的报名状态
 
         return true;
