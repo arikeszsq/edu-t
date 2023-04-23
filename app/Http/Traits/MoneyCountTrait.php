@@ -50,6 +50,7 @@ trait MoneyCountTrait
 
         //自己是老师，别人邀请，你邀请的奖励
         $A_other_money_lists_num = UserActivityInvite::query()
+            ->where('activity_id', $activity_id)
             ->where('has_pay', 1)
             ->where('A_user_id', $user_id)
             ->where('parent_user_id', '!=', $user_id)
@@ -59,6 +60,7 @@ trait MoneyCountTrait
 
         //自己不是老师，自己直接邀请的奖励
         $money_lists_num = UserActivityInvite::query()
+            ->where('activity_id', $activity_id)
             ->where('has_pay', 1)
             ->where('A_user_id', '!=', $user_id)
             ->where('parent_user_id', $user_id)

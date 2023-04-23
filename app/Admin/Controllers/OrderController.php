@@ -63,7 +63,9 @@ class OrderController extends ActivitySignUserController
                 return ActivitySignUser::Status_支付[$status];
             })->label([1 => 'danger', 2 => 'warning', 3 => 'success']);
             $grid->column('created_at', '下单时间');
+
             $grid->column('refund_status', '退款状态');
+
             $grid->column('refund_time', '退款时间');
 
             $grid->filter(function (Grid\Filter $filter) {

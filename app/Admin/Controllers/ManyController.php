@@ -43,14 +43,41 @@ class ManyController extends ActivityController
             $grid->column('end_time', '活动结束时间')->display(function ($end_time) {
                 return date('Y-m-d', strtotime($end_time));
             });
+
+
             $grid->column('stay_num', '库存');
-            $grid->column('views_num', '浏览量');
-            $grid->column('sign_success_num', '成功报名');
-            $grid->column('refund_num', '退款订单量');
-            $grid->column('refund_money', '退款金额');
-            $grid->column('total_pay_money', '总付款金额');
-            $grid->column('already_return_money', '已返利总金额');
-            $grid->column('earn_money', '净利润');
+
+            $grid->column('views_num', '浏览量')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getViewNum($activity_id);
+            });
+
+            $grid->column('sign_success_num', '成功报名')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getSignSuccessNum($activity_id);
+            });
+            $grid->column('refund_num', '退款订单量')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getRefundNum($activity_id);
+            });
+            $grid->column('refund_money', '退款金额')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getRefundTotalMoney($activity_id);
+            });
+            $grid->column('total_pay_money', '总付款金额')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getSignSuccessMoney($activity_id);
+            });
+            $grid->column('already_return_money', '已返利总金额')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getTotalRBMoney($activity_id);
+            });
+            $grid->column('earn_money', '净利润')->display(function ($id) {
+                $activity_id = $this->id;
+                return Activity::getSignSuccessMoney($activity_id) - Activity::getTotalRBMoney($activity_id);
+            });
+
+
             $grid->column('q_code', '活动二维码');
             $grid->column('status', '上下架状态')->using(Activity::$status_list)->label(['primary', 'warning']);
 
@@ -139,7 +166,7 @@ class ManyController extends ActivityController
             $form->number('deal_group_num', '成团人数')->required();
             $form->number('course_num', '选择课程的数量')->default(4)->required();
             $form->number('award_num', '选择奖励的数量')->default(1)->required();
-            
+
             //music_id 活动音乐
             $form->select('music_id', '活动音乐')->options(ActivityMusic::getMusicArray());
             $form->decimal('a_invite_money', 'A用户直接邀请奖励')->required();

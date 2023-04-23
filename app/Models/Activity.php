@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Http\Traits\MoneyCountTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
@@ -56,4 +57,52 @@ class Activity extends Model
         $activity = self::getActivityById($id);
         return $activity->is_many;
     }
+
+    public static function getViewNum($activity_id)
+    {
+        return UserViewCount::query()->where('activity_id', $activity_id)->sum('view_num');
+    }
+
+    public static function getSignSuccessNum($activity_id)
+    {
+        return ActivitySignUser::query()->where('activity_id', $activity_id)
+            ->where('status', ActivitySignUser::Status_已支付)
+            ->count();
+    }
+
+    public static function getSignSuccessMoney($activity_id)
+    {
+        return ActivitySignUser::query()->where('activity_id', $activity_id)
+            ->where('status', ActivitySignUser::Status_已支付)
+            ->sum('money');
+    }
+
+    public static function getRefundNum($activity_id)
+    {
+        return ActivitySignUser::query()->where('activity_id', $activity_id)
+            ->where('status', ActivitySignUser::Status_已退款)
+            ->count();
+    }
+
+    public static function getRefundTotalMoney($activity_id)
+    {
+        return ActivitySignUser::query()->where('activity_id', $activity_id)
+            ->where('status', ActivitySignUser::Status_已退款)
+            ->sum('money');
+    }
+
+    /**
+     * @param $activity_id
+     * @return int|mixed
+     * 已返利总金额
+     * 也就是别人已经提现的钱
+     */
+    public static function getTotalRBMoney($activity_id)
+    {
+        return UserApplyCashOut::query()
+            ->where('status', '!=', UserApplyCashOut::Status_审核状态_拒绝)
+            ->where('activity_id', $activity_id)
+            ->sum('apply_money');
+    }
+
 }

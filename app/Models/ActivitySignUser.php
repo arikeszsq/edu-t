@@ -57,6 +57,7 @@ class ActivitySignUser extends Model
     ];
 
     const Status_已支付 = 3;
+    const Status_已退款 = 4;
 
     const Role_团长 = 1;
     const Role_团员 = 2;
