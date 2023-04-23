@@ -110,15 +110,13 @@ class ActivityFormFieldController extends AdminController
                     3 => '多选框'
                 ])->default(1)
                 ->required()
-                ->when([2], function (Form $form) {
+                ->when([2,3], function (Form $form) {
                     $form->hasMany('options', function (Form\NestedForm $form) {
                         $form->text('name', '名称');
                     })->label('选项列表');
-                })->when([3], function (Form $form) {
+                })
+                ->when([3], function (Form $form) {
                     $form->number('select_num', '选择几项')->default(0)->help('0 表示选项任意几项，不做限制');
-                    $form->hasMany('options', function (Form\NestedForm $form) {
-                        $form->text('name', '名称');
-                    })->label('选项列表');
                 });
 
             $form->display('created_at');
