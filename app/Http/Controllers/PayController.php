@@ -9,6 +9,7 @@ use App\Models\ActivityFormField;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\Pay;
+use App\Models\UserViewCount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -101,6 +102,12 @@ class PayController extends Controller
         if (!$order_id) {
             return self::error('10001', '创建订单失败');
         }
+
+        UserViewCount::query()->where('activity_id', $activity_id)
+            ->where('user_id', $user_id)
+            ->orderBy('id', 'desc')->update([
+                'has_info' => 1
+            ]);//预留了信息
 
 //        正式支付开始
 //        $obj = new Pay();
