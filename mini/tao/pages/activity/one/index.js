@@ -30,54 +30,41 @@ Page({
     doPay(e) {
         console.log(e, '下单');
         var activity_id = wx.getStorageSync('activity_id');
-        var name = e.detail.value.name;
-        var mobile = e.detail.value.phoneNum;
         var info = e.detail.value;
-        if (name && mobile) {
-            this.setData({
-                isShowDislogue: false
-            }),
-                wx.showToast({
-                    title: '加载中',
-                    icon: 'loading', //图标，支持"success"、"loading"
-                }),
-                //信息完整发起支付
-                app.apiRequest({
-                    url: '/pay/pay',
-                    method: 'post',
-                    data: {
-                        'activity_id': activity_id,
-                        'type': 1,//1开团 2单独购买
-                        'sign_name': name,
-                        'sign_mobile': mobile,
-                        'info': info,
-                    },
-                    success: res => {
-                        wx.requestPayment({
-                            timeStamp: res.data.response.timeStamp,
-                            nonceStr: res.data.response.nonceStr,
-                            package: res.data.response.package,
-                            signType: res.data.response.signType,
-                            paySign: res.data.response.paySign,
-                            success(res) {
-                                wx.navigateTo({
-                                    url: "/pages/myOrder/myOrder",
-                                });
-                                console.log('支付成功')
-                            },
-                            fail(res) {
-                                console.log('支付失败')
-                            }
+        wx.showToast({
+            title: '加载中',
+            icon: 'loading', //图标，支持"success"、"loading"
+        }),
+            //生成订单
+            app.apiRequest({
+                url: '/pay/pay',
+                method: 'post',
+                data: {
+                    'activity_id': activity_id,
+                    'type': 1,//1开团 2单独购买
+                    'info': JSON.stringify(info),
+                },
+                success: res => {
+                    //隐藏加载界面
+                    wx.hideLoading();
+                    console.log(res);
+                    let code = res.data.msg_code;
+                    if (code == 100000) {
+                        //调起支付组件
+                        app.launchPayBg(res);
+                    } else {
+                        wx.showModal({
+                            title: '出错',
+                            content: res.data.message,
+                            showCancel: true,//是否显示取消按钮
+                            cancelText: "否",//默认是“取消”
+                            cancelColor: 'skyblue',//取消文字的颜色
+                            confirmText: "是",//默认是“确定”
+                            confirmColor: 'skyblue',//确定文字的颜
                         })
-
                     }
-                });
-        } else {
-            wx.showToast({
-                title: '请填完整信息',
-                icon: "error"
-            })
-        }
+                }
+            });
     },
 
     toGroupList() {
@@ -163,7 +150,6 @@ Page({
     },
 
     handleClosed() {
-        //关闭弹窗,清楚id的数据
         this.setData({
             isShowDislogue: false
         })

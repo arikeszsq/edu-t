@@ -249,4 +249,24 @@ App({
             }
         });
     },
+
+    //添加订单成功，回调起支付
+    launchPayBg(res){
+        wx.requestPayment({
+            timeStamp: res.data.response.timeStamp,
+            nonceStr: res.data.response.nonceStr,
+            package: res.data.response.package,
+            signType: res.data.response.signType,
+            paySign: res.data.response.paySign,
+            success(res) {
+                wx.navigateTo({
+                    url: "/pages/myOrder/myOrder",
+                });
+                console.log('支付成功')
+            },
+            fail(res) {
+                console.log('支付失败')
+            }
+        })
+    }
 })

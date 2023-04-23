@@ -107,7 +107,7 @@ Page({
                 let code = res.data.msg_code;
                 if (code == 100000) {
                     //调起支付组件
-                    that.launchPayBg(res);
+                    app.launchPayBg(res);
                 } else {
                     wx.showModal({
                         title: '出错',

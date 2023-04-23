@@ -6,7 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        fields:[],
+        fields: [],
         name: "",
         phoneNum: "",
         //第一个下拉选框
@@ -194,7 +194,7 @@ Page({
         var activity_type = wx.getStorageSync('activity_type');
         if (activity_type == 2) {
             app.toCursePage();
-        }else{
+        } else {
             this.setData({
                 groupId: id,
                 isShowDislogue: true
@@ -204,65 +204,47 @@ Page({
 
     doPay(e) {
         var activity_id = wx.getStorageSync('activity_id');
-        var name = e.detail.value.name;
-        var mobile = e.detail.value.phoneNum;
         var info = e.detail.value;
-        if (name && mobile) {
-            this.setData({
-                isShowDislogue: false
-            }),
-                wx.showToast({
-                    title: '加载中',
-                    icon: 'loading', //图标，支持"success"、"loading"
-                }),
-                //信息完整发起支付
-                app.apiRequest({
-                    url: '/pay/pay',
-                    method: 'post',
-                    data: {
-                        'activity_id': activity_id,
-                        'group_id': wx.getStorageSync('group_id'),
-                        'type': 1,//1开团 2单独购买
-                        'sign_name': name,
-                        'sign_mobile': mobile,
-                        'info': info,
-                    },
-                    success: res => {
-                        console.log(res, 'success')
-                        var code = res.data.msg_code;
-                        if (code != 10000) {
-                            wx.showToast({
-                                title: res.data.message,
-                            })
-                        } else {
-                            wx.requestPayment({
-                                timeStamp: res.data.response.timeStamp,
-                                nonceStr: res.data.response.nonceStr,
-                                package: res.data.response.package,
-                                signType: res.data.response.signType,
-                                paySign: res.data.response.paySign,
-                                success(res) {
-                                    wx.navigateTo({
-                                        url: "/pages/myOrder/myOrder",
-                                    });
-                                    console.log('支付成功')
-                                },
-                                fail(res) {
-                                    console.log('支付失败')
-                                }
-                            })
-                        }
-                    },
-                    error: res => {
-                        console.log(res, 'success')
-                    }
-                });
-        } else {
+        this.setData({
+            isShowDislogue: false
+        }),
             wx.showToast({
-                title: '请填完整信息',
-                icon: "error"
-            })
-        }
+                title: '加载中',
+                icon: 'loading', //图标，支持"success"、"loading"
+            }),
+            //信息完整发起支付
+            app.apiRequest({
+                url: '/pay/pay',
+                method: 'post',
+                data: {
+                    'activity_id': activity_id,
+                    'group_id': wx.getStorageSync('group_id'),
+                    'type': 1,//1开团 2单独购买
+                    'info': info,
+                },
+                success: res => {
+                    //隐藏加载界面
+                    wx.hideLoading();
+                    let code = res.data.msg_code;
+                    if (code == 100000) {
+                        //调起支付组件
+                        app.launchPayBg(res);
+                    } else {
+                        wx.showModal({
+                            title: '出错',
+                            content: res.data.message,
+                            showCancel: true,//是否显示取消按钮
+                            cancelText: "否",//默认是“取消”
+                            cancelColor: 'skyblue',//取消文字的颜色
+                            confirmText: "是",//默认是“确定”
+                            confirmColor: 'skyblue',//确定文字的颜
+                        })
+                    }
+                },
+                error: res => {
+                    console.log(res, 'success')
+                }
+            });
     },
 
 
@@ -306,7 +288,7 @@ Page({
     onLoad(options) {
         this.getGroupLists(wx.getStorageSync('activity_id'));
         this.setData({
-            fields:wx.getStorageSync('activity_fields')
+            fields: wx.getStorageSync('activity_fields')
         })
     },
 

@@ -54,15 +54,6 @@
                     <view class="closed" bindtap="handleClosed">❌</view>
                 </view>
                 <view class="from-dislogue">
-                    <view class="group-item-dis">
-                        <text>姓名</text>
-                        <input type="text" name="name" placeholder-class="placeholder-style" placeholder="请输入" value="{{name}}" />
-                    </view>
-                    <view class="group-item-dis">
-                        <text>手机</text>
-                        <input type="text" name="phoneNum" placeholder-class="placeholder-style" placeholder="请输入" value="{{phoneNum}}" />
-                    </view>
-
                     <block wx:for="{{fields}}" wx:for-item="field">
                         <!-- 文本 -->
                         <view class="group-item-dis" wx:if="{{field.type==1}}">
@@ -77,13 +68,13 @@
                                 </block>
                             </radio-group>
                         </view>
-                        <!-- 多选 -->
-                        <view class="info info2" wx:if="{{field.type==3}}">
-                            <view class="bt">{{field.field_name}}</view>
+                         <!-- 多选 -->
+                         <view class="info info2" wx:if="{{field.type==3}}">
+                            <view class="bt">{{field.field_name}}<span class="field_notice">[请选择{{field.select_num}}项]</span></view>
                             <checkbox-group name="{{field.field_name}}">
-                                <block wx:for="{{field.options}}">
+                                <block wx:for="{{field.options}}" wx:key="index3">
                                     <checkbox value="{{item.option_title}}" />
-                                    {{item.option_title}}
+                                    <span class='option_title'>{{item.option_title}}</span>
                                 </block>
                             </checkbox-group>
                         </view>

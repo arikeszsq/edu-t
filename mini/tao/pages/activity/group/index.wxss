@@ -262,7 +262,7 @@
     box-sizing: border-box;
     border-radius: 20rpx;
     width: 550rpx;
-    height: 970rpx;
+    height: 80vh;
     background-color: #fff;
     position: absolute;
     left:50%;
@@ -353,4 +353,24 @@ flex:0 0 auto;
 .placeholder-style{
     color: #BABABA;
     font-size: 26rpx;
+}
+
+
+.bt{
+    font-weight: 600;
+    font-size: 32rpx;
+    margin-bottom: 12rpx;
+    margin-top: 16rpx;
+    border-top:1px solid lightblue;
+    padding-top: 20rpx;
+}
+
+.option_title{
+    font-size: 26rpx;
+    margin-right: 20rpx;
+}
+
+.bt .field_notice{
+    font-size: 24rpx;
+    color: red;
 }
