@@ -23,8 +23,8 @@ class UserApplyCashOutController extends AdminController
             $grid->model()->orderBy('id', 'desc');
             $grid->column('user.name', '申请人姓名');
             $grid->column('apply_money');
-            $grid->column('history_total_money');
-            $grid->column('current_stay_money');
+//            $grid->column('history_total_money');
+//            $grid->column('current_stay_money');
             $grid->column('created_at','申请时间');
 
             $grid->column('status')->display(function ($status) {
