@@ -158,7 +158,7 @@ class UserController extends Controller
         $apply_money = $inputs['apply_money'];
         $user_total_money = $this->getAllMoney($user_id, $activity_id);
         $history_out_money = $this->historyCashOutTotalMoney($user_id, $activity_id);
-        $current_money = $user_total_money - $history_out_money - $apply_money;
+        $current_money = $user_total_money - $history_out_money;
 
         if ($apply_money <= $current_money) {
             $data = [
