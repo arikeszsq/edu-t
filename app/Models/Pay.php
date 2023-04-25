@@ -6,6 +6,9 @@ namespace App\Models;
 
 use App\Http\Traits\UserTrait;
 
+/***
+ * 供应商模式的微信支付
+ */
 class Pay
 {
     use UserTrait;

@@ -3,12 +3,17 @@
 
 namespace App\Models;
 
+use http\Env;
 
+/**
+ * php实现小程序退款完整版
+ */
 class WXRefund
 {
     protected $SSLCERT_PATH = 'cert/apiclient_cert.pem';//证书路径
     protected $SSLKEY_PATH = 'cert/apiclient_key.pem';//证书路径
-    protected $opUserId = '1234567899';//商户号
+
+    public $KEY;
 
     function __construct($openid, $outTradeNo, $totalFee, $outRefundNo, $refundFee)
     {
@@ -18,29 +23,29 @@ class WXRefund
         $this->totalFee = $totalFee;
         $this->outRefundNo = $outRefundNo;
         $this->refundFee = $refundFee;
+        $this->KEY = env('sub_key');//申请支付后有给予一个商户账号和密码，登陆后自己设置key
     }
 
     public function refund()
     {
         //对外暴露的退款接口
-        $result = $this->wxrefundapi();
-        return $result;
+        return $this->wxrefundapi();
     }
 
     private function wxrefundapi()
     {
         //通过微信api进行退款流程
         $parma = array(
-            'appid' => $this->APPID,
-            'mch_id' => $this->MCHID,
-            'nonce_str' => $this->createNoncestr(),
-            'out_refund_no' => $this->outRefundNo,
-            'out_trade_no' => $this->outTradeNo,
-            'total_fee' => $this->totalFee,
-            'refund_fee' => $this->refundFee,
-            'op_user_id' => $this->opUserId,
+            'appid' => env('sub_appid'),//小程序 appid
+            'mch_id' => env('sub_mch_id'),//商户号 mch_id
+            'nonce_str' => $this->createNoncestr(),//随机字符串 nonce_str 。同支付请求
+            'out_refund_no' => $this->outRefundNo, //退款订单号 out_refund_no 。由后端生成的退款单号，需要保证唯一，因为多个同样的退款单号只会退款一次
+            'out_trade_no' => $this->outTradeNo,//商户订单号 out_trade_no 。退款订单在支付时生成的订单号
+            'total_fee' => $this->totalFee,//总金额 total_fee 。订单总金额，单位为分
+            'refund_fee' => $this->refundFee,//退款金额 refund_fee 需要退款的金额,单位同样为分
+            'op_user_id' => env('sub_mch_id'),//操作员 op_user_id .与商户号相同即可
         );
-        $parma['sign'] = $this->getSign($parma);
+        $parma['sign'] = $this->getSign($parma);//签名 sign 。使用上面的所有参数进行相应处理加密生成签名。
         $xmldata = $this->arrayToXml($parma);
         $xmlresult = $this->postXmlSSLCurl($xmldata, 'https://api.mch.weixin.qq.com/secapi/pay/refund');
         $result = $this->xmlToArray($xmlresult);
@@ -136,7 +141,7 @@ class WXRefund
         } else {
             $error = curl_errno($ch);
             curl_close($ch);
-            throw new WxPayException("curl出错，错误码:$error");
+            throw new \Exception("curl出错，错误码:$error");
         }
     }
 
@@ -152,6 +157,7 @@ class WXRefund
         ksort($Parameters);
         $String = $this->formatBizQueryParaMap($Parameters, false);
         //签名步骤二：在string后加入KEY
+
         $String = $String . "&key=" . $this->KEY;
         //签名步骤三：MD5加密
         $String = md5($String);

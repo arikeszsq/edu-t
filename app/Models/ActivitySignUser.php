@@ -166,7 +166,6 @@ class ActivitySignUser extends Model
         return ActivitySignUser::query()
             ->where('activity_id', $activity_id)
             ->where('has_pay', 1)
-            ->count();;
+            ->count();
     }
-
 }

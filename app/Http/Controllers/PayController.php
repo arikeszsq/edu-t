@@ -161,4 +161,15 @@ class PayController extends Controller
         $val = json_decode(json_encode($xmlstring), true);
         return $val;
     }
+
+
+    /**
+     * 微信退款回调
+     */
+    public function refundsnotify(WxPayV3 $wxPayV3){
+        return $wxPayV3->refundsNotify(function($res){
+            //解密消息$res，可以参考下面
+            //处理订单业务逻辑
+        });
+    }
 }

@@ -56,17 +56,23 @@ class UserSignManageController extends ActivitySignUserController
 
             $grid->column('activity.title', '活动名称');
 
-            $grid->column('user_id', '用户头像')->display(function ($user_id) {
-               $user = User::query()->find($user_id);
-                return $user->avatar;
+            $grid->column('avatar', '用户头像')->display(function ($user_id) {
+                $user = User::query()->find($user_id);
+                return $user->avatar??'';
             });
             $grid->column('user_id', '用户昵称')->display(function ($user_id) {
                 $user = User::query()->find($user_id);
                 return $user->nick_name;
             });
 
-            $grid->column('sign_name', '报名名字');
-            $grid->column('sign_mobile', '报名电话');
+            $grid->column('sign_name', '报名名字')->display(function ($user_id) {
+                $user = User::query()->find($user_id);
+                return $user->name??'';
+            });
+            $grid->column('sign_mobile', '报名电话')->display(function ($user_id) {
+                $user = User::query()->find($user_id);
+                return $user->mobile??'';
+            });
             $grid->column('role', '身份')->display(function ($role) {
                 $array = [
                     1 => '团长',
@@ -84,13 +90,25 @@ class UserSignManageController extends ActivitySignUserController
             $grid->column('grouper_name', '团长');
             $grid->column('group_id', '团人数')->display(function ($group_id) {
                 $group = ActivityGroup::query()->find($group_id);
-                return $group->current_num;
+                return $group->current_num ?? 0;
             });
             $grid->column('a_user_name', '推荐人头像');
             $grid->column('a_user_name', '推荐人昵称');
             $grid->column('a_user_name', '推荐人姓名');
             $grid->column('a_mobile', '推荐人手机号');
-            $grid->column('info_all', '报名信息');
+            $grid->column('info', '报名信息')->display(function ($info){
+                $lists = json_decode($info, true);
+                $html = '';
+                foreach ($lists as $key => $value) {
+                    if (is_array($value)) {
+                        $str = join('、', $value);
+                        $html .= '<span style="color: blue;">'.$key . '</span>：' . $str . '； <br>';
+                    } else {
+                        $html .= '<span style="color: blue;">'.$key . '</span>：' . $value . '； <br>';
+                    }
+                }
+                return $html;
+            });
             $grid->column('money', '付款金额');
             $grid->column('a_money', '返利金额');//这个订单给老师的钱
             $grid->column('pay_time', '支付订单时间');

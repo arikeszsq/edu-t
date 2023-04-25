@@ -5,6 +5,7 @@ namespace App\Admin\Actions\Grid\Manage;
 use App\Models\ActivityGroup;
 use App\Models\ActivitySignUser;
 use App\Models\User;
+use App\Models\WXRefund;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Traits\HasPermissions;
@@ -28,12 +29,23 @@ class RowRefund extends RowAction
      */
     public function handle(Request $request)
     {
-        // dump($this->getKey());
         $id = $this->getKey();
-
+        $order = ActivitySignUser::getActivitySignUserById($id);
+        $user = \App\User::getUserById($order->user_id);
+        $refund_order_no = $order->refund_order_no;
+        if (!$refund_order_no) {
+            $refund_order_no = 'Ror_' . time() . '_' . $order->user_id;
+            ActivitySignUser::query()->where('id', $id)->update(['refund_order_no' => $refund_order_no]);
+        }
+        $refund = new WXRefund($user->openid, $order->order_no, $order->money, $refund_order_no, $order->money);
+        $res = $refund->refund();
+//        if(退款成功){
+//            1.更新订单表
+//            2.更新邀请表
+//            3.更新组团数据
+//        }
         return $this->response()
-            ->success('退款: ' . $this->getKey())
-            ->redirect('/');
+            ->success('退款: ' . $res);
     }
 
     /**
