@@ -33,6 +33,16 @@ class ActivitySignUser extends Model
         return $this->hasOne(ActivityGroup::class, 'id', 'group_id');
     }
 
+    public function grouper()
+    {
+        return $this->hasOne(User::class, 'id', 'grouper_id');
+    }
+
+
+    public function inviter()
+    {
+        return $this->hasOne(User::class, 'id', 'invite_id');
+    }
 
     public function courses()
     {
@@ -100,6 +110,21 @@ class ActivitySignUser extends Model
             'money' => $inputs['money'],
             'created_at' => date('Y-m-d H:i:s', time()),
         ];
+
+        if (isset($inputs['group_id']) && $inputs['group_id']) {
+            $group = ActivityGroup::query()->find($inputs['group_id']);
+            $data['grouper_id'] = $group->leader_id;
+        }
+
+        $invite = UserActivityInvite::query()
+            ->where('activity_id', $activity_id)
+            ->where('invited_user_id', $inputs['uid'])
+            ->orderBy('id', 'desc')
+            ->first();
+        if ($invite) {
+            $data['invite_id'] = $invite->parent_user_id;
+        }
+
         if ($is_many == Activity::is_many_多商家) {
             $data_many = [
                 'info' => $inputs['info'],
