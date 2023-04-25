@@ -34,6 +34,10 @@ Route::prefix('/basic')->group(function () {
     Route::any('/kf', 'BasicController@kflist');
 });
 
+Route::prefix('/pay')->group(function () {
+    Route::any('/notify', 'PayController@notify');
+    Route::any('/txnotify', 'PayController@txnotify');
+});
 
 //以下接口，需要登录
 
@@ -93,7 +97,6 @@ Route::prefix('/course')->group(function () {
 
 Route::prefix('/pay')->group(function () {
     Route::any('/pay', 'PayController@pay');
-    Route::any('/notify', 'PayController@notify');
 });
 
 Route::prefix('/user')->group(function () {

@@ -35,13 +35,16 @@ class AuditUserCashOut extends RowAction
         $id = $this->getKey();
         $status = $request->get('status');
         UserApplyCashOut::query()->where('id', $id)->update(['status' => $status]);
-        if($status==2){
-            UserApplyCashOut::PayToUser($id);
+        if ($status == 2) {
+            $ret = UserApplyCashOut::PayToUser($id);
+            return $this->response()
+                ->success('打款: ' . $ret)
+                ->refresh();
+        } else {
+            return $this->response()
+                ->success('处理完成')
+                ->refresh();
         }
-
-        return $this->response()
-            ->success('Processed successfully: ' . $this->getKey())
-            ->refresh();
     }
 
     /**

@@ -172,4 +172,19 @@ class PayController extends Controller
             //处理订单业务逻辑
         });
     }
+
+    /**
+     * 提现回调
+     * @return bool|void
+     */
+    public function txnotify()
+    {
+        $postXml = file_get_contents("php://input"); //接收微信参数
+        if (empty($postXml)) {
+            return false;
+        }
+        $attr = $this->xmlToArray($postXml);
+        Log::info('提现后的回调:',$attr);
+
+    }
 }
