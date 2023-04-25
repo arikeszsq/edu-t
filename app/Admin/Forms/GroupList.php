@@ -46,7 +46,7 @@ class GroupList extends Form implements LazyRenderable
             }
             ActivitySignUser::query()->where('id', $id)->update([
                 'group_id' => $group_id,
-                'grouper_name' => ActivityGroup::getGroupLeaderNameByGroupId($group_id),
+                'grouper_id' => ActivityGroup::getGroupLeaderIDByGroupId($group_id),
                 'updated_at' => date('Y-m-d H:i:s', time())
             ]);
         }

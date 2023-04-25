@@ -43,6 +43,12 @@ class ActivityGroup extends Model
         return $user->name;
     }
 
+    public static function getGroupLeaderIDByGroupId($group_id)
+    {
+        $group= ActivityGroup::query()->find($group_id);
+        return $group->leader_id;
+    }
+
 
     public static function getUnDealList()
     {

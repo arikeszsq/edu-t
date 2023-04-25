@@ -58,7 +58,7 @@ class NewGroupDeal extends RowAction
 
         ActivitySignUser::query()->where('id', $id)->update([
             'group_id' => $new_group_id,
-            'grouper_name' => $user->name,
+            'grouper_id' => $user->id,
             'updated_at' => date('Y-m-d H:i:s', time()),
             'role' => 1,//1 团长
         ]);

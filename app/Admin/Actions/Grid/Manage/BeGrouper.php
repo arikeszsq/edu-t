@@ -41,7 +41,7 @@ class BeGrouper extends RowAction
         $new_group_id = ActivityGroup::query()->where('id',$activity_sign_user->group_id)->update($data);
 
         ActivitySignUser::query()->where('id', $id)->update([
-            'grouper_name' => $user->name,
+            'grouper_name' => $user->id,
             'updated_at' => date('Y-m-d H:i:s', time()),
             'role' => 1,//1 团长
         ]);
