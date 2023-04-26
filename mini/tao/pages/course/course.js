@@ -37,6 +37,18 @@ Page({
         //第一步，判断是取消还是选择课程：是取消的则直接取消后结束代码
         const that = this;
         let id = e.currentTarget.dataset.id;//点击的课程id
+        let total_num = e.currentTarget.dataset.total_num;//获取课程的剩余份数
+
+        console.log(total_num);
+        if(total_num<=0){
+            wx.showToast({
+                title: '该课售罄',
+                icon: 'error',
+                duration: 2000
+            });
+            return;
+        }
+
         //判断这个课程id,是否在已选中的课程数组里：在的话，就是取消操作；不在的话，就是添加操作则展示校区列表
 
         if (this.data.courseSelectedIds.indexOf(id) !== -1) {
