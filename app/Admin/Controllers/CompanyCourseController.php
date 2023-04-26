@@ -25,13 +25,13 @@ class CompanyCourseController extends AdminController
             $grid->column('name');
             $grid->column('price');
             $grid->column('total_num');
-            $grid->column('sale_num');
+//            $grid->column('sale_num');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -53,7 +53,7 @@ class CompanyCourseController extends AdminController
             $show->field('name');
             $show->field('price');
             $show->field('total_num');
-            $show->field('sale_num');
+//            $show->field('sale_num');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -74,8 +74,8 @@ class CompanyCourseController extends AdminController
             $form->text('name');
             $form->text('price');
             $form->text('total_num');
-            $form->text('sale_num');
-        
+//            $form->text('sale_num');
+
             $form->display('created_at');
             $form->display('updated_at');
         });

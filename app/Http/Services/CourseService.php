@@ -29,7 +29,7 @@ class CourseService
             $data[] = [
                 "id" => ($type_id + 1),
                 "name" => $type_name,
-                "children" => isset($list['type_list'][$type_id])&&$list['type_list'][$type_id]?$list['type_list'][$type_id]:[]
+                "children" => isset($list['type_list'][$type_id]) && $list['type_list'][$type_id] ? $list['type_list'][$type_id] : []
             ];
         }
 
@@ -55,13 +55,14 @@ class CourseService
         $course_total = [];
         $course_type_list = [];
         foreach ($lists as $list) {
+            $has_sale_num = CompanyCourse::getSignNumByCourseId($activity_id, $list->id);
             $array = [
                 'id' => $list->id,
                 'logo' => $this->fullImgUrl($list->logo),
                 'name' => $list->name,
                 'price' => $list->price,
-                'total_num' => $list->total_num,
-                'sale_num' => $list->sale_num,
+                'total_num' => ($list->total_num) - $has_sale_num,
+                'sale_num' => $has_sale_num,
                 'company_name' => $list->company_name,
                 'gap' => '0km'
             ];

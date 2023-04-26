@@ -31,4 +31,5 @@ class CompanyCourse extends Model
             ->where('has_pay', 1)
             ->count();
     }
+
 }

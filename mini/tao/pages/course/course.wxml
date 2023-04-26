@@ -26,6 +26,7 @@
                                 <view class="desc gray">
                                     <view class="box"><text>价值：￥{{item.price}}</text><text>已购：{{item.sale_num}}</text></view>
                                     <view>机构：{{item.name}}</view>
+                                    <view>剩余：{{item.total_num}}个名额</view>
                                     <!-- <view>离家{{item.gap}}</view> -->
                                 </view>
                             </view>
