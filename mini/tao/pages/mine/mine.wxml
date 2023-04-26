@@ -1,15 +1,15 @@
 <view class="mine-container ">
     <view class="top-avatar box align-center">
-        <image class="avatar" src=""></image>
+        <image class="avatar" src="{{info.avatar}}"></image>
         <view class="name">{{info.name}}</view>
-        <view class="award">
+        <view class="award" bindtap="toMyAward">
             <image class="award-image" src="../../images/mine/xiaoxi.png"></image>
             <view>奖励提醒</view>
         </view>
     </view>
     <!-- 钱包余额 -->
     <view class="money-container box align-center" bindtap="toCashOut">
-        <image src="{{info.avatar}}" wx:if="info.avatar" class="money-image"></image>
+        <image src="../../images/mine/qianbao.png"  class="money-image"></image>
         <view class="money-ti">钱包余额</view>
         <view class="money-m">¥{{info.current_stay_money}}</view>
         <view class="money-xian"> |</view>
