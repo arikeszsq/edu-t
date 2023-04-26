@@ -144,7 +144,7 @@
       <view class="address">
         {{adressObj.name}}
       </view>
-      <view class="home-set" bindtap="setHomeAdress">点击设置家的位置</view>
+      <view class="home-set" bindtap="setHomeAdress" wx:if="{{!adressObj.name}}">点击设置家的位置</view>
     </view>
     <view class="timu_list0" wx:if="{{isSelected==1}}">
       <view class="listItem-container">
@@ -171,7 +171,7 @@
         </view>
       </view>
     </view>
-    <view class="timu_list2">
+    <view class="timu_list2" wx:if="{{isSelected==3}}">
       <view class="listItem-container">
         <view class="timu-list1-item box  align-center" wx:for="{{info.award}}" wx:key="id">
           <view class="image-container" wx:if="{{item.logo}}">
